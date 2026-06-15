@@ -1,0 +1,1561 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>sherry · 成长足迹</title>
+    <link
+      href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=IM+Fell+English:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --paper: #ece3cf;
+        --paper2: #ddd0b2;
+        --ink: #3a2f23;
+        --ink2: #6b5a44;
+        --sea: #b9cdd0;
+        --marker: #9b2d20;
+        --gold: #b89344;
+        --goldhi: #e0c373;
+        --golddk: #7c5f24;
+        --mat: #ece3cf;
+        --fell: "IM Fell English", "Songti SC", Georgia, serif;
+      }
+      * {
+        margin: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+        overflow: hidden;
+      }
+      body {
+        font-family: var(--fell);
+        background: radial-gradient(130% 110% at 50% 32%, #342c20, #211b13);
+      }
+
+      /* 轻盈细金框:薄金线 + 细暗线 + 落地阴影(不厚重) */
+      #mapwrap {
+        position: absolute;
+        inset: 6px;
+        overflow: hidden;
+        box-shadow:
+          0 10px 30px -10px rgba(12, 7, 2, 0.5),
+          0 0 0 1.5px #b89344;
+      }
+      #map {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        background: var(--paper);
+      }
+      .maplibregl-canvas {
+        filter: saturate(0.94) sepia(0.04);
+      }
+      /* 光标在 JS 里注入(放大镜 loupe + 足迹点红聚焦),且拖动不变抓手 */
+      #seal {
+        cursor: pointer !important;
+      }
+
+      /* 内层细金双线(印在纸上,纤细) */
+      #rings {
+        position: absolute;
+        inset: 0;
+        z-index: 3;
+        pointer-events: none;
+        box-shadow:
+          inset 0 0 0 7px var(--mat),
+          inset 0 0 0 8px #b89344,
+          inset 0 0 0 10px var(--mat),
+          inset 0 0 0 11px #c9a85a;
+      }
+      #age {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        pointer-events: none;
+        background: radial-gradient(
+          135% 135% at 50% 46%,
+          transparent 54%,
+          rgba(120, 85, 45, 0.2) 100%
+        );
+        mix-blend-mode: multiply;
+      }
+      #light {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        pointer-events: none;
+        background: radial-gradient(
+          70% 60% at 50% 44%,
+          rgba(255, 245, 220, 0.13),
+          transparent 70%
+        );
+        mix-blend-mode: soft-light;
+      }
+      #grain {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        pointer-events: none;
+        opacity: 0.08;
+        mix-blend-mode: multiply;
+      }
+      .port {
+        position: relative;
+        width: 0;
+        height: 0;
+      }
+      .port .pin {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 15px;
+        height: 15px;
+        transform: translate(-50%, -50%) scale(var(--ps, 1));
+        border: 2.2px solid var(--marker);
+        border-radius: 50%;
+        background: #efe7d2;
+        box-shadow:
+          0 0 0 2.6px rgba(236, 227, 207, 0.92),
+          0 1px 2px rgba(30, 18, 4, 0.3);
+        transition: transform 0.18s ease;
+      }
+      .port .pin::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 4px;
+        height: 4px;
+        background: var(--marker);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+      }
+      .port .pin:hover {
+        transform: translate(-50%, -50%) scale(calc(var(--ps, 1) * 1.25));
+      }
+      .port .lbl {
+        position: absolute;
+        left: 12px;
+        top: -8px;
+        white-space: nowrap;
+        font: italic 15px var(--fell);
+        color: #7a2a1e;
+        text-shadow:
+          0 1px 0 rgba(236, 227, 207, 0.95),
+          0 0 5px rgba(236, 227, 207, 1);
+        pointer-events: none;
+      }
+      .anno {
+        pointer-events: none;
+        white-space: nowrap;
+        color: var(--ink2);
+        text-shadow: 0 1px 0 rgba(236, 227, 207, 0.75);
+        transform: translate(-50%, -50%);
+      }
+      .anno.lm {
+        font: italic 12px var(--fell);
+        letter-spacing: 0.03em;
+        opacity: 0.85;
+      }
+      .anno.lm::before {
+        content: "·";
+        color: var(--gold);
+        margin-right: 3px;
+        font-weight: 700;
+      }
+      .anno.water {
+        font: italic 18px var(--fell);
+        letter-spacing: 0.55em;
+        color: #5f7f7a;
+        opacity: 0.55;
+      }
+      .anno.isle {
+        font: italic 11px var(--fell);
+        letter-spacing: 0.32em;
+        color: #5f7f7a;
+        opacity: 0.62;
+        text-transform: uppercase;
+      }
+      .anno.sound {
+        font: italic 9px var(--fell);
+        color: #6f8f8a;
+        opacity: 0.55;
+      }
+
+      #compass {
+        position: absolute;
+        right: 26px;
+        bottom: 26px;
+        z-index: 6;
+        width: 86px;
+        height: 86px;
+        pointer-events: none;
+        filter: drop-shadow(0 2px 4px rgba(40, 30, 12, 0.35));
+      }
+      #scale {
+        position: absolute;
+        left: 28px;
+        bottom: 28px;
+        z-index: 6;
+        pointer-events: none;
+        opacity: 0.9;
+      }
+      #seal {
+        position: absolute;
+        left: 28px;
+        top: 28px;
+        z-index: 7;
+        width: 74px;
+        height: 74px;
+        pointer-events: auto;
+        filter: drop-shadow(0 2px 3px rgba(30, 12, 8, 0.5));
+        transition:
+          transform 0.16s ease,
+          filter 0.2s;
+      }
+      /* 按压盖章:悬停微抬+提亮,点下去快速摁一下(无旋转) */
+      #seal:hover {
+        transform: scale(1.05);
+        filter: drop-shadow(0 3px 5px rgba(30, 12, 8, 0.5)) brightness(1.07);
+      }
+      #seal:active {
+        transform: scale(0.93);
+        transition: transform 0.08s ease;
+        filter: drop-shadow(0 1px 2px rgba(30, 12, 8, 0.6)) brightness(1.07);
+      }
+
+      #title {
+        position: absolute;
+        top: 18px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 6;
+        pointer-events: none;
+        text-align: center;
+      }
+      /* 标题背后磨砂:只模糊+提亮背景(不上色),放纸上海上都不突兀 */
+      #title::before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 480px;
+        height: 142px;
+        background: transparent;
+        -webkit-backdrop-filter: blur(9px);
+        backdrop-filter: blur(9px);
+        -webkit-mask-image: radial-gradient(
+          ellipse 55% 50% at 50% 50%,
+          #000 48%,
+          transparent 100%
+        );
+        mask-image: radial-gradient(
+          ellipse 55% 50% at 50% 50%,
+          #000 48%,
+          transparent 100%
+        );
+        pointer-events: none;
+      }
+      #title b {
+        font: 600 27px var(--fell);
+        letter-spacing: 0.06em;
+        color: var(--ink);
+        display: block;
+        text-shadow:
+          0 0 6px rgba(236, 227, 207, 0.9),
+          0 1px 0 rgba(236, 227, 207, 0.9);
+      }
+      #title small {
+        display: block;
+        font: italic 13px var(--fell);
+        letter-spacing: 0.26em;
+        color: var(--ink2);
+        margin-top: 5px;
+        text-shadow: 0 0 6px rgba(236, 227, 207, 0.9);
+      }
+      /* 标题花线:上宽下短 */
+      .trule {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+      }
+      .trule.top {
+        margin-bottom: 8px;
+      }
+      .trule.bot {
+        margin-top: 8px;
+      }
+      .trule .gl {
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          #b89344 16%,
+          #e0c373 50%,
+          #b89344 84%,
+          transparent
+        );
+      }
+      .trule.top .gl {
+        width: 150px;
+      }
+      .trule.bot .gl {
+        width: 96px;
+      }
+      .trule .dia {
+        color: #b89344;
+        font-size: 7px;
+        line-height: 1;
+      }
+      #stamp {
+        position: absolute;
+        right: 28px;
+        top: 26px;
+        z-index: 6;
+        font: italic 12px var(--fell);
+        color: var(--ink2);
+        letter-spacing: 0.05em;
+        pointer-events: none;
+      }
+
+      /* 背景音乐开关(左侧,印章下方) */
+      #music {
+        position: absolute;
+        left: 30px;
+        top: 112px;
+        z-index: 7;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        border: 1px solid var(--gold);
+        background: rgba(236, 227, 207, 0.82);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        box-shadow: 0 1px 3px rgba(30, 18, 4, 0.35);
+        transition:
+          background 0.2s,
+          border-color 0.2s,
+          transform 0.18s;
+      }
+      #music svg {
+        width: 18px;
+        height: 18px;
+        overflow: visible;
+      }
+      /* hover:与社交按钮一致(红底 + 奶白图标 + 放大) */
+      #music:hover {
+        background: #9b2d20;
+        border-color: #6e1f16;
+        transform: scale(1.08);
+      }
+      #music:hover .note {
+        stroke: #f3ecd8;
+        fill: #f3ecd8;
+      }
+      #music:hover .waves {
+        stroke: #f3ecd8;
+      }
+      #music .waves {
+        opacity: 0;
+      }
+      /* 播放时:外圈金色虚线环转圈(像唱片转),一眼看出在播 */
+      #music::after {
+        content: "";
+        position: absolute;
+        inset: -4px;
+        border-radius: 50%;
+        border: 1.5px dashed var(--gold);
+        opacity: 0;
+        transition: opacity 0.25s;
+      }
+      #music.on::after {
+        opacity: 0.95;
+        animation: spin 3s linear infinite;
+      }
+      #music.on .waves {
+        opacity: 1;
+        animation: wav 1.4s ease-in-out infinite;
+      }
+      @keyframes wav {
+        0%,
+        100% {
+          opacity: 0.35;
+        }
+        50% {
+          opacity: 1;
+        }
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* 社交链接(左侧,音乐按钮下方) */
+      #links {
+        position: absolute;
+        left: 30px;
+        top: 150px;
+        z-index: 7;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      #links a {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        border: 1px solid var(--gold);
+        background: rgba(236, 227, 207, 0.82);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--ink);
+        box-shadow: 0 1px 3px rgba(30, 18, 4, 0.35);
+        transition:
+          background 0.2s,
+          color 0.2s,
+          transform 0.18s;
+      }
+      #links a svg {
+        width: 16px;
+        height: 16px;
+      }
+      #links a:hover {
+        background: #9b2d20;
+        border-color: #6e1f16;
+        color: #f3ecd8;
+        transform: scale(1.08);
+      }
+
+      /* 自定义光标:十字小点(贴鼠标,不跟随),可点处变红放大 */
+      #cursor {
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 30;
+        pointer-events: none;
+        color: #3a2f23;
+        transform: translate(-100px, -100px);
+        display: none;
+      }
+      html.ccursor #cursor {
+        display: block;
+      }
+      html.ccursor,
+      html.ccursor * {
+        cursor: none !important;
+      }
+      #cursor svg {
+        display: block;
+        margin: -11px 0 0 -11px;
+        transition:
+          transform 0.18s cubic-bezier(0.2, 0.8, 0.3, 1),
+          color 0.15s;
+      }
+      #cursor.hot {
+        color: #9b2d20;
+      }
+      #cursor.hot svg {
+        transform: scale(1.9);
+      }
+
+      /* 开场卷轴展开动画 */
+      /* 开场/切换:圆形虹彩(羊皮遮罩,中央透出的圆扩大) */
+      @property --hole {
+        syntax: "<percentage>";
+        inherits: false;
+        initial-value: 0%;
+      }
+      #intro {
+        position: absolute;
+        inset: 0;
+        z-index: 20;
+        pointer-events: none;
+        --hole: 0%;
+        background: radial-gradient(
+          120% 105% at 50% 45%,
+          #e9e0c9,
+          #d6c9a7 68%,
+          #c4b389
+        );
+        box-shadow: inset 0 0 60px rgba(120, 85, 45, 0.25);
+        -webkit-mask: radial-gradient(
+          circle at 50% 50%,
+          transparent var(--hole),
+          #000 calc(var(--hole) + 0.6%)
+        );
+        mask: radial-gradient(
+          circle at 50% 50%,
+          transparent var(--hole),
+          #000 calc(var(--hole) + 0.6%)
+        );
+      }
+
+      /* 章节/地图切换器(底部居中) */
+      /* 蜡点切换器 */
+      #chapters {
+        position: absolute;
+        left: 50%;
+        bottom: 24px;
+        transform: translateX(-50%);
+        z-index: 7;
+        display: flex;
+        gap: 22px;
+        pointer-events: auto;
+      }
+      /* 切换器背后磨砂(同标题) */
+      #chapters::before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: calc(100% + 90px);
+        height: 78px;
+        background: transparent;
+        -webkit-backdrop-filter: blur(9px);
+        backdrop-filter: blur(9px);
+        -webkit-mask-image: radial-gradient(
+          ellipse 62% 52% at 50% 50%,
+          #000 50%,
+          transparent 100%
+        );
+        mask-image: radial-gradient(
+          ellipse 62% 52% at 50% 50%,
+          #000 50%,
+          transparent 100%
+        );
+        pointer-events: none;
+      }
+      #chapters button {
+        font-family: var(--fell);
+        cursor: pointer;
+        background: none;
+        border: none;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        opacity: 0.62;
+        transition: opacity 0.2s;
+      }
+      #chapters button .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        border: 1.5px solid var(--gold);
+        background: transparent;
+        flex: none;
+      }
+      #chapters button .t {
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+        line-height: 1.08;
+        text-shadow: 0 0 5px rgba(236, 227, 207, 0.95);
+      }
+      #chapters button .t b {
+        font:
+          600 13px "Cinzel",
+          serif;
+        letter-spacing: 0.04em;
+        color: var(--ink);
+      }
+      #chapters button .t em {
+        font-style: italic;
+        font-size: 9.5px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--ink2);
+      }
+      #chapters button.on {
+        opacity: 1;
+      }
+      #chapters button.on .dot {
+        background: #9b2d20;
+        border-color: #9b2d20;
+        box-shadow: 0 0 0 2px rgba(155, 45, 32, 0.25);
+      }
+
+      #card {
+        position: absolute;
+        right: 28px;
+        top: 50%;
+        transform: translateY(-50%) translateX(12px);
+        z-index: 8;
+        width: 300px;
+        min-height: 234px;
+        pointer-events: auto;
+        background: linear-gradient(#f3ecd8, #ece1c4);
+        border: 1px solid #6b5a3e;
+        outline: 3px solid rgba(236, 227, 207, 0.6);
+        box-shadow: 0 10px 30px rgba(30, 18, 4, 0.45);
+        padding: 16px 18px;
+        opacity: 0;
+        visibility: hidden;
+        transition:
+          opacity 0.24s ease,
+          transform 0.26s cubic-bezier(0.34, 1.4, 0.64, 1);
+      }
+      #card.show {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(-50%) translateX(0);
+      }
+      #card h3 {
+        font:
+          600 18px "Cinzel",
+          serif;
+        color: var(--ink);
+        margin: 0 0 3px;
+        white-space: normal;
+        word-break: break-word;
+        line-height: 1.22;
+        min-height: 2.4em;
+      }
+      #card .coord {
+        font:
+          10px ui-monospace,
+          monospace;
+        color: var(--ink2);
+        letter-spacing: 0.08em;
+        margin-bottom: 8px;
+      }
+      #card .note {
+        font: italic 14.5px var(--fell);
+        color: #5a4632;
+        line-height: 1.5;
+        min-height: 64px;
+      }
+      #card .photo {
+        margin-top: 4px;
+        height: 56px;
+        border: 1px solid var(--gold);
+        background: repeating-linear-gradient(
+          45deg,
+          #e2d6b4,
+          #e2d6b4 6px,
+          #dccda6 6px,
+          #dccda6 12px
+        );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font: italic 11px var(--fell);
+        color: var(--ink2);
+      }
+      #card .nav {
+        margin-top: 11px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      #card .nav span {
+        font: italic 11px var(--fell);
+        color: var(--ink2);
+      }
+      #card .next {
+        font: italic 13px var(--fell);
+        color: #7a2a1e;
+        cursor: pointer;
+        border: 1px solid var(--gold);
+        padding: 2px 12px;
+        background: rgba(236, 227, 207, 0.6);
+      }
+      #card .next:hover {
+        background: var(--gold);
+        color: #fff;
+      }
+
+      /* 地图加载缓慢/失败时的兜底提示 */
+      #loadtip {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 25;
+        font: italic 14px var(--fell);
+        color: #6b5a44;
+        background: rgba(236, 227, 207, 0.92);
+        padding: 10px 16px;
+        border: 1px solid var(--gold);
+        box-shadow: 0 2px 8px rgba(30, 18, 4, 0.3);
+        pointer-events: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="mapwrap">
+      <div id="map"></div>
+      <div id="age"></div>
+      <div id="light"></div>
+      <svg id="grain" aria-hidden="true">
+        <filter id="paperfilter">
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency="0.012 0.9"
+            numOctaves="2"
+            seed="7"
+          />
+          <feColorMatrix
+            values="0 0 0 0 0.45  0 0 0 0 0.36  0 0 0 0 0.22  0 0 0 0.5 0"
+          />
+        </filter>
+        <rect width="100%" height="100%" filter="url(#paperfilter)" />
+      </svg>
+      <div id="rings"></div>
+
+      <div id="title">
+        <div class="trule top">
+          <span class="gl"></span><span class="dia">◆</span
+          ><span class="gl"></span>
+        </div>
+        <b>SHERRY'S FOOTPRINTS</b>
+        <small>TORONTO · 2025–2026</small>
+        <div class="trule bot">
+          <span class="gl"></span><span class="dia">◆</span
+          ><span class="gl"></span>
+        </div>
+      </div>
+      <div id="stamp">43.65°N · 79.38°W</div>
+      <svg id="scale" aria-hidden="true"></svg>
+      <svg id="compass" viewBox="0 0 120 120" aria-hidden="true"></svg>
+      <svg id="seal" viewBox="0 0 80 80" aria-hidden="true">
+        <title>sherry 的印鉴 · 点击回到全图</title>
+      </svg>
+      <div id="chapters"></div>
+      <div id="card"></div>
+      <!-- 背景纯音乐(把你的 mp3 放到 audio/call-of-silence.mp3) -->
+      <audio
+        id="bgm"
+        src="audio/call-of-silence.mp3"
+        loop
+        preload="none"
+      ></audio>
+      <button id="music" title="背景音乐">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            class="note"
+            d="M9 17V5l10-2v12"
+            fill="none"
+            stroke="#3a2f23"
+            stroke-width="1.6"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <circle class="note" cx="6.5" cy="17" r="2.5" fill="#3a2f23" />
+          <circle class="note" cx="16.5" cy="15" r="2.5" fill="#3a2f23" />
+          <g
+            class="waves"
+            stroke="#9b2d20"
+            stroke-width="1.4"
+            fill="none"
+            stroke-linecap="round"
+          >
+            <path d="M20 9 q2 3 0 6" />
+            <path d="M22.5 7 q3 5 0 10" />
+          </g>
+        </svg>
+      </button>
+      <!-- 社交链接(把 href 换成你的真实地址) -->
+      <nav id="links">
+        <a
+          href="#"
+          target="_blank"
+          rel="noopener"
+          title="GitHub"
+          aria-label="GitHub"
+        >
+          <svg viewBox="0 0 24 24">
+            <path
+              fill="currentColor"
+              d="M12 .5C5.37.5 0 5.78 0 12.29c0 5.21 3.44 9.63 8.2 11.19.6.11.82-.26.82-.58v-2.03c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.23 1.84 1.23 1.07 1.83 2.81 1.3 3.5.99.11-.77.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.62-5.49 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58A12.01 12.01 0 0 0 24 12.29C24 5.78 18.63.5 12 .5z"
+            />
+          </svg>
+        </a>
+        <a href="#" target="_blank" rel="noopener" title="X" aria-label="X">
+          <svg viewBox="0 0 24 24">
+            <path
+              fill="currentColor"
+              d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+            />
+          </svg>
+        </a>
+        <a
+          href="#"
+          target="_blank"
+          rel="noopener"
+          title="Instagram"
+          aria-label="Instagram"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+          >
+            <rect x="3" y="3" width="18" height="18" rx="5" />
+            <circle cx="12" cy="12" r="4" />
+            <circle cx="17" cy="7" r="1.1" fill="currentColor" stroke="none" />
+          </svg>
+        </a>
+        <a
+          href="#"
+          target="_blank"
+          rel="noopener"
+          title="Email"
+          aria-label="Email"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linejoin="round"
+          >
+            <rect x="3" y="5" width="18" height="14" rx="2" />
+            <path d="M3 7l9 6 9-6" />
+          </svg>
+        </a>
+      </nav>
+      <!-- 开场 / 切换:圆形虹彩遮罩 -->
+      <div id="intro"></div>
+    </div>
+    <!-- 自定义光标:十字小点 -->
+    <div id="cursor" aria-hidden="true">
+      <svg width="22" height="22" viewBox="0 0 22 22">
+        <g
+          stroke="currentColor"
+          stroke-width="1.4"
+          stroke-linecap="round"
+          fill="none"
+        >
+          <line x1="11" y1="3" x2="11" y2="8" />
+          <line x1="11" y1="14" x2="11" y2="19" />
+          <line x1="3" y1="11" x2="8" y2="11" />
+          <line x1="14" y1="11" x2="19" y2="11" />
+        </g>
+        <circle cx="11" cy="11" r="1.6" fill="currentColor" />
+      </svg>
+    </div>
+
+    <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+    <script>
+      const SVGNS = "http://www.w3.org/2000/svg";
+      // 章节:每个年份/城市一张地图,可切换(占位数据,细节待补)
+      const CHAPTERS = [
+        {
+          city: "NEW YORK",
+          year: "2023–2024",
+          places: [
+            {
+              name: "Roosevelt Island",
+              lat: 40.7601,
+              lng: -73.9505,
+              note: "（占位）红色缆车与东河上的小岛。",
+            },
+            {
+              name: "Central Park",
+              lat: 40.7812,
+              lng: -73.9665,
+              note: "（占位）秋天的落叶与划船湖。",
+            },
+            {
+              name: "Times Square",
+              lat: 40.758,
+              lng: -73.9855,
+              note: "（占位）不夜的霓虹。",
+            },
+            {
+              name: "Grand Central",
+              lat: 40.7527,
+              lng: -73.9772,
+              note: "（占位）星空穹顶下的大厅。",
+            },
+            {
+              name: "The High Line",
+              lat: 40.748,
+              lng: -74.0048,
+              note: "（占位）高架旧铁道改的空中花园。",
+            },
+            {
+              name: "Brooklyn Bridge",
+              lat: 40.7061,
+              lng: -73.9969,
+              note: "（占位）走过东河的黄昏。",
+            },
+          ],
+          landmarks: [
+            ["Empire State Building", -73.9857, 40.7484],
+            ["Chrysler Building", -73.9755, 40.7516],
+            ["MoMA", -73.9776, 40.7614],
+            ["Rockefeller Center", -73.9787, 40.7587],
+            ["Flatiron", -73.9896, 40.7411],
+            ["One World Trade", -74.0134, 40.7127],
+          ],
+          waters: [
+            ["EAST RIVER", -73.96, 40.74, "isle"],
+            ["HUDSON RIVER", -74.012, 40.76, "isle"],
+          ],
+          sounds: [
+            [-73.958, 40.748, "8"],
+            [-74.012, 40.752, "21"],
+            [-73.965, 40.72, "14"],
+          ],
+        },
+        {
+          city: "TORONTO",
+          year: "2025–2026",
+          places: [
+            {
+              name: "High Park",
+              lat: 43.6465,
+              lng: -79.4637,
+              note: "樱花季的午后,在树下走了很久。",
+            },
+            {
+              name: "Kensington Market",
+              lat: 43.6545,
+              lng: -79.4003,
+              note: "彩色房子和旧货摊,空气里都是香料味。",
+            },
+            {
+              name: "Royal Ontario Museum",
+              lat: 43.6677,
+              lng: -79.3948,
+              note: "恐龙化石和水晶宫,像走进另一个时代。",
+            },
+            {
+              name: "CN Tower",
+              lat: 43.6426,
+              lng: -79.3871,
+              note: "第一次从高处俯瞰这座城。",
+            },
+            {
+              name: "Distillery District",
+              lat: 43.6503,
+              lng: -79.3596,
+              note: "鹅卵石街,圣诞集市的灯亮起来了。",
+            },
+            {
+              name: "Harbourfront",
+              lat: 43.6385,
+              lng: -79.3805,
+              note: "湖边看日落,船帆慢慢驶过。",
+            },
+          ],
+          landmarks: [
+            ["University of Toronto", -79.3957, 43.6629],
+            ["Casa Loma", -79.4094, 43.678],
+            ["Eaton Centre", -79.3807, 43.6544],
+            ["St. Lawrence Market", -79.3716, 43.6487],
+            ["Exhibition Place", -79.4156, 43.6334],
+            ["Riverdale Park", -79.355, 43.6677],
+            ["Trinity Bellwoods", -79.4137, 43.647],
+            ["Greektown", -79.352, 43.6779],
+          ],
+          waters: [
+            ["LAKE ONTARIO", -79.4, 43.596, "water"],
+            ["TORONTO ISLANDS", -79.379, 43.618, "isle"],
+          ],
+          sounds: [
+            [-79.42, 43.611, "7"],
+            [-79.39, 43.606, "13"],
+            [-79.355, 43.612, "16"],
+          ],
+        },
+      ];
+      let chapter = 1; // 默认显示多伦多(当前章)
+      const CH = () => CHAPTERS[chapter];
+      const PLACES = []; // 当前章的 places(loadChapter 时填充,供 showCard/goTo/fit 用)
+
+      const style = {
+        version: 8,
+        sources: {
+          omt: { type: "vector", url: "https://tiles.openfreemap.org/planet" },
+        },
+        layers: [
+          {
+            id: "bg",
+            type: "background",
+            paint: { "background-color": "#ece3cf" },
+          },
+          {
+            id: "park",
+            type: "fill",
+            source: "omt",
+            "source-layer": "park",
+            paint: { "fill-color": "#e0d7bb", "fill-opacity": 0.55 },
+          },
+          {
+            id: "water",
+            type: "fill",
+            source: "omt",
+            "source-layer": "water",
+            paint: { "fill-color": "#b9cdd0" },
+          },
+          {
+            id: "coast",
+            type: "line",
+            source: "omt",
+            "source-layer": "water",
+            paint: {
+              "line-color": "#5b6e6e",
+              "line-width": 0.9,
+              "line-opacity": 0.6,
+            },
+          },
+          {
+            id: "waterway",
+            type: "line",
+            source: "omt",
+            "source-layer": "waterway",
+            paint: {
+              "line-color": "#6f8f8a",
+              "line-width": 0.6,
+              "line-opacity": 0.6,
+            },
+          },
+          {
+            id: "roads",
+            type: "line",
+            source: "omt",
+            "source-layer": "transportation",
+            layout: { "line-cap": "round", "line-join": "round" },
+            paint: {
+              "line-color": "#3a2f23",
+              "line-opacity": 0.74,
+              "line-width": [
+                "interpolate",
+                ["exponential", 1.6],
+                ["zoom"],
+                11,
+                [
+                  "match",
+                  ["get", "class"],
+                  ["motorway", "trunk"],
+                  0.6,
+                  ["primary", "secondary"],
+                  0.4,
+                  0.25,
+                ],
+                14,
+                [
+                  "match",
+                  ["get", "class"],
+                  ["motorway", "trunk"],
+                  1.1,
+                  ["primary", "secondary"],
+                  0.7,
+                  0.42,
+                ],
+                16,
+                [
+                  "match",
+                  ["get", "class"],
+                  ["motorway", "trunk"],
+                  1.6,
+                  ["primary", "secondary"],
+                  1.05,
+                  0.6,
+                ],
+              ],
+            },
+          },
+          {
+            id: "boundary",
+            type: "line",
+            source: "omt",
+            "source-layer": "boundary",
+            filter: ["<=", ["get", "admin_level"], 6],
+            paint: {
+              "line-color": "#8c8472",
+              "line-width": 0.5,
+              "line-dasharray": [3, 2],
+              "line-opacity": 0.36,
+            },
+          },
+        ],
+      };
+
+      const map = new maplibregl.Map({
+        container: "map",
+        style,
+        center: [-79.392, 43.651],
+        zoom: 12.6,
+        minZoom: 11,
+        maxZoom: 16,
+        attributionControl: false,
+        dragRotate: false,
+      });
+      window._map = map;
+
+      // 自定义光标:十字小点(不跟随,贴着鼠标),移到可点元素变红放大
+      const CLICKABLE_SEL =
+        ".port .pin,#seal,#chapters button,#card .next,#music,#links a";
+      if (matchMedia("(pointer: fine)").matches) {
+        document.documentElement.classList.add("ccursor");
+        const cursorEl = document.getElementById("cursor");
+        addEventListener(
+          "mousemove",
+          (e) => {
+            cursorEl.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+            cursorEl.classList.toggle(
+              "hot",
+              !!(e.target.closest && e.target.closest(CLICKABLE_SEL)),
+            );
+          },
+          true,
+        );
+        addEventListener("mouseout", (e) => {
+          if (!e.relatedTarget) cursorEl.style.opacity = "0";
+        });
+        addEventListener("mouseover", () => (cursorEl.style.opacity = ""));
+      }
+
+      const annoEls = [];
+      const placeMarkers = [],
+        annoMarkers = [];
+      function anno(cls, text, lng, lat) {
+        const el = document.createElement("div");
+        el.className = "anno " + cls;
+        el.textContent = text;
+        const m = new maplibregl.Marker({ element: el })
+          .setLngLat([lng, lat])
+          .addTo(map);
+        annoMarkers.push(m);
+        if (cls === "lm") annoEls.push(el);
+      }
+
+      const card = document.getElementById("card");
+      function showCard(i) {
+        const p = PLACES[i];
+        card.innerHTML =
+          `<h3>${p.name}</h3><div class="coord">${p.lat.toFixed(4)}°N · ${(-p.lng).toFixed(4)}°W</div>` +
+          `<div class="note">${p.note}</div><div class="photo">— 照片 / 手记 —</div>` +
+          `<div class="nav"><span>第 ${i + 1} / ${PLACES.length} 处</span><span class="next">下一处 →</span></div>`;
+        card.querySelector(".next").addEventListener("click", (ev) => {
+          ev.stopPropagation();
+          goTo((i + 1) % PLACES.length);
+        });
+        card.classList.add("show");
+      }
+      const hideCard = () => card.classList.remove("show");
+      function goTo(i) {
+        const p = PLACES[i];
+        map.flyTo({
+          center: [p.lng, p.lat],
+          zoom: Math.max(map.getZoom(), 13.8),
+          duration: 1100,
+        });
+        map.once("moveend", () => showCard(i));
+      }
+      function fit(dur) {
+        const b = new maplibregl.LngLatBounds();
+        PLACES.forEach((p) => b.extend([p.lng, p.lat]));
+        map.fitBounds(b, {
+          padding: { top: 116, bottom: 96, left: 110, right: 120 },
+          duration: dur,
+        });
+      }
+      function resetView() {
+        hideCard();
+        fit(1000);
+      }
+      document.getElementById("map").addEventListener("click", (e) => {
+        if (!e.target.closest(".pin")) hideCard();
+      });
+      document.getElementById("seal").addEventListener("click", resetView);
+
+      // 背景音乐:进页面尝试自动播放;浏览器拦截则在首次交互时自动开始
+      const bgm = document.getElementById("bgm");
+      const musicBtn = document.getElementById("music");
+      bgm.volume = 0.5;
+      const EVTS = ["pointerdown", "keydown", "wheel", "touchstart"];
+      const stopFirst = () =>
+        EVTS.forEach((t) => removeEventListener(t, firstPlay, true));
+      const playMusic = () =>
+        bgm
+          .play()
+          .then(() => {
+            musicBtn.classList.add("on");
+            stopFirst(); // 真正播起来才解除监听
+          })
+          .catch(() => {});
+      playMusic(); // 尝试自动播放(浏览器多半拦截带声音的)
+      // 首次任意交互即自动起(捕获阶段,避免被 MapLibre 吞掉地图上的事件;失败则下次再试)
+      const firstPlay = (e) => {
+        if (e && e.target.closest && e.target.closest("#music")) return; // 音乐按钮自己处理
+        playMusic();
+      };
+      EVTS.forEach((t) => addEventListener(t, firstPlay, true));
+      musicBtn.addEventListener("click", () => {
+        if (bgm.paused) playMusic();
+        else {
+          bgm.pause();
+          musicBtn.classList.remove("on");
+        }
+      });
+
+      const portEls = [];
+      const ROUTE_PAINT = {
+        "line-color": "#9b2d20",
+        "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          11,
+          1.0,
+          13,
+          1.7,
+          15,
+          2.6,
+        ],
+        "line-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          11,
+          0.6,
+          13,
+          0.85,
+          15,
+          0.95,
+        ],
+        // 越放大越粗越实,但最大也保留一点点断点(不做整条实线)
+        "line-dasharray": [
+          "step",
+          ["zoom"],
+          ["literal", [2, 3]],
+          13,
+          ["literal", [5, 4]],
+          14,
+          ["literal", [8, 2.5]],
+        ],
+      };
+
+      // 清掉当前章的标记/航线
+      function clearChapter() {
+        placeMarkers.forEach((m) => m.remove());
+        annoMarkers.forEach((m) => m.remove());
+        placeMarkers.length = 0;
+        annoMarkers.length = 0;
+        portEls.length = 0;
+        annoEls.length = 0;
+        if (map.getLayer("route")) map.removeLayer("route");
+        if (map.getSource("route")) map.removeSource("route");
+      }
+
+      // 加载某一章(年份/城市):换标题、航线、足迹点、地标,飞到该地
+      function loadChapter(idx, dur) {
+        chapter = idx;
+        hideCard();
+        clearChapter();
+        const ch = CH();
+        PLACES.length = 0;
+        ch.places.forEach((p) => PLACES.push(p));
+        document.querySelector("#title small").textContent =
+          `${ch.city} · ${ch.year}`;
+
+        map.addSource("route", {
+          type: "geojson",
+          data: {
+            type: "Feature",
+            geometry: {
+              type: "LineString",
+              coordinates: PLACES.map((p) => [p.lng, p.lat]),
+            },
+          },
+        });
+        map.addLayer({
+          id: "route",
+          type: "line",
+          source: "route",
+          layout: { "line-cap": "round", "line-join": "round" },
+          paint: ROUTE_PAINT,
+        });
+
+        PLACES.forEach((p, i) => {
+          const el = document.createElement("div");
+          el.className = "port";
+          el.innerHTML = `<span class="pin"></span><span class="lbl">${p.name}</span>`;
+          el.querySelector(".pin").addEventListener("click", (ev) => {
+            ev.stopPropagation();
+            showCard(i);
+          });
+          placeMarkers.push(
+            new maplibregl.Marker({ element: el })
+              .setLngLat([p.lng, p.lat])
+              .addTo(map),
+          );
+          portEls.push(el);
+        });
+        ch.landmarks.forEach(([t, lng, lat]) => anno("lm", t, lng, lat));
+        ch.waters.forEach(([t, lng, lat, c]) => anno(c, t, lng, lat));
+        ch.sounds.forEach(([lng, lat, d]) => anno("sound", d, lng, lat));
+
+        fit(dur);
+        document
+          .querySelectorAll("#chapters button")
+          .forEach((b, i) => b.classList.toggle("on", i === idx));
+        map.once("idle", () => {
+          updateScale();
+          declutter();
+          updateCoords();
+        });
+      }
+
+      // 圆形虹彩:开场展开 + 切换地图时的过渡(盖上→换图→展开,不闪断)
+      const intro = document.getElementById("intro");
+      const reduceMotion = matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+      const setHole = (v) => intro.style.setProperty("--hole", v);
+      const iris = (from, to, dur) =>
+        intro
+          .animate([{ "--hole": from }, { "--hole": to }], {
+            duration: dur,
+            easing: "cubic-bezier(.5,0,.3,1)",
+            fill: "forwards",
+          })
+          .finished.then(() => setHole(to));
+      const irisOpen = () => iris("0%", "112%", 900);
+      const irisClose = () => iris("112%", "0%", 520);
+
+      // 章节切换器(切换时虹彩过渡)
+      const chWrap = document.getElementById("chapters");
+      CHAPTERS.forEach((ch, i) => {
+        const btn = document.createElement("button");
+        btn.innerHTML = `<i class="dot"></i><span class="t"><b>${ch.year}</b><em>${ch.city}</em></span>`;
+        btn.addEventListener("click", () => switchChapter(i));
+        chWrap.appendChild(btn);
+      });
+      async function switchChapter(idx) {
+        if (idx === chapter) return;
+        if (reduceMotion) {
+          loadChapter(idx, 0);
+          return;
+        }
+        await irisClose(); // 盖上
+        loadChapter(idx, 0); // 瞬间换图(不缩放)
+        requestAnimationFrame(() => irisOpen()); // 立即展开,不在中间停留
+      }
+
+      function openIntro() {
+        if (reduceMotion) {
+          setHole("112%");
+          return;
+        }
+        requestAnimationFrame(() => irisOpen()); // 立即展开,不等待、不停顿
+      }
+
+      map.on("load", () => {
+        map.resize();
+        requestAnimationFrame(() => {
+          map.resize();
+          loadChapter(chapter, 0);
+          updatePinScale();
+          updateCoords();
+          window.__ready = true;
+          document.getElementById("loadtip")?.remove();
+          openIntro();
+        });
+        map.on("move", () => {
+          updateScale();
+          declutter();
+          updatePinScale();
+          updateCoords();
+        });
+      });
+      map.on("error", (e) => console.warn("map:", e.error && e.error.message));
+      // 兜底:瓦片/网络异常导致地图迟迟不就绪时,照常展开遮罩并提示,
+      // 避免永远卡在一张空白羊皮纸上(正常加载远早于此,不会触发)
+      setTimeout(() => {
+        if (window.__ready) return;
+        const tip = document.createElement("div");
+        tip.id = "loadtip";
+        tip.textContent = "地图加载缓慢,请检查网络连接";
+        document.getElementById("mapwrap").appendChild(tip);
+        openIntro();
+      }, 8000);
+
+      function updatePinScale() {
+        const ps = Math.max(
+          0.8,
+          Math.min(1.5, 0.8 + (map.getZoom() - 12) * 0.16),
+        );
+        document.getElementById("map").style.setProperty("--ps", ps.toFixed(2));
+      }
+
+      // 右上角经纬度跟随当前视图中心
+      function updateCoords() {
+        const c = map.getCenter();
+        document.getElementById("stamp").textContent =
+          `${Math.abs(c.lat).toFixed(3)}°${c.lat >= 0 ? "N" : "S"} · ${Math.abs(c.lng).toFixed(3)}°${c.lng >= 0 ? "E" : "W"}`;
+      }
+
+      const wrapRect = () =>
+        document.getElementById("mapwrap").getBoundingClientRect();
+      function rectOf(el) {
+        const m = el.closest(".maplibregl-marker") || el,
+          r = m.getBoundingClientRect(),
+          w = wrapRect();
+        return {
+          l: r.left - w.left,
+          t: r.top - w.top,
+          r: r.right - w.left,
+          b: r.bottom - w.top,
+        };
+      }
+      const hit = (a, b) =>
+        !(a.r < b.l - 6 || a.l > b.r + 6 || a.b < b.t - 4 || a.t > b.b + 4);
+      function declutter() {
+        const taken = [];
+        portEls.forEach((el) => {
+          taken.push(rectOf(el.querySelector(".pin")));
+          taken.push(rectOf(el.querySelector(".lbl")));
+        });
+        annoEls.forEach((el) => {
+          el.style.visibility = "hidden";
+          const r = rectOf(el);
+          if (!taken.some((t) => hit(t, r))) {
+            el.style.visibility = "visible";
+            taken.push(r);
+          }
+        });
+      }
+
+      /* 罗盘玫瑰 */
+      function ray(a, L, bw) {
+        const r = (a * Math.PI) / 180,
+          tx = 60 + L * Math.sin(r),
+          ty = 60 - L * Math.cos(r);
+        const px = Math.cos(r) * bw,
+          py = Math.sin(r) * bw;
+        return (
+          `<path d="M60 60 L${tx.toFixed(1)} ${ty.toFixed(1)} L${(60 - px).toFixed(1)} ${(60 - py).toFixed(1)} Z" fill="#33302a"/>` +
+          `<path d="M60 60 L${tx.toFixed(1)} ${ty.toFixed(1)} L${(60 + px).toFixed(1)} ${(60 + py).toFixed(1)} Z" fill="#cdbb96"/>`
+        );
+      }
+      function drawRose() {
+        let s = `<circle cx="60" cy="60" r="57" fill="#e9dcbf" stroke="#9a7b3f" stroke-width="1.4"/>`;
+        s += `<circle cx="60" cy="60" r="51" fill="none" stroke="#7a5e29" stroke-width="0.6"/><circle cx="60" cy="60" r="22" fill="none" stroke="#9a7b3f" stroke-width="0.5"/>`;
+        for (let dg = 0; dg < 360; dg += 5) {
+          const lng = dg % 45 === 0 ? 6 : dg % 15 === 0 ? 4 : 2.5,
+            a = (dg * Math.PI) / 180,
+            r2 = 51,
+            r1 = r2 - lng;
+          s += `<line x1="${(60 + r1 * Math.sin(a)).toFixed(1)}" y1="${(60 - r1 * Math.cos(a)).toFixed(1)}" x2="${(60 + r2 * Math.sin(a)).toFixed(1)}" y2="${(60 - r2 * Math.cos(a)).toFixed(1)}" stroke="#7a5e29" stroke-width="${dg % 45 === 0 ? 0.9 : 0.45}"/>`;
+        }
+        for (let k = 0; k < 16; k++) {
+          if (k % 2 === 0) continue;
+          s += ray(k * 22.5, 22, 1.8);
+        }
+        for (let k = 0; k < 4; k++) s += ray(45 + k * 90, 33, 4);
+        for (let k = 1; k < 4; k++) s += ray(k * 90, 45, 5.2);
+        s += ray(0, 50, 5.2);
+        s += `<path d="M60 5 L64 13 L60 19 L56 13 Z" fill="#9b2d20" stroke="#6b2c22" stroke-width="0.5"/>`;
+        s += `<circle cx="60" cy="60" r="6" fill="#e9dcbf" stroke="#7a5e29" stroke-width="0.9"/><circle cx="60" cy="60" r="2.2" fill="#7a5e29"/>`;
+        const L = (t, x, y, sz, c) =>
+          `<text x="${x}" y="${y}" text-anchor="middle" font-family="Cinzel,serif" font-weight="600" font-size="${sz}" fill="${c}">${t}</text>`;
+        s +=
+          L("N", 60, 33, 13, "#9b2d20") +
+          L("E", 92, 64.5, 11, "#5a4632") +
+          L("S", 60, 99, 11, "#5a4632") +
+          L("W", 28, 64.5, 11, "#5a4632");
+        document.getElementById("compass").innerHTML = s;
+      }
+
+      /* 简洁复古比例尺(无 0 左细分、少黑白:细线+刻度) */
+      function updateScale() {
+        const el = document.getElementById("scale");
+        if (!map || !map.getCenter) return;
+        const lat = map.getCenter().lat;
+        const mpp =
+          (156543.03392 * Math.cos((lat * Math.PI) / 180)) /
+          Math.pow(2, map.getZoom());
+        const maxMeters = mpp * 100,
+          pw = Math.pow(10, Math.floor(Math.log10(maxMeters)));
+        let dist = pw;
+        for (const cf of [1, 2, 5, 10])
+          if (cf * pw <= maxMeters) dist = cf * pw;
+        const px = dist / mpp,
+          fmt = (m) => (m >= 1000 ? m / 1000 + " km" : m + " m");
+        const x0 = 2,
+          yb = 17,
+          segs = 5,
+          sw = px / segs;
+        // 黑白分段标尺
+        let s = "";
+        for (let i = 0; i < segs; i++)
+          s += `<rect x="${(x0 + i * sw).toFixed(1)}" y="${yb - 5}" width="${sw.toFixed(1)}" height="5" fill="${i % 2 ? "#ece3cf" : "#3a2f23"}" stroke="#3a2f23" stroke-width="0.7"/>`;
+        for (const [tx, lab] of [
+          [0, "0"],
+          [px / 2, fmt(dist / 2)],
+          [px, fmt(dist)],
+        ]) {
+          s += `<line x1="${(x0 + tx).toFixed(1)}" y1="${yb - 8}" x2="${(x0 + tx).toFixed(1)}" y2="${yb + 1}" stroke="#3a2f23" stroke-width="0.9"/>`;
+          s += `<text x="${(x0 + tx).toFixed(1)}" y="${yb + 12}" text-anchor="middle" font-family="var(--fell)" font-style="italic" font-size="10.5" fill="#6b5a44">${lab}</text>`;
+        }
+        el.setAttribute("viewBox", `0 0 ${px + 8} 31`);
+        el.setAttribute("width", px + 8);
+        el.setAttribute("height", 31);
+        el.innerHTML = s;
+      }
+
+      /* 方框英伦标题:双线 + 四角花饰(无绶带、无副题) */
+      /* 火漆印章:精致锚形蜡封(点击=回到全图,hover 提示可点) */
+      function drawSeal() {
+        // 不规则蜡边
+        let edge = "";
+        const bumps = [34, 33, 35, 32.5, 34.5, 33, 35, 32, 34, 33.5, 35, 33];
+        for (let i = 0; i < 48; i++) {
+          const a = (i * 7.5 * Math.PI) / 180,
+            r = bumps[i % bumps.length] + (i % 3 === 0 ? 1.2 : 0);
+          edge += `${(40 + r * Math.sin(a)).toFixed(1)},${(40 - r * Math.cos(a)).toFixed(1)} `;
+        }
+        let s = `<defs><radialGradient id="wax" cx="0.38" cy="0.34" r="0.75"><stop offset="0" stop-color="#a8392c"/><stop offset="0.6" stop-color="#8a2420"/><stop offset="1" stop-color="#5e1410"/></radialGradient></defs>`;
+        s += `<polygon points="${edge}" fill="url(#wax)" stroke="#4d100d" stroke-width="1"/>`;
+        s += `<circle cx="40" cy="40" r="28" fill="none" stroke="#caa04a" stroke-width="0.9" opacity="0.55"/>`;
+        s += `<ellipse cx="31" cy="29" rx="13" ry="8" fill="#c4604f" opacity="0.26"/>`;
+        // 锚(凹刻:暗影偏移 + 亮面)
+        const anchor = (
+          dx,
+          dy,
+          fill,
+          op,
+        ) => `<g transform="translate(${dx},${dy})" fill="${fill}" opacity="${op}" stroke="${fill}" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="40" cy="25" r="3.2" fill="none"/>
+          <line x1="40" y1="28" x2="40" y2="52"/>
+          <line x1="32" y1="34" x2="48" y2="34"/>
+          <path d="M30,46 Q31,54 40,55 Q49,54 50,46" fill="none"/>
+          <path d="M30,46 l-3,-3 M30,46 l4,-1 M50,46 l3,-3 M50,46 l-4,-1"/></g>`;
+        // 金锚(统一金色:暗金 #7c5f24 凹影 + 亮金 #f0d488 浮面)
+        s += anchor(0.7, 0.8, "#7c5f24", 0.85) + anchor(0, 0, "#f0d488", 0.98);
+        // SHERRY:统一字体(IM Fell)+ 统一金色(与金边一致)
+        s += `<text x="40" y="70" text-anchor="middle" font-family="'IM Fell English',Georgia,serif" font-style="italic" font-size="7" letter-spacing="1.2" fill="#e0c373" opacity="0.92">· SHERRY ·</text>`;
+        document.getElementById("seal").innerHTML = s;
+      }
+
+      drawRose();
+      drawSeal();
+    </script>
+  </body>
+</html>

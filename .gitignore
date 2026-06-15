@@ -1,0 +1,10 @@
+# 依赖
+node_modules/
+
+# 3.2GB 本地照片素材 + 中间数据,网站运行不需要
+photos/
+
+# 系统 / 工具产物
+.DS_Store
+.playwright-mcp/
+.claude/
