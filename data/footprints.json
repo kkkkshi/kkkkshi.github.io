@@ -1,0 +1,4095 @@
+{
+ "yearsRange": [
+  2014,
+  2026
+ ],
+ "countryCount": 13,
+ "countries": [
+  {
+   "name": "Canada",
+   "name_zh": "加拿大",
+   "center": [
+    -106,
+    56
+   ],
+   "split": "region",
+   "years": [
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2024,
+    2025,
+    2026
+   ],
+   "cityCount": 83,
+   "photoCount": 961,
+   "regions": [
+    {
+     "name": "Ontario",
+     "name_zh": "安大略",
+     "years": [
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2024,
+      2025,
+      2026
+     ],
+     "cities": [
+      {
+       "name": "Toronto",
+       "name_zh": "多伦多",
+       "lat": 43.65,
+       "lng": -79.383,
+       "years": [
+        2019,
+        2020,
+        2021,
+        2024,
+        2025,
+        2026
+       ],
+       "count": 533,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Financial District",
+         "lat": 43.65,
+         "lng": -79.382,
+         "years": [
+          "2021",
+          "2024",
+          "2025",
+          "2026"
+         ],
+         "count": 175
+        },
+        {
+         "spot": "Downtown",
+         "lat": 43.653,
+         "lng": -79.383,
+         "years": [
+          "2021",
+          "2024",
+          "2025",
+          "2026"
+         ],
+         "count": 53
+        },
+        {
+         "spot": "Spadina—Fort York",
+         "lat": 43.652,
+         "lng": -79.383,
+         "years": [
+          "2020",
+          "2021",
+          "2024",
+          "2025",
+          "2026"
+         ],
+         "count": 46
+        },
+        {
+         "spot": "Harbourfront-CityPlace",
+         "lat": 43.643,
+         "lng": -79.387,
+         "years": [
+          "2020",
+          "2024",
+          "2025",
+          "2026"
+         ],
+         "count": 33
+        },
+        {
+         "spot": "Fort York-Liberty Village",
+         "lat": 43.635,
+         "lng": -79.415,
+         "years": [
+          "2025",
+          "2026"
+         ],
+         "count": 29
+        },
+        {
+         "spot": "Dundas Street West",
+         "lat": 43.656,
+         "lng": -79.383,
+         "years": [
+          "2020",
+          "2024",
+          "2025",
+          "2026"
+         ],
+         "count": 24
+        },
+        {
+         "spot": "Toronto Centre",
+         "lat": 43.652,
+         "lng": -79.379,
+         "years": [
+          "2021",
+          "2025"
+         ],
+         "count": 23
+        },
+        {
+         "spot": "Parkdale—High Park",
+         "lat": 43.642,
+         "lng": -79.465,
+         "years": [
+          "2025"
+         ],
+         "count": 16
+        },
+        {
+         "spot": "University Avenue",
+         "lat": 43.654,
+         "lng": -79.388,
+         "years": [
+          "2021",
+          "2024",
+          "2025",
+          "2026"
+         ],
+         "count": 13
+        },
+        {
+         "spot": "Walton Street",
+         "lat": 43.659,
+         "lng": -79.382,
+         "years": [
+          "2024",
+          "2025",
+          "2026"
+         ],
+         "count": 13
+        },
+        {
+         "spot": "Church-Wellesley",
+         "lat": 43.666,
+         "lng": -79.384,
+         "years": [
+          "2021",
+          "2025"
+         ],
+         "count": 12
+        },
+        {
+         "spot": "Simcoe Street",
+         "lat": 43.647,
+         "lng": -79.386,
+         "years": [
+          "2025",
+          "2026"
+         ],
+         "count": 11
+        },
+        {
+         "spot": "West Queen West",
+         "lat": 43.647,
+         "lng": -79.407,
+         "years": [
+          "2019",
+          "2025",
+          "2026"
+         ],
+         "count": 8
+        },
+        {
+         "spot": "Harbour Street",
+         "lat": 43.641,
+         "lng": -79.38,
+         "years": [
+          "2024"
+         ],
+         "count": 7
+        },
+        {
+         "spot": "Yonge Street",
+         "lat": 43.675,
+         "lng": -79.388,
+         "years": [
+          "2025"
+         ],
+         "count": 7
+        },
+        {
+         "spot": "Harbour Square Tunnel",
+         "lat": 43.64,
+         "lng": -79.377,
+         "years": [
+          "2025",
+          "2026"
+         ],
+         "count": 7
+        },
+        {
+         "spot": "North York",
+         "lat": 43.768,
+         "lng": -79.412,
+         "years": [
+          "2025"
+         ],
+         "count": 6
+        },
+        {
+         "spot": "Moss Park",
+         "lat": 43.661,
+         "lng": -79.375,
+         "years": [
+          "2025"
+         ],
+         "count": 6
+        },
+        {
+         "spot": "University—Rosedale",
+         "lat": 43.654,
+         "lng": -79.38,
+         "years": [
+          "2025",
+          "2026"
+         ],
+         "count": 6
+        },
+        {
+         "spot": "Queen Street West",
+         "lat": 43.649,
+         "lng": -79.396,
+         "years": [
+          "2024",
+          "2025",
+          "2026"
+         ],
+         "count": 6
+        },
+        {
+         "spot": "Distillery District",
+         "lat": 43.65,
+         "lng": -79.359,
+         "years": [
+          "2024"
+         ],
+         "count": 5
+        },
+        {
+         "spot": "Victoria Street",
+         "lat": 43.654,
+         "lng": -79.379,
+         "years": [
+          "2026"
+         ],
+         "count": 5
+        },
+        {
+         "spot": "Grand Atrium",
+         "lat": 43.643,
+         "lng": -79.395,
+         "years": [
+          "2019",
+          "2024",
+          "2026"
+         ],
+         "count": 4
+        },
+        {
+         "spot": "Dundas Street East",
+         "lat": 43.657,
+         "lng": -79.376,
+         "years": [
+          "2025",
+          "2026"
+         ],
+         "count": 4
+        },
+        {
+         "spot": "University",
+         "lat": 43.66,
+         "lng": -79.405,
+         "years": [
+          "2020",
+          "2024"
+         ],
+         "count": 4
+        },
+        {
+         "spot": "Howard Street",
+         "lat": 43.672,
+         "lng": -79.372,
+         "years": [
+          "2026"
+         ],
+         "count": 2
+        },
+        {
+         "spot": "Lourdes Lane",
+         "lat": 43.668,
+         "lng": -79.376,
+         "years": [
+          "2026"
+         ],
+         "count": 2
+        },
+        {
+         "spot": "York Street",
+         "lat": 43.645,
+         "lng": -79.382,
+         "years": [
+          "2025"
+         ],
+         "count": 2
+        },
+        {
+         "spot": "Grenville Street",
+         "lat": 43.662,
+         "lng": -79.384,
+         "years": [
+          "2026"
+         ],
+         "count": 1
+        },
+        {
+         "spot": "Lombard Street",
+         "lat": 43.651,
+         "lng": -79.376,
+         "years": [
+          "2026"
+         ],
+         "count": 1
+        },
+        {
+         "spot": "Mutual Street",
+         "lat": 43.654,
+         "lng": -79.374,
+         "years": [
+          "2026"
+         ],
+         "count": 1
+        },
+        {
+         "spot": "Charlotte Street",
+         "lat": 43.646,
+         "lng": -79.394,
+         "years": [
+          "2026"
+         ],
+         "count": 1
+        }
+       ]
+      },
+      {
+       "name": "Fort Erie",
+       "name_zh": "Fort Erie",
+       "lat": 42.908,
+       "lng": -78.913,
+       "years": [
+        2026
+       ],
+       "count": 1,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Queen Elizabeth Way Car Lane 3",
+         "lat": 42.908,
+         "lng": -78.913,
+         "years": [
+          "2026"
+         ],
+         "count": 1
+        }
+       ]
+      },
+      {
+       "name": "Waterloo",
+       "name_zh": "滑铁卢",
+       "lat": 43.464,
+       "lng": -80.52,
+       "years": [
+        2017,
+        2018,
+        2019,
+        2020,
+        2021
+       ],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      }
+     ]
+    },
+    {
+     "name": "Nova Scotia",
+     "name_zh": "新斯科舍",
+     "years": [
+      2019,
+      2024,
+      2025
+     ],
+     "cities": [
+      {
+       "name": "Cape Breton Highlands National Park",
+       "name_zh": "Cape Breton Highlands National Park",
+       "lat": 46.748,
+       "lng": -60.891,
+       "years": [
+        2024,
+        2025
+       ],
+       "count": 41,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Cabot Trail",
+         "lat": 46.748,
+         "lng": -60.89,
+         "years": [
+          "2024",
+          "2025"
+         ],
+         "count": 40
+        },
+        {
+         "spot": "Cape Breton Highlands National Park",
+         "lat": 46.759,
+         "lng": -60.898,
+         "years": [
+          "2025"
+         ],
+         "count": 1
+        }
+       ]
+      },
+      {
+       "name": "Halifax",
+       "name_zh": "哈利法克斯",
+       "lat": 44.643,
+       "lng": -63.575,
+       "years": [
+        2025
+       ],
+       "count": 35,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Downtown Halifax",
+         "lat": 44.646,
+         "lng": -63.579,
+         "years": [
+          "2025"
+         ],
+         "count": 27
+        },
+        {
+         "spot": "Lower Water Street",
+         "lat": 44.643,
+         "lng": -63.567,
+         "years": [
+          "2025"
+         ],
+         "count": 7
+        },
+        {
+         "spot": "South End",
+         "lat": 44.638,
+         "lng": -63.574,
+         "years": [
+          "2025"
+         ],
+         "count": 1
+        }
+       ]
+      },
+      {
+       "name": "Caribou",
+       "name_zh": "Caribou",
+       "lat": 45.741,
+       "lng": -62.688,
+       "years": [
+        2025
+       ],
+       "count": 19,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Highway 106",
+         "lat": 45.741,
+         "lng": -62.688,
+         "years": [
+          "2025"
+         ],
+         "count": 19
+        }
+       ]
+      },
+      {
+       "name": "Lunenburg",
+       "name_zh": "卢嫩堡",
+       "lat": 44.376,
+       "lng": -64.31,
+       "years": [
+        2025
+       ],
+       "count": 16,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Old Town of Lunenburg",
+         "lat": 44.376,
+         "lng": -64.31,
+         "years": [
+          "2025"
+         ],
+         "count": 16
+        }
+       ]
+      },
+      {
+       "name": "Fort Lawrence",
+       "name_zh": "Fort Lawrence",
+       "lat": 45.856,
+       "lng": -64.262,
+       "years": [
+        2019,
+        2025
+       ],
+       "count": 11,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "",
+         "lat": 45.856,
+         "lng": -64.262,
+         "years": [
+          "2025"
+         ],
+         "count": 8
+        },
+        {
+         "spot": "Highway 104",
+         "lat": 45.856,
+         "lng": -64.262,
+         "years": [
+          "2019",
+          "2025"
+         ],
+         "count": 3
+        }
+       ]
+      },
+      {
+       "name": "Salt Springs",
+       "name_zh": "Salt Springs",
+       "lat": 45.703,
+       "lng": -64.03,
+       "years": [
+        2025
+       ],
+       "count": 7,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "",
+         "lat": 45.704,
+         "lng": -64.031,
+         "years": [
+          "2025"
+         ],
+         "count": 4
+        },
+        {
+         "spot": "Highway 104",
+         "lat": 45.538,
+         "lng": -62.893,
+         "years": [
+          "2025"
+         ],
+         "count": 3
+        }
+       ]
+      },
+      {
+       "name": "Peggys Cove",
+       "name_zh": "佩吉湾",
+       "lat": 44.492,
+       "lng": -63.918,
+       "years": [
+        2025
+       ],
+       "count": 6,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Peggys Point Road",
+         "lat": 44.492,
+         "lng": -63.918,
+         "years": [
+          "2025"
+         ],
+         "count": 5
+        },
+        {
+         "spot": "Peggys Cove Road",
+         "lat": 44.5,
+         "lng": -63.92,
+         "years": [
+          "2025"
+         ],
+         "count": 1
+        }
+       ]
+      },
+      {
+       "name": "Oxford Junction",
+       "name_zh": "Oxford Junction",
+       "lat": 45.715,
+       "lng": -63.843,
+       "years": [
+        2025
+       ],
+       "count": 5,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "",
+         "lat": 45.715,
+         "lng": -63.843,
+         "years": [
+          "2025"
+         ],
+         "count": 5
+        }
+       ]
+      },
+      {
+       "name": "East Chester",
+       "name_zh": "East Chester",
+       "lat": 44.589,
+       "lng": -64.207,
+       "years": [
+        2025
+       ],
+       "count": 4,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Highway 103",
+         "lat": 44.589,
+         "lng": -64.207,
+         "years": [
+          "2025"
+         ],
+         "count": 4
+        }
+       ]
+      },
+      {
+       "name": "Martins River",
+       "name_zh": "Martins River",
+       "lat": 44.486,
+       "lng": -64.345,
+       "years": [
+        2025
+       ],
+       "count": 4,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Highway 103",
+         "lat": 44.486,
+         "lng": -64.345,
+         "years": [
+          "2025"
+         ],
+         "count": 4
+        }
+       ]
+      },
+      {
+       "name": "South Ingonish Harbour",
+       "name_zh": "South Ingonish Harbour",
+       "lat": 46.631,
+       "lng": -60.429,
+       "years": [
+        2025
+       ],
+       "count": 4,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Cabot Trail",
+         "lat": 46.631,
+         "lng": -60.429,
+         "years": [
+          "2025"
+         ],
+         "count": 4
+        }
+       ]
+      },
+      {
+       "name": "Windsor Road",
+       "name_zh": "Windsor Road",
+       "lat": 44.586,
+       "lng": -64.263,
+       "years": [
+        2025
+       ],
+       "count": 4,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Highway 103",
+         "lat": 44.586,
+         "lng": -64.263,
+         "years": [
+          "2025"
+         ],
+         "count": 4
+        }
+       ]
+      },
+      {
+       "name": "Atkinson",
+       "name_zh": "Atkinson",
+       "lat": 45.615,
+       "lng": -63.74,
+       "years": [
+        2025
+       ],
+       "count": 3,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "",
+         "lat": 45.615,
+         "lng": -63.74,
+         "years": [
+          "2025"
+         ],
+         "count": 3
+        }
+       ]
+      },
+      {
+       "name": "Black River Road",
+       "name_zh": "Black River Road",
+       "lat": 45.719,
+       "lng": -63.909,
+       "years": [
+        2019,
+        2025
+       ],
+       "count": 3,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "",
+         "lat": 45.718,
+         "lng": -63.91,
+         "years": [
+          "2019",
+          "2025"
+         ],
+         "count": 2
+        },
+        {
+         "spot": "Miners Memorial Highway",
+         "lat": 45.719,
+         "lng": -63.909,
+         "years": [
+          "2025"
+         ],
+         "count": 1
+        }
+       ]
+      },
+      {
+       "name": "Cape Smokey",
+       "name_zh": "Cape Smokey",
+       "lat": 46.624,
+       "lng": -60.379,
+       "years": [
+        2025
+       ],
+       "count": 3,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Cabot Trail",
+         "lat": 46.624,
+         "lng": -60.379,
+         "years": [
+          "2025"
+         ],
+         "count": 3
+        }
+       ]
+      },
+      {
+       "name": "Fauxburg",
+       "name_zh": "Fauxburg",
+       "lat": 44.427,
+       "lng": -64.381,
+       "years": [
+        2025
+       ],
+       "count": 3,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Northwest Road",
+         "lat": 44.427,
+         "lng": -64.381,
+         "years": [
+          "2025"
+         ],
+         "count": 3
+        }
+       ]
+      },
+      {
+       "name": "Northwest",
+       "name_zh": "Northwest",
+       "lat": 44.409,
+       "lng": -64.362,
+       "years": [
+        2025
+       ],
+       "count": 3,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Northwest Road",
+         "lat": 44.409,
+         "lng": -64.362,
+         "years": [
+          "2025"
+         ],
+         "count": 3
+        }
+       ]
+      },
+      {
+       "name": "Westchester",
+       "name_zh": "Westchester",
+       "lat": 45.603,
+       "lng": -63.734,
+       "years": [
+        2025
+       ],
+       "count": 3,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "",
+         "lat": 45.603,
+         "lng": -63.734,
+         "years": [
+          "2025"
+         ],
+         "count": 3
+        }
+       ]
+      },
+      {
+       "name": "Beech Hill",
+       "name_zh": "Beech Hill",
+       "lat": 44.561,
+       "lng": -64.328,
+       "years": [
+        2025
+       ],
+       "count": 2,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Highway 103",
+         "lat": 44.561,
+         "lng": -64.328,
+         "years": [
+          "2025"
+         ],
+         "count": 2
+        }
+       ]
+      },
+      {
+       "name": "Blockhouse",
+       "name_zh": "Blockhouse",
+       "lat": 44.444,
+       "lng": -64.407,
+       "years": [
+        2025
+       ],
+       "count": 2,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Northwest Road",
+         "lat": 44.444,
+         "lng": -64.407,
+         "years": [
+          "2025"
+         ],
+         "count": 2
+        }
+       ]
+      },
+      {
+       "name": "Gold River",
+       "name_zh": "Gold River",
+       "lat": 44.545,
+       "lng": -64.324,
+       "years": [
+        2025
+       ],
+       "count": 2,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Highway 103",
+         "lat": 44.545,
+         "lng": -64.324,
+         "years": [
+          "2025"
+         ],
+         "count": 2
+        }
+       ]
+      },
+      {
+       "name": "Head of St. Margarets Bay",
+       "name_zh": "Head of St. Margarets Bay",
+       "lat": 44.702,
+       "lng": -63.92,
+       "years": [
+        2025
+       ],
+       "count": 2,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Highway 103",
+         "lat": 44.702,
+         "lng": -63.92,
+         "years": [
+          "2025"
+         ],
+         "count": 2
+        }
+       ]
+      },
+      {
+       "name": "Lilydale",
+       "name_zh": "Lilydale",
+       "lat": 44.391,
+       "lng": -64.34,
+       "years": [
+        2025
+       ],
+       "count": 2,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Northwest Road",
+         "lat": 44.391,
+         "lng": -64.34,
+         "years": [
+          "2025"
+         ],
+         "count": 2
+        }
+       ]
+      },
+      {
+       "name": "Little Forks",
+       "name_zh": "Little Forks",
+       "lat": 45.755,
+       "lng": -64.111,
+       "years": [
+        2025
+       ],
+       "count": 2,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "",
+         "lat": 45.755,
+         "lng": -64.111,
+         "years": [
+          "2025"
+         ],
+         "count": 2
+        }
+       ]
+      },
+      {
+       "name": "Lower Truro",
+       "name_zh": "Lower Truro",
+       "lat": 45.365,
+       "lng": -63.318,
+       "years": [
+        2025
+       ],
+       "count": 2,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "",
+         "lat": 45.365,
+         "lng": -63.318,
+         "years": [
+          "2025"
+         ],
+         "count": 2
+        }
+       ]
+      },
+      {
+       "name": "Martins Point",
+       "name_zh": "Martins Point",
+       "lat": 44.507,
+       "lng": -64.324,
+       "years": [
+        2025
+       ],
+       "count": 2,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Highway 103",
+         "lat": 44.507,
+         "lng": -64.324,
+         "years": [
+          "2025"
+         ],
+         "count": 2
+        }
+       ]
+      },
+      {
+       "name": "Oxford",
+       "name_zh": "Oxford",
+       "lat": 45.723,
+       "lng": -63.889,
+       "years": [
+        2025
+       ],
+       "count": 2,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "",
+         "lat": 45.723,
+         "lng": -63.889,
+         "years": [
+          "2025"
+         ],
+         "count": 2
+        }
+       ]
+      },
+      {
+       "name": "Petit Étang",
+       "name_zh": "Petit Étang",
+       "lat": 46.643,
+       "lng": -60.974,
+       "years": [
+        2025
+       ],
+       "count": 2,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Cabot Trail",
+         "lat": 46.643,
+         "lng": -60.974,
+         "years": [
+          "2025"
+         ],
+         "count": 2
+        }
+       ]
+      },
+      {
+       "name": "Bedford",
+       "name_zh": "Bedford",
+       "lat": 44.741,
+       "lng": -63.66,
+       "years": [
+        2025
+       ],
+       "count": 1,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Highway 102",
+         "lat": 44.741,
+         "lng": -63.66,
+         "years": [
+          "2025"
+         ],
+         "count": 1
+        }
+       ]
+      },
+      {
+       "name": "Broadway",
+       "name_zh": "Broadway",
+       "lat": 45.576,
+       "lng": -62.364,
+       "years": [
+        2025
+       ],
+       "count": 1,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Highway 104",
+         "lat": 45.576,
+         "lng": -62.364,
+         "years": [
+          "2025"
+         ],
+         "count": 1
+        }
+       ]
+      },
+      {
+       "name": "Chester Basin",
+       "name_zh": "Chester Basin",
+       "lat": 44.566,
+       "lng": -64.325,
+       "years": [
+        2025
+       ],
+       "count": 1,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Highway 103",
+         "lat": 44.566,
+         "lng": -64.325,
+         "years": [
+          "2025"
+         ],
+         "count": 1
+        }
+       ]
+      },
+      {
+       "name": "Cheticamp",
+       "name_zh": "Cheticamp",
+       "lat": 46.65,
+       "lng": -60.996,
+       "years": [
+        2025
+       ],
+       "count": 1,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Cabot Trail",
+         "lat": 46.65,
+         "lng": -60.996,
+         "years": [
+          "2025"
+         ],
+         "count": 1
+        }
+       ]
+      },
+      {
+       "name": "Clearland",
+       "name_zh": "Clearland",
+       "lat": 44.467,
+       "lng": -64.401,
+       "years": [
+        2025
+       ],
+       "count": 1,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Highway 103",
+         "lat": 44.467,
+         "lng": -64.401,
+         "years": [
+          "2025"
+         ],
+         "count": 1
+        }
+       ]
+      },
+      {
+       "name": "Fall River",
+       "name_zh": "Fall River",
+       "lat": 44.806,
+       "lng": -63.605,
+       "years": [
+        2025
+       ],
+       "count": 1,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Highway 102",
+         "lat": 44.806,
+         "lng": -63.605,
+         "years": [
+          "2025"
+         ],
+         "count": 1
+        }
+       ]
+      },
+      {
+       "name": "French Village",
+       "name_zh": "French Village",
+       "lat": 44.633,
+       "lng": -63.913,
+       "years": [
+        2025
+       ],
+       "count": 1,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Peggys Cove Road",
+         "lat": 44.633,
+         "lng": -63.913,
+         "years": [
+          "2025"
+         ],
+         "count": 1
+        }
+       ]
+      },
+      {
+       "name": "Gold River 21",
+       "name_zh": "Gold River 21",
+       "lat": 44.555,
+       "lng": -64.33,
+       "years": [
+        2025
+       ],
+       "count": 1,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Highway 103",
+         "lat": 44.555,
+         "lng": -64.33,
+         "years": [
+          "2025"
+         ],
+         "count": 1
+        }
+       ]
+      },
+      {
+       "name": "Grand Étang",
+       "name_zh": "Grand Étang",
+       "lat": 46.547,
+       "lng": -61.042,
+       "years": [
+        2025
+       ],
+       "count": 1,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Cabot Trail",
+         "lat": 46.547,
+         "lng": -61.042,
+         "years": [
+          "2025"
+         ],
+         "count": 1
+        }
+       ]
+      },
+      {
+       "name": "Ingonish Ferry",
+       "name_zh": "Ingonish Ferry",
+       "lat": 46.628,
+       "lng": -60.393,
+       "years": [
+        2025
+       ],
+       "count": 1,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Cabot Trail",
+         "lat": 46.628,
+         "lng": -60.393,
+         "years": [
+          "2025"
+         ],
+         "count": 1
+        }
+       ]
+      },
+      {
+       "name": "La Prairie",
+       "name_zh": "La Prairie",
+       "lat": 46.648,
+       "lng": -60.956,
+       "years": [
+        2025
+       ],
+       "count": 1,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Cabot Trail",
+         "lat": 46.648,
+         "lng": -60.956,
+         "years": [
+          "2025"
+         ],
+         "count": 1
+        }
+       ]
+      },
+      {
+       "name": "Lewis Lake",
+       "name_zh": "Lewis Lake",
+       "lat": 44.695,
+       "lng": -63.841,
+       "years": [
+        2025
+       ],
+       "count": 1,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Highway 103",
+         "lat": 44.695,
+         "lng": -63.841,
+         "years": [
+          "2025"
+         ],
+         "count": 1
+        }
+       ]
+      },
+      {
+       "name": "Limerock",
+       "name_zh": "Limerock",
+       "lat": 45.544,
+       "lng": -62.828,
+       "years": [
+        2025
+       ],
+       "count": 1,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Highway 104",
+         "lat": 45.544,
+         "lng": -62.828,
+         "years": [
+          "2025"
+         ],
+         "count": 1
+        }
+       ]
+      },
+      {
+       "name": "Margaree Harbour",
+       "name_zh": "Margaree Harbour",
+       "lat": 46.431,
+       "lng": -61.107,
+       "years": [
+        2025
+       ],
+       "count": 1,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Cabot Trail",
+         "lat": 46.431,
+         "lng": -61.107,
+         "years": [
+          "2025"
+         ],
+         "count": 1
+        }
+       ]
+      },
+      {
+       "name": "Mount William",
+       "name_zh": "Mount William",
+       "lat": 45.583,
+       "lng": -62.711,
+       "years": [
+        2025
+       ],
+       "count": 1,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Highway 104",
+         "lat": 45.583,
+         "lng": -62.711,
+         "years": [
+          "2025"
+         ],
+         "count": 1
+        }
+       ]
+      },
+      {
+       "name": "Oakland",
+       "name_zh": "Oakland",
+       "lat": 44.472,
+       "lng": -64.375,
+       "years": [
+        2025
+       ],
+       "count": 1,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Highway 103",
+         "lat": 44.472,
+         "lng": -64.375,
+         "years": [
+          "2025"
+         ],
+         "count": 1
+        }
+       ]
+      },
+      {
+       "name": "Otter Lake",
+       "name_zh": "Otter Lake",
+       "lat": 44.662,
+       "lng": -63.763,
+       "years": [
+        2025
+       ],
+       "count": 1,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Highway 103",
+         "lat": 44.662,
+         "lng": -63.763,
+         "years": [
+          "2025"
+         ],
+         "count": 1
+        }
+       ]
+      },
+      {
+       "name": "Seabright",
+       "name_zh": "Seabright",
+       "lat": 44.626,
+       "lng": -63.925,
+       "years": [
+        2025
+       ],
+       "count": 1,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Peggys Cove Road",
+         "lat": 44.626,
+         "lng": -63.925,
+         "years": [
+          "2025"
+         ],
+         "count": 1
+        }
+       ]
+      },
+      {
+       "name": "Timberlea",
+       "name_zh": "Timberlea",
+       "lat": 44.66,
+       "lng": -63.758,
+       "years": [
+        2025
+       ],
+       "count": 1,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Highway 103",
+         "lat": 44.66,
+         "lng": -63.758,
+         "years": [
+          "2025"
+         ],
+         "count": 1
+        }
+       ]
+      },
+      {
+       "name": "Upper Onslow",
+       "name_zh": "Upper Onslow",
+       "lat": 45.376,
+       "lng": -63.321,
+       "years": [
+        2025
+       ],
+       "count": 1,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Highway 102",
+         "lat": 45.376,
+         "lng": -63.321,
+         "years": [
+          "2025"
+         ],
+         "count": 1
+        }
+       ]
+      },
+      {
+       "name": "Upper Tantallon",
+       "name_zh": "Upper Tantallon",
+       "lat": 44.694,
+       "lng": -63.866,
+       "years": [
+        2025
+       ],
+       "count": 1,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "St Margarets Village",
+         "lat": 44.694,
+         "lng": -63.866,
+         "years": [
+          "2025"
+         ],
+         "count": 1
+        }
+       ]
+      },
+      {
+       "name": "Westville Road",
+       "name_zh": "Westville Road",
+       "lat": 45.578,
+       "lng": -62.7,
+       "years": [
+        2025
+       ],
+       "count": 1,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Highway 104",
+         "lat": 45.578,
+         "lng": -62.7,
+         "years": [
+          "2025"
+         ],
+         "count": 1
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "New Brunswick",
+     "name_zh": "新不伦瑞克",
+     "years": [
+      2019,
+      2025
+     ],
+     "cities": [
+      {
+       "name": "Hopewell Parish",
+       "name_zh": "Hopewell Parish",
+       "lat": 45.821,
+       "lng": -64.573,
+       "years": [
+        2025
+       ],
+       "count": 39,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Hopewell Cape",
+         "lat": 45.821,
+         "lng": -64.573,
+         "years": [
+          "2025"
+         ],
+         "count": 33
+        },
+        {
+         "spot": "Lower Cape",
+         "lat": 45.816,
+         "lng": -64.578,
+         "years": [
+          "2025"
+         ],
+         "count": 5
+        },
+        {
+         "spot": "Hopewell Hill",
+         "lat": 45.767,
+         "lng": -64.677,
+         "years": [
+          "2025"
+         ],
+         "count": 1
+        }
+       ]
+      },
+      {
+       "name": "Sackville Parish",
+       "name_zh": "Sackville Parish",
+       "lat": 45.866,
+       "lng": -64.275,
+       "years": [
+        2019,
+        2025
+       ],
+       "count": 20,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "",
+         "lat": 45.866,
+         "lng": -64.275,
+         "years": [
+          "2019",
+          "2025"
+         ],
+         "count": 20
+        }
+       ]
+      },
+      {
+       "name": "Alma Parish",
+       "name_zh": "Alma Parish",
+       "lat": 45.586,
+       "lng": -64.972,
+       "years": [
+        2025
+       ],
+       "count": 19,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Fundy National Park",
+         "lat": 45.586,
+         "lng": -64.972,
+         "years": [
+          "2025"
+         ],
+         "count": 16
+        },
+        {
+         "spot": "Alma",
+         "lat": 45.601,
+         "lng": -64.946,
+         "years": [
+          "2025"
+         ],
+         "count": 3
+        }
+       ]
+      },
+      {
+       "name": "City of Moncton",
+       "name_zh": "蒙克顿",
+       "lat": 46.136,
+       "lng": -64.888,
+       "years": [
+        2025
+       ],
+       "count": 16,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Moncton",
+         "lat": 46.136,
+         "lng": -64.888,
+         "years": [
+          "2025"
+         ],
+         "count": 16
+        }
+       ]
+      },
+      {
+       "name": "Hillsborough Parish",
+       "name_zh": "Hillsborough Parish",
+       "lat": 45.955,
+       "lng": -64.68,
+       "years": [
+        2019,
+        2025
+       ],
+       "count": 12,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Weldon",
+         "lat": 45.956,
+         "lng": -64.681,
+         "years": [
+          "2019",
+          "2025"
+         ],
+         "count": 9
+        },
+        {
+         "spot": "Edgetts Landing",
+         "lat": 45.87,
+         "lng": -64.596,
+         "years": [
+          "2025"
+         ],
+         "count": 2
+        },
+        {
+         "spot": "Hillsborough",
+         "lat": 45.924,
+         "lng": -64.646,
+         "years": [
+          "2025"
+         ],
+         "count": 1
+        }
+       ]
+      },
+      {
+       "name": "Coverdale Parish",
+       "name_zh": "Coverdale Parish",
+       "lat": 45.997,
+       "lng": -64.707,
+       "years": [
+        2025
+       ],
+       "count": 11,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Stoney Creek",
+         "lat": 45.992,
+         "lng": -64.705,
+         "years": [
+          "2025"
+         ],
+         "count": 9
+        },
+        {
+         "spot": "Lower Coverdale",
+         "lat": 46.054,
+         "lng": -64.727,
+         "years": [
+          "2025"
+         ],
+         "count": 2
+        }
+       ]
+      },
+      {
+       "name": "Town of Shediac",
+       "name_zh": "Town of Shediac",
+       "lat": 46.219,
+       "lng": -64.555,
+       "years": [
+        2025
+       ],
+       "count": 6,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Shediac",
+         "lat": 46.219,
+         "lng": -64.555,
+         "years": [
+          "2025"
+         ],
+         "count": 6
+        }
+       ]
+      },
+      {
+       "name": "Botsford Parish",
+       "name_zh": "Botsford Parish",
+       "lat": 46.162,
+       "lng": -63.818,
+       "years": [
+        2025
+       ],
+       "count": 5,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Bayfield",
+         "lat": 46.163,
+         "lng": -63.816,
+         "years": [
+          "2025"
+         ],
+         "count": 4
+        },
+        {
+         "spot": "Melrose",
+         "lat": 46.09,
+         "lng": -63.964,
+         "years": [
+          "2025"
+         ],
+         "count": 1
+        }
+       ]
+      },
+      {
+       "name": "Shediac Parish",
+       "name_zh": "Shediac Parish",
+       "lat": 46.207,
+       "lng": -64.352,
+       "years": [
+        2025
+       ],
+       "count": 4,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Grand-Barachois",
+         "lat": 46.211,
+         "lng": -64.38,
+         "years": [
+          "2025"
+         ],
+         "count": 3
+        },
+        {
+         "spot": "Cap-Pelé",
+         "lat": 46.203,
+         "lng": -64.275,
+         "years": [
+          "2025"
+         ],
+         "count": 1
+        }
+       ]
+      },
+      {
+       "name": "Memramcook",
+       "name_zh": "Memramcook",
+       "lat": 46.013,
+       "lng": -64.528,
+       "years": [
+        2025
+       ],
+       "count": 2,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Dorchester Parish",
+         "lat": 46.013,
+         "lng": -64.528,
+         "years": [
+          "2025"
+         ],
+         "count": 2
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Prince Edward Island",
+     "name_zh": "爱德华王子岛",
+     "years": [
+      2025
+     ],
+     "cities": [
+      {
+       "name": "Darnley",
+       "name_zh": "Darnley",
+       "lat": 46.563,
+       "lng": -63.639,
+       "years": [
+        2025
+       ],
+       "count": 15,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Thunder Cove Road",
+         "lat": 46.563,
+         "lng": -63.639,
+         "years": [
+          "2025"
+         ],
+         "count": 15
+        }
+       ]
+      },
+      {
+       "name": "North Rustico",
+       "name_zh": "North Rustico",
+       "lat": 46.496,
+       "lng": -63.342,
+       "years": [
+        2025
+       ],
+       "count": 12,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Gulf Shore Parkway West",
+         "lat": 46.496,
+         "lng": -63.342,
+         "years": [
+          "2025"
+         ],
+         "count": 10
+        },
+        {
+         "spot": "",
+         "lat": 46.496,
+         "lng": -63.342,
+         "years": [
+          "2025"
+         ],
+         "count": 2
+        }
+       ]
+      },
+      {
+       "name": "Charlottetown",
+       "name_zh": "夏洛特敦",
+       "lat": 46.234,
+       "lng": -63.127,
+       "years": [
+        2025
+       ],
+       "count": 11,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Downtown",
+         "lat": 46.234,
+         "lng": -63.127,
+         "years": [
+          "2025"
+         ],
+         "count": 11
+        }
+       ]
+      },
+      {
+       "name": "Borden-Carleton",
+       "name_zh": "Borden-Carleton",
+       "lat": 46.234,
+       "lng": -63.725,
+       "years": [
+        2025
+       ],
+       "count": 9,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Confederation Bridge",
+         "lat": 46.231,
+         "lng": -63.728,
+         "years": [
+          "2025"
+         ],
+         "count": 7
+        },
+        {
+         "spot": "Carleton",
+         "lat": 46.255,
+         "lng": -63.665,
+         "years": [
+          "2025"
+         ],
+         "count": 1
+        },
+        {
+         "spot": "Trans-Canada Highway",
+         "lat": 46.256,
+         "lng": -63.696,
+         "years": [
+          "2025"
+         ],
+         "count": 1
+        }
+       ]
+      },
+      {
+       "name": "Cavendish",
+       "name_zh": "卡文迪许",
+       "lat": 46.499,
+       "lng": -63.393,
+       "years": [
+        2025
+       ],
+       "count": 6,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Grahams Lane",
+         "lat": 46.499,
+         "lng": -63.393,
+         "years": [
+          "2025"
+         ],
+         "count": 6
+        }
+       ]
+      },
+      {
+       "name": "Brackley Beach",
+       "name_zh": "Brackley Beach",
+       "lat": 46.424,
+       "lng": -63.189,
+       "years": [
+        2025
+       ],
+       "count": 4,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Brackley Point Road",
+         "lat": 46.413,
+         "lng": -63.198,
+         "years": [
+          "2025"
+         ],
+         "count": 2
+        },
+        {
+         "spot": "Gulf Shore Parkway",
+         "lat": 46.428,
+         "lng": -63.178,
+         "years": [
+          "2025"
+         ],
+         "count": 2
+        }
+       ]
+      },
+      {
+       "name": "French River",
+       "name_zh": "French River",
+       "lat": 46.512,
+       "lng": -63.514,
+       "years": [
+        2025
+       ],
+       "count": 4,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Route 20",
+         "lat": 46.512,
+         "lng": -63.514,
+         "years": [
+          "2025"
+         ],
+         "count": 4
+        }
+       ]
+      },
+      {
+       "name": "Paroisse de Botsford",
+       "name_zh": "Paroisse de Botsford",
+       "lat": 46.206,
+       "lng": -63.757,
+       "years": [
+        2025
+       ],
+       "count": 3,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Confederation Bridge",
+         "lat": 46.206,
+         "lng": -63.757,
+         "years": [
+          "2025"
+         ],
+         "count": 3
+        }
+       ]
+      },
+      {
+       "name": "Stanhope",
+       "name_zh": "Stanhope",
+       "lat": 46.43,
+       "lng": -63.143,
+       "years": [
+        2025
+       ],
+       "count": 2,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Gulf Shore Parkway",
+         "lat": 46.43,
+         "lng": -63.143,
+         "years": [
+          "2025"
+         ],
+         "count": 2
+        }
+       ]
+      },
+      {
+       "name": "Bonshaw",
+       "name_zh": "Bonshaw",
+       "lat": 46.208,
+       "lng": -63.348,
+       "years": [
+        2025
+       ],
+       "count": 1,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Trans Canada Highway",
+         "lat": 46.208,
+         "lng": -63.348,
+         "years": [
+          "2025"
+         ],
+         "count": 1
+        }
+       ]
+      },
+      {
+       "name": "Desable",
+       "name_zh": "Desable",
+       "lat": 46.198,
+       "lng": -63.401,
+       "years": [
+        2025
+       ],
+       "count": 1,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Trans Canada Highway",
+         "lat": 46.198,
+         "lng": -63.401,
+         "years": [
+          "2025"
+         ],
+         "count": 1
+        }
+       ]
+      },
+      {
+       "name": "New Glasgow",
+       "name_zh": "New Glasgow",
+       "lat": 46.396,
+       "lng": -63.33,
+       "years": [
+        2025
+       ],
+       "count": 1,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "New Glasgow Road",
+         "lat": 46.396,
+         "lng": -63.33,
+         "years": [
+          "2025"
+         ],
+         "count": 1
+        }
+       ]
+      },
+      {
+       "name": "New Haven",
+       "name_zh": "New Haven",
+       "lat": 46.221,
+       "lng": -63.313,
+       "years": [
+        2025
+       ],
+       "count": 1,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Trans Canada Highway",
+         "lat": 46.221,
+         "lng": -63.313,
+         "years": [
+          "2025"
+         ],
+         "count": 1
+        }
+       ]
+      },
+      {
+       "name": "Prince County",
+       "name_zh": "Prince County",
+       "lat": 46.273,
+       "lng": -63.633,
+       "years": [
+        2025
+       ],
+       "count": 1,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Trans Canada Highway",
+         "lat": 46.273,
+         "lng": -63.633,
+         "years": [
+          "2025"
+         ],
+         "count": 1
+        }
+       ]
+      },
+      {
+       "name": "Queens County",
+       "name_zh": "Queens County",
+       "lat": 46.374,
+       "lng": -63.293,
+       "years": [
+        2025
+       ],
+       "count": 1,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "New Glasgow Road",
+         "lat": 46.374,
+         "lng": -63.293,
+         "years": [
+          "2025"
+         ],
+         "count": 1
+        }
+       ]
+      },
+      {
+       "name": "Rustico",
+       "name_zh": "Rustico",
+       "lat": 46.43,
+       "lng": -63.316,
+       "years": [
+        2025
+       ],
+       "count": 1,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Rustico Road",
+         "lat": 46.43,
+         "lng": -63.316,
+         "years": [
+          "2025"
+         ],
+         "count": 1
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "British Columbia",
+     "name_zh": "不列颠哥伦比亚",
+     "years": [
+      2014,
+      2015,
+      2016,
+      2017,
+      2025
+     ],
+     "cities": [
+      {
+       "name": "Richmond",
+       "name_zh": "列治文",
+       "lat": 49.167,
+       "lng": -123.124,
+       "years": [
+        2025
+       ],
+       "count": 4,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "City Centre",
+         "lat": 49.167,
+         "lng": -123.124,
+         "years": [
+          "2025"
+         ],
+         "count": 4
+        }
+       ]
+      },
+      {
+       "name": "Vancouver",
+       "name_zh": "温哥华",
+       "lat": 49.283,
+       "lng": -123.121,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Victoria",
+       "name_zh": "维多利亚",
+       "lat": 48.428,
+       "lng": -123.366,
+       "years": [
+        2014,
+        2015,
+        2016,
+        2017
+       ],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      }
+     ]
+    },
+    {
+     "name": "Alberta",
+     "name_zh": "阿尔伯塔",
+     "years": [
+      2014
+     ],
+     "cities": [
+      {
+       "name": "Banff",
+       "name_zh": "班夫",
+       "lat": 51.178,
+       "lng": -115.571,
+       "years": [
+        2014
+       ],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "United States",
+   "name_zh": "美国",
+   "center": [
+    -98,
+    39
+   ],
+   "split": "region",
+   "years": [
+    2019,
+    2020,
+    2021,
+    2024,
+    2025,
+    2026
+   ],
+   "cityCount": 8,
+   "photoCount": 166,
+   "regions": [
+    {
+     "name": "New York",
+     "name_zh": "纽约州",
+     "years": [
+      2019,
+      2021,
+      2024,
+      2026
+     ],
+     "cities": [
+      {
+       "name": "Buffalo",
+       "name_zh": "布法罗",
+       "lat": 42.886,
+       "lng": -78.877,
+       "years": [
+        2019,
+        2021,
+        2026
+       ],
+       "count": 47,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Downtown",
+         "lat": 42.886,
+         "lng": -78.877,
+         "years": [
+          "2019",
+          "2021",
+          "2026"
+         ],
+         "count": 32
+        },
+        {
+         "spot": "Elmwood Village",
+         "lat": 42.906,
+         "lng": -78.887,
+         "years": [
+          "2021",
+          "2026"
+         ],
+         "count": 9
+        },
+        {
+         "spot": "Theatre District",
+         "lat": 42.892,
+         "lng": -78.872,
+         "years": [
+          "2019",
+          "2026"
+         ],
+         "count": 6
+        }
+       ]
+      },
+      {
+       "name": "New York",
+       "name_zh": "纽约",
+       "lat": 40.753,
+       "lng": -73.978,
+       "years": [
+        2024
+       ],
+       "count": 36,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Manhattan",
+         "lat": 40.753,
+         "lng": -73.978,
+         "years": [
+          "2024"
+         ],
+         "count": 36
+        }
+       ]
+      },
+      {
+       "name": "Eggertsville",
+       "name_zh": "埃格茨维尔",
+       "lat": 42.998,
+       "lng": -78.822,
+       "years": [
+        2026
+       ],
+       "count": 1,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Niagara Falls Boulevard",
+         "lat": 42.998,
+         "lng": -78.822,
+         "years": [
+          "2026"
+         ],
+         "count": 1
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Pennsylvania",
+     "name_zh": "宾夕法尼亚",
+     "years": [
+      2019,
+      2020,
+      2021,
+      2024,
+      2025,
+      2026
+     ],
+     "cities": [
+      {
+       "name": "Hamlin Township",
+       "name_zh": "哈姆林",
+       "lat": 41.761,
+       "lng": -78.587,
+       "years": [
+        2020,
+        2021,
+        2024,
+        2025,
+        2026
+       ],
+       "count": 38,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Viaduct Road",
+         "lat": 41.761,
+         "lng": -78.587,
+         "years": [
+          "2020",
+          "2021",
+          "2024",
+          "2025",
+          "2026"
+         ],
+         "count": 33
+        },
+        {
+         "spot": "Winston Drive",
+         "lat": 41.74,
+         "lng": -78.614,
+         "years": [
+          "2021",
+          "2026"
+         ],
+         "count": 3
+        },
+        {
+         "spot": "Gaffney",
+         "lat": 41.76,
+         "lng": -78.587,
+         "years": [
+          "2026"
+         ],
+         "count": 2
+        }
+       ]
+      },
+      {
+       "name": "Mead Township",
+       "name_zh": "米德",
+       "lat": 41.843,
+       "lng": -78.946,
+       "years": [
+        2019,
+        2020,
+        2024,
+        2026
+       ],
+       "count": 29,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Forest Road 454",
+         "lat": 41.843,
+         "lng": -78.946,
+         "years": [
+          "2019",
+          "2020",
+          "2024",
+          "2026"
+         ],
+         "count": 17
+        },
+        {
+         "spot": "Forest Rd 617",
+         "lat": 41.851,
+         "lng": -78.956,
+         "years": [
+          "2024",
+          "2026"
+         ],
+         "count": 9
+        },
+        {
+         "spot": "Forest Road 492 - Jakes Rocks",
+         "lat": 41.84,
+         "lng": -78.965,
+         "years": [
+          "2026"
+         ],
+         "count": 2
+        },
+        {
+         "spot": "Kinzua Road",
+         "lat": 41.844,
+         "lng": -78.984,
+         "years": [
+          "2026"
+         ],
+         "count": 1
+        }
+       ]
+      },
+      {
+       "name": "Warren",
+       "name_zh": "沃伦",
+       "lat": 41.833,
+       "lng": -79.167,
+       "years": [
+        2024,
+        2026
+       ],
+       "count": 4,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Ludlow Street",
+         "lat": 41.833,
+         "lng": -79.167,
+         "years": [
+          "2024",
+          "2026"
+         ],
+         "count": 4
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Virginia",
+     "name_zh": "弗吉尼亚",
+     "years": [
+      2021
+     ],
+     "cities": [
+      {
+       "name": "Arlington",
+       "name_zh": "阿灵顿",
+       "lat": 38.882,
+       "lng": -77.069,
+       "years": [
+        2021
+       ],
+       "count": 6,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Rosslyn",
+         "lat": 38.882,
+         "lng": -77.069,
+         "years": [
+          "2021"
+         ],
+         "count": 6
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "District of Columbia",
+     "name_zh": "华盛顿特区",
+     "years": [
+      2021
+     ],
+     "cities": [
+      {
+       "name": "Washington",
+       "name_zh": "华盛顿",
+       "lat": 38.91,
+       "lng": -77.074,
+       "years": [
+        2021
+       ],
+       "count": 5,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "",
+         "lat": 38.91,
+         "lng": -77.074,
+         "years": [
+          "2021"
+         ],
+         "count": 5
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "China",
+   "name_zh": "中国",
+   "center": [
+    104,
+    35
+   ],
+   "split": "region",
+   "years": [
+    2020,
+    2021
+   ],
+   "cityCount": 23,
+   "photoCount": 360,
+   "regions": [
+    {
+     "name": "Shanghai",
+     "name_zh": "上海",
+     "years": [
+      2021
+     ],
+     "cities": [
+      {
+       "name": "Shanghai",
+       "name_zh": "上海",
+       "lat": 31.16,
+       "lng": 121.359,
+       "years": [
+        2021
+       ],
+       "count": 133,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Jiuliting",
+         "lat": 31.141,
+         "lng": 121.314,
+         "years": [
+          "2021"
+         ],
+         "count": 47
+        },
+        {
+         "spot": "Minhang District",
+         "lat": 31.18,
+         "lng": 121.369,
+         "years": [
+          "2021"
+         ],
+         "count": 33
+        },
+        {
+         "spot": "Tangbei",
+         "lat": 31.156,
+         "lng": 121.346,
+         "years": [
+          "2021"
+         ],
+         "count": 12
+        },
+        {
+         "spot": "Beizhan",
+         "lat": 31.246,
+         "lng": 121.467,
+         "years": [
+          "2021"
+         ],
+         "count": 8
+        },
+        {
+         "spot": "Huayanglu",
+         "lat": 31.221,
+         "lng": 121.412,
+         "years": [
+          "2021"
+         ],
+         "count": 6
+        },
+        {
+         "spot": "Dapuqiao Subdistrict",
+         "lat": 31.208,
+         "lng": 121.464,
+         "years": [
+          "2021"
+         ],
+         "count": 5
+        },
+        {
+         "spot": "Wankechengshihuayuan",
+         "lat": 31.16,
+         "lng": 121.342,
+         "years": [
+          "2021"
+         ],
+         "count": 5
+        },
+        {
+         "spot": "Changfeng Xincun",
+         "lat": 31.23,
+         "lng": 121.382,
+         "years": [
+          "2021"
+         ],
+         "count": 5
+        },
+        {
+         "spot": "Zhoujiaqiao",
+         "lat": 31.218,
+         "lng": 121.41,
+         "years": [
+          "2021"
+         ],
+         "count": 4
+        },
+        {
+         "spot": "Xujiahui",
+         "lat": 31.193,
+         "lng": 121.437,
+         "years": [
+          "2021"
+         ],
+         "count": 4
+        },
+        {
+         "spot": "Sichuan Beilu",
+         "lat": 31.265,
+         "lng": 121.484,
+         "years": [
+          "2021"
+         ],
+         "count": 2
+        },
+        {
+         "spot": "Nanjing Xilu",
+         "lat": 31.229,
+         "lng": 121.449,
+         "years": [
+          "2021"
+         ],
+         "count": 2
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Zhejiang",
+     "name_zh": "浙江",
+     "years": [
+      2020,
+      2021
+     ],
+     "cities": [
+      {
+       "name": "Hangzhou",
+       "name_zh": "杭州",
+       "lat": 30.253,
+       "lng": 120.159,
+       "years": [
+        2020,
+        2021
+       ],
+       "count": 109,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Hubin",
+         "lat": 30.257,
+         "lng": 120.157,
+         "years": [
+          "2020",
+          "2021"
+         ],
+         "count": 57
+        },
+        {
+         "spot": "Ziyang",
+         "lat": 30.22,
+         "lng": 120.178,
+         "years": [
+          "2020",
+          "2021"
+         ],
+         "count": 21
+        },
+        {
+         "spot": "Nanxing",
+         "lat": 30.216,
+         "lng": 120.166,
+         "years": [
+          "2021"
+         ],
+         "count": 10
+        },
+        {
+         "spot": "Wangjiang",
+         "lat": 30.227,
+         "lng": 120.193,
+         "years": [
+          "2020",
+          "2021"
+         ],
+         "count": 7
+        },
+        {
+         "spot": "Beishan",
+         "lat": 30.258,
+         "lng": 120.154,
+         "years": [
+          "2021"
+         ],
+         "count": 7
+        },
+        {
+         "spot": "Xihu",
+         "lat": 30.254,
+         "lng": 120.125,
+         "years": [
+          "2020"
+         ],
+         "count": 7
+        }
+       ]
+      },
+      {
+       "name": "Ningbo",
+       "name_zh": "宁波",
+       "lat": 29.469,
+       "lng": 121.873,
+       "years": [
+        2020
+       ],
+       "count": 1,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Danxi",
+         "lat": 29.469,
+         "lng": 121.873,
+         "years": [
+          "2020"
+         ],
+         "count": 1
+        }
+       ]
+      },
+      {
+       "name": "Jinhua",
+       "name_zh": "金华",
+       "lat": 29.079,
+       "lng": 119.649,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Lishui",
+       "name_zh": "丽水",
+       "lat": 28.468,
+       "lng": 119.923,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Quzhou",
+       "name_zh": "衢州",
+       "lat": 28.936,
+       "lng": 118.874,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Shaoxing",
+       "name_zh": "绍兴",
+       "lat": 30.03,
+       "lng": 120.58,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Taizhou",
+       "name_zh": "台州",
+       "lat": 28.656,
+       "lng": 121.42,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Wenzhou",
+       "name_zh": "温州",
+       "lat": 27.994,
+       "lng": 120.699,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Zhoushan",
+       "name_zh": "舟山",
+       "lat": 29.985,
+       "lng": 122.207,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      }
+     ]
+    },
+    {
+     "name": "Hunan",
+     "name_zh": "湖南",
+     "years": [
+      2020
+     ],
+     "cities": [
+      {
+       "name": "Changsha",
+       "name_zh": "长沙",
+       "lat": 28.194,
+       "lng": 112.971,
+       "years": [
+        2020
+       ],
+       "count": 50,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Juzizhou",
+         "lat": 28.176,
+         "lng": 112.955,
+         "years": [
+          "2020"
+         ],
+         "count": 22
+        },
+        {
+         "spot": "Qingshuitang Subdistrict",
+         "lat": 28.213,
+         "lng": 112.992,
+         "years": [
+          "2020"
+         ],
+         "count": 15
+        },
+        {
+         "spot": "Dingwangtai",
+         "lat": 28.194,
+         "lng": 112.971,
+         "years": [
+          "2020"
+         ],
+         "count": 11
+        },
+        {
+         "spot": "Pozijie Subdistrict",
+         "lat": 28.193,
+         "lng": 112.969,
+         "years": [
+          "2020"
+         ],
+         "count": 1
+        },
+        {
+         "spot": "Chengnanlu Subdistrict",
+         "lat": 28.19,
+         "lng": 112.971,
+         "years": [
+          "2020"
+         ],
+         "count": 1
+        }
+       ]
+      },
+      {
+       "name": "Zhangjiajie",
+       "name_zh": "张家界",
+       "lat": 29.337,
+       "lng": 110.465,
+       "years": [
+        2020
+       ],
+       "count": 38,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Guanliping Subdistrict",
+         "lat": 29.067,
+         "lng": 110.477,
+         "years": [
+          "2020"
+         ],
+         "count": 16
+        },
+        {
+         "spot": "Huangshizai",
+         "lat": 29.346,
+         "lng": 110.436,
+         "years": [
+          "2020"
+         ],
+         "count": 15
+        },
+        {
+         "spot": "Luoguta",
+         "lat": 29.351,
+         "lng": 110.463,
+         "years": [
+          "2020"
+         ],
+         "count": 3
+        },
+        {
+         "spot": "Jundiping",
+         "lat": 29.368,
+         "lng": 110.483,
+         "years": [
+          "2020"
+         ],
+         "count": 2
+        },
+        {
+         "spot": "Xiehe",
+         "lat": 29.345,
+         "lng": 110.465,
+         "years": [
+          "2020"
+         ],
+         "count": 1
+        },
+        {
+         "spot": "Wulong",
+         "lat": 29.349,
+         "lng": 110.433,
+         "years": [
+          "2020"
+         ],
+         "count": 1
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Jiangxi",
+     "name_zh": "江西",
+     "years": [
+      2020
+     ],
+     "cities": [
+      {
+       "name": "Nanchang",
+       "name_zh": "南昌",
+       "lat": 28.677,
+       "lng": 115.848,
+       "years": [
+        2020
+       ],
+       "count": 16,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Weidong Subdistrict",
+         "lat": 28.676,
+         "lng": 115.848,
+         "years": [
+          "2020"
+         ],
+         "count": 10
+        },
+        {
+         "spot": "Shajing Subdistrict",
+         "lat": 28.697,
+         "lng": 115.844,
+         "years": [
+          "2020"
+         ],
+         "count": 3
+        },
+        {
+         "spot": "Tengwangge Subdistrict",
+         "lat": 28.681,
+         "lng": 115.876,
+         "years": [
+          "2020"
+         ],
+         "count": 2
+        },
+        {
+         "spot": "Chaoyangzhou Subdistrict",
+         "lat": 28.677,
+         "lng": 115.875,
+         "years": [
+          "2020"
+         ],
+         "count": 1
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Guangdong",
+     "name_zh": "广东",
+     "years": [
+      2021
+     ],
+     "cities": [
+      {
+       "name": "Guangzhou",
+       "name_zh": "广州",
+       "lat": 22.991,
+       "lng": 113.263,
+       "years": [
+        2021
+       ],
+       "count": 9,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Shibi Subdistrict",
+         "lat": 22.991,
+         "lng": 113.263,
+         "years": [
+          "2021"
+         ],
+         "count": 4
+        },
+        {
+         "spot": "Daliang",
+         "lat": 22.836,
+         "lng": 113.25,
+         "years": [
+          "2021"
+         ],
+         "count": 4
+        },
+        {
+         "spot": "Xiancun",
+         "lat": 23.127,
+         "lng": 113.322,
+         "years": [
+          "2021"
+         ],
+         "count": 1
+        }
+       ]
+      },
+      {
+       "name": "Shenzhen",
+       "name_zh": "深圳",
+       "lat": 22.543,
+       "lng": 114.058,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      }
+     ]
+    },
+    {
+     "name": "Hubei",
+     "name_zh": "湖北",
+     "years": [
+      2021
+     ],
+     "cities": [
+      {
+       "name": "Wuhan",
+       "name_zh": "武汉",
+       "lat": 30.581,
+       "lng": 114.287,
+       "years": [
+        2021
+       ],
+       "count": 2,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Hualou",
+         "lat": 30.581,
+         "lng": 114.287,
+         "years": [
+          "2021"
+         ],
+         "count": 2
+        }
+       ]
+      },
+      {
+       "name": "Huangshi",
+       "name_zh": "黄石",
+       "lat": 30.2,
+       "lng": 115.039,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      }
+     ]
+    },
+    {
+     "name": "Jiangsu",
+     "name_zh": "江苏",
+     "years": [
+      2020
+     ],
+     "cities": [
+      {
+       "name": "Danyang City",
+       "name_zh": "丹阳",
+       "lat": 32.074,
+       "lng": 119.495,
+       "years": [
+        2020
+       ],
+       "count": 2,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "曲阿街道",
+         "lat": 32.074,
+         "lng": 119.495,
+         "years": [
+          "2020"
+         ],
+         "count": 2
+        }
+       ]
+      },
+      {
+       "name": "Nanjing",
+       "name_zh": "南京",
+       "lat": 32.06,
+       "lng": 118.797,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      }
+     ]
+    },
+    {
+     "name": "Beijing",
+     "name_zh": "北京",
+     "years": [],
+     "cities": [
+      {
+       "name": "Beijing",
+       "name_zh": "北京",
+       "lat": 39.904,
+       "lng": 116.407,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      }
+     ]
+    },
+    {
+     "name": "Tianjin",
+     "name_zh": "天津",
+     "years": [],
+     "cities": [
+      {
+       "name": "Tianjin",
+       "name_zh": "天津",
+       "lat": 39.343,
+       "lng": 117.361,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      }
+     ]
+    },
+    {
+     "name": "Shandong",
+     "name_zh": "山东",
+     "years": [],
+     "cities": [
+      {
+       "name": "Jinan",
+       "name_zh": "济南",
+       "lat": 36.651,
+       "lng": 117.12,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      }
+     ]
+    },
+    {
+     "name": "Yunnan",
+     "name_zh": "云南",
+     "years": [],
+     "cities": [
+      {
+       "name": "Kunming",
+       "name_zh": "昆明",
+       "lat": 25.038,
+       "lng": 102.718,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "United Kingdom",
+   "name_zh": "英国",
+   "center": [
+    -2,
+    54
+   ],
+   "split": "city",
+   "years": [],
+   "cityCount": 1,
+   "photoCount": 0,
+   "regions": [
+    {
+     "name": null,
+     "name_zh": null,
+     "years": [],
+     "cities": [
+      {
+       "name": "London",
+       "name_zh": "伦敦",
+       "lat": 51.507,
+       "lng": -0.128,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "France",
+   "name_zh": "法国",
+   "center": [
+    2.5,
+    46.6
+   ],
+   "split": "city",
+   "years": [],
+   "cityCount": 1,
+   "photoCount": 0,
+   "regions": [
+    {
+     "name": null,
+     "name_zh": null,
+     "years": [],
+     "cities": [
+      {
+       "name": "Paris",
+       "name_zh": "巴黎",
+       "lat": 48.857,
+       "lng": 2.352,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Belgium",
+   "name_zh": "比利时",
+   "center": [
+    4.5,
+    50.6
+   ],
+   "split": "city",
+   "years": [],
+   "cityCount": 1,
+   "photoCount": 0,
+   "regions": [
+    {
+     "name": null,
+     "name_zh": null,
+     "years": [],
+     "cities": [
+      {
+       "name": "Brussels",
+       "name_zh": "布鲁塞尔",
+       "lat": 50.851,
+       "lng": 4.352,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Germany",
+   "name_zh": "德国",
+   "center": [
+    10.4,
+    51.2
+   ],
+   "split": "city",
+   "years": [
+    2019
+   ],
+   "cityCount": 2,
+   "photoCount": 4,
+   "regions": [
+    {
+     "name": null,
+     "name_zh": null,
+     "years": [
+      2019
+     ],
+     "cities": [
+      {
+       "name": "Munich",
+       "name_zh": "慕尼黑",
+       "lat": 48.137,
+       "lng": 11.576,
+       "years": [
+        2019
+       ],
+       "count": 2,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Old Town",
+         "lat": 48.137,
+         "lng": 11.576,
+         "years": [
+          "2019"
+         ],
+         "count": 2
+        }
+       ]
+      },
+      {
+       "name": "Schwangau",
+       "name_zh": "施万高",
+       "lat": 47.562,
+       "lng": 10.746,
+       "years": [
+        2019
+       ],
+       "count": 2,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "",
+         "lat": 47.562,
+         "lng": 10.746,
+         "years": [
+          "2019"
+         ],
+         "count": 2
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Switzerland",
+   "name_zh": "瑞士",
+   "center": [
+    8.2,
+    46.8
+   ],
+   "split": "city",
+   "years": [
+    2019
+   ],
+   "cityCount": 8,
+   "photoCount": 14,
+   "regions": [
+    {
+     "name": null,
+     "name_zh": null,
+     "years": [
+      2019
+     ],
+     "cities": [
+      {
+       "name": "Lauterbrunnen",
+       "name_zh": "劳特布龙嫩",
+       "lat": 46.56,
+       "lng": 7.896,
+       "years": [
+        2019
+       ],
+       "count": 4,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Matte",
+         "lat": 46.561,
+         "lng": 7.896,
+         "years": [
+          "2019"
+         ],
+         "count": 1
+        },
+        {
+         "spot": "Allmihubel",
+         "lat": 46.559,
+         "lng": 7.892,
+         "years": [
+          "2019"
+         ],
+         "count": 1
+        },
+        {
+         "spot": "",
+         "lat": 46.55,
+         "lng": 7.984,
+         "years": [
+          "2019"
+         ],
+         "count": 1
+        },
+        {
+         "spot": "Rauft",
+         "lat": 46.561,
+         "lng": 7.896,
+         "years": [
+          "2019"
+         ],
+         "count": 1
+        }
+       ]
+      },
+      {
+       "name": "Zermatt",
+       "name_zh": "采尔马特",
+       "lat": 45.983,
+       "lng": 7.782,
+       "years": [
+        2019
+       ],
+       "count": 3,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "",
+         "lat": 45.983,
+         "lng": 7.782,
+         "years": [
+          "2019"
+         ],
+         "count": 3
+        }
+       ]
+      },
+      {
+       "name": "Lake Thun",
+       "name_zh": "Lake Thun",
+       "lat": 46.688,
+       "lng": 7.688,
+       "years": [
+        2019
+       ],
+       "count": 2,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "",
+         "lat": 46.688,
+         "lng": 7.688,
+         "years": [
+          "2019"
+         ],
+         "count": 2
+        }
+       ]
+      },
+      {
+       "name": "Andermatt",
+       "name_zh": "安德马特",
+       "lat": 46.659,
+       "lng": 8.671,
+       "years": [
+        2019
+       ],
+       "count": 1,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "",
+         "lat": 46.659,
+         "lng": 8.671,
+         "years": [
+          "2019"
+         ],
+         "count": 1
+        }
+       ]
+      },
+      {
+       "name": "Fieschertal",
+       "name_zh": "Fieschertal",
+       "lat": 46.547,
+       "lng": 7.982,
+       "years": [
+        2019
+       ],
+       "count": 1,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Entdeckungstour",
+         "lat": 46.547,
+         "lng": 7.982,
+         "years": [
+          "2019"
+         ],
+         "count": 1
+        }
+       ]
+      },
+      {
+       "name": "Gampel-Bratsch",
+       "name_zh": "Gampel-Bratsch",
+       "lat": 46.366,
+       "lng": 7.756,
+       "years": [
+        2019
+       ],
+       "count": 1,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Underi Meiggu",
+         "lat": 46.366,
+         "lng": 7.756,
+         "years": [
+          "2019"
+         ],
+         "count": 1
+        }
+       ]
+      },
+      {
+       "name": "Lucerne",
+       "name_zh": "琉森",
+       "lat": 47.052,
+       "lng": 8.308,
+       "years": [
+        2019
+       ],
+       "count": 1,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Altstadt",
+         "lat": 47.052,
+         "lng": 8.308,
+         "years": [
+          "2019"
+         ],
+         "count": 1
+        }
+       ]
+      },
+      {
+       "name": "Spiez",
+       "name_zh": "施皮茨",
+       "lat": 46.687,
+       "lng": 7.686,
+       "years": [
+        2019
+       ],
+       "count": 1,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "",
+         "lat": 46.687,
+         "lng": 7.686,
+         "years": [
+          "2019"
+         ],
+         "count": 1
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Italy",
+   "name_zh": "意大利",
+   "center": [
+    12.5,
+    42.8
+   ],
+   "split": "city",
+   "years": [],
+   "cityCount": 1,
+   "photoCount": 0,
+   "regions": [
+    {
+     "name": null,
+     "name_zh": null,
+     "years": [],
+     "cities": [
+      {
+       "name": "Rome",
+       "name_zh": "罗马",
+       "lat": 41.903,
+       "lng": 12.496,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Vatican City",
+   "name_zh": "梵蒂冈",
+   "center": [
+    12.45,
+    41.9
+   ],
+   "split": "city",
+   "years": [],
+   "cityCount": 1,
+   "photoCount": 0,
+   "regions": [
+    {
+     "name": null,
+     "name_zh": null,
+     "years": [],
+     "cities": [
+      {
+       "name": "Vatican City",
+       "name_zh": "梵蒂冈",
+       "lat": 41.902,
+       "lng": 12.453,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Norway",
+   "name_zh": "挪威",
+   "center": [
+    9,
+    61
+   ],
+   "split": "city",
+   "years": [
+    2019
+   ],
+   "cityCount": 4,
+   "photoCount": 11,
+   "regions": [
+    {
+     "name": null,
+     "name_zh": null,
+     "years": [
+      2019
+     ],
+     "cities": [
+      {
+       "name": "Strand",
+       "name_zh": "Strand",
+       "lat": 58.987,
+       "lng": 6.189,
+       "years": [
+        2019
+       ],
+       "count": 5,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "",
+         "lat": 58.987,
+         "lng": 6.189,
+         "years": [
+          "2019"
+         ],
+         "count": 4
+        },
+        {
+         "spot": "Strand",
+         "lat": 58.987,
+         "lng": 6.189,
+         "years": [
+          "2019"
+         ],
+         "count": 1
+        }
+       ]
+      },
+      {
+       "name": "Ullensvang",
+       "name_zh": "Ullensvang",
+       "lat": 60.133,
+       "lng": 6.754,
+       "years": [
+        2019
+       ],
+       "count": 4,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "",
+         "lat": 60.133,
+         "lng": 6.754,
+         "years": [
+          "2019"
+         ],
+         "count": 4
+        }
+       ]
+      },
+      {
+       "name": "Bergen",
+       "name_zh": "卑尔根",
+       "lat": 60.288,
+       "lng": 5.232,
+       "years": [
+        2019
+       ],
+       "count": 1,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Ytrebygda",
+         "lat": 60.288,
+         "lng": 5.232,
+         "years": [
+          "2019"
+         ],
+         "count": 1
+        }
+       ]
+      },
+      {
+       "name": "Hjelmeland",
+       "name_zh": "Hjelmeland",
+       "lat": 59.325,
+       "lng": 6.43,
+       "years": [
+        2019
+       ],
+       "count": 1,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "",
+         "lat": 59.325,
+         "lng": 6.43,
+         "years": [
+          "2019"
+         ],
+         "count": 1
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Denmark",
+   "name_zh": "丹麦",
+   "center": [
+    10,
+    56
+   ],
+   "split": "city",
+   "years": [
+    2019
+   ],
+   "cityCount": 1,
+   "photoCount": 1,
+   "regions": [
+    {
+     "name": null,
+     "name_zh": null,
+     "years": [
+      2019
+     ],
+     "cities": [
+      {
+       "name": "Sundbyerne",
+       "name_zh": "Sundbyerne",
+       "lat": 55.681,
+       "lng": 12.586,
+       "years": [
+        2019
+       ],
+       "count": 1,
+       "source": "photo",
+       "spots": [
+        {
+         "spot": "Christianshavn",
+         "lat": 55.681,
+         "lng": 12.586,
+         "years": [
+          "2019"
+         ],
+         "count": 1
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Thailand",
+   "name_zh": "泰国",
+   "center": [
+    101,
+    15
+   ],
+   "split": "city",
+   "years": [],
+   "cityCount": 1,
+   "photoCount": 0,
+   "regions": [
+    {
+     "name": null,
+     "name_zh": null,
+     "years": [],
+     "cities": [
+      {
+       "name": "Bangkok",
+       "name_zh": "曼谷",
+       "lat": 13.756,
+       "lng": 100.502,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

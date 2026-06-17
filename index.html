@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>sherry · 成长足迹</title>
+    <title>Sherry's Footprints</title>
     <link
       href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css"
       rel="stylesheet"
@@ -41,8 +41,6 @@
         font-family: var(--fell);
         background: radial-gradient(130% 110% at 50% 32%, #342c20, #211b13);
       }
-
-      /* 轻盈细金框:薄金线 + 细暗线 + 落地阴影(不厚重) */
       #mapwrap {
         position: absolute;
         inset: 6px;
@@ -60,12 +58,10 @@
       .maplibregl-canvas {
         filter: saturate(0.94) sepia(0.04);
       }
-      /* 光标在 JS 里注入(放大镜 loupe + 足迹点红聚焦),且拖动不变抓手 */
       #seal {
         cursor: pointer !important;
       }
 
-      /* 内层细金双线(印在纸上,纤细) */
       #rings {
         position: absolute;
         inset: 0;
@@ -143,6 +139,19 @@
       .port .pin:hover {
         transform: translate(-50%, -50%) scale(calc(var(--ps, 1) * 1.25));
       }
+      /* 上层节点(国家/省/市)用稍大的金心标记,区别于景点红点 */
+      .port.area .pin {
+        width: 17px;
+        height: 17px;
+        border-color: var(--golddk);
+        background: #f3ead0;
+      }
+      .port.area .pin::after {
+        background: var(--golddk);
+      }
+      .port.web .pin {
+        border-style: dashed;
+      }
       .port .lbl {
         position: absolute;
         left: 12px;
@@ -155,41 +164,41 @@
           0 0 5px rgba(236, 227, 207, 1);
         pointer-events: none;
       }
-      .anno {
-        pointer-events: none;
-        white-space: nowrap;
-        color: var(--ink2);
-        text-shadow: 0 1px 0 rgba(236, 227, 207, 0.75);
+      /* 区域(国家/州)无圆点:文字居中、可点,点填色块或文字都进入 */
+      .port.area .lbl {
+        left: 50%;
+        top: 50%;
         transform: translate(-50%, -50%);
+        font:
+          600 13.5px "Cinzel",
+          serif;
+        letter-spacing: 0.04em;
+        color: #4a3b2a;
+        pointer-events: auto;
+        cursor: pointer;
+        text-shadow:
+          0 0 7px rgba(236, 227, 207, 1),
+          0 1px 0 rgba(236, 227, 207, 0.95);
       }
-      .anno.lm {
-        font: italic 12px var(--fell);
-        letter-spacing: 0.03em;
-        opacity: 0.85;
+      .port.area .lbl:hover {
+        color: #7a2a1e;
       }
-      .anno.lm::before {
-        content: "·";
-        color: var(--gold);
-        margin-right: 3px;
-        font-weight: 700;
+      .port.area .cnt {
+        left: 50%;
+        top: calc(50% + 12px);
+        transform: translateX(-50%);
+        text-align: center;
       }
-      .anno.water {
-        font: italic 18px var(--fell);
-        letter-spacing: 0.55em;
-        color: #5f7f7a;
-        opacity: 0.55;
-      }
-      .anno.isle {
-        font: italic 11px var(--fell);
-        letter-spacing: 0.32em;
-        color: #5f7f7a;
-        opacity: 0.62;
-        text-transform: uppercase;
-      }
-      .anno.sound {
-        font: italic 9px var(--fell);
-        color: #6f8f8a;
-        opacity: 0.55;
+      .port .cnt {
+        position: absolute;
+        left: 12px;
+        top: 9px;
+        white-space: nowrap;
+        font: italic 10px var(--fell);
+        color: var(--ink2);
+        opacity: 0.8;
+        text-shadow: 0 1px 0 rgba(236, 227, 207, 0.9);
+        pointer-events: none;
       }
 
       #compass {
@@ -223,7 +232,6 @@
           transform 0.16s ease,
           filter 0.2s;
       }
-      /* 按压盖章:悬停微抬+提亮,点下去快速摁一下(无旋转) */
       #seal:hover {
         transform: scale(1.05);
         filter: drop-shadow(0 3px 5px rgba(30, 12, 8, 0.5)) brightness(1.07);
@@ -243,7 +251,6 @@
         pointer-events: none;
         text-align: center;
       }
-      /* 标题背后磨砂:只模糊+提亮背景(不上色),放纸上海上都不突兀 */
       #title::before {
         content: "";
         position: absolute;
@@ -285,7 +292,6 @@
         margin-top: 5px;
         text-shadow: 0 0 6px rgba(236, 227, 207, 0.9);
       }
-      /* 标题花线:上宽下短 */
       .trule {
         display: flex;
         align-items: center;
@@ -331,7 +337,42 @@
         pointer-events: none;
       }
 
-      /* 背景音乐开关(左侧,印章下方) */
+      /* 面包屑导航(标题下方,避开标题花线) */
+      #crumbs {
+        position: absolute;
+        top: 116px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 7;
+        display: flex;
+        gap: 7px;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: center;
+        max-width: 70%;
+        pointer-events: auto;
+        font: italic 13px var(--fell);
+        color: var(--ink2);
+        text-shadow:
+          0 0 5px rgba(236, 227, 207, 0.95),
+          0 1px 0 rgba(236, 227, 207, 0.9);
+      }
+      #crumbs .cr {
+        cursor: pointer;
+        color: #7a2a1e;
+      }
+      #crumbs .cr:hover {
+        color: #9b2d20;
+      }
+      #crumbs .sep {
+        color: var(--gold);
+      }
+      #crumbs .cur {
+        color: var(--ink);
+        font-style: normal;
+        font-weight: 600;
+      }
+
       #music {
         position: absolute;
         left: 30px;
@@ -357,7 +398,6 @@
         height: 18px;
         overflow: visible;
       }
-      /* hover:与社交按钮一致(红底 + 奶白图标 + 放大) */
       #music:hover {
         background: #9b2d20;
         border-color: #6e1f16;
@@ -365,15 +405,10 @@
       }
       #music:hover .note {
         stroke: #f3ecd8;
+      }
+      #music:hover circle.note {
         fill: #f3ecd8;
       }
-      #music:hover .waves {
-        stroke: #f3ecd8;
-      }
-      #music .waves {
-        opacity: 0;
-      }
-      /* 播放时:外圈金色虚线环转圈(像唱片转),一眼看出在播 */
       #music::after {
         content: "";
         position: absolute;
@@ -387,30 +422,76 @@
         opacity: 0.95;
         animation: spin 3s linear infinite;
       }
-      #music.on .waves {
-        opacity: 1;
-        animation: wav 1.4s ease-in-out infinite;
-      }
-      @keyframes wav {
-        0%,
-        100% {
-          opacity: 0.35;
-        }
-        50% {
-          opacity: 1;
-        }
-      }
       @keyframes spin {
         to {
           transform: rotate(360deg);
         }
       }
 
-      /* 社交链接(左侧,音乐按钮下方) */
-      #links {
+      /* 白天/夜晚切换 */
+      #daynight {
         position: absolute;
         left: 30px;
         top: 150px;
+        z-index: 7;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        border: 1px solid var(--gold);
+        background: rgba(236, 227, 207, 0.82);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        color: var(--ink);
+        box-shadow: 0 1px 3px rgba(30, 18, 4, 0.35);
+        transition:
+          background 0.2s,
+          transform 0.18s;
+      }
+      #daynight:hover {
+        background: #9b2d20;
+        color: #f3ecd8;
+        transform: scale(1.08);
+      }
+      #daynight svg {
+        width: 17px;
+        height: 17px;
+      }
+      /* 夜晚模式:文字/底色转浅,配合地图深色 */
+      body.night {
+        --ink: #ece0c2;
+        --ink2: #b7a684;
+      }
+      body.night #map {
+        background: #0f1826;
+      }
+      body.night .port .lbl {
+        color: #ecc06a;
+        text-shadow:
+          0 0 6px rgba(10, 16, 26, 0.95),
+          0 1px 0 rgba(10, 16, 26, 0.8);
+      }
+      body.night .port.area .lbl {
+        color: #e0cf9c;
+        text-shadow: 0 0 7px rgba(10, 16, 26, 0.95);
+      }
+      body.night #title b {
+        text-shadow: 0 0 10px rgba(10, 16, 26, 0.9);
+      }
+      body.night #title small,
+      body.night #stamp {
+        text-shadow: 0 0 8px rgba(10, 16, 26, 0.9);
+      }
+      body.night #daynight {
+        background: rgba(20, 30, 46, 0.85);
+        color: #e7c25c;
+      }
+
+      #links {
+        position: absolute;
+        left: 30px;
+        top: 190px;
         z-index: 7;
         display: flex;
         flex-direction: column;
@@ -443,7 +524,41 @@
         transform: scale(1.08);
       }
 
-      /* 自定义光标:十字小点(贴鼠标,不跟随),可点处变红放大 */
+      #toast {
+        position: fixed;
+        z-index: 20;
+        max-width: 240px;
+        padding: 9px 13px;
+        background: linear-gradient(#f3ecd8, #ece1c4);
+        border: 1px solid #6b5a3e;
+        outline: 2px solid rgba(236, 227, 207, 0.6);
+        box-shadow: 0 8px 22px rgba(30, 18, 4, 0.42);
+        font: italic 13px var(--fell);
+        color: #5a4632;
+        line-height: 1.45;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateX(-6px);
+        transition:
+          opacity 0.2s ease,
+          transform 0.22s cubic-bezier(0.34, 1.4, 0.64, 1);
+        pointer-events: none;
+      }
+      #toast.show {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(0);
+        pointer-events: auto;
+      }
+      #toast .copyable {
+        color: #7a2a1e;
+        font-style: normal;
+        cursor: pointer;
+      }
+      #toast .copyable:hover {
+        color: #9b2d20;
+      }
+
       #cursor {
         position: fixed;
         left: 0;
@@ -475,8 +590,6 @@
         transform: scale(1.9);
       }
 
-      /* 开场卷轴展开动画 */
-      /* 开场/切换:圆形虹彩(羊皮遮罩,中央透出的圆扩大) */
       @property --hole {
         syntax: "<percentage>";
         inherits: false;
@@ -507,20 +620,22 @@
         );
       }
 
-      /* 章节/地图切换器(底部居中) */
-      /* 蜡点切换器 */
-      #chapters {
+      /* 年份带(底部居中) */
+      #years {
         position: absolute;
         left: 50%;
-        bottom: 24px;
+        bottom: 22px;
         transform: translateX(-50%);
         z-index: 7;
         display: flex;
-        gap: 22px;
+        gap: 4px;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: center;
+        max-width: 76%;
         pointer-events: auto;
       }
-      /* 切换器背后磨砂(同标题) */
-      #chapters::before {
+      #years::before {
         content: "";
         position: absolute;
         z-index: -1;
@@ -528,70 +643,46 @@
         top: 50%;
         transform: translate(-50%, -50%);
         width: calc(100% + 90px);
-        height: 78px;
+        height: 64px;
         background: transparent;
         -webkit-backdrop-filter: blur(9px);
         backdrop-filter: blur(9px);
         -webkit-mask-image: radial-gradient(
-          ellipse 62% 52% at 50% 50%,
+          ellipse 60% 52% at 50% 50%,
           #000 50%,
           transparent 100%
         );
         mask-image: radial-gradient(
-          ellipse 62% 52% at 50% 50%,
+          ellipse 60% 52% at 50% 50%,
           #000 50%,
           transparent 100%
         );
         pointer-events: none;
       }
-      #chapters button {
+      #years button {
         font-family: var(--fell);
         cursor: pointer;
         background: none;
         border: none;
-        padding: 0;
-        display: flex;
-        align-items: center;
-        gap: 7px;
-        opacity: 0.62;
-        transition: opacity 0.2s;
-      }
-      #chapters button .dot {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        border: 1.5px solid var(--gold);
-        background: transparent;
-        flex: none;
-      }
-      #chapters button .t {
-        display: flex;
-        flex-direction: column;
-        text-align: left;
-        line-height: 1.08;
+        padding: 3px 7px;
+        font:
+          italic 13px "Cinzel",
+          serif;
+        color: var(--ink2);
+        opacity: 0.55;
+        transition:
+          opacity 0.2s,
+          color 0.2s;
+        letter-spacing: 0.03em;
         text-shadow: 0 0 5px rgba(236, 227, 207, 0.95);
       }
-      #chapters button .t b {
-        font:
-          600 13px "Cinzel",
-          serif;
-        letter-spacing: 0.04em;
-        color: var(--ink);
+      #years button:hover {
+        opacity: 0.85;
       }
-      #chapters button .t em {
-        font-style: italic;
-        font-size: 9.5px;
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
-        color: var(--ink2);
-      }
-      #chapters button.on {
+      #years button.on {
         opacity: 1;
-      }
-      #chapters button.on .dot {
-        background: #9b2d20;
-        border-color: #9b2d20;
-        box-shadow: 0 0 0 2px rgba(155, 45, 32, 0.25);
+        color: #7a2a1e;
+        font-weight: 600;
       }
 
       #card {
@@ -628,7 +719,7 @@
         white-space: normal;
         word-break: break-word;
         line-height: 1.22;
-        min-height: 2.4em;
+        min-height: 1.3em;
       }
       #card .coord {
         font:
@@ -642,7 +733,7 @@
         font: italic 14.5px var(--fell);
         color: #5a4632;
         line-height: 1.5;
-        min-height: 64px;
+        min-height: 48px;
       }
       #card .photo {
         margin-top: 4px;
@@ -684,7 +775,6 @@
         color: #fff;
       }
 
-      /* 地图加载缓慢/失败时的兜底提示 */
       #loadtip {
         position: absolute;
         left: 50%;
@@ -728,28 +818,28 @@
           ><span class="gl"></span>
         </div>
         <b>SHERRY'S FOOTPRINTS</b>
-        <small>TORONTO · 2025–2026</small>
+        <small>THE WORLD</small>
         <div class="trule bot">
           <span class="gl"></span><span class="dia">◆</span
           ><span class="gl"></span>
         </div>
       </div>
-      <div id="stamp">43.65°N · 79.38°W</div>
+      <div id="crumbs"></div>
+      <div id="stamp"></div>
       <svg id="scale" aria-hidden="true"></svg>
       <svg id="compass" viewBox="0 0 120 120" aria-hidden="true"></svg>
       <svg id="seal" viewBox="0 0 80 80" aria-hidden="true">
-        <title>sherry 的印鉴 · 点击回到全图</title>
+        <title>Sherry's seal · click to go back</title>
       </svg>
-      <div id="chapters"></div>
+      <div id="years"></div>
       <div id="card"></div>
-      <!-- 背景纯音乐(把你的 mp3 放到 audio/call-of-silence.mp3) -->
       <audio
         id="bgm"
         src="audio/call-of-silence.mp3"
         loop
         preload="none"
       ></audio>
-      <button id="music" title="背景音乐">
+      <button id="music" title="Music">
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path
             class="note"
@@ -762,22 +852,33 @@
           />
           <circle class="note" cx="6.5" cy="17" r="2.5" fill="#3a2f23" />
           <circle class="note" cx="16.5" cy="15" r="2.5" fill="#3a2f23" />
-          <g
-            class="waves"
-            stroke="#9b2d20"
-            stroke-width="1.4"
-            fill="none"
-            stroke-linecap="round"
-          >
-            <path d="M20 9 q2 3 0 6" />
-            <path d="M22.5 7 q3 5 0 10" />
+        </svg>
+      </button>
+      <button id="daynight" title="白天 / 夜晚">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.7"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path
+            class="moon"
+            d="M21 12.8A8.5 8.5 0 1 1 11.2 3a6.5 6.5 0 0 0 9.8 9.8z"
+          />
+          <g class="sun" style="display: none">
+            <circle cx="12" cy="12" r="4.2" />
+            <path
+              d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"
+            />
           </g>
         </svg>
       </button>
-      <!-- 社交链接(把 href 换成你的真实地址) -->
       <nav id="links">
         <a
-          href="#"
+          href="https://github.com/kkkkshi"
           target="_blank"
           rel="noopener"
           title="GitHub"
@@ -790,7 +891,7 @@
             />
           </svg>
         </a>
-        <a href="#" target="_blank" rel="noopener" title="X" aria-label="X">
+        <a href="#" data-soon="X" title="X" aria-label="X">
           <svg viewBox="0 0 24 24">
             <path
               fill="currentColor"
@@ -800,8 +901,7 @@
         </a>
         <a
           href="#"
-          target="_blank"
-          rel="noopener"
+          data-soon="Instagram"
           title="Instagram"
           aria-label="Instagram"
         >
@@ -818,8 +918,7 @@
         </a>
         <a
           href="#"
-          target="_blank"
-          rel="noopener"
+          data-email="keshi0330@gmail.com"
           title="Email"
           aria-label="Email"
         >
@@ -835,10 +934,9 @@
           </svg>
         </a>
       </nav>
-      <!-- 开场 / 切换:圆形虹彩遮罩 -->
+      <div id="toast" aria-live="polite"></div>
       <div id="intro"></div>
     </div>
-    <!-- 自定义光标:十字小点 -->
     <div id="cursor" aria-hidden="true">
       <svg width="22" height="22" viewBox="0 0 22 22">
         <g
@@ -858,134 +956,7 @@
 
     <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
     <script>
-      const SVGNS = "http://www.w3.org/2000/svg";
-      // 章节:每个年份/城市一张地图,可切换(占位数据,细节待补)
-      const CHAPTERS = [
-        {
-          city: "NEW YORK",
-          year: "2023–2024",
-          places: [
-            {
-              name: "Roosevelt Island",
-              lat: 40.7601,
-              lng: -73.9505,
-              note: "（占位）红色缆车与东河上的小岛。",
-            },
-            {
-              name: "Central Park",
-              lat: 40.7812,
-              lng: -73.9665,
-              note: "（占位）秋天的落叶与划船湖。",
-            },
-            {
-              name: "Times Square",
-              lat: 40.758,
-              lng: -73.9855,
-              note: "（占位）不夜的霓虹。",
-            },
-            {
-              name: "Grand Central",
-              lat: 40.7527,
-              lng: -73.9772,
-              note: "（占位）星空穹顶下的大厅。",
-            },
-            {
-              name: "The High Line",
-              lat: 40.748,
-              lng: -74.0048,
-              note: "（占位）高架旧铁道改的空中花园。",
-            },
-            {
-              name: "Brooklyn Bridge",
-              lat: 40.7061,
-              lng: -73.9969,
-              note: "（占位）走过东河的黄昏。",
-            },
-          ],
-          landmarks: [
-            ["Empire State Building", -73.9857, 40.7484],
-            ["Chrysler Building", -73.9755, 40.7516],
-            ["MoMA", -73.9776, 40.7614],
-            ["Rockefeller Center", -73.9787, 40.7587],
-            ["Flatiron", -73.9896, 40.7411],
-            ["One World Trade", -74.0134, 40.7127],
-          ],
-          waters: [
-            ["EAST RIVER", -73.96, 40.74, "isle"],
-            ["HUDSON RIVER", -74.012, 40.76, "isle"],
-          ],
-          sounds: [
-            [-73.958, 40.748, "8"],
-            [-74.012, 40.752, "21"],
-            [-73.965, 40.72, "14"],
-          ],
-        },
-        {
-          city: "TORONTO",
-          year: "2025–2026",
-          places: [
-            {
-              name: "High Park",
-              lat: 43.6465,
-              lng: -79.4637,
-              note: "樱花季的午后,在树下走了很久。",
-            },
-            {
-              name: "Kensington Market",
-              lat: 43.6545,
-              lng: -79.4003,
-              note: "彩色房子和旧货摊,空气里都是香料味。",
-            },
-            {
-              name: "Royal Ontario Museum",
-              lat: 43.6677,
-              lng: -79.3948,
-              note: "恐龙化石和水晶宫,像走进另一个时代。",
-            },
-            {
-              name: "CN Tower",
-              lat: 43.6426,
-              lng: -79.3871,
-              note: "第一次从高处俯瞰这座城。",
-            },
-            {
-              name: "Distillery District",
-              lat: 43.6503,
-              lng: -79.3596,
-              note: "鹅卵石街,圣诞集市的灯亮起来了。",
-            },
-            {
-              name: "Harbourfront",
-              lat: 43.6385,
-              lng: -79.3805,
-              note: "湖边看日落,船帆慢慢驶过。",
-            },
-          ],
-          landmarks: [
-            ["University of Toronto", -79.3957, 43.6629],
-            ["Casa Loma", -79.4094, 43.678],
-            ["Eaton Centre", -79.3807, 43.6544],
-            ["St. Lawrence Market", -79.3716, 43.6487],
-            ["Exhibition Place", -79.4156, 43.6334],
-            ["Riverdale Park", -79.355, 43.6677],
-            ["Trinity Bellwoods", -79.4137, 43.647],
-            ["Greektown", -79.352, 43.6779],
-          ],
-          waters: [
-            ["LAKE ONTARIO", -79.4, 43.596, "water"],
-            ["TORONTO ISLANDS", -79.379, 43.618, "isle"],
-          ],
-          sounds: [
-            [-79.42, 43.611, "7"],
-            [-79.39, 43.606, "13"],
-            [-79.355, 43.612, "16"],
-          ],
-        },
-      ];
-      let chapter = 1; // 默认显示多伦多(当前章)
-      const CH = () => CHAPTERS[chapter];
-      const PLACES = []; // 当前章的 places(loadChapter 时填充,供 showCard/goTo/fit 用)
-
+      // ===== 古海图底图样式(矢量瓦片) =====
       const style = {
         version: 8,
         sources: {
@@ -995,43 +966,7 @@
           {
             id: "bg",
             type: "background",
-            paint: { "background-color": "#ece3cf" },
-          },
-          {
-            id: "park",
-            type: "fill",
-            source: "omt",
-            "source-layer": "park",
-            paint: { "fill-color": "#e0d7bb", "fill-opacity": 0.55 },
-          },
-          {
-            id: "water",
-            type: "fill",
-            source: "omt",
-            "source-layer": "water",
-            paint: { "fill-color": "#b9cdd0" },
-          },
-          {
-            id: "coast",
-            type: "line",
-            source: "omt",
-            "source-layer": "water",
-            paint: {
-              "line-color": "#5b6e6e",
-              "line-width": 0.9,
-              "line-opacity": 0.6,
-            },
-          },
-          {
-            id: "waterway",
-            type: "line",
-            source: "omt",
-            "source-layer": "waterway",
-            paint: {
-              "line-color": "#6f8f8a",
-              "line-width": 0.6,
-              "line-opacity": 0.6,
-            },
+            paint: { "background-color": "#b9cdd0" },
           },
           {
             id: "roads",
@@ -1041,7 +976,7 @@
             layout: { "line-cap": "round", "line-join": "round" },
             paint: {
               "line-color": "#3a2f23",
-              "line-opacity": 0.74,
+              "line-opacity": 0.7,
               "line-width": [
                 "interpolate",
                 ["exponential", 1.6],
@@ -1079,37 +1014,25 @@
               ],
             },
           },
-          {
-            id: "boundary",
-            type: "line",
-            source: "omt",
-            "source-layer": "boundary",
-            filter: ["<=", ["get", "admin_level"], 6],
-            paint: {
-              "line-color": "#8c8472",
-              "line-width": 0.5,
-              "line-dasharray": [3, 2],
-              "line-opacity": 0.36,
-            },
-          },
         ],
       };
 
       const map = new maplibregl.Map({
         container: "map",
         style,
-        center: [-79.392, 43.651],
-        zoom: 12.6,
-        minZoom: 11,
-        maxZoom: 16,
+        center: [6, 30],
+        zoom: 1.5,
+        minZoom: 0.6,
+        maxZoom: 17,
         attributionControl: false,
         dragRotate: false,
+        renderWorldCopies: true, // 允许水平无限滚动(可一直往东/西滑)
       });
       window._map = map;
 
-      // 自定义光标:十字小点(不跟随,贴着鼠标),移到可点元素变红放大
+      // ===== 自定义光标 =====
       const CLICKABLE_SEL =
-        ".port .pin,#seal,#chapters button,#card .next,#music,#links a";
+        ".port .pin,.port.area .lbl,#seal,#years button,#crumbs .cr,#card .next,#music,#links a";
       if (matchMedia("(pointer: fine)").matches) {
         document.documentElement.classList.add("ccursor");
         const cursorEl = document.getElementById("cursor");
@@ -1130,61 +1053,484 @@
         addEventListener("mouseover", () => (cursorEl.style.opacity = ""));
       }
 
-      const annoEls = [];
-      const placeMarkers = [],
-        annoMarkers = [];
-      function anno(cls, text, lng, lat) {
-        const el = document.createElement("div");
-        el.className = "anno " + cls;
-        el.textContent = text;
-        const m = new maplibregl.Marker({ element: el })
-          .setLngLat([lng, lat])
-          .addTo(map);
-        annoMarkers.push(m);
-        if (cls === "lm") annoEls.push(el);
-      }
+      // ===== 数据 + 状态机 =====
+      let DATA = null,
+        WORLD = null,
+        STATES = null;
+      // NaturalEarth 国名 → footprints.json 国名(用于世界高亮)
+      const NE2MINE = {
+        Canada: "Canada",
+        "United States of America": "United States",
+        China: "China",
+        Taiwan: "China", // 台湾属于中国,并入中国高亮/点击进入
+        "United Kingdom": "United Kingdom",
+        France: "France",
+        Belgium: "Belgium",
+        Germany: "Germany",
+        Switzerland: "Switzerland",
+        Italy: "Italy",
+        Vatican: "Vatican City",
+        Norway: "Norway",
+        Denmark: "Denmark",
+        Thailand: "Thailand",
+      };
+      const stack = []; // [{level,c,r,ct}] level: world|country|region|city
+      let yearFilter = null; // null=全部, 否则整数年
+      let navTs = 0; // 上次切层时间戳(最小间隔防抖)
+      const markers = [],
+        portEls = [];
 
       const card = document.getElementById("card");
-      function showCard(i) {
-        const p = PLACES[i];
-        card.innerHTML =
-          `<h3>${p.name}</h3><div class="coord">${p.lat.toFixed(4)}°N · ${(-p.lng).toFixed(4)}°W</div>` +
-          `<div class="note">${p.note}</div><div class="photo">— 照片 / 手记 —</div>` +
-          `<div class="nav"><span>第 ${i + 1} / ${PLACES.length} 处</span><span class="next">下一处 →</span></div>`;
-        card.querySelector(".next").addEventListener("click", (ev) => {
-          ev.stopPropagation();
-          goTo((i + 1) % PLACES.length);
+      const hideCard = () => card.classList.remove("show");
+
+      function clearMarkers() {
+        markers.forEach((m) => m.remove());
+        markers.length = 0;
+        portEls.length = 0;
+      }
+
+      // 在地图上放一个可点节点(国家/省/市/景点通用)
+      function addNode(lng, lat, label, sub, years, kind, onClick) {
+        const el = document.createElement("div");
+        const area = kind === "area";
+        el.className =
+          "port" + (area ? " area" : "") + (kind === "web" ? " web" : "");
+        // 区域(国家/州)不要圆点,只用文字;城市/景点保留 pin
+        el.innerHTML =
+          (area ? "" : `<span class="pin"></span>`) +
+          `<span class="lbl">${label}</span>`;
+        el.__years = years || [];
+        const target = el.querySelector(area ? ".lbl" : ".pin");
+        if (onClick && target)
+          target.addEventListener("click", (ev) => {
+            ev.stopPropagation();
+            onClick();
+          });
+        markers.push(
+          new maplibregl.Marker({ element: el })
+            .setLngLat([lng, lat])
+            .addTo(map),
+        );
+        portEls.push(el);
+        return el;
+      }
+
+      // 视图自适应:一组坐标 fitBounds;单点 flyTo
+      function fitTo(coords, opts = {}) {
+        if (!coords.length) return;
+        if (coords.length === 1) {
+          map.flyTo({
+            center: coords[0],
+            zoom: opts.zoom || 11,
+            duration: opts.dur ?? 1000,
+          });
+        } else {
+          const b = new maplibregl.LngLatBounds();
+          coords.forEach((c) => b.extend(c));
+          map.fitBounds(b, {
+            padding: opts.padding || {
+              top: 150,
+              bottom: 130,
+              left: 120,
+              right: 130,
+            },
+            duration: opts.dur ?? 1000,
+            maxZoom: opts.maxZoom || 14,
+          });
+        }
+      }
+      const centroid = (cities) => [
+        cities.reduce((s, c) => s + c.lng, 0) / cities.length,
+        cities.reduce((s, c) => s + c.lat, 0) / cities.length,
+      ];
+      const flatCities = (c) => c.regions.flatMap((r) => r.cities);
+      // 州/省的几何中心(从州面数据算),让州名标在州中心而非去过城市的中心
+      function stateCenter(mine, region) {
+        if (!STATES) return null;
+        const f = STATES.features.find(
+          (x) =>
+            x.properties.country === mine && x.properties.region === region,
+        );
+        if (!f) return null;
+        let x0 = 1e9,
+          y0 = 1e9,
+          x1 = -1e9,
+          y1 = -1e9;
+        const scan = (c) => {
+          if (typeof c[0] === "number") {
+            if (c[0] < x0) x0 = c[0];
+            if (c[0] > x1) x1 = c[0];
+            if (c[1] < y0) y0 = c[1];
+            if (c[1] > y1) y1 = c[1];
+          } else c.forEach(scan);
+        };
+        scan(f.geometry.coordinates);
+        return [(x0 + x1) / 2, (y0 + y1) / 2];
+      }
+      // 整个国家的边界范围(从 world geojson 该国轮廓算),用于"点国家先显示全国地图"
+      // 国家"主体"范围:取面积最大的多边形(本土),忽略阿拉斯加等分离块,
+      // 这样点国家能放大到本土占满屏,而不是被远块拉成一小点
+      function countryBBox(mineName) {
+        if (!WORLD) return null;
+        const ne = Object.keys(NE2MINE).find((k) => NE2MINE[k] === mineName);
+        const f = WORLD.features.find((x) => x.properties.NAME === ne);
+        if (!f) return null;
+        const g = f.geometry;
+        const polys =
+          g.type === "MultiPolygon" ? g.coordinates : [g.coordinates];
+        let best = null,
+          bestA = -1;
+        for (const poly of polys) {
+          let x0 = 1e9,
+            y0 = 1e9,
+            x1 = -1e9,
+            y1 = -1e9;
+          for (const p of poly[0]) {
+            if (p[0] < x0) x0 = p[0];
+            if (p[0] > x1) x1 = p[0];
+            if (p[1] < y0) y0 = p[1];
+            if (p[1] > y1) y1 = p[1];
+          }
+          const a = (x1 - x0) * (y1 - y0);
+          if (a > bestA) {
+            bestA = a;
+            best = [
+              [x0, y0],
+              [x1, y1],
+            ];
+          }
+        }
+        return best ? new maplibregl.LngLatBounds(best[0], best[1]) : null;
+      }
+
+      // 一组城市的外接矩形
+      function boundsOf(cities) {
+        const b = new maplibregl.LngLatBounds();
+        cities.forEach((c) => b.extend([c.lng, c.lat]));
+        // 防零尺寸:单城市/单点会让占屏比例=0 → 一进去就被判定"太小"立刻退层。
+        // 给个最小地理范围兜底。
+        if (
+          b.getEast() - b.getWest() < 0.3 ||
+          b.getNorth() - b.getSouth() < 0.25
+        ) {
+          const c = b.getCenter();
+          b.extend([c.lng - 0.25, c.lat - 0.2]);
+          b.extend([c.lng + 0.25, c.lat + 0.2]);
+        }
+        return b;
+      }
+      // 两个矩形是否相交(只要还看得见该区域就不退层)
+      function boundsIntersect(a, b) {
+        if (!a || !b) return true;
+        return !(
+          a.getEast() < b.getWest() ||
+          a.getWest() > b.getEast() ||
+          a.getNorth() < b.getSouth() ||
+          a.getSouth() > b.getNorth()
+        );
+      }
+      function lyr(id, vis, filt) {
+        if (!map.getLayer(id)) return;
+        map.setLayoutProperty(id, "visibility", vis ? "visible" : "none");
+        if (vis && filt) map.setFilter(id, filt);
+      }
+      // 按当前层级统一控制:世界填色 / 国界线勾勒 / 州省高亮
+      function applyHighlight(e) {
+        const mine = e.c?.name;
+        const world = e.level === "world";
+        // 去过的国家填色:仅世界层(border-line 全局国界线常显,不在这里控制)
+        lyr("country-fill", world, ["==", ["get", "__v"], 1]);
+        // 去过的州/省填色高亮:国家(分省的)层 + 省层
+        const showState =
+          (e.level === "country" && e.c.split === "region") ||
+          e.level === "region";
+        const sf = ["==", ["get", "country"], mine || "__x__"];
+        lyr("state-fill", showState, sf);
+      }
+
+      // ===== 各层渲染(不改 stack) =====
+      function renderTop(fly = true, noFit = false) {
+        const e = stack[stack.length - 1];
+        navTs = Date.now();
+        // 记录本层范围矩形:视野完全离开它(平移走)时自动退层
+        e._bbox =
+          e.level === "world"
+            ? null
+            : e.level === "country"
+              ? countryBBox(e.c.name) || boundsOf(flatCities(e.c))
+              : e.level === "region"
+                ? boundsOf(e.r.cities)
+                : (() => {
+                    // 城市层范围:有多个景点用景点外接框,否则城市点 ±buffer(避免零尺寸)
+                    const named = (e.ct.spots || []).filter(
+                      (s) => s.spot && s.spot.trim(),
+                    );
+                    if (named.length > 1)
+                      return boundsOf(
+                        named.map((s) => ({ lng: s.lng, lat: s.lat })),
+                      );
+                    const b = new maplibregl.LngLatBounds();
+                    b.extend([e.ct.lng - 0.12, e.ct.lat - 0.1]);
+                    b.extend([e.ct.lng + 0.12, e.ct.lat + 0.1]);
+                    return b;
+                  })();
+        clearMarkers();
+        hideCard();
+        const small = document.querySelector("#title small");
+        if (e.level === "world") {
+          applyHighlight(e);
+          small.textContent = "THE WORLD";
+          DATA.countries.forEach((c) => {
+            addNode(
+              c.center[0],
+              c.center[1],
+              c.name,
+              `${c.cityCount} cities`,
+              c.years,
+              "area",
+              () => navigate({ level: "country", c }),
+            );
+          });
+          if (!noFit)
+            fitTo(
+              DATA.countries.map((c) => c.center),
+              {
+                padding: { top: 150, bottom: 140, left: 80, right: 80 },
+                maxZoom: 4.5,
+                dur: fly ? 650 : 0,
+              },
+            );
+        } else if (e.level === "country") {
+          applyHighlight(e);
+          small.textContent = e.c.name.toUpperCase();
+          if (e.c.split === "region") {
+            e.c.regions.forEach((r) => {
+              const ctr = stateCenter(e.c.name, r.name) || centroid(r.cities);
+              addNode(
+                ctr[0],
+                ctr[1],
+                r.name,
+                `${r.cities.length} cities`,
+                r.years,
+                "area",
+                () => navigate({ level: "region", c: e.c, r }),
+              );
+            });
+          } else {
+            flatCities(e.c).forEach((ct) =>
+              addCityNode(e.c, e.c.regions[0], ct),
+            );
+          }
+          // 显示整个国家地图(本土占满),底图自带州界,去过的州金色高亮
+          if (!noFit) {
+            const bb = countryBBox(e.c.name);
+            if (bb)
+              map.fitBounds(bb, {
+                padding: { top: 96, bottom: 84, left: 40, right: 40 },
+                maxZoom: 6.5,
+                duration: fly ? 650 : 0,
+              });
+            else
+              fitTo(
+                flatCities(e.c).map((ct) => [ct.lng, ct.lat]),
+                { dur: fly ? 650 : 0 },
+              );
+          }
+        } else if (e.level === "region") {
+          applyHighlight(e);
+          small.textContent = e.r.name.toUpperCase();
+          e.r.cities.forEach((ct) => addCityNode(e.c, e.r, ct));
+          if (!noFit)
+            fitTo(
+              e.r.cities.map((ct) => [ct.lng, ct.lat]),
+              { dur: fly ? 650 : 0 },
+            );
+        } else if (e.level === "city") {
+          applyHighlight(e);
+          small.textContent = e.ct.name.toUpperCase();
+          // 只有"多景点"城市才展开景点层;其余(路过点 / 无照片)直接落城市卡
+          const named = (e.ct.spots || []).filter(
+            (s) => s.spot && s.spot.trim(),
+          );
+          if (named.length >= 2) {
+            named.forEach((s) =>
+              addNode(
+                s.lng,
+                s.lat,
+                s.spot,
+                s.count + " 张",
+                s.years,
+                "spot",
+                () => showSpotCard(e.ct, s),
+              ),
+            );
+            if (!noFit)
+              fitTo(
+                named.map((s) => [s.lng, s.lat]),
+                { zoom: 13, dur: fly ? 650 : 0 },
+              );
+          } else {
+            // 路过点 / 无照片城市:飞到城市,直接弹城市卡(不依赖 moveend)
+            if (!noFit)
+              map.flyTo({
+                center: [e.ct.lng, e.ct.lat],
+                zoom: e.ct.source === "web" ? 10 : 12,
+                duration: fly ? 650 : 0,
+              });
+            showCityCard(e.ct);
+          }
+        }
+        renderCrumbs();
+        applyYearFilter();
+        document
+          .querySelectorAll("#years button")
+          .forEach((b) =>
+            b.classList.toggle(
+              "on",
+              String(yearFilter) === b.dataset.y ||
+                (yearFilter === null && b.dataset.y === "all"),
+            ),
+          );
+        map.once("idle", () => {
+          updateScale();
+          declutter();
+          if (!noFit) stack[stack.length - 1]._z = map.getZoom();
+          navTs = Date.now();
+          const top = stack[stack.length - 1];
+          // 世界层:禁止缩到比标准世界视图更小(否则地图缩成一小块、周围空白)
+          if (top.level === "world" && top._z)
+            map.setMinZoom(Math.max(0.6, top._z - 0.2));
+          else map.setMinZoom(0.6);
         });
+      }
+
+      function addCityNode(c, r, ct) {
+        const kind = ct.source === "web" ? "web" : "spot";
+        addNode(
+          ct.lng,
+          ct.lat,
+          ct.name,
+          ct.count ? ct.count + " photos" : "web",
+          ct.years,
+          kind,
+          () => navigate({ level: "city", c, r, ct }),
+        );
+      }
+
+      function navigate(entry) {
+        stack.push(entry);
+        history.pushState({ d: stack.length }, "");
+        renderTop(true);
+      }
+      function goBack() {
+        if (stack.length <= 1) return;
+        stack.pop();
+        renderTop(true);
+      }
+      // 面包屑回跳到第 i 层
+      function jumpTo(i) {
+        if (i < stack.length - 1) stack.length = i + 1;
+        renderTop(true); // 即使点当前层(如世界)也重新 fit,回到该层标准视图
+      }
+
+      function renderCrumbs() {
+        const wrap = document.getElementById("crumbs");
+        const labels = stack.map((e) =>
+          e.level === "world"
+            ? "The World"
+            : e.level === "country"
+              ? e.c.name
+              : e.level === "region"
+                ? e.r.name
+                : e.ct.name,
+        );
+        let html = "";
+        labels.forEach((lb, i) => {
+          if (i) html += `<span class="sep">›</span>`;
+          // 世界项(i=0)始终可点(点它回初始世界视图);其余仅非当前层可点
+          html +=
+            i === labels.length - 1 && i !== 0
+              ? `<span class="cur">${lb}</span>`
+              : `<span class="cr" data-i="${i}">${lb}</span>`;
+        });
+        wrap.innerHTML = html;
+        wrap
+          .querySelectorAll(".cr")
+          .forEach((s) =>
+            s.addEventListener("click", () => jumpTo(+s.dataset.i)),
+          );
+      }
+
+      // ===== 故事卡(景点 / 城市) =====
+      function showSpotCard(ct, s) {
+        const src = "📷 " + s.count + " photos";
+        card.innerHTML =
+          `<h3>${s.spot}</h3><div class="coord">${s.lat.toFixed(3)}°${s.lat >= 0 ? "N" : "S"} · ${Math.abs(s.lng).toFixed(3)}°${s.lng >= 0 ? "E" : "W"} · ${(s.years || []).join("/") || "—"}</div>` +
+          `<div class="note"><i>journal coming —</i> ${ct.name} · ${s.spot}</div>` +
+          `<div class="photo">— photo · journal —</div>` +
+          `<div class="nav"><span>${src}</span></div>`;
         card.classList.add("show");
       }
-      const hideCard = () => card.classList.remove("show");
-      function goTo(i) {
-        const p = PLACES[i];
-        map.flyTo({
-          center: [p.lng, p.lat],
-          zoom: Math.max(map.getZoom(), 13.8),
-          duration: 1100,
+      function showCityCard(ct) {
+        const photo = ct.source === "photo";
+        const meta = photo ? "📷 " + ct.count + " photos" : "🖼 web image —";
+        const note = photo
+          ? "<i>journal coming —</i>"
+          : "<i>journal coming —</i> no photos yet, web image to come.";
+        card.innerHTML =
+          `<h3>${ct.name}</h3><div class="coord">${ct.lat.toFixed(3)}°${ct.lat >= 0 ? "N" : "S"} · ${Math.abs(ct.lng).toFixed(3)}°${ct.lng >= 0 ? "E" : "W"} · ${(ct.years || []).join("/") || "—"}</div>` +
+          `<div class="note">${note}</div>` +
+          `<div class="photo">— photo · journal —</div>` +
+          `<div class="nav"><span>${meta}</span></div>`;
+        card.classList.add("show");
+      }
+
+      // ===== 年份带 =====
+      function buildYears() {
+        const [lo, hi] = DATA.yearsRange || [2014, 2026];
+        const wrap = document.getElementById("years");
+        const mk = (label, val) => {
+          const b = document.createElement("button");
+          b.textContent = label;
+          b.dataset.y = val;
+          b.addEventListener("click", () =>
+            setYear(val === "all" ? null : +val),
+          );
+          wrap.appendChild(b);
+        };
+        mk("All", "all");
+        for (let y = lo; y <= hi; y++) mk(y, y); // 连续显示每一年(含没去过的)
+      }
+      function setYear(y) {
+        yearFilter = y;
+        document
+          .querySelectorAll("#years button")
+          .forEach((b) =>
+            b.classList.toggle(
+              "on",
+              String(y) === b.dataset.y ||
+                (y === null && b.dataset.y === "all"),
+            ),
+          );
+        applyYearFilter();
+        declutter();
+      }
+      function applyYearFilter() {
+        portEls.forEach((el) => {
+          const ys = el.__years || [];
+          const show = yearFilter === null || ys.includes(yearFilter);
+          el.style.display = show ? "" : "none";
         });
-        map.once("moveend", () => showCard(i));
       }
-      function fit(dur) {
-        const b = new maplibregl.LngLatBounds();
-        PLACES.forEach((p) => b.extend([p.lng, p.lat]));
-        map.fitBounds(b, {
-          padding: { top: 116, bottom: 96, left: 110, right: 120 },
-          duration: dur,
-        });
-      }
-      function resetView() {
-        hideCard();
-        fit(1000);
-      }
+
+      // ===== 地图空白处点击:收起卡片 =====
       document.getElementById("map").addEventListener("click", (e) => {
         if (!e.target.closest(".pin")) hideCard();
       });
-      document.getElementById("seal").addEventListener("click", resetView);
+      document.getElementById("seal").addEventListener("click", goBack);
+      addEventListener("popstate", goBack);
 
-      // 背景音乐:进页面尝试自动播放;浏览器拦截则在首次交互时自动开始
+      // ===== 背景音乐 =====
       const bgm = document.getElementById("bgm");
       const musicBtn = document.getElementById("music");
       bgm.volume = 0.5;
@@ -1196,13 +1542,12 @@
           .play()
           .then(() => {
             musicBtn.classList.add("on");
-            stopFirst(); // 真正播起来才解除监听
+            stopFirst();
           })
           .catch(() => {});
-      playMusic(); // 尝试自动播放(浏览器多半拦截带声音的)
-      // 首次任意交互即自动起(捕获阶段,避免被 MapLibre 吞掉地图上的事件;失败则下次再试)
+      playMusic();
       const firstPlay = (e) => {
-        if (e && e.target.closest && e.target.closest("#music")) return; // 音乐按钮自己处理
+        if (e && e.target.closest && e.target.closest("#music")) return;
         playMusic();
       };
       EVTS.forEach((t) => addEventListener(t, firstPlay, true));
@@ -1214,115 +1559,7 @@
         }
       });
 
-      const portEls = [];
-      const ROUTE_PAINT = {
-        "line-color": "#9b2d20",
-        "line-width": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          11,
-          1.0,
-          13,
-          1.7,
-          15,
-          2.6,
-        ],
-        "line-opacity": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          11,
-          0.6,
-          13,
-          0.85,
-          15,
-          0.95,
-        ],
-        // 越放大越粗越实,但最大也保留一点点断点(不做整条实线)
-        "line-dasharray": [
-          "step",
-          ["zoom"],
-          ["literal", [2, 3]],
-          13,
-          ["literal", [5, 4]],
-          14,
-          ["literal", [8, 2.5]],
-        ],
-      };
-
-      // 清掉当前章的标记/航线
-      function clearChapter() {
-        placeMarkers.forEach((m) => m.remove());
-        annoMarkers.forEach((m) => m.remove());
-        placeMarkers.length = 0;
-        annoMarkers.length = 0;
-        portEls.length = 0;
-        annoEls.length = 0;
-        if (map.getLayer("route")) map.removeLayer("route");
-        if (map.getSource("route")) map.removeSource("route");
-      }
-
-      // 加载某一章(年份/城市):换标题、航线、足迹点、地标,飞到该地
-      function loadChapter(idx, dur) {
-        chapter = idx;
-        hideCard();
-        clearChapter();
-        const ch = CH();
-        PLACES.length = 0;
-        ch.places.forEach((p) => PLACES.push(p));
-        document.querySelector("#title small").textContent =
-          `${ch.city} · ${ch.year}`;
-
-        map.addSource("route", {
-          type: "geojson",
-          data: {
-            type: "Feature",
-            geometry: {
-              type: "LineString",
-              coordinates: PLACES.map((p) => [p.lng, p.lat]),
-            },
-          },
-        });
-        map.addLayer({
-          id: "route",
-          type: "line",
-          source: "route",
-          layout: { "line-cap": "round", "line-join": "round" },
-          paint: ROUTE_PAINT,
-        });
-
-        PLACES.forEach((p, i) => {
-          const el = document.createElement("div");
-          el.className = "port";
-          el.innerHTML = `<span class="pin"></span><span class="lbl">${p.name}</span>`;
-          el.querySelector(".pin").addEventListener("click", (ev) => {
-            ev.stopPropagation();
-            showCard(i);
-          });
-          placeMarkers.push(
-            new maplibregl.Marker({ element: el })
-              .setLngLat([p.lng, p.lat])
-              .addTo(map),
-          );
-          portEls.push(el);
-        });
-        ch.landmarks.forEach(([t, lng, lat]) => anno("lm", t, lng, lat));
-        ch.waters.forEach(([t, lng, lat, c]) => anno(c, t, lng, lat));
-        ch.sounds.forEach(([lng, lat, d]) => anno("sound", d, lng, lat));
-
-        fit(dur);
-        document
-          .querySelectorAll("#chapters button")
-          .forEach((b, i) => b.classList.toggle("on", i === idx));
-        map.once("idle", () => {
-          updateScale();
-          declutter();
-          updateCoords();
-        });
-      }
-
-      // 圆形虹彩:开场展开 + 切换地图时的过渡(盖上→换图→展开,不闪断)
+      // ===== 虹彩开场 =====
       const intro = document.getElementById("intro");
       const reduceMotion = matchMedia(
         "(prefers-reduced-motion: reduce)",
@@ -1336,86 +1573,34 @@
             fill: "forwards",
           })
           .finished.then(() => setHole(to));
-      const irisOpen = () => iris("0%", "112%", 900);
-      const irisClose = () => iris("112%", "0%", 520);
-
-      // 章节切换器(切换时虹彩过渡)
-      const chWrap = document.getElementById("chapters");
-      CHAPTERS.forEach((ch, i) => {
-        const btn = document.createElement("button");
-        btn.innerHTML = `<i class="dot"></i><span class="t"><b>${ch.year}</b><em>${ch.city}</em></span>`;
-        btn.addEventListener("click", () => switchChapter(i));
-        chWrap.appendChild(btn);
-      });
-      async function switchChapter(idx) {
-        if (idx === chapter) return;
-        if (reduceMotion) {
-          loadChapter(idx, 0);
-          return;
-        }
-        await irisClose(); // 盖上
-        loadChapter(idx, 0); // 瞬间换图(不缩放)
-        requestAnimationFrame(() => irisOpen()); // 立即展开,不在中间停留
-      }
-
-      function openIntro() {
+      const openIntro = () => {
         if (reduceMotion) {
           setHole("112%");
           return;
         }
-        requestAnimationFrame(() => irisOpen()); // 立即展开,不等待、不停顿
+        requestAnimationFrame(() => iris("0%", "112%", 900));
+      };
+
+      // ===== 右上角坐标跟随 =====
+      function updateCoords() {
+        const c = map.getCenter();
+        document.getElementById("stamp").textContent =
+          `${Math.abs(c.lat).toFixed(2)}°${c.lat >= 0 ? "N" : "S"} · ${Math.abs(c.lng).toFixed(2)}°${c.lng >= 0 ? "E" : "W"}`;
       }
-
-      map.on("load", () => {
-        map.resize();
-        requestAnimationFrame(() => {
-          map.resize();
-          loadChapter(chapter, 0);
-          updatePinScale();
-          updateCoords();
-          window.__ready = true;
-          document.getElementById("loadtip")?.remove();
-          openIntro();
-        });
-        map.on("move", () => {
-          updateScale();
-          declutter();
-          updatePinScale();
-          updateCoords();
-        });
-      });
-      map.on("error", (e) => console.warn("map:", e.error && e.error.message));
-      // 兜底:瓦片/网络异常导致地图迟迟不就绪时,照常展开遮罩并提示,
-      // 避免永远卡在一张空白羊皮纸上(正常加载远早于此,不会触发)
-      setTimeout(() => {
-        if (window.__ready) return;
-        const tip = document.createElement("div");
-        tip.id = "loadtip";
-        tip.textContent = "地图加载缓慢,请检查网络连接";
-        document.getElementById("mapwrap").appendChild(tip);
-        openIntro();
-      }, 8000);
-
       function updatePinScale() {
         const ps = Math.max(
-          0.8,
-          Math.min(1.5, 0.8 + (map.getZoom() - 12) * 0.16),
+          0.7,
+          Math.min(1.4, 0.7 + (map.getZoom() - 3) * 0.06),
         );
         document.getElementById("map").style.setProperty("--ps", ps.toFixed(2));
       }
 
-      // 右上角经纬度跟随当前视图中心
-      function updateCoords() {
-        const c = map.getCenter();
-        document.getElementById("stamp").textContent =
-          `${Math.abs(c.lat).toFixed(3)}°${c.lat >= 0 ? "N" : "S"} · ${Math.abs(c.lng).toFixed(3)}°${c.lng >= 0 ? "E" : "W"}`;
-      }
-
+      // ===== 标签避让 =====
       const wrapRect = () =>
         document.getElementById("mapwrap").getBoundingClientRect();
       function rectOf(el) {
-        const m = el.closest(".maplibregl-marker") || el,
-          r = m.getBoundingClientRect(),
+        // 用元素自身的渲染框(文字/圆点),不要用 marker 容器(.port 是 0×0 的点,会让避让失效)
+        const r = el.getBoundingClientRect(),
           w = wrapRect();
         return {
           l: r.left - w.left,
@@ -1429,30 +1614,28 @@
       function declutter() {
         const taken = [];
         portEls.forEach((el) => {
-          taken.push(rectOf(el.querySelector(".pin")));
-          taken.push(rectOf(el.querySelector(".lbl")));
-        });
-        annoEls.forEach((el) => {
-          el.style.visibility = "hidden";
-          const r = rectOf(el);
+          if (el.style.display === "none") return;
+          const pinEl = el.querySelector(".pin");
+          if (pinEl) taken.push(rectOf(pinEl));
+          const lbl = el.querySelector(".lbl");
+          if (!lbl) return;
+          lbl.style.visibility = "hidden";
+          const r = rectOf(lbl);
           if (!taken.some((t) => hit(t, r))) {
-            el.style.visibility = "visible";
+            lbl.style.visibility = "visible";
             taken.push(r);
           }
         });
       }
 
-      /* 罗盘玫瑰 */
+      // ===== 罗盘玫瑰 =====
       function ray(a, L, bw) {
         const r = (a * Math.PI) / 180,
           tx = 60 + L * Math.sin(r),
-          ty = 60 - L * Math.cos(r);
-        const px = Math.cos(r) * bw,
+          ty = 60 - L * Math.cos(r),
+          px = Math.cos(r) * bw,
           py = Math.sin(r) * bw;
-        return (
-          `<path d="M60 60 L${tx.toFixed(1)} ${ty.toFixed(1)} L${(60 - px).toFixed(1)} ${(60 - py).toFixed(1)} Z" fill="#33302a"/>` +
-          `<path d="M60 60 L${tx.toFixed(1)} ${ty.toFixed(1)} L${(60 + px).toFixed(1)} ${(60 + py).toFixed(1)} Z" fill="#cdbb96"/>`
-        );
+        return `<path d="M60 60 L${tx.toFixed(1)} ${ty.toFixed(1)} L${(60 - px).toFixed(1)} ${(60 - py).toFixed(1)} Z" fill="#33302a"/><path d="M60 60 L${tx.toFixed(1)} ${ty.toFixed(1)} L${(60 + px).toFixed(1)} ${(60 + py).toFixed(1)} Z" fill="#cdbb96"/>`;
       }
       function drawRose() {
         let s = `<circle cx="60" cy="60" r="57" fill="#e9dcbf" stroke="#9a7b3f" stroke-width="1.4"/>`;
@@ -1483,7 +1666,7 @@
         document.getElementById("compass").innerHTML = s;
       }
 
-      /* 简洁复古比例尺(无 0 左细分、少黑白:细线+刻度) */
+      // ===== 比例尺 =====
       function updateScale() {
         const el = document.getElementById("scale");
         if (!map || !map.getCenter) return;
@@ -1502,28 +1685,25 @@
           yb = 17,
           segs = 5,
           sw = px / segs;
-        // 黑白分段标尺
         let s = "";
         for (let i = 0; i < segs; i++)
           s += `<rect x="${(x0 + i * sw).toFixed(1)}" y="${yb - 5}" width="${sw.toFixed(1)}" height="5" fill="${i % 2 ? "#ece3cf" : "#3a2f23"}" stroke="#3a2f23" stroke-width="0.7"/>`;
         for (const [tx, lab] of [
           [0, "0"],
-          [px / 2, fmt(dist / 2)],
           [px, fmt(dist)],
         ]) {
           s += `<line x1="${(x0 + tx).toFixed(1)}" y1="${yb - 8}" x2="${(x0 + tx).toFixed(1)}" y2="${yb + 1}" stroke="#3a2f23" stroke-width="0.9"/>`;
           s += `<text x="${(x0 + tx).toFixed(1)}" y="${yb + 12}" text-anchor="middle" font-family="var(--fell)" font-style="italic" font-size="10.5" fill="#6b5a44">${lab}</text>`;
         }
-        el.setAttribute("viewBox", `0 0 ${px + 8} 31`);
-        el.setAttribute("width", px + 8);
+        const w = px + 44; // 多留右边给末端"X km"标签,不被裁掉
+        el.setAttribute("viewBox", `-6 0 ${w} 31`);
+        el.setAttribute("width", w);
         el.setAttribute("height", 31);
         el.innerHTML = s;
       }
 
-      /* 方框英伦标题:双线 + 四角花饰(无绶带、无副题) */
-      /* 火漆印章:精致锚形蜡封(点击=回到全图,hover 提示可点) */
+      // ===== 火漆印章 =====
       function drawSeal() {
-        // 不规则蜡边
         let edge = "";
         const bumps = [34, 33, 35, 32.5, 34.5, 33, 35, 32, 34, 33.5, 35, 33];
         for (let i = 0; i < 48; i++) {
@@ -1535,27 +1715,355 @@
         s += `<polygon points="${edge}" fill="url(#wax)" stroke="#4d100d" stroke-width="1"/>`;
         s += `<circle cx="40" cy="40" r="28" fill="none" stroke="#caa04a" stroke-width="0.9" opacity="0.55"/>`;
         s += `<ellipse cx="31" cy="29" rx="13" ry="8" fill="#c4604f" opacity="0.26"/>`;
-        // 锚(凹刻:暗影偏移 + 亮面)
-        const anchor = (
-          dx,
-          dy,
-          fill,
-          op,
-        ) => `<g transform="translate(${dx},${dy})" fill="${fill}" opacity="${op}" stroke="${fill}" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="40" cy="25" r="3.2" fill="none"/>
-          <line x1="40" y1="28" x2="40" y2="52"/>
-          <line x1="32" y1="34" x2="48" y2="34"/>
-          <path d="M30,46 Q31,54 40,55 Q49,54 50,46" fill="none"/>
-          <path d="M30,46 l-3,-3 M30,46 l4,-1 M50,46 l3,-3 M50,46 l-4,-1"/></g>`;
-        // 金锚(统一金色:暗金 #7c5f24 凹影 + 亮金 #f0d488 浮面)
+        const anchor = (dx, dy, fill, op) =>
+          `<g transform="translate(${dx},${dy})" fill="${fill}" opacity="${op}" stroke="${fill}" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="40" cy="25" r="3.2" fill="none"/><line x1="40" y1="28" x2="40" y2="52"/><line x1="32" y1="34" x2="48" y2="34"/><path d="M30,46 Q31,54 40,55 Q49,54 50,46" fill="none"/><path d="M30,46 l-3,-3 M30,46 l4,-1 M50,46 l3,-3 M50,46 l-4,-1"/></g>`;
         s += anchor(0.7, 0.8, "#7c5f24", 0.85) + anchor(0, 0, "#f0d488", 0.98);
-        // SHERRY:统一字体(IM Fell)+ 统一金色(与金边一致)
         s += `<text x="40" y="70" text-anchor="middle" font-family="'IM Fell English',Georgia,serif" font-style="italic" font-size="7" letter-spacing="1.2" fill="#e0c373" opacity="0.92">· SHERRY ·</text>`;
         document.getElementById("seal").innerHTML = s;
       }
 
       drawRose();
       drawSeal();
+
+      // 白天 / 夜晚切换
+      const THEMES = {
+        day: {
+          sea: "#b9cdd0",
+          land: "#ece3cf",
+          cf: "#c9a85a",
+          cfo: 0.32,
+          sf: "#cdab5e",
+          sfo: 0.34,
+          border: "#9a7b3f",
+        },
+        night: {
+          sea: "#0c1722",
+          land: "#1c2a36",
+          cf: "#e7c25c",
+          cfo: 0.5,
+          sf: "#e7c25c",
+          sfo: 0.45,
+          border: "#caa53f",
+        },
+      };
+      let night = false;
+      function applyDayNight() {
+        const t = THEMES[night ? "night" : "day"];
+        const P = (l, p, v) => {
+          if (map.getLayer(l)) map.setPaintProperty(l, p, v);
+        };
+        P("bg", "background-color", t.sea);
+        P("lake", "fill-color", t.sea); // 湖与海同源,夜间一起变深(否则白斑)
+        P("land", "fill-color", t.land);
+        P("country-fill", "fill-color", t.cf);
+        P("country-fill", "fill-opacity", t.cfo);
+        P("state-fill", "fill-color", t.sf);
+        P("state-fill", "fill-opacity", t.sfo);
+        P("border-line", "line-color", t.border);
+        document.body.classList.toggle("night", night);
+        const sv = document.querySelector("#daynight svg");
+        if (sv) {
+          sv.querySelector(".moon").style.display = night ? "none" : "";
+          sv.querySelector(".sun").style.display = night ? "" : "none";
+        }
+      }
+      document.getElementById("daynight").addEventListener("click", () => {
+        night = !night;
+        applyDayNight();
+      });
+
+      // ===== 社交链接 =====
+      (function () {
+        const toast = document.getElementById("toast");
+        let timer;
+        function show(node, html, sticky) {
+          const r = node.getBoundingClientRect();
+          toast.innerHTML = html;
+          toast.classList.add("show");
+          toast.style.left = r.right + 12 + "px";
+          toast.style.top = r.top - 6 + "px";
+          clearTimeout(timer);
+          if (!sticky)
+            timer = setTimeout(() => toast.classList.remove("show"), 2200);
+        }
+        function hideSoon(ms) {
+          clearTimeout(timer);
+          timer = setTimeout(() => toast.classList.remove("show"), ms);
+        }
+        function copy(text) {
+          if (navigator.clipboard && window.isSecureContext)
+            navigator.clipboard.writeText(text).catch(() => fallbackCopy(text));
+          else fallbackCopy(text);
+        }
+        function fallbackCopy(text) {
+          const ta = document.createElement("textarea");
+          ta.value = text;
+          ta.style.position = "fixed";
+          ta.style.opacity = "0";
+          document.body.appendChild(ta);
+          ta.select();
+          try {
+            document.execCommand("copy");
+          } catch (e) {}
+          document.body.removeChild(ta);
+        }
+        document.querySelectorAll("#links a").forEach((a) => {
+          if (a.dataset.soon)
+            a.addEventListener("click", (e) => {
+              e.preventDefault();
+              show(a, `${a.dataset.soon} · coming soon ✦`);
+            });
+          else if (a.dataset.email)
+            a.addEventListener("click", (e) => {
+              e.preventDefault();
+              show(a, `<span class="copyable">${a.dataset.email}</span>`, true);
+              toast
+                .querySelector(".copyable")
+                .addEventListener("click", (ev) => {
+                  ev.stopPropagation();
+                  copy(a.dataset.email);
+                  toast.innerHTML = `Copied ✦`;
+                  hideSoon(1500);
+                });
+            });
+        });
+        document.addEventListener("click", (e) => {
+          if (!e.target.closest("#links") && !e.target.closest("#toast"))
+            toast.classList.remove("show");
+        });
+      })();
+
+      // ===== 启动:加载数据 → 建世界高亮 → 渲染世界层 =====
+      Promise.all([
+        fetch("data/footprints.json").then((r) => r.json()),
+        fetch("data/world.geojson").then((r) => r.json()),
+        fetch("data/states.geojson").then((r) => r.json()),
+        fetch("data/borders.geojson").then((r) => r.json()),
+        fetch("data/lakes.geojson").then((r) => r.json()),
+      ])
+        .then(([d, w, st, bd, lk]) => {
+          DATA = d;
+          WORLD = w;
+          STATES = st;
+          // 台湾属于中国:把台湾几何并入中国,作为中国的一部分(不再是独立 feature)
+          (() => {
+            const cn = w.features.find((f) => f.properties.NAME === "China");
+            const ti = w.features.findIndex(
+              (f) => f.properties.NAME === "Taiwan",
+            );
+            if (cn && ti >= 0) {
+              const polys = (g) =>
+                g.type === "MultiPolygon" ? g.coordinates : [g.coordinates];
+              cn.geometry = {
+                type: "MultiPolygon",
+                coordinates: [
+                  ...polys(cn.geometry),
+                  ...polys(w.features[ti].geometry),
+                ],
+              };
+              w.features.splice(ti, 1);
+            }
+          })();
+          const visited = new Set(Object.keys(NE2MINE));
+          w.features.forEach((f) => {
+            f.properties.__v = visited.has(f.properties.NAME) ? 1 : 0;
+          });
+          buildYears();
+          map.on("load", () => {
+            map.addSource("world", { type: "geojson", data: w });
+            map.addSource("states", { type: "geojson", data: st });
+            map.addSource("borders", { type: "geojson", data: bd });
+            map.addSource("lakes", { type: "geojson", data: lk });
+            // 全球陆地(NE 同源):纸色;海 = 背景色。陆地与去过高亮用同一份数据,边缘不会错位、不被水域切碎
+            map.addLayer(
+              {
+                id: "land",
+                type: "fill",
+                source: "world",
+                paint: { "fill-color": "#ece3cf" },
+              },
+              "roads",
+            );
+            map.addLayer(
+              {
+                id: "country-fill",
+                type: "fill",
+                source: "world",
+                filter: ["==", ["get", "__v"], 1],
+                paint: { "fill-color": "#c9a85a", "fill-opacity": 0.32 },
+              },
+              "roads",
+            );
+            // 去过的省/州:金色填色 + 一圈淡金描边
+            map.addLayer(
+              {
+                id: "state-fill",
+                type: "fill",
+                source: "states",
+                layout: { visibility: "none" },
+                paint: {
+                  "fill-color": "#cdab5e",
+                  "fill-opacity": 0.34,
+                  "fill-outline-color": "#8a6d3a",
+                },
+              },
+              "roads",
+            );
+            // 湖泊(NE,与陆地同源):海色填充,盖住去过国家金色(五大湖等显示为水面)
+            map.addLayer(
+              {
+                id: "lake",
+                type: "fill",
+                source: "lakes",
+                paint: { "fill-color": "#b9cdd0" },
+              },
+              "roads",
+            );
+            // 州/省界(openfreemap admin_level 4):全国省界淡褐虚线,看得到行政划分
+            map.addLayer(
+              {
+                id: "state-border",
+                type: "line",
+                source: "omt",
+                "source-layer": "boundary",
+                filter: [
+                  "all",
+                  ["has", "admin_level"],
+                  ["==", ["get", "admin_level"], 4],
+                ],
+                paint: {
+                  "line-color": "#9a8666",
+                  "line-width": 0.6,
+                  "line-opacity": 0.45,
+                  "line-dasharray": [3, 2],
+                },
+              },
+              "roads",
+            );
+            // 国界线:只画"去过的国家"的陆地国界(不画全球),不含海岸、淡褐细
+            const VISITED_A3 = [
+              "CAN",
+              "USA",
+              "CHN",
+              "TWN",
+              "GBR",
+              "FRA",
+              "BEL",
+              "DEU",
+              "CHE",
+              "ITA",
+              "VAT",
+              "NOR",
+              "DNK",
+              "THA",
+            ];
+            map.addLayer({
+              id: "border-line",
+              type: "line",
+              source: "borders",
+              filter: [
+                "any",
+                ["in", ["get", "ADM0_A3_L"], ["literal", VISITED_A3]],
+                ["in", ["get", "ADM0_A3_R"], ["literal", VISITED_A3]],
+              ],
+              layout: { "line-join": "round" },
+              paint: {
+                "line-color": "#9a7b3f",
+                "line-width": 0.7,
+                "line-opacity": 0.5,
+              },
+            });
+            // 透明的国家点击层(所有层都可点):点别的国家可直接跳过去
+            map.addLayer({
+              id: "country-hit",
+              type: "fill",
+              source: "world",
+              filter: ["==", ["get", "__v"], 1],
+              paint: { "fill-color": "#000", "fill-opacity": 0 },
+            });
+            map.on("click", "country-hit", (e) => {
+              const c = DATA.countries.find(
+                (x) => x.name === NE2MINE[e.features[0].properties.NAME],
+              );
+              if (!c) return;
+              const cur = stack[stack.length - 1];
+              if (cur.c === c) return; // 已在该国,其州交给 state-fill 处理
+              stack.length = 1; // 回到世界,再进点中的国家(支持任意层跨国直跳)
+              navigate({ level: "country", c });
+            });
+            map.on("click", "state-fill", (e) => {
+              const lvl = stack[stack.length - 1];
+              if (lvl.level !== "country" && lvl.level !== "region") return;
+              const r = lvl.c.regions.find(
+                (x) => x.name === e.features[0].properties.region,
+              );
+              if (r && !(lvl.level === "region" && lvl.r === r))
+                navigate({ level: "region", c: lvl.c, r });
+            });
+            ["country-hit", "state-fill"].forEach((id) => {
+              map.on("mouseenter", id, () =>
+                document.getElementById("cursor")?.classList.add("hot"),
+              );
+              map.on("mouseleave", id, () =>
+                document.getElementById("cursor")?.classList.remove("hot"),
+              );
+            });
+            stack.length = 0;
+            stack.push({ level: "world" });
+            renderTop(false);
+            updateCoords();
+            updatePinScale();
+            window.__ready = true;
+            document.getElementById("loadtip")?.remove();
+            openIntro();
+            map.on("move", () => {
+              updateScale();
+              updatePinScale();
+              updateCoords();
+              declutter();
+            });
+            // 缩小 / 平移出界 → 自动退层;缩得越多一次退越多层(连退到对应层级)
+            // 退层:按"当前层范围占屏比例"判断 —— 山东占屏变小就退到中国,
+            // 中国占屏变小就退到世界(不看绝对缩放);移出视野也退。退后 fit 上层完整地图。
+            map.on("moveend", () => {
+              if (Date.now() - navTs < 350) return; // 仅时间防抖,不用动画锁(避免卡死)
+              let popped = false;
+              while (stack.length > 1) {
+                const e = stack[stack.length - 1];
+                // 标准 drill-down 退层:以"进入该层时的展示 zoom(_z)"为基准,
+                // 缩到比它小近 1 级 → 退上层。基准是每层自己的 _z,与国家大小/
+                // 纬度无关(旧的占屏比例对加拿大/中国这种横跨高纬大国必然失效)。
+                if (e._z == null) break; // 该层还没 fit 完,先不判断
+                const zoomedOut = map.getZoom() < e._z - 0.85;
+                const out =
+                  e._bbox && !boundsIntersect(map.getBounds(), e._bbox);
+                if (zoomedOut || out) {
+                  stack.pop();
+                  popped = true;
+                } else break;
+              }
+              if (popped) renderTop(true); // 一次缩放可连退多层,最后 fit 落点层
+            });
+          });
+          map.on("error", (e) =>
+            console.warn("map:", e.error && e.error.message),
+          );
+          setTimeout(() => {
+            if (window.__ready) return;
+            const tip = document.createElement("div");
+            tip.id = "loadtip";
+            tip.textContent = "Map is loading slowly — check your connection";
+            document.getElementById("mapwrap").appendChild(tip);
+            openIntro();
+          }, 8000);
+        })
+        .catch((err) => {
+          console.error(err);
+          const tip = document.createElement("div");
+          tip.id = "loadtip";
+          tip.textContent = "Failed to load data: " + err.message;
+          document.getElementById("mapwrap").appendChild(tip);
+        });
     </script>
   </body>
 </html>

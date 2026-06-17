@@ -1,32 +1,32 @@
 # SHERRY'S FOOTPRINTS — 待办
 
-> 只列还要解决的。照片已导入/去重/分类完(897 张带 GPS,在 `photos/`)。
-> 建议顺序:**4 → 3 → 1·2 → 8 → 6**。
+> 足迹数据见 [FOOTPRINTS.md](FOOTPRINTS.md)。
+> **地图框架已完成**：多层钻取（世界→国家→省/州→城市→景点）、古海图风格、点击/跨国跳转、缩放退层、年份带、10m 边界。旧版备份 `index.legacy.html`。
+> 剩下的主要是**填内容**和**公开前加固**。
 
-## 📦 内容
+## ① 内容（核心，慢慢填）
 
-- [ ] **1. NY 真实足迹点 + 手记** —— 现为占位(Roosevelt Island / Central Park…)。需真实地点 + 故事文字。
-      💡 `photos/New York/` 有照片,坐标能反推地点。
-- [ ] **2. Toronto 手记文案** —— 故事卡 note 是占位,需真实手记。
-- [ ] **3. 照片接进故事卡** —— 897 张已在 `photos/<城市>/`(清单 `_manifest.csv`)。每个足迹点挑 1–3 张接进 index.html:1152(`— 照片 / 手记 —` 占位)。
-- [ ] **4. 社交链接真实地址** —— GitHub / X / Instagram / Email 现为 `href="#"`,填进 `#links`。
+- [ ] **景点 + 手记** —— ✅ 有照片的城市，景点现为"街区级"自动名（如多伦多 32 个 Financial District…），要合并/重命名成真实景点 + 写小作文。先做哪个城市你定（多伦多 / 加东起步？）。
+- [ ] **照片接入** —— 故事卡现为 `— photo · journal —` 留白，把 `photos/` 的照片接进去（每景点 1–3 张）。
+- [ ] **🖼 网图节点** —— 没有自己照片的地方（Victoria / Vancouver / Banff / Waterloo / 北京 / 伦敦…）找可商用 / CC 图。
+- [ ] **城市细节补全** —— 山东 / 云南 / 英 / 法 / 比 / 意 / 泰国 的具体城市（想起来就补进 FOOTPRINTS）。
 
-## 🚀 部署
+## ② 公开前加固
 
-- [ ] **6. 发到公网** —— 现只在 localhost。Vercel / Netlify / GitHub Pages 均可,我能帮你配。
-- [ ] **7. 自定义域名**(可选)
+- [ ] **换无版权 BGM** —— 现 `audio/call-of-silence.mp3` 是《进击的巨人》OST（受版权），换 CC0 / royalty-free。
+- [ ] **CDN 加固** —— maplibre JS/CSS 走 unpkg（无 SRI）、字体走 Google Fonts、底图瓦片走第三方 openfreemap；国内访客可能加载失败。给 maplibre 加 SRI 或本地化（边界数据已本地化在 `data/`）。
+- [ ] **README** —— 运行（`npm start`）/ 部署说明。
 
-## 🔗 Google / 地图
+## ③ 部署
 
-- [ ] **8. 用照片 EXIF GPS 生成足迹点** —— Takeout 位置历史已废弃(改设备本地);改用照片 GPS(已就位)聚类生成足迹点坐标。
-- [ ] **9. Google 登录(OAuth / GIS)** —— 需 GCP OAuth Client ID。先定用途(静态站只能做"显示头像/打招呼",做不到真鉴权)。
-- [ ] **11. Google Maps 真实底图** —— ⏸ 暂缓,保留现在古海图风格。
+- [ ] **发公网** —— Vercel / Netlify / GitHub Pages（会自动 gzip，~5MB 边界数据可压到 ~1MB）。
+- [ ] **自定义域名**（可选）。
 
-## ✨ 可选
+## 随时可调（非阻塞）
 
-- [ ] **12. UI 继续微调**
-- [ ] **13. 海洋省份新章节** —— 那趟 road trip(Halifax / Peggys Cove / Lunenburg / Cape Breton / PEI)照片都在 `photos/`,可单开一章。
+- [ ] 移动端适配
+- [ ] 配色 / UI 微调（见对话里的建议）
 
 ---
 
-_更新于 2026-06-14。_
+_更新于 2026-06-16。_
