@@ -13,6 +13,12 @@
     56
    ],
    "split": "region",
+   "ne_names": [
+    "Canada"
+   ],
+   "iso_a3": [
+    "CAN"
+   ],
    "years": [
     2014,
     2015,
@@ -26,7 +32,7 @@
     2025,
     2026
    ],
-   "cityCount": 83,
+   "cityCount": 121,
    "photoCount": 961,
    "regions": [
     {
@@ -418,6 +424,106 @@
         2020,
         2021
        ],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Allan Gardens",
+       "name_zh": "艾伦花园",
+       "lat": 43.661,
+       "lng": -79.374,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "CN Tower",
+       "name_zh": "加拿大国家电视塔",
+       "lat": 43.642,
+       "lng": -79.387,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "City Hall",
+       "name_zh": "多伦多市政厅",
+       "lat": 43.653,
+       "lng": -79.384,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Distillery District",
+       "name_zh": "酿酒厂区",
+       "lat": 43.65,
+       "lng": -79.359,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Eaton Centre",
+       "name_zh": "伊顿中心",
+       "lat": 43.654,
+       "lng": -79.38,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "High Park",
+       "name_zh": "高地公园",
+       "lat": 43.646,
+       "lng": -79.463,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Lake Ontario",
+       "name_zh": "安大略湖",
+       "lat": 43.636,
+       "lng": -79.38,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "St Lawrence Market",
+       "name_zh": "圣劳伦斯市场",
+       "lat": 43.649,
+       "lng": -79.372,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "University of Waterloo",
+       "name_zh": "滑铁卢大学",
+       "lat": 43.472,
+       "lng": -80.545,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Yonge-Dundas Square",
+       "name_zh": "央街-登打士广场",
+       "lat": 43.656,
+       "lng": -79.38,
+       "years": [],
        "count": 0,
        "source": "web",
        "spots": []
@@ -1601,6 +1707,46 @@
          "count": 1
         }
        ]
+      },
+      {
+       "name": "Cabot Trail",
+       "name_zh": "卡伯特小径",
+       "lat": 46.7,
+       "lng": -60.6,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Halifax Citadel",
+       "name_zh": "哈利法克斯城堡",
+       "lat": 44.647,
+       "lng": -63.58,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Halifax Public Gardens",
+       "name_zh": "哈利法克斯公共花园",
+       "lat": 44.643,
+       "lng": -63.583,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Halifax Waterfront",
+       "name_zh": "哈利法克斯海滨",
+       "lat": 44.648,
+       "lng": -63.568,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
       }
      ]
     },
@@ -1907,6 +2053,36 @@
          "count": 2
         }
        ]
+      },
+      {
+       "name": "Fundy National Park",
+       "name_zh": "芬迪国家公园",
+       "lat": 45.595,
+       "lng": -65.03,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Hopewell Rocks",
+       "name_zh": "好望角岩石",
+       "lat": 45.817,
+       "lng": -64.578,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Magnetic Hill",
+       "name_zh": "磁力山",
+       "lat": 46.118,
+       "lng": -64.834,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
       }
      ]
     },
@@ -2304,6 +2480,46 @@
          "count": 1
         }
        ]
+      },
+      {
+       "name": "Cavendish Beach",
+       "name_zh": "卡文迪什海滩",
+       "lat": 46.498,
+       "lng": -63.379,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Confederation Bridge",
+       "name_zh": "联邦大桥",
+       "lat": 46.232,
+       "lng": -63.687,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Green Gables Heritage Place",
+       "name_zh": "绿山墙故居",
+       "lat": 46.494,
+       "lng": -63.376,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "PEI National Park",
+       "name_zh": "爱德华王子岛国家公园",
+       "lat": 46.42,
+       "lng": -63.1,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
       }
      ]
     },
@@ -2364,6 +2580,86 @@
        "count": 0,
        "source": "web",
        "spots": []
+      },
+      {
+       "name": "BC Parliament Buildings",
+       "name_zh": "卑诗省议会大厦",
+       "lat": 48.42,
+       "lng": -123.37,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Butchart Gardens",
+       "name_zh": "布查特花园",
+       "lat": 48.564,
+       "lng": -123.47,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Capilano Suspension Bridge",
+       "name_zh": "卡皮拉诺吊桥",
+       "lat": 49.343,
+       "lng": -123.115,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Inner Harbour",
+       "name_zh": "内港",
+       "lat": 48.422,
+       "lng": -123.37,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Joffre Lakes",
+       "name_zh": "乔佛瑞湖",
+       "lat": 50.367,
+       "lng": -122.498,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Stanley Park",
+       "name_zh": "斯坦利公园",
+       "lat": 49.302,
+       "lng": -123.144,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Steveston Village",
+       "name_zh": "史蒂夫斯顿渔村",
+       "lat": 49.125,
+       "lng": -123.182,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Whistler",
+       "name_zh": "惠斯勒",
+       "lat": 50.116,
+       "lng": -122.957,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
       }
      ]
     },
@@ -2385,6 +2681,96 @@
        "count": 0,
        "source": "web",
        "spots": []
+      },
+      {
+       "name": "Banff Gondola",
+       "name_zh": "班夫缆车",
+       "lat": 51.149,
+       "lng": -115.557,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Bow Lake",
+       "name_zh": "弓湖",
+       "lat": 51.677,
+       "lng": -116.456,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Castle Mountain",
+       "name_zh": "城堡山",
+       "lat": 51.272,
+       "lng": -115.913,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Johnston Canyon",
+       "name_zh": "约翰斯顿峡谷",
+       "lat": 51.245,
+       "lng": -115.84,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Lake Louise",
+       "name_zh": "露易丝湖",
+       "lat": 51.417,
+       "lng": -116.218,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Lake Minnewanka",
+       "name_zh": "明尼万卡湖",
+       "lat": 51.247,
+       "lng": -115.409,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Moraine Lake",
+       "name_zh": "梦莲湖",
+       "lat": 51.322,
+       "lng": -116.187,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Peyto Lake",
+       "name_zh": "佩托湖",
+       "lat": 51.722,
+       "lng": -116.524,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Vermilion Lakes",
+       "name_zh": "朱砂湖",
+       "lat": 51.18,
+       "lng": -115.601,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
       }
      ]
     }
@@ -2398,6 +2784,12 @@
     39
    ],
    "split": "region",
+   "ne_names": [
+    "United States of America"
+   ],
+   "iso_a3": [
+    "USA"
+   ],
    "years": [
     2019,
     2020,
@@ -2406,7 +2798,7 @@
     2025,
     2026
    ],
-   "cityCount": 8,
+   "cityCount": 93,
    "photoCount": 166,
    "regions": [
     {
@@ -2508,6 +2900,216 @@
          "count": 1
         }
        ]
+      },
+      {
+       "name": "Broadway",
+       "name_zh": "百老汇",
+       "lat": 40.759,
+       "lng": -73.985,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Brooklyn Bridge",
+       "name_zh": "布鲁克林大桥",
+       "lat": 40.706,
+       "lng": -73.997,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Buffalo City Hall",
+       "name_zh": "布法罗市政厅",
+       "lat": 42.886,
+       "lng": -78.879,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Central Park",
+       "name_zh": "中央公园",
+       "lat": 40.782,
+       "lng": -73.965,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Columbia University",
+       "name_zh": "哥伦比亚大学",
+       "lat": 40.808,
+       "lng": -73.962,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Cornell University",
+       "name_zh": "康奈尔大学",
+       "lat": 42.448,
+       "lng": -76.483,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Empire State Building",
+       "name_zh": "帝国大厦",
+       "lat": 40.748,
+       "lng": -73.986,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Fifth Avenue",
+       "name_zh": "第五大道",
+       "lat": 40.775,
+       "lng": -73.965,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Grand Central Terminal",
+       "name_zh": "中央车站",
+       "lat": 40.753,
+       "lng": -73.977,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Maid of the Mist",
+       "name_zh": "雾中少女号",
+       "lat": 43.086,
+       "lng": -79.075,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Museum of Modern Art",
+       "name_zh": "现代艺术博物馆",
+       "lat": 40.761,
+       "lng": -73.978,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Niagara Falls",
+       "name_zh": "尼亚加拉瀑布",
+       "lat": 43.082,
+       "lng": -79.071,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "9/11 Memorial & One World Observatory",
+       "name_zh": "911纪念馆·世贸中心",
+       "lat": 40.712,
+       "lng": -74.013,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Rockefeller Center",
+       "name_zh": "洛克菲勒中心",
+       "lat": 40.759,
+       "lng": -73.979,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Roosevelt Island",
+       "name_zh": "罗斯福岛",
+       "lat": 40.762,
+       "lng": -73.95,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "St Patrick's Cathedral",
+       "name_zh": "圣帕特里克大教堂",
+       "lat": 40.758,
+       "lng": -73.976,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Statue of Liberty",
+       "name_zh": "自由女神像",
+       "lat": 40.689,
+       "lng": -74.045,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Summit One Vanderbilt",
+       "name_zh": "顶点观景台",
+       "lat": 40.753,
+       "lng": -73.979,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "The Metropolitan Museum of Art",
+       "name_zh": "大都会艺术博物馆",
+       "lat": 40.779,
+       "lng": -73.963,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Times Square",
+       "name_zh": "时代广场",
+       "lat": 40.758,
+       "lng": -73.985,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Wall Street & Charging Bull",
+       "name_zh": "华尔街·铜牛",
+       "lat": 40.706,
+       "lng": -74.013,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
       }
      ]
     },
@@ -2651,6 +3253,36 @@
          "count": 4
         }
        ]
+      },
+      {
+       "name": "Fallingwater",
+       "name_zh": "流水别墅",
+       "lat": 39.906,
+       "lng": -79.468,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Independence Hall & Liberty Bell",
+       "name_zh": "独立厅·自由钟",
+       "lat": 39.949,
+       "lng": -75.15,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Philadelphia Museum of Art",
+       "name_zh": "费城艺术博物馆",
+       "lat": 39.965,
+       "lng": -75.181,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
       }
      ]
     },
@@ -2682,6 +3314,16 @@
          "count": 6
         }
        ]
+      },
+      {
+       "name": "Mount Vernon",
+       "name_zh": "弗农山庄",
+       "lat": 38.708,
+       "lng": -77.086,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
       }
      ]
     },
@@ -2713,6 +3355,655 @@
          "count": 5
         }
        ]
+      },
+      {
+       "name": "Georgetown University",
+       "name_zh": "乔治城大学",
+       "lat": 38.908,
+       "lng": -77.073,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Library of Congress",
+       "name_zh": "国会图书馆",
+       "lat": 38.889,
+       "lng": -77.005,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "National Air and Space Museum",
+       "name_zh": "航空航天博物馆",
+       "lat": 38.888,
+       "lng": -77.02,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "The White House",
+       "name_zh": "白宫",
+       "lat": 38.898,
+       "lng": -77.037,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Washington Monument",
+       "name_zh": "华盛顿纪念碑",
+       "lat": 38.889,
+       "lng": -77.035,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      }
+     ]
+    },
+    {
+     "name": "Arizona",
+     "name_zh": "亚利桑那",
+     "years": [],
+     "cities": [
+      {
+       "name": "Antelope Canyon",
+       "name_zh": "羚羊谷",
+       "lat": 36.862,
+       "lng": -111.374,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Grand Canyon National Park",
+       "name_zh": "大峡谷国家公园",
+       "lat": 36.107,
+       "lng": -112.113,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Horseshoe Bend",
+       "name_zh": "马蹄湾",
+       "lat": 36.879,
+       "lng": -111.51,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Lake Powell",
+       "name_zh": "鲍威尔湖",
+       "lat": 36.936,
+       "lng": -111.484,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Monument Valley",
+       "name_zh": "纪念碑谷",
+       "lat": 36.998,
+       "lng": -110.098,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Sedona",
+       "name_zh": "塞多纳",
+       "lat": 34.87,
+       "lng": -111.761,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      }
+     ]
+    },
+    {
+     "name": "California",
+     "name_zh": "加利福尼亚",
+     "years": [],
+     "cities": [
+      {
+       "name": "Alcatraz Island",
+       "name_zh": "恶魔岛",
+       "lat": 37.827,
+       "lng": -122.423,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Death Valley National Park",
+       "name_zh": "死亡谷国家公园",
+       "lat": 36.505,
+       "lng": -117.079,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Disneyland",
+       "name_zh": "迪士尼乐园",
+       "lat": 33.812,
+       "lng": -117.919,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Fisherman's Wharf & Pier 39",
+       "name_zh": "渔人码头·39号码头",
+       "lat": 37.808,
+       "lng": -122.41,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Golden Gate Bridge",
+       "name_zh": "金门大桥",
+       "lat": 37.819,
+       "lng": -122.479,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Griffith Observatory",
+       "name_zh": "格里菲斯天文台",
+       "lat": 34.118,
+       "lng": -118.3,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Hollywood Walk of Fame",
+       "name_zh": "好莱坞星光大道",
+       "lat": 34.101,
+       "lng": -118.341,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Joshua Tree National Park",
+       "name_zh": "约书亚树国家公园",
+       "lat": 33.873,
+       "lng": -115.901,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Lombard Street",
+       "name_zh": "九曲花街",
+       "lat": 37.802,
+       "lng": -122.419,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Mammoth Lakes",
+       "name_zh": "猛犸湖",
+       "lat": 37.649,
+       "lng": -118.972,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Redwood National Park",
+       "name_zh": "红杉国家公园",
+       "lat": 41.213,
+       "lng": -124.005,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Santa Monica Pier",
+       "name_zh": "圣莫尼卡码头",
+       "lat": 34.009,
+       "lng": -118.498,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Stanford University",
+       "name_zh": "斯坦福大学",
+       "lat": 37.427,
+       "lng": -122.17,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Twin Peaks",
+       "name_zh": "双子峰",
+       "lat": 37.752,
+       "lng": -122.447,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Universal Studios Hollywood",
+       "name_zh": "好莱坞环球影城",
+       "lat": 34.138,
+       "lng": -118.353,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Yosemite",
+       "name_zh": "优胜美地",
+       "lat": 37.745,
+       "lng": -119.593,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      }
+     ]
+    },
+    {
+     "name": "Florida",
+     "name_zh": "佛罗里达",
+     "years": [],
+     "cities": [
+      {
+       "name": "Key West",
+       "name_zh": "基韦斯特",
+       "lat": 24.555,
+       "lng": -81.78,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Miami Beach",
+       "name_zh": "迈阿密海滩",
+       "lat": 25.79,
+       "lng": -80.13,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Universal Orlando",
+       "name_zh": "奥兰多环球影城",
+       "lat": 28.474,
+       "lng": -81.468,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Walt Disney World",
+       "name_zh": "华特迪士尼世界",
+       "lat": 28.385,
+       "lng": -81.564,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      }
+     ]
+    },
+    {
+     "name": "Hawaii",
+     "name_zh": "夏威夷",
+     "years": [],
+     "cities": [
+      {
+       "name": "Diamond Head",
+       "name_zh": "钻石头山",
+       "lat": 21.262,
+       "lng": -157.805,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Haleakalā National Park",
+       "name_zh": "哈雷阿卡拉国家公园",
+       "lat": 20.71,
+       "lng": -156.174,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Hawaii Volcanoes National Park",
+       "name_zh": "夏威夷火山国家公园",
+       "lat": 19.421,
+       "lng": -155.288,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Manawaiopuna Falls",
+       "name_zh": "马纳瓦伊欧普纳瀑布",
+       "lat": 22.08,
+       "lng": -159.471,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Manta Ray Night Snorkel",
+       "name_zh": "魔鬼鱼夜潜",
+       "lat": 19.563,
+       "lng": -155.967,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Mauna Kea",
+       "name_zh": "莫纳克亚山",
+       "lat": 19.821,
+       "lng": -155.468,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Nā Pali Coast",
+       "name_zh": "纳帕利海岸",
+       "lat": 22.168,
+       "lng": -159.643,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Pearl Harbor",
+       "name_zh": "珍珠港",
+       "lat": 21.365,
+       "lng": -157.95,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Punaluu Black Sand Beach",
+       "name_zh": "黑沙滩",
+       "lat": 19.136,
+       "lng": -155.504,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Road to Hana",
+       "name_zh": "哈纳之路",
+       "lat": 20.776,
+       "lng": -156.014,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Waikiki Beach",
+       "name_zh": "威基基海滩",
+       "lat": 21.276,
+       "lng": -157.827,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Waimea Canyon",
+       "name_zh": "威美亚峡谷",
+       "lat": 22.075,
+       "lng": -159.665,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      }
+     ]
+    },
+    {
+     "name": "Massachusetts",
+     "name_zh": "马萨诸塞",
+     "years": [],
+     "cities": [
+      {
+       "name": "Boston Common & Public Garden",
+       "name_zh": "波士顿公园",
+       "lat": 42.355,
+       "lng": -71.066,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Freedom Trail",
+       "name_zh": "自由之路",
+       "lat": 42.36,
+       "lng": -71.056,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Harvard",
+       "name_zh": "哈佛大学",
+       "lat": 42.377,
+       "lng": -71.117,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "MIT",
+       "name_zh": "麻省理工",
+       "lat": 42.36,
+       "lng": -71.092,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Museum of Fine Arts",
+       "name_zh": "波士顿美术馆",
+       "lat": 42.339,
+       "lng": -71.094,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Quincy Market",
+       "name_zh": "昆西市场",
+       "lat": 42.36,
+       "lng": -71.055,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      }
+     ]
+    },
+    {
+     "name": "Nevada",
+     "name_zh": "内华达",
+     "years": [],
+     "cities": [
+      {
+       "name": "Bellagio Fountains",
+       "name_zh": "百乐宫喷泉",
+       "lat": 36.113,
+       "lng": -115.176,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Great Basin National Park",
+       "name_zh": "大盆地国家公园",
+       "lat": 38.983,
+       "lng": -114.3,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Hoover Dam",
+       "name_zh": "胡佛水坝",
+       "lat": 36.016,
+       "lng": -114.738,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Lake Mead",
+       "name_zh": "米德湖",
+       "lat": 36.131,
+       "lng": -114.422,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Sphere",
+       "name_zh": "Sphere 球幕",
+       "lat": 36.121,
+       "lng": -115.162,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "The Strip, Las Vegas",
+       "name_zh": "拉斯维加斯大道",
+       "lat": 36.115,
+       "lng": -115.173,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Valley of Fire State Park",
+       "name_zh": "火焰谷州立公园",
+       "lat": 36.48,
+       "lng": -114.53,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      }
+     ]
+    },
+    {
+     "name": "Utah",
+     "name_zh": "犹他",
+     "years": [],
+     "cities": [
+      {
+       "name": "Arches National Park",
+       "name_zh": "拱门国家公园",
+       "lat": 38.733,
+       "lng": -109.592,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Bryce Canyon National Park",
+       "name_zh": "布莱斯峡谷国家公园",
+       "lat": 37.593,
+       "lng": -112.187,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Canyonlands National Park",
+       "name_zh": "峡谷地国家公园",
+       "lat": 38.327,
+       "lng": -109.878,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Zion National Park",
+       "name_zh": "锡安国家公园",
+       "lat": 37.298,
+       "lng": -113.026,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
       }
      ]
     }
@@ -2726,11 +4017,19 @@
     35
    ],
    "split": "region",
+   "ne_names": [
+    "China",
+    "Taiwan"
+   ],
+   "iso_a3": [
+    "CHN",
+    "TWN"
+   ],
    "years": [
     2020,
     2021
    ],
-   "cityCount": 23,
+   "cityCount": 46,
    "photoCount": 360,
    "regions": [
     {
@@ -2860,6 +4159,26 @@
          "count": 2
         }
        ]
+      },
+      {
+       "name": "Oriental Pearl Tower",
+       "name_zh": "东方明珠",
+       "lat": 31.24,
+       "lng": 121.495,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "The Bund",
+       "name_zh": "外滩",
+       "lat": 31.24,
+       "lng": 121.49,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
       }
      ]
     },
@@ -3033,6 +4352,66 @@
        "count": 0,
        "source": "web",
        "spots": []
+      },
+      {
+       "name": "Lingyin Temple",
+       "name_zh": "灵隐寺",
+       "lat": 30.241,
+       "lng": 120.101,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Tianyi Pavilion",
+       "name_zh": "天一阁",
+       "lat": 29.873,
+       "lng": 121.546,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Hengdian World Studios",
+       "name_zh": "横店影视城",
+       "lat": 29.142,
+       "lng": 120.236,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Lu Xun's Hometown",
+       "name_zh": "鲁迅故里",
+       "lat": 29.989,
+       "lng": 120.585,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Nanxi River",
+       "name_zh": "楠溪江",
+       "lat": 28.15,
+       "lng": 120.69,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Mount Putuo",
+       "name_zh": "普陀山",
+       "lat": 30.008,
+       "lng": 122.388,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
       }
      ]
     },
@@ -3167,6 +4546,16 @@
          "count": 1
         }
        ]
+      },
+      {
+       "name": "Wuyi Square",
+       "name_zh": "五一广场",
+       "lat": 28.196,
+       "lng": 112.978,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
       }
      ]
     },
@@ -3284,6 +4673,26 @@
        "count": 0,
        "source": "web",
        "spots": []
+      },
+      {
+       "name": "Canton Tower",
+       "name_zh": "广州塔",
+       "lat": 23.106,
+       "lng": 113.324,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Pearl River Night Cruise",
+       "name_zh": "珠江夜游",
+       "lat": 23.114,
+       "lng": 113.264,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
       }
      ]
     },
@@ -3321,6 +4730,16 @@
        "name_zh": "黄石",
        "lat": 30.2,
        "lng": 115.039,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Yellow Crane Tower",
+       "name_zh": "黄鹤楼",
+       "lat": 30.546,
+       "lng": 114.305,
        "years": [],
        "count": 0,
        "source": "web",
@@ -3366,6 +4785,16 @@
        "count": 0,
        "source": "web",
        "spots": []
+      },
+      {
+       "name": "Suzhou Classical Gardens",
+       "name_zh": "苏州古典园林",
+       "lat": 31.324,
+       "lng": 120.629,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
       }
      ]
     },
@@ -3375,10 +4804,70 @@
      "years": [],
      "cities": [
       {
-       "name": "Beijing",
-       "name_zh": "北京",
-       "lat": 39.904,
-       "lng": 116.407,
+       "name": "The Forbidden City",
+       "name_zh": "故宫",
+       "lat": 39.916,
+       "lng": 116.397,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Tiananmen Square",
+       "name_zh": "天安门广场",
+       "lat": 39.905,
+       "lng": 116.397,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "The Great Wall",
+       "name_zh": "长城",
+       "lat": 40.432,
+       "lng": 116.57,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Temple of Heaven",
+       "name_zh": "天坛",
+       "lat": 39.882,
+       "lng": 116.41,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Summer Palace",
+       "name_zh": "颐和园",
+       "lat": 39.999,
+       "lng": 116.275,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Old Summer Palace",
+       "name_zh": "圆明园",
+       "lat": 40.008,
+       "lng": 116.298,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Bird's Nest & Water Cube",
+       "name_zh": "鸟巢·水立方",
+       "lat": 39.993,
+       "lng": 116.397,
        "years": [],
        "count": 0,
        "source": "web",
@@ -3392,10 +4881,10 @@
      "years": [],
      "cities": [
       {
-       "name": "Tianjin",
-       "name_zh": "天津",
-       "lat": 39.343,
-       "lng": 117.361,
+       "name": "Tianjin Eye",
+       "name_zh": "天津之眼",
+       "lat": 39.153,
+       "lng": 117.172,
        "years": [],
        "count": 0,
        "source": "web",
@@ -3409,10 +4898,10 @@
      "years": [],
      "cities": [
       {
-       "name": "Jinan",
-       "name_zh": "济南",
-       "lat": 36.651,
-       "lng": 117.12,
+       "name": "Mount Tai",
+       "name_zh": "泰山",
+       "lat": 36.255,
+       "lng": 117.101,
        "years": [],
        "count": 0,
        "source": "web",
@@ -3426,10 +4915,57 @@
      "years": [],
      "cities": [
       {
-       "name": "Kunming",
-       "name_zh": "昆明",
-       "lat": 25.038,
-       "lng": 102.718,
+       "name": "Lijiang Old Town",
+       "name_zh": "丽江古城",
+       "lat": 26.876,
+       "lng": 100.235,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Jade Dragon Snow Mountain",
+       "name_zh": "玉龙雪山",
+       "lat": 27.103,
+       "lng": 100.176,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Lugu Lake",
+       "name_zh": "泸沽湖",
+       "lat": 27.706,
+       "lng": 100.786,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Xishuangbanna",
+       "name_zh": "西双版纳",
+       "lat": 22.008,
+       "lng": 100.798,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      }
+     ]
+    },
+    {
+     "name": "Anhui",
+     "name_zh": "安徽",
+     "years": [],
+     "cities": [
+      {
+       "name": "Mount Huangshan",
+       "name_zh": "黄山",
+       "lat": 30.135,
+       "lng": 118.166,
        "years": [],
        "count": 0,
        "source": "web",
@@ -3447,8 +4983,14 @@
     54
    ],
    "split": "city",
+   "ne_names": [
+    "United Kingdom"
+   ],
+   "iso_a3": [
+    "GBR"
+   ],
    "years": [],
-   "cityCount": 1,
+   "cityCount": 9,
    "photoCount": 0,
    "regions": [
     {
@@ -3457,10 +4999,90 @@
      "years": [],
      "cities": [
       {
-       "name": "London",
-       "name_zh": "伦敦",
-       "lat": 51.507,
-       "lng": -0.128,
+       "name": "Big Ben & Houses of Parliament",
+       "name_zh": "大本钟·议会大厦",
+       "lat": 51.5,
+       "lng": -0.124,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "British Museum",
+       "name_zh": "大英博物馆",
+       "lat": 51.519,
+       "lng": -0.127,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Buckingham Palace",
+       "name_zh": "白金汉宫",
+       "lat": 51.501,
+       "lng": -0.142,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Edinburgh",
+       "name_zh": "爱丁堡",
+       "lat": 55.953,
+       "lng": -3.188,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "London Eye",
+       "name_zh": "伦敦眼",
+       "lat": 51.503,
+       "lng": -0.119,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Oxford & Cambridge",
+       "name_zh": "牛津·剑桥",
+       "lat": 51.752,
+       "lng": -1.258,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Scottish Highlands",
+       "name_zh": "苏格兰高地",
+       "lat": 57.12,
+       "lng": -4.713,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Stonehenge",
+       "name_zh": "巨石阵",
+       "lat": 51.179,
+       "lng": -1.826,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Tower Bridge",
+       "name_zh": "塔桥",
+       "lat": 51.505,
+       "lng": -0.075,
        "years": [],
        "count": 0,
        "source": "web",
@@ -3478,8 +5100,14 @@
     46.6
    ],
    "split": "city",
+   "ne_names": [
+    "France"
+   ],
+   "iso_a3": [
+    "FRA"
+   ],
    "years": [],
-   "cityCount": 1,
+   "cityCount": 7,
    "photoCount": 0,
    "regions": [
     {
@@ -3488,10 +5116,70 @@
      "years": [],
      "cities": [
       {
-       "name": "Paris",
-       "name_zh": "巴黎",
-       "lat": 48.857,
-       "lng": 2.352,
+       "name": "Eiffel Tower",
+       "name_zh": "埃菲尔铁塔",
+       "lat": 48.858,
+       "lng": 2.294,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "French Riviera",
+       "name_zh": "蔚蓝海岸",
+       "lat": 43.696,
+       "lng": 7.266,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Loire Valley",
+       "name_zh": "卢瓦尔河谷",
+       "lat": 47.396,
+       "lng": 0.689,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Louvre",
+       "name_zh": "卢浮宫",
+       "lat": 48.86,
+       "lng": 2.337,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Mont Saint-Michel",
+       "name_zh": "圣米歇尔山",
+       "lat": 48.636,
+       "lng": -1.511,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Provence",
+       "name_zh": "普罗旺斯",
+       "lat": 43.949,
+       "lng": 4.805,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Versailles",
+       "name_zh": "凡尔赛宫",
+       "lat": 48.804,
+       "lng": 2.12,
        "years": [],
        "count": 0,
        "source": "web",
@@ -3509,8 +5197,14 @@
     50.6
    ],
    "split": "city",
+   "ne_names": [
+    "Belgium"
+   ],
+   "iso_a3": [
+    "BEL"
+   ],
    "years": [],
-   "cityCount": 1,
+   "cityCount": 3,
    "photoCount": 0,
    "regions": [
     {
@@ -3519,9 +5213,29 @@
      "years": [],
      "cities": [
       {
-       "name": "Brussels",
-       "name_zh": "布鲁塞尔",
-       "lat": 50.851,
+       "name": "Bruges",
+       "name_zh": "布鲁日",
+       "lat": 51.209,
+       "lng": 3.224,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Ghent",
+       "name_zh": "根特",
+       "lat": 51.054,
+       "lng": 3.722,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Grand Place",
+       "name_zh": "布鲁塞尔大广场",
+       "lat": 50.846,
        "lng": 4.352,
        "years": [],
        "count": 0,
@@ -3540,10 +5254,16 @@
     51.2
    ],
    "split": "city",
+   "ne_names": [
+    "Germany"
+   ],
+   "iso_a3": [
+    "DEU"
+   ],
    "years": [
     2019
    ],
-   "cityCount": 2,
+   "cityCount": 7,
    "photoCount": 4,
    "regions": [
     {
@@ -3596,6 +5316,56 @@
          "count": 2
         }
        ]
+      },
+      {
+       "name": "Black Forest",
+       "name_zh": "黑森林",
+       "lat": 48.27,
+       "lng": 8.18,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Brandenburg Gate",
+       "name_zh": "勃兰登堡门",
+       "lat": 52.516,
+       "lng": 13.378,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Cologne Cathedral",
+       "name_zh": "科隆大教堂",
+       "lat": 50.941,
+       "lng": 6.958,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Königssee",
+       "name_zh": "国王湖",
+       "lat": 47.553,
+       "lng": 12.987,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Rothenburg ob der Tauber",
+       "name_zh": "罗滕堡",
+       "lat": 49.378,
+       "lng": 10.179,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
       }
      ]
     }
@@ -3609,10 +5379,16 @@
     46.8
    ],
    "split": "city",
+   "ne_names": [
+    "Switzerland"
+   ],
+   "iso_a3": [
+    "CHE"
+   ],
    "years": [
     2019
    ],
-   "cityCount": 8,
+   "cityCount": 12,
    "photoCount": 14,
    "regions": [
     {
@@ -3824,6 +5600,46 @@
          "count": 1
         }
        ]
+      },
+      {
+       "name": "Chillon Castle",
+       "name_zh": "西庸城堡",
+       "lat": 46.414,
+       "lng": 6.928,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Glacier Express",
+       "name_zh": "冰川快车",
+       "lat": 46.677,
+       "lng": 9.674,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Jungfraujoch",
+       "name_zh": "少女峰",
+       "lat": 46.548,
+       "lng": 7.985,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Rhine Falls",
+       "name_zh": "莱茵瀑布",
+       "lat": 47.677,
+       "lng": 8.615,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
       }
      ]
     }
@@ -3837,8 +5653,14 @@
     42.8
    ],
    "split": "city",
+   "ne_names": [
+    "Italy"
+   ],
+   "iso_a3": [
+    "ITA"
+   ],
    "years": [],
-   "cityCount": 1,
+   "cityCount": 6,
    "photoCount": 0,
    "regions": [
     {
@@ -3847,10 +5669,60 @@
      "years": [],
      "cities": [
       {
-       "name": "Rome",
-       "name_zh": "罗马",
-       "lat": 41.903,
-       "lng": 12.496,
+       "name": "Amalfi Coast",
+       "name_zh": "阿马尔菲海岸",
+       "lat": 40.634,
+       "lng": 14.602,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Cinque Terre",
+       "name_zh": "五渔村",
+       "lat": 44.128,
+       "lng": 9.711,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Colosseum",
+       "name_zh": "罗马斗兽场",
+       "lat": 41.89,
+       "lng": 12.492,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Florence Duomo",
+       "name_zh": "佛罗伦萨大教堂",
+       "lat": 43.773,
+       "lng": 11.256,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Leaning Tower of Pisa",
+       "name_zh": "比萨斜塔",
+       "lat": 43.723,
+       "lng": 10.396,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Venice",
+       "name_zh": "威尼斯",
+       "lat": 45.434,
+       "lng": 12.339,
        "years": [],
        "count": 0,
        "source": "web",
@@ -3868,6 +5740,12 @@
     41.9
    ],
    "split": "city",
+   "ne_names": [
+    "Vatican"
+   ],
+   "iso_a3": [
+    "VAT"
+   ],
    "years": [],
    "cityCount": 1,
    "photoCount": 0,
@@ -3878,8 +5756,8 @@
      "years": [],
      "cities": [
       {
-       "name": "Vatican City",
-       "name_zh": "梵蒂冈",
+       "name": "St Peter's Basilica",
+       "name_zh": "圣彼得大教堂",
        "lat": 41.902,
        "lng": 12.453,
        "years": [],
@@ -3899,10 +5777,16 @@
     61
    ],
    "split": "city",
+   "ne_names": [
+    "Norway"
+   ],
+   "iso_a3": [
+    "NOR"
+   ],
    "years": [
     2019
    ],
-   "cityCount": 4,
+   "cityCount": 11,
    "photoCount": 11,
    "regions": [
     {
@@ -4008,6 +5892,76 @@
          "count": 1
         }
        ]
+      },
+      {
+       "name": "Flåm Railway",
+       "name_zh": "弗洛姆铁路",
+       "lat": 60.863,
+       "lng": 7.113,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Geirangerfjord",
+       "name_zh": "盖朗厄尔峡湾",
+       "lat": 62.101,
+       "lng": 7.205,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Kjeragbolten",
+       "name_zh": "谢拉格伯尔顿巨石",
+       "lat": 59.034,
+       "lng": 6.591,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Lofoten Islands",
+       "name_zh": "罗弗敦群岛",
+       "lat": 67.933,
+       "lng": 13.088,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Preikestolen",
+       "name_zh": "布道石",
+       "lat": 58.986,
+       "lng": 6.19,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Trolltunga",
+       "name_zh": "巨魔之舌",
+       "lat": 60.124,
+       "lng": 6.74,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Tromsø",
+       "name_zh": "特罗姆瑟",
+       "lat": 69.649,
+       "lng": 18.956,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
       }
      ]
     }
@@ -4021,10 +5975,16 @@
     56
    ],
    "split": "city",
+   "ne_names": [
+    "Denmark"
+   ],
+   "iso_a3": [
+    "DNK"
+   ],
    "years": [
     2019
    ],
-   "cityCount": 1,
+   "cityCount": 7,
    "photoCount": 1,
    "regions": [
     {
@@ -4055,6 +6015,66 @@
          "count": 1
         }
        ]
+      },
+      {
+       "name": "Kronborg Castle",
+       "name_zh": "克伦堡(哈姆雷特城堡)",
+       "lat": 56.039,
+       "lng": 12.622,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Nyhavn",
+       "name_zh": "新港",
+       "lat": 55.68,
+       "lng": 12.591,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Rosenborg Castle",
+       "name_zh": "罗森堡宫",
+       "lat": 55.685,
+       "lng": 12.577,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Round Tower",
+       "name_zh": "圆塔",
+       "lat": 55.681,
+       "lng": 12.575,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "The Little Mermaid",
+       "name_zh": "小美人鱼像",
+       "lat": 55.693,
+       "lng": 12.599,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Tivoli Gardens",
+       "name_zh": "趣伏里乐园",
+       "lat": 55.674,
+       "lng": 12.568,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
       }
      ]
     }
@@ -4068,8 +6088,14 @@
     15
    ],
    "split": "city",
+   "ne_names": [
+    "Thailand"
+   ],
+   "iso_a3": [
+    "THA"
+   ],
    "years": [],
-   "cityCount": 1,
+   "cityCount": 7,
    "photoCount": 0,
    "regions": [
     {
@@ -4078,10 +6104,70 @@
      "years": [],
      "cities": [
       {
-       "name": "Bangkok",
-       "name_zh": "曼谷",
-       "lat": 13.756,
-       "lng": 100.502,
+       "name": "Ayutthaya",
+       "name_zh": "大城",
+       "lat": 14.357,
+       "lng": 100.578,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Chiang Mai & Doi Suthep",
+       "name_zh": "清迈·素贴山",
+       "lat": 18.788,
+       "lng": 98.985,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Damnoen Saduak Floating Market",
+       "name_zh": "丹嫩沙多水上市场",
+       "lat": 13.52,
+       "lng": 99.957,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Grand Palace & Wat Phra Kaew",
+       "name_zh": "大皇宫·玉佛寺",
+       "lat": 13.751,
+       "lng": 100.491,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Wat Arun",
+       "name_zh": "郑王庙(黎明寺)",
+       "lat": 13.744,
+       "lng": 100.489,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Wat Pho",
+       "name_zh": "卧佛寺",
+       "lat": 13.747,
+       "lng": 100.493,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "White Temple",
+       "name_zh": "白庙",
+       "lat": 19.824,
+       "lng": 99.763,
        "years": [],
        "count": 0,
        "source": "web",

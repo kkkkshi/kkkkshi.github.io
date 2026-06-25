@@ -1,2069 +1,890 @@
 <!doctype html>
-<html lang="zh">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Sherry's Footprints</title>
-    <link
-      href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css"
-      rel="stylesheet"
+    <script>
+      // set theme before first paint (no flash)
+      (function () {
+        try {
+          var t = localStorage.getItem("theme");
+          if (t !== "dark" && t !== "light")
+            t = matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
+          document.documentElement.setAttribute("data-theme", t);
+        } catch (e) {}
+      })();
+    </script>
+    <title>Sherry (Ke) Shi · Data Scientist</title>
+    <meta
+      name="description"
+      content="Sherry (Ke) Shi · Data Scientist in Toronto. Real-time machine learning for fraud and risk."
     />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=IM+Fell+English:ital@0;1&display=swap"
-      rel="stylesheet"
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231f6347'/%3E%3Ctext x='16' y='22' font-family='Helvetica,Arial,sans-serif' font-size='17' font-weight='700' fill='%23ffffff' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E"
     />
+    <!-- 系统字体（Apple HIG）：Mac 上即 San Francisco，无需外部字体 -->
     <style>
+      /* ============================================================
+         Apple Human Interface Guidelines · visual skin
+         规则来源：HIG — Materials(透明度) / Elevation(层级) / Buttons
+         强调色 = 品牌绿（作为 system tint color）；其余走苹果中性 + 不透明度分级
+         ============================================================ */
       :root {
-        --paper: #ece3cf;
-        --paper2: #ddd0b2;
-        --ink: #3a2f23;
-        --ink2: #6b5a44;
-        --sea: #b9cdd0;
-        --marker: #9b2d20;
-        --gold: #b89344;
-        --goldhi: #e0c373;
-        --golddk: #7c5f24;
-        --mat: #ece3cf;
-        --fell: "IM Fell English", "Songti SC", Georgia, serif;
+        --bg: #f2f2f7;                    /* systemGroupedBackground */
+        --card: #ffffff;                 /* secondarySystemGroupedBackground */
+        --ink: #1c1c1e;                  /* label */
+        --muted: rgba(60, 60, 67, 0.75); /* secondaryLabel · 调至 ≥4.5:1 (WCAG AA) */
+        --faint: rgba(60, 60, 67, 0.3);  /* tertiaryLabel */
+        --line: rgba(60, 60, 67, 0.16);  /* separator */
+        --fill: rgba(120, 120, 128, 0.12);   /* tertiarySystemFill */
+        --fill-2: rgba(120, 120, 128, 0.16); /* secondarySystemFill */
+        --accent: #1f6347;               /* brand green = app tint */
+        --accent-ink: #1a5740;
+        --accent-soft: rgba(31, 99, 71, 0.1);
+        --material: rgba(248, 248, 250, 0.85); /* nav material（够实，内容不透出来糊在一起）*/
+        --radius: 16px;
+        --radius-sm: 10px;
+        --sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display",
+          "Segoe UI", system-ui, Roboto, Helvetica, Arial, sans-serif;
+        --shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+        --shadow-hover: 0 8px 24px -8px rgba(0, 0, 0, 0.16);
+        /* 字号阶梯 type scale（对齐 Apple 体系，消除零散/小数字号）*/
+        --fs-display: clamp(40px, 7vw, 64px); /* Hero */
+        --fs-title2: 22px;   /* Lead 段 */
+        --fs-title3: 20px;   /* Hero 副文案 */
+        --fs-headline: 17px; /* 卡片标题 */
+        --fs-body: 16px;     /* 正文 */
+        --fs-callout: 15px;  /* 描述 */
+        --fs-subhead: 14px;  /* 次要描述 */
+        --fs-footnote: 13px; /* 标签/眉头/时间 */
+        --fs-caption: 12px;  /* 元信息 */
+      }
+      [data-theme="dark"] {
+        /* 暗色规范(Material/HIG)：① 不用纯黑 ② 海拔=更亮的表面
+           ③ 文字按不透明度分级 ④ 强调色去饱和 ⑤ 柔和阴影表达层级 */
+        --bg: #16161a;                      /* 基础表面：深灰，非纯黑 */
+        --card: #1f1f24;                    /* +1 海拔：比底更亮 */
+        --ink: rgba(255, 255, 255, 0.92);   /* 高强调 */
+        --muted: rgba(255, 255, 255, 0.58); /* 中强调 */
+        --faint: rgba(255, 255, 255, 0.38); /* 低强调 */
+        --line: rgba(255, 255, 255, 0.1);
+        --fill: rgba(255, 255, 255, 0.07);
+        --fill-2: rgba(255, 255, 255, 0.11);
+        --accent: #5cc08a;                  /* 去饱和/提亮的绿 */
+        --accent-ink: #7ed3a6;
+        --accent-soft: rgba(92, 192, 138, 0.18);
+        --material: rgba(22, 22, 26, 0.85); /* 导航材质（够实，内容不透出来糊在一起）*/
+        --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.3);
+        --shadow-hover: 0 12px 30px -10px rgba(0, 0, 0, 0.7);
       }
       * {
-        margin: 0;
         box-sizing: border-box;
       }
-      html,
-      body {
-        height: 100%;
-        overflow: hidden;
+      html {
+        scroll-behavior: smooth;
+        background: var(--bg);
+        transition: background-color 0.3s ease;
       }
       body {
-        font-family: var(--fell);
-        background: radial-gradient(130% 110% at 50% 32%, #342c20, #211b13);
-      }
-      #mapwrap {
-        position: absolute;
-        inset: 6px;
-        overflow: hidden;
-        box-shadow:
-          0 10px 30px -10px rgba(12, 7, 2, 0.5),
-          0 0 0 1.5px #b89344;
-      }
-      #map {
-        position: absolute;
-        inset: 0;
-        z-index: 1;
-        background: var(--paper);
-      }
-      .maplibregl-canvas {
-        filter: saturate(0.94) sepia(0.04);
-      }
-      #seal {
-        cursor: pointer !important;
-      }
-
-      #rings {
-        position: absolute;
-        inset: 0;
-        z-index: 3;
-        pointer-events: none;
-        box-shadow:
-          inset 0 0 0 7px var(--mat),
-          inset 0 0 0 8px #b89344,
-          inset 0 0 0 10px var(--mat),
-          inset 0 0 0 11px #c9a85a;
-      }
-      #age {
-        position: absolute;
-        inset: 0;
-        z-index: 2;
-        pointer-events: none;
-        background: radial-gradient(
-          135% 135% at 50% 46%,
-          transparent 54%,
-          rgba(120, 85, 45, 0.2) 100%
-        );
-        mix-blend-mode: multiply;
-      }
-      #light {
-        position: absolute;
-        inset: 0;
-        z-index: 2;
-        pointer-events: none;
-        background: radial-gradient(
-          70% 60% at 50% 44%,
-          rgba(255, 245, 220, 0.13),
-          transparent 70%
-        );
-        mix-blend-mode: soft-light;
-      }
-      #grain {
-        position: absolute;
-        inset: 0;
-        z-index: 2;
-        pointer-events: none;
-        opacity: 0.08;
-        mix-blend-mode: multiply;
-      }
-      .port {
-        position: relative;
-        width: 0;
-        height: 0;
-      }
-      .port .pin {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 15px;
-        height: 15px;
-        transform: translate(-50%, -50%) scale(var(--ps, 1));
-        border: 2.2px solid var(--marker);
-        border-radius: 50%;
-        background: #efe7d2;
-        box-shadow:
-          0 0 0 2.6px rgba(236, 227, 207, 0.92),
-          0 1px 2px rgba(30, 18, 4, 0.3);
-        transition: transform 0.18s ease;
-      }
-      .port .pin::after {
-        content: "";
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        width: 4px;
-        height: 4px;
-        background: var(--marker);
-        border-radius: 50%;
-        transform: translate(-50%, -50%);
-      }
-      .port .pin:hover {
-        transform: translate(-50%, -50%) scale(calc(var(--ps, 1) * 1.25));
-      }
-      /* 上层节点(国家/省/市)用稍大的金心标记,区别于景点红点 */
-      .port.area .pin {
-        width: 17px;
-        height: 17px;
-        border-color: var(--golddk);
-        background: #f3ead0;
-      }
-      .port.area .pin::after {
-        background: var(--golddk);
-      }
-      .port.web .pin {
-        border-style: dashed;
-      }
-      .port .lbl {
-        position: absolute;
-        left: 12px;
-        top: -8px;
-        white-space: nowrap;
-        font: italic 15px var(--fell);
-        color: #7a2a1e;
-        text-shadow:
-          0 1px 0 rgba(236, 227, 207, 0.95),
-          0 0 5px rgba(236, 227, 207, 1);
-        pointer-events: none;
-      }
-      /* 区域(国家/州)无圆点:文字居中、可点,点填色块或文字都进入 */
-      .port.area .lbl {
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        font:
-          600 13.5px "Cinzel",
-          serif;
-        letter-spacing: 0.04em;
-        color: #4a3b2a;
-        pointer-events: auto;
-        cursor: pointer;
-        text-shadow:
-          0 0 7px rgba(236, 227, 207, 1),
-          0 1px 0 rgba(236, 227, 207, 0.95);
-      }
-      .port.area .lbl:hover {
-        color: #7a2a1e;
-      }
-      .port.area .cnt {
-        left: 50%;
-        top: calc(50% + 12px);
-        transform: translateX(-50%);
-        text-align: center;
-      }
-      .port .cnt {
-        position: absolute;
-        left: 12px;
-        top: 9px;
-        white-space: nowrap;
-        font: italic 10px var(--fell);
-        color: var(--ink2);
-        opacity: 0.8;
-        text-shadow: 0 1px 0 rgba(236, 227, 207, 0.9);
-        pointer-events: none;
-      }
-
-      #compass {
-        position: absolute;
-        right: 26px;
-        bottom: 26px;
-        z-index: 6;
-        width: 86px;
-        height: 86px;
-        pointer-events: none;
-        filter: drop-shadow(0 2px 4px rgba(40, 30, 12, 0.35));
-      }
-      #scale {
-        position: absolute;
-        left: 28px;
-        bottom: 28px;
-        z-index: 6;
-        pointer-events: none;
-        opacity: 0.9;
-      }
-      #seal {
-        position: absolute;
-        left: 28px;
-        top: 28px;
-        z-index: 7;
-        width: 74px;
-        height: 74px;
-        pointer-events: auto;
-        filter: drop-shadow(0 2px 3px rgba(30, 12, 8, 0.5));
-        transition:
-          transform 0.16s ease,
-          filter 0.2s;
-      }
-      #seal:hover {
-        transform: scale(1.05);
-        filter: drop-shadow(0 3px 5px rgba(30, 12, 8, 0.5)) brightness(1.07);
-      }
-      #seal:active {
-        transform: scale(0.93);
-        transition: transform 0.08s ease;
-        filter: drop-shadow(0 1px 2px rgba(30, 12, 8, 0.6)) brightness(1.07);
-      }
-
-      #title {
-        position: absolute;
-        top: 18px;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 6;
-        pointer-events: none;
-        text-align: center;
-      }
-      #title::before {
-        content: "";
-        position: absolute;
-        z-index: -1;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        width: 480px;
-        height: 142px;
-        background: transparent;
-        -webkit-backdrop-filter: blur(9px);
-        backdrop-filter: blur(9px);
-        -webkit-mask-image: radial-gradient(
-          ellipse 55% 50% at 50% 50%,
-          #000 48%,
-          transparent 100%
-        );
-        mask-image: radial-gradient(
-          ellipse 55% 50% at 50% 50%,
-          #000 48%,
-          transparent 100%
-        );
-        pointer-events: none;
-      }
-      #title b {
-        font: 600 27px var(--fell);
-        letter-spacing: 0.06em;
+        margin: 0;
+        background: var(--bg);
         color: var(--ink);
-        display: block;
-        text-shadow:
-          0 0 6px rgba(236, 227, 207, 0.9),
-          0 1px 0 rgba(236, 227, 207, 0.9);
+        font-family: var(--sans);
+        font-size: 16px;
+        line-height: 1.5;
+        letter-spacing: -0.01em;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        transition: background-color 0.3s ease, color 0.3s ease;
       }
-      #title small {
-        display: block;
-        font: italic 13px var(--fell);
-        letter-spacing: 0.26em;
-        color: var(--ink2);
-        margin-top: 5px;
-        text-shadow: 0 0 6px rgba(236, 227, 207, 0.9);
+      #app {
+        max-width: 840px;
+        margin: 0 auto;
+        padding: 0 26px 72px;
       }
-      .trule {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 9px;
+      a {
+        color: inherit;
       }
-      .trule.top {
-        margin-bottom: 8px;
+      a:focus-visible,
+      button:focus-visible {
+        outline: 3px solid var(--accent-soft);
+        outline-offset: 2px;
+        border-radius: 6px;
       }
-      .trule.bot {
-        margin-top: 8px;
-      }
-      .trule .gl {
-        height: 1px;
-        background: linear-gradient(
-          90deg,
-          transparent,
-          #b89344 16%,
-          #e0c373 50%,
-          #b89344 84%,
-          transparent
-        );
-      }
-      .trule.top .gl {
-        width: 150px;
-      }
-      .trule.bot .gl {
-        width: 96px;
-      }
-      .trule .dia {
-        color: #b89344;
-        font-size: 7px;
-        line-height: 1;
-      }
-      #stamp {
-        position: absolute;
-        right: 28px;
-        top: 26px;
-        z-index: 6;
-        font: italic 12px var(--fell);
-        color: var(--ink2);
-        letter-spacing: 0.05em;
-        pointer-events: none;
+      ::selection {
+        background: var(--accent-soft);
       }
 
-      /* 面包屑导航(标题下方,避开标题花线) */
-      #crumbs {
-        position: absolute;
-        top: 116px;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 7;
-        display: flex;
-        gap: 7px;
-        align-items: center;
-        flex-wrap: wrap;
-        justify-content: center;
-        max-width: 70%;
-        pointer-events: auto;
-        font: italic 13px var(--fell);
-        color: var(--ink2);
-        text-shadow:
-          0 0 5px rgba(236, 227, 207, 0.95),
-          0 1px 0 rgba(236, 227, 207, 0.9);
-      }
-      #crumbs .cr {
-        cursor: pointer;
-        color: #7a2a1e;
-      }
-      #crumbs .cr:hover {
-        color: #9b2d20;
-      }
-      #crumbs .sep {
-        color: var(--gold);
-      }
-      #crumbs .cur {
-        color: var(--ink);
-        font-style: normal;
-        font-weight: 600;
-      }
-
-      #music {
-        position: absolute;
-        left: 30px;
-        top: 112px;
-        z-index: 7;
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        border: 1px solid var(--gold);
-        background: rgba(236, 227, 207, 0.82);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0;
-        box-shadow: 0 1px 3px rgba(30, 18, 4, 0.35);
-        transition:
-          background 0.2s,
-          border-color 0.2s,
-          transform 0.18s;
-      }
-      #music svg {
-        width: 18px;
-        height: 18px;
-        overflow: visible;
-      }
-      #music:hover {
-        background: #9b2d20;
-        border-color: #6e1f16;
-        transform: scale(1.08);
-      }
-      #music:hover .note {
-        stroke: #f3ecd8;
-      }
-      #music:hover circle.note {
-        fill: #f3ecd8;
-      }
-      #music::after {
-        content: "";
-        position: absolute;
-        inset: -4px;
-        border-radius: 50%;
-        border: 1.5px dashed var(--gold);
-        opacity: 0;
-        transition: opacity 0.25s;
-      }
-      #music.on::after {
-        opacity: 0.95;
-        animation: spin 3s linear infinite;
-      }
-      @keyframes spin {
-        to {
-          transform: rotate(360deg);
-        }
-      }
-
-      /* 白天/夜晚切换 */
-      #daynight {
-        position: absolute;
-        left: 30px;
-        top: 150px;
-        z-index: 7;
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        border: 1px solid var(--gold);
-        background: rgba(236, 227, 207, 0.82);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0;
-        color: var(--ink);
-        box-shadow: 0 1px 3px rgba(30, 18, 4, 0.35);
-        transition:
-          background 0.2s,
-          transform 0.18s;
-      }
-      #daynight:hover {
-        background: #9b2d20;
-        color: #f3ecd8;
-        transform: scale(1.08);
-      }
-      #daynight svg {
-        width: 17px;
-        height: 17px;
-      }
-      /* 夜晚模式:文字/底色转浅,配合地图深色 */
-      body.night {
-        --ink: #ece0c2;
-        --ink2: #b7a684;
-      }
-      body.night #map {
-        background: #0f1826;
-      }
-      body.night .port .lbl {
-        color: #ecc06a;
-        text-shadow:
-          0 0 6px rgba(10, 16, 26, 0.95),
-          0 1px 0 rgba(10, 16, 26, 0.8);
-      }
-      body.night .port.area .lbl {
-        color: #e0cf9c;
-        text-shadow: 0 0 7px rgba(10, 16, 26, 0.95);
-      }
-      body.night #title b {
-        text-shadow: 0 0 10px rgba(10, 16, 26, 0.9);
-      }
-      body.night #title small,
-      body.night #stamp {
-        text-shadow: 0 0 8px rgba(10, 16, 26, 0.9);
-      }
-      body.night #daynight {
-        background: rgba(20, 30, 46, 0.85);
-        color: #e7c25c;
-      }
-
-      #links {
-        position: absolute;
-        left: 30px;
-        top: 190px;
-        z-index: 7;
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-      }
-      #links a {
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        border: 1px solid var(--gold);
-        background: rgba(236, 227, 207, 0.82);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: var(--ink);
-        box-shadow: 0 1px 3px rgba(30, 18, 4, 0.35);
-        transition:
-          background 0.2s,
-          color 0.2s,
-          transform 0.18s;
-      }
-      #links a svg {
-        width: 16px;
-        height: 16px;
-      }
-      #links a:hover {
-        background: #9b2d20;
-        border-color: #6e1f16;
-        color: #f3ecd8;
-        transform: scale(1.08);
-      }
-
-      #toast {
-        position: fixed;
-        z-index: 20;
-        max-width: 240px;
-        padding: 9px 13px;
-        background: linear-gradient(#f3ecd8, #ece1c4);
-        border: 1px solid #6b5a3e;
-        outline: 2px solid rgba(236, 227, 207, 0.6);
-        box-shadow: 0 8px 22px rgba(30, 18, 4, 0.42);
-        font: italic 13px var(--fell);
-        color: #5a4632;
-        line-height: 1.45;
-        opacity: 0;
-        visibility: hidden;
-        transform: translateX(-6px);
-        transition:
-          opacity 0.2s ease,
-          transform 0.22s cubic-bezier(0.34, 1.4, 0.64, 1);
-        pointer-events: none;
-      }
-      #toast.show {
-        opacity: 1;
-        visibility: visible;
-        transform: translateX(0);
-        pointer-events: auto;
-      }
-      #toast .copyable {
-        color: #7a2a1e;
-        font-style: normal;
-        cursor: pointer;
-      }
-      #toast .copyable:hover {
-        color: #9b2d20;
-      }
-
-      #cursor {
-        position: fixed;
-        left: 0;
+      /* ---- nav: Apple material (translucent + blur) ---- */
+      .nav {
+        position: sticky;
         top: 0;
         z-index: 30;
-        pointer-events: none;
-        color: #3a2f23;
-        transform: translate(-100px, -100px);
-        display: none;
-      }
-      html.ccursor #cursor {
-        display: block;
-      }
-      html.ccursor,
-      html.ccursor * {
-        cursor: none !important;
-      }
-      #cursor svg {
-        display: block;
-        margin: -11px 0 0 -11px;
-        transition:
-          transform 0.18s cubic-bezier(0.2, 0.8, 0.3, 1),
-          color 0.15s;
-      }
-      #cursor.hot {
-        color: #9b2d20;
-      }
-      #cursor.hot svg {
-        transform: scale(1.9);
-      }
-
-      @property --hole {
-        syntax: "<percentage>";
-        inherits: false;
-        initial-value: 0%;
-      }
-      #intro {
-        position: absolute;
-        inset: 0;
-        z-index: 20;
-        pointer-events: none;
-        --hole: 0%;
-        background: radial-gradient(
-          120% 105% at 50% 45%,
-          #e9e0c9,
-          #d6c9a7 68%,
-          #c4b389
-        );
-        box-shadow: inset 0 0 60px rgba(120, 85, 45, 0.25);
-        -webkit-mask: radial-gradient(
-          circle at 50% 50%,
-          transparent var(--hole),
-          #000 calc(var(--hole) + 0.6%)
-        );
-        mask: radial-gradient(
-          circle at 50% 50%,
-          transparent var(--hole),
-          #000 calc(var(--hole) + 0.6%)
-        );
-      }
-
-      /* 年份带(底部居中) */
-      #years {
-        position: absolute;
-        left: 50%;
-        bottom: 22px;
-        transform: translateX(-50%);
-        z-index: 7;
-        display: flex;
-        gap: 4px;
-        align-items: center;
-        flex-wrap: wrap;
-        justify-content: center;
-        max-width: 76%;
-        pointer-events: auto;
-      }
-      #years::before {
-        content: "";
-        position: absolute;
-        z-index: -1;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        width: calc(100% + 90px);
-        height: 64px;
-        background: transparent;
-        -webkit-backdrop-filter: blur(9px);
-        backdrop-filter: blur(9px);
-        -webkit-mask-image: radial-gradient(
-          ellipse 60% 52% at 50% 50%,
-          #000 50%,
-          transparent 100%
-        );
-        mask-image: radial-gradient(
-          ellipse 60% 52% at 50% 50%,
-          #000 50%,
-          transparent 100%
-        );
-        pointer-events: none;
-      }
-      #years button {
-        font-family: var(--fell);
-        cursor: pointer;
-        background: none;
-        border: none;
-        padding: 3px 7px;
-        font:
-          italic 13px "Cinzel",
-          serif;
-        color: var(--ink2);
-        opacity: 0.55;
-        transition:
-          opacity 0.2s,
-          color 0.2s;
-        letter-spacing: 0.03em;
-        text-shadow: 0 0 5px rgba(236, 227, 207, 0.95);
-      }
-      #years button:hover {
-        opacity: 0.85;
-      }
-      #years button.on {
-        opacity: 1;
-        color: #7a2a1e;
-        font-weight: 600;
-      }
-
-      #card {
-        position: absolute;
-        right: 28px;
-        top: 50%;
-        transform: translateY(-50%) translateX(12px);
-        z-index: 8;
-        width: 300px;
-        min-height: 234px;
-        pointer-events: auto;
-        background: linear-gradient(#f3ecd8, #ece1c4);
-        border: 1px solid #6b5a3e;
-        outline: 3px solid rgba(236, 227, 207, 0.6);
-        box-shadow: 0 10px 30px rgba(30, 18, 4, 0.45);
-        padding: 16px 18px;
-        opacity: 0;
-        visibility: hidden;
-        transition:
-          opacity 0.24s ease,
-          transform 0.26s cubic-bezier(0.34, 1.4, 0.64, 1);
-      }
-      #card.show {
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(-50%) translateX(0);
-      }
-      #card h3 {
-        font:
-          600 18px "Cinzel",
-          serif;
-        color: var(--ink);
-        margin: 0 0 3px;
-        white-space: normal;
-        word-break: break-word;
-        line-height: 1.22;
-        min-height: 1.3em;
-      }
-      #card .coord {
-        font:
-          10px ui-monospace,
-          monospace;
-        color: var(--ink2);
-        letter-spacing: 0.08em;
-        margin-bottom: 8px;
-      }
-      #card .note {
-        font: italic 14.5px var(--fell);
-        color: #5a4632;
-        line-height: 1.5;
-        min-height: 48px;
-      }
-      #card .photo {
-        margin-top: 4px;
-        height: 56px;
-        border: 1px solid var(--gold);
-        background: repeating-linear-gradient(
-          45deg,
-          #e2d6b4,
-          #e2d6b4 6px,
-          #dccda6 6px,
-          #dccda6 12px
-        );
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font: italic 11px var(--fell);
-        color: var(--ink2);
-      }
-      #card .nav {
-        margin-top: 11px;
+        background: var(--material);
+        -webkit-backdrop-filter: saturate(180%) blur(20px);
+        backdrop-filter: saturate(180%) blur(20px);
+        /* 分隔线用极淡暗色阴影：浅色=细灰线；深色≈隐形(靠毛玻璃分隔)，
+           避免夜间出现发白的怪线 */
+        box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
         display: flex;
         justify-content: space-between;
         align-items: center;
+        padding: 13px 0;
+        flex-wrap: wrap;
+        gap: 10px;
+        transition: background-color 0.3s ease;
       }
-      #card .nav span {
-        font: italic 11px var(--fell);
-        color: var(--ink2);
+      .brand {
+        font-weight: 600;
+        font-size: var(--fs-body);
+        letter-spacing: -0.02em;
+        text-decoration: none;
       }
-      #card .next {
-        font: italic 13px var(--fell);
-        color: #7a2a1e;
+      .navlinks {
+        display: flex;
+        gap: 18px;
+        flex-wrap: wrap;
+      }
+      .navlinks a {
+        font-size: var(--fs-footnote);
+        font-weight: 500;
+        color: var(--muted);
+        text-decoration: none;
+        transition: color 0.18s;
+      }
+      .navlinks a:hover {
+        color: var(--accent);
+      }
+      .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+      }
+      .theme-toggle {
+        background: none;
+        border: 0;
+        padding: 4px;
         cursor: pointer;
-        border: 1px solid var(--gold);
-        padding: 2px 12px;
-        background: rgba(236, 227, 207, 0.6);
+        color: var(--muted);
+        display: inline-flex;
+        flex: none;
+        transition: color 0.18s;
       }
-      #card .next:hover {
-        background: var(--gold);
-        color: #fff;
+      .theme-toggle:hover {
+        color: var(--accent);
+      }
+      .theme-toggle svg {
+        width: 18px;
+        height: 18px;
+      }
+      .theme-toggle .ic-sun {
+        display: none;
+      }
+      [data-theme="dark"] .theme-toggle .ic-moon {
+        display: none;
+      }
+      [data-theme="dark"] .theme-toggle .ic-sun {
+        display: inline;
+      }
+      @media (max-width: 700px) {
+        .nav {
+          gap: 14px;
+        }
+        .brand {
+          flex: none;
+        }
+        .nav-right {
+          flex: 1;
+          min-width: 0;
+          gap: 10px;
+        }
+        .navlinks {
+          flex: 1;
+          min-width: 0;
+          flex-wrap: nowrap;
+          overflow-x: auto;
+          gap: 16px;
+          scrollbar-width: none;
+          -webkit-mask-image: linear-gradient(to right, #000 86%, transparent);
+          mask-image: linear-gradient(to right, #000 86%, transparent);
+        }
+        .navlinks::-webkit-scrollbar {
+          display: none;
+        }
+        .navlinks a {
+          white-space: nowrap;
+        }
       }
 
-      #loadtip {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 25;
-        font: italic 14px var(--fell);
-        color: #6b5a44;
-        background: rgba(236, 227, 207, 0.92);
-        padding: 10px 16px;
-        border: 1px solid var(--gold);
-        box-shadow: 0 2px 8px rgba(30, 18, 4, 0.3);
-        pointer-events: none;
+      /* ---- hero ---- */
+      .hero {
+        padding: 56px 0 48px;
+      }
+      .kicker {
+        font-size: var(--fs-footnote);
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin: 0 0 18px;
+      }
+      .hero-title {
+        font-weight: 700;
+        font-size: var(--fs-display);
+        line-height: 1.04;
+        letter-spacing: -0.03em;
+        margin: 0 0 20px;
+      }
+      .hero-lead {
+        font-size: var(--fs-title3);
+        color: var(--muted);
+        max-width: 50ch;
+        margin: 0 0 28px;
+        text-wrap: pretty;
+      }
+      .hero-lead b {
+        color: var(--ink);
+        font-weight: 600;
+      }
+      .links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      /* Apple "gray" button → capsule, fill bg, label text */
+      .lnk {
+        font-size: var(--fs-callout);
+        font-weight: 600;
+        text-decoration: none;
+        padding: 9px 18px;
+        border-radius: 980px;
+        background: var(--fill-2);
+        color: var(--ink);
+        border: none;
+        transition: background 0.18s, color 0.18s, transform 0.1s;
+      }
+      .lnk:hover {
+        background: var(--accent-soft);
+        color: var(--accent);
+      }
+      .lnk:active {
+        transform: scale(0.97);
+      }
+
+      /* ---- sections: Apple grouped-list header ---- */
+      .block {
+        padding: 40px 0;
+        scroll-margin-top: 110px;
+      }
+      .block.compact {
+        padding: 32px 0 8px;
+      }
+      .block-h {
+        font-size: var(--fs-footnote);
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin: 0 0 20px;
+      }
+      .prose .lead {
+        font-size: var(--fs-title2);
+        font-weight: 600;
+        line-height: 1.34;
+        letter-spacing: -0.02em;
+        margin: 0 0 16px;
+        color: var(--ink);
+        text-wrap: balance;
+      }
+      .prose p {
+        margin: 0 0 14px;
+        color: var(--muted);
+        text-wrap: pretty;
+      }
+      .prose p:last-child {
+        margin: 0;
+      }
+
+      /* ---- cards: Apple inset-grouped (flat, hairline, subtle elevation) ---- */
+      .items {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        gap: 14px;
+      }
+      .item {
+        display: block;
+        color: inherit;
+        text-decoration: none;
+        background: var(--card);
+        border: 0.5px solid var(--line);
+        border-radius: var(--radius);
+        padding: 22px 24px;
+        box-shadow: var(--shadow);
+        transition: transform 0.18s ease, box-shadow 0.18s ease;
+      }
+      .item:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-hover);
+      }
+      .item:hover .item-t {
+        color: var(--accent);
+      }
+      a.item .item-t::after {
+        content: "↗";
+        font-size: 0.78em;
+        color: var(--faint);
+        margin-left: 7px;
+        transition: color 0.18s;
+      }
+      a.item:hover .item-t::after {
+        color: var(--accent);
+      }
+      .is-extra {
+        display: none;
+      }
+      .items.show-all .is-extra {
+        display: block;
+      }
+      /* Apple plain/text button */
+      .show-all-btn {
+        margin-top: 18px;
+        background: none;
+        border: 0;
+        padding: 0;
+        cursor: pointer;
+        font-family: var(--sans);
+        font-size: var(--fs-subhead);
+        font-weight: 600;
+        color: var(--accent);
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .show-all-btn:hover {
+        color: var(--accent-ink);
+      }
+      .item-h {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+      .item-t {
+        font-weight: 600;
+        font-size: var(--fs-headline);
+        letter-spacing: -0.02em;
+        transition: color 0.18s;
+      }
+      .item-t .role {
+        color: var(--muted);
+        font-weight: 400;
+      }
+      .item-when {
+        font-size: var(--fs-footnote);
+        color: var(--faint);
+        font-weight: 500;
+        white-space: nowrap;
+      }
+      /* Apple systemOrange tint badge */
+      .todo-badge {
+        display: inline-block;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        color: #b25000;
+        background: rgba(255, 149, 0, 0.15);
+        border: none;
+        border-radius: 5px;
+        padding: 2px 6px;
+        margin-right: 8px;
+        vertical-align: middle;
+      }
+      [data-theme="dark"] .todo-badge {
+        color: #ff9f0a;
+        background: rgba(255, 159, 10, 0.18);
+      }
+      .item-meta {
+        font-size: var(--fs-footnote);
+        color: var(--accent);
+        font-weight: 600;
+        margin: 8px 0 0;
+      }
+      .item-desc {
+        margin: 12px 0 0;
+        color: var(--muted);
+        font-size: var(--fs-callout);
+        line-height: 1.55;
+        text-wrap: pretty;
+      }
+
+      /* ---- repos ---- */
+      .repos {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+      .repos a {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        text-decoration: none;
+        background: var(--card);
+        border: 0.5px solid var(--line);
+        border-radius: var(--radius);
+        padding: 18px 20px;
+        box-shadow: var(--shadow);
+        transition: transform 0.18s ease, box-shadow 0.18s ease;
+      }
+      .repos a:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-hover);
+      }
+      .repos a:hover .repo-t {
+        color: var(--accent);
+      }
+      .repo-t {
+        font-weight: 600;
+        font-size: var(--fs-headline);
+        margin-bottom: 6px;
+        letter-spacing: -0.01em;
+        transition: color 0.18s;
+      }
+      .repo-d {
+        color: var(--muted);
+        font-size: var(--fs-subhead);
+        line-height: 1.5;
+        flex: 1;
+      }
+      .repo-meta {
+        margin-top: 12px;
+        font-size: var(--fs-caption);
+        font-weight: 600;
+        color: var(--faint);
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+      }
+      .repo-meta .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--accent);
+      }
+      .more {
+        display: inline-block;
+        margin-top: 18px;
+        font-weight: 600;
+        font-size: var(--fs-callout);
+        color: var(--accent);
+        text-decoration: none;
+      }
+      .more:hover {
+        color: var(--accent-ink);
+      }
+      .ar {
+        display: inline-block;
+        transition: transform 0.18s;
+      }
+      .more:hover .ar,
+      .fp:hover .ar {
+        transform: translateX(3px);
+      }
+
+      /* ---- skills: group header + fill chips ---- */
+      .skills {
+        margin: 0;
+        display: grid;
+        gap: 10px;
+      }
+      .skill {
+        display: grid;
+        grid-template-columns: 160px 1fr;
+        gap: 16px;
+        align-items: start;
+      }
+      .skill dt {
+        font-size: var(--fs-caption);
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+        color: var(--muted);
+        padding-top: 5px;
+      }
+      .skill dd {
+        margin: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+      }
+      .tag {
+        font-size: var(--fs-footnote);
+        font-weight: 500;
+        color: var(--ink);
+        background: var(--fill);
+        border: none;
+        border-radius: 8px;
+        padding: 5px 11px;
+        line-height: 1.2;
+      }
+
+      /* ---- certs: list rows w/ hairline separators ---- */
+      .certs {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2px 36px;
+      }
+      .cert {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        text-decoration: none;
+        padding: 11px 0;
+        border-bottom: 0.5px solid var(--line);
+      }
+      .cert-name {
+        font-size: var(--fs-callout);
+        font-weight: 500;
+        color: var(--ink);
+        transition: color 0.18s;
+      }
+      .cert:hover .cert-name {
+        color: var(--accent);
+      }
+      .cert-meta {
+        font-size: var(--fs-caption);
+        color: var(--faint);
+      }
+      @media (max-width: 620px) {
+        .certs {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* ---- footprints card ---- */
+      .fp {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        flex-wrap: wrap;
+        text-decoration: none;
+        background: var(--card);
+        border: 0.5px solid var(--line);
+        border-radius: var(--radius);
+        padding: 18px 22px;
+        box-shadow: var(--shadow);
+        transition: transform 0.18s ease, box-shadow 0.18s ease;
+      }
+      .fp:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-hover);
+      }
+      .fp:hover .fp-title {
+        color: var(--accent);
+      }
+      .fp-text {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .fp-title {
+        font-weight: 600;
+        font-size: var(--fs-headline);
+        letter-spacing: -0.01em;
+        color: var(--ink);
+        transition: color 0.18s;
+      }
+      .fp-meta {
+        font-size: var(--fs-caption);
+        color: var(--muted);
+      }
+
+      .foot {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 10px;
+        padding-top: 30px;
+        color: var(--faint);
+        font-size: var(--fs-footnote);
+        font-weight: 500;
+      }
+      @media (max-width: 620px) {
+        .repos,
+        .skill {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        *,
+        *::before,
+        *::after {
+          transition: none !important;
+          animation: none !important;
+          scroll-behavior: auto !important;
+        }
       }
     </style>
   </head>
   <body>
-    <div id="mapwrap">
-      <div id="map"></div>
-      <div id="age"></div>
-      <div id="light"></div>
-      <svg id="grain" aria-hidden="true">
-        <filter id="paperfilter">
-          <feTurbulence
-            type="fractalNoise"
-            baseFrequency="0.012 0.9"
-            numOctaves="2"
-            seed="7"
-          />
-          <feColorMatrix
-            values="0 0 0 0 0.45  0 0 0 0 0.36  0 0 0 0 0.22  0 0 0 0.5 0"
-          />
-        </filter>
-        <rect width="100%" height="100%" filter="url(#paperfilter)" />
-      </svg>
-      <div id="rings"></div>
-
-      <div id="title">
-        <div class="trule top">
-          <span class="gl"></span><span class="dia">◆</span
-          ><span class="gl"></span>
-        </div>
-        <b>SHERRY'S FOOTPRINTS</b>
-        <small>THE WORLD</small>
-        <div class="trule bot">
-          <span class="gl"></span><span class="dia">◆</span
-          ><span class="gl"></span>
-        </div>
-      </div>
-      <div id="crumbs"></div>
-      <div id="stamp"></div>
-      <svg id="scale" aria-hidden="true"></svg>
-      <svg id="compass" viewBox="0 0 120 120" aria-hidden="true"></svg>
-      <svg id="seal" viewBox="0 0 80 80" aria-hidden="true">
-        <title>Sherry's seal · click to go back</title>
-      </svg>
-      <div id="years"></div>
-      <div id="card"></div>
-      <audio
-        id="bgm"
-        src="audio/call-of-silence.mp3"
-        loop
-        preload="none"
-      ></audio>
-      <button id="music" title="Music">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path
-            class="note"
-            d="M9 17V5l10-2v12"
-            fill="none"
-            stroke="#3a2f23"
-            stroke-width="1.6"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-          <circle class="note" cx="6.5" cy="17" r="2.5" fill="#3a2f23" />
-          <circle class="note" cx="16.5" cy="15" r="2.5" fill="#3a2f23" />
-        </svg>
-      </button>
-      <button id="daynight" title="白天 / 夜晚">
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.7"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          aria-hidden="true"
-        >
-          <path
-            class="moon"
-            d="M21 12.8A8.5 8.5 0 1 1 11.2 3a6.5 6.5 0 0 0 9.8 9.8z"
-          />
-          <g class="sun" style="display: none">
-            <circle cx="12" cy="12" r="4.2" />
-            <path
-              d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"
-            />
-          </g>
-        </svg>
-      </button>
-      <nav id="links">
-        <a
-          href="https://github.com/kkkkshi"
-          target="_blank"
-          rel="noopener"
-          title="GitHub"
-          aria-label="GitHub"
-        >
-          <svg viewBox="0 0 24 24">
-            <path
-              fill="currentColor"
-              d="M12 .5C5.37.5 0 5.78 0 12.29c0 5.21 3.44 9.63 8.2 11.19.6.11.82-.26.82-.58v-2.03c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.23 1.84 1.23 1.07 1.83 2.81 1.3 3.5.99.11-.77.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.62-5.49 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58A12.01 12.01 0 0 0 24 12.29C24 5.78 18.63.5 12 .5z"
-            />
-          </svg>
-        </a>
-        <a href="#" data-soon="X" title="X" aria-label="X">
-          <svg viewBox="0 0 24 24">
-            <path
-              fill="currentColor"
-              d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
-            />
-          </svg>
-        </a>
-        <a
-          href="#"
-          data-soon="Instagram"
-          title="Instagram"
-          aria-label="Instagram"
-        >
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.8"
-          >
-            <rect x="3" y="3" width="18" height="18" rx="5" />
-            <circle cx="12" cy="12" r="4" />
-            <circle cx="17" cy="7" r="1.1" fill="currentColor" stroke="none" />
-          </svg>
-        </a>
-        <a
-          href="#"
-          data-email="keshi0330@gmail.com"
-          title="Email"
-          aria-label="Email"
-        >
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.8"
-            stroke-linejoin="round"
-          >
-            <rect x="3" y="5" width="18" height="14" rx="2" />
-            <path d="M3 7l9 6 9-6" />
-          </svg>
-        </a>
-      </nav>
-      <div id="toast" aria-live="polite"></div>
-      <div id="intro"></div>
-    </div>
-    <div id="cursor" aria-hidden="true">
-      <svg width="22" height="22" viewBox="0 0 22 22">
-        <g
-          stroke="currentColor"
-          stroke-width="1.4"
-          stroke-linecap="round"
-          fill="none"
-        >
-          <line x1="11" y1="3" x2="11" y2="8" />
-          <line x1="11" y1="14" x2="11" y2="19" />
-          <line x1="3" y1="11" x2="8" y2="11" />
-          <line x1="14" y1="11" x2="19" y2="11" />
-        </g>
-        <circle cx="11" cy="11" r="1.6" fill="currentColor" />
-      </svg>
-    </div>
-
-    <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+    <div id="app"></div>
+    <script src="profile/data.js"></script>
     <script>
-      // ===== 古海图底图样式(矢量瓦片) =====
-      const style = {
-        version: 8,
-        sources: {
-          omt: { type: "vector", url: "https://tiles.openfreemap.org/planet" },
-        },
-        layers: [
-          {
-            id: "bg",
-            type: "background",
-            paint: { "background-color": "#b9cdd0" },
-          },
-          {
-            id: "roads",
-            type: "line",
-            source: "omt",
-            "source-layer": "transportation",
-            layout: { "line-cap": "round", "line-join": "round" },
-            paint: {
-              "line-color": "#3a2f23",
-              "line-opacity": 0.7,
-              "line-width": [
-                "interpolate",
-                ["exponential", 1.6],
-                ["zoom"],
-                11,
-                [
-                  "match",
-                  ["get", "class"],
-                  ["motorway", "trunk"],
-                  0.6,
-                  ["primary", "secondary"],
-                  0.4,
-                  0.25,
-                ],
-                14,
-                [
-                  "match",
-                  ["get", "class"],
-                  ["motorway", "trunk"],
-                  1.1,
-                  ["primary", "secondary"],
-                  0.7,
-                  0.42,
-                ],
-                16,
-                [
-                  "match",
-                  ["get", "class"],
-                  ["motorway", "trunk"],
-                  1.6,
-                  ["primary", "secondary"],
-                  1.05,
-                  0.6,
-                ],
-              ],
-            },
-          },
-        ],
+      const P = window.PROFILE;
+      if (!P) {
+        document.getElementById("app").innerHTML =
+          '<main style="max-width:640px;margin:90px auto;padding:0 26px;font-family:system-ui,sans-serif;color:#1b1c20">' +
+          '<h1 style="font-size:34px;margin:0 0 12px">Sherry (Ke) Shi</h1>' +
+          '<p style="color:#6b6f78;line-height:1.6">Data Scientist · Toronto. The page didn’t load fully. Reach me directly:</p>' +
+          '<p><a href="mailto:keshi0330@gmail.com">keshi0330@gmail.com</a> &nbsp;·&nbsp; ' +
+          '<a href="https://github.com/kkkkshi">GitHub</a> &nbsp;·&nbsp; ' +
+          '<a href="https://www.linkedin.com/in/keshi0330/">LinkedIn</a></p></main>';
+        throw new Error("PROFILE data unavailable");
+      }
+      document.title = P.name + " · " + P.role;
+      const _meta = document.querySelector('meta[name="description"]');
+      if (_meta) _meta.setAttribute("content", P.tagline);
+
+      const E = (s) =>
+        String(s).replace(
+          /[&<>"]/g,
+          (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c],
+        );
+      const LABEL = {
+        email: "Email",
+        github: "GitHub",
+        linkedin: "LinkedIn",
+        resume: "Résumé",
       };
-
-      const map = new maplibregl.Map({
-        container: "map",
-        style,
-        center: [6, 30],
-        zoom: 1.5,
-        minZoom: 0.6,
-        maxZoom: 17,
-        attributionControl: false,
-        dragRotate: false,
-        renderWorldCopies: true, // 允许水平无限滚动(可一直往东/西滑)
-      });
-      window._map = map;
-
-      // ===== 自定义光标 =====
-      const CLICKABLE_SEL =
-        ".port .pin,.port.area .lbl,#seal,#years button,#crumbs .cr,#card .next,#music,#links a";
-      if (matchMedia("(pointer: fine)").matches) {
-        document.documentElement.classList.add("ccursor");
-        const cursorEl = document.getElementById("cursor");
-        addEventListener(
-          "mousemove",
-          (e) => {
-            cursorEl.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
-            cursorEl.classList.toggle(
-              "hot",
-              !!(e.target.closest && e.target.closest(CLICKABLE_SEL)),
-            );
-          },
-          true,
-        );
-        addEventListener("mouseout", (e) => {
-          if (!e.relatedTarget) cursorEl.style.opacity = "0";
-        });
-        addEventListener("mouseover", () => (cursorEl.style.opacity = ""));
-      }
-
-      // ===== 数据 + 状态机 =====
-      let DATA = null,
-        WORLD = null,
-        STATES = null;
-      // NaturalEarth 国名 → footprints.json 国名(用于世界高亮)
-      const NE2MINE = {
-        Canada: "Canada",
-        "United States of America": "United States",
-        China: "China",
-        Taiwan: "China", // 台湾属于中国,并入中国高亮/点击进入
-        "United Kingdom": "United Kingdom",
-        France: "France",
-        Belgium: "Belgium",
-        Germany: "Germany",
-        Switzerland: "Switzerland",
-        Italy: "Italy",
-        Vatican: "Vatican City",
-        Norway: "Norway",
-        Denmark: "Denmark",
-        Thailand: "Thailand",
-      };
-      const stack = []; // [{level,c,r,ct}] level: world|country|region|city
-      let yearFilter = null; // null=全部, 否则整数年
-      let navTs = 0; // 上次切层时间戳(最小间隔防抖)
-      const markers = [],
-        portEls = [];
-
-      const card = document.getElementById("card");
-      const hideCard = () => card.classList.remove("show");
-
-      function clearMarkers() {
-        markers.forEach((m) => m.remove());
-        markers.length = 0;
-        portEls.length = 0;
-      }
-
-      // 在地图上放一个可点节点(国家/省/市/景点通用)
-      function addNode(lng, lat, label, sub, years, kind, onClick) {
-        const el = document.createElement("div");
-        const area = kind === "area";
-        el.className =
-          "port" + (area ? " area" : "") + (kind === "web" ? " web" : "");
-        // 区域(国家/州)不要圆点,只用文字;城市/景点保留 pin
-        el.innerHTML =
-          (area ? "" : `<span class="pin"></span>`) +
-          `<span class="lbl">${label}</span>`;
-        el.__years = years || [];
-        const target = el.querySelector(area ? ".lbl" : ".pin");
-        if (onClick && target)
-          target.addEventListener("click", (ev) => {
-            ev.stopPropagation();
-            onClick();
-          });
-        markers.push(
-          new maplibregl.Marker({ element: el })
-            .setLngLat([lng, lat])
-            .addTo(map),
-        );
-        portEls.push(el);
-        return el;
-      }
-
-      // 视图自适应:一组坐标 fitBounds;单点 flyTo
-      function fitTo(coords, opts = {}) {
-        if (!coords.length) return;
-        if (coords.length === 1) {
-          map.flyTo({
-            center: coords[0],
-            zoom: opts.zoom || 11,
-            duration: opts.dur ?? 1000,
-          });
-        } else {
-          const b = new maplibregl.LngLatBounds();
-          coords.forEach((c) => b.extend(c));
-          map.fitBounds(b, {
-            padding: opts.padding || {
-              top: 150,
-              bottom: 130,
-              left: 120,
-              right: 130,
-            },
-            duration: opts.dur ?? 1000,
-            maxZoom: opts.maxZoom || 14,
-          });
-        }
-      }
-      const centroid = (cities) => [
-        cities.reduce((s, c) => s + c.lng, 0) / cities.length,
-        cities.reduce((s, c) => s + c.lat, 0) / cities.length,
-      ];
-      const flatCities = (c) => c.regions.flatMap((r) => r.cities);
-      // 州/省的几何中心(从州面数据算),让州名标在州中心而非去过城市的中心
-      function stateCenter(mine, region) {
-        if (!STATES) return null;
-        const f = STATES.features.find(
-          (x) =>
-            x.properties.country === mine && x.properties.region === region,
-        );
-        if (!f) return null;
-        let x0 = 1e9,
-          y0 = 1e9,
-          x1 = -1e9,
-          y1 = -1e9;
-        const scan = (c) => {
-          if (typeof c[0] === "number") {
-            if (c[0] < x0) x0 = c[0];
-            if (c[0] > x1) x1 = c[0];
-            if (c[1] < y0) y0 = c[1];
-            if (c[1] > y1) y1 = c[1];
-          } else c.forEach(scan);
-        };
-        scan(f.geometry.coordinates);
-        return [(x0 + x1) / 2, (y0 + y1) / 2];
-      }
-      // 整个国家的边界范围(从 world geojson 该国轮廓算),用于"点国家先显示全国地图"
-      // 国家"主体"范围:取面积最大的多边形(本土),忽略阿拉斯加等分离块,
-      // 这样点国家能放大到本土占满屏,而不是被远块拉成一小点
-      function countryBBox(mineName) {
-        if (!WORLD) return null;
-        const ne = Object.keys(NE2MINE).find((k) => NE2MINE[k] === mineName);
-        const f = WORLD.features.find((x) => x.properties.NAME === ne);
-        if (!f) return null;
-        const g = f.geometry;
-        const polys =
-          g.type === "MultiPolygon" ? g.coordinates : [g.coordinates];
-        let best = null,
-          bestA = -1;
-        for (const poly of polys) {
-          let x0 = 1e9,
-            y0 = 1e9,
-            x1 = -1e9,
-            y1 = -1e9;
-          for (const p of poly[0]) {
-            if (p[0] < x0) x0 = p[0];
-            if (p[0] > x1) x1 = p[0];
-            if (p[1] < y0) y0 = p[1];
-            if (p[1] > y1) y1 = p[1];
-          }
-          const a = (x1 - x0) * (y1 - y0);
-          if (a > bestA) {
-            bestA = a;
-            best = [
-              [x0, y0],
-              [x1, y1],
-            ];
-          }
-        }
-        return best ? new maplibregl.LngLatBounds(best[0], best[1]) : null;
-      }
-
-      // 一组城市的外接矩形
-      function boundsOf(cities) {
-        const b = new maplibregl.LngLatBounds();
-        cities.forEach((c) => b.extend([c.lng, c.lat]));
-        // 防零尺寸:单城市/单点会让占屏比例=0 → 一进去就被判定"太小"立刻退层。
-        // 给个最小地理范围兜底。
-        if (
-          b.getEast() - b.getWest() < 0.3 ||
-          b.getNorth() - b.getSouth() < 0.25
-        ) {
-          const c = b.getCenter();
-          b.extend([c.lng - 0.25, c.lat - 0.2]);
-          b.extend([c.lng + 0.25, c.lat + 0.2]);
-        }
-        return b;
-      }
-      // 两个矩形是否相交(只要还看得见该区域就不退层)
-      function boundsIntersect(a, b) {
-        if (!a || !b) return true;
-        return !(
-          a.getEast() < b.getWest() ||
-          a.getWest() > b.getEast() ||
-          a.getNorth() < b.getSouth() ||
-          a.getSouth() > b.getNorth()
-        );
-      }
-      function lyr(id, vis, filt) {
-        if (!map.getLayer(id)) return;
-        map.setLayoutProperty(id, "visibility", vis ? "visible" : "none");
-        if (vis && filt) map.setFilter(id, filt);
-      }
-      // 按当前层级统一控制:世界填色 / 国界线勾勒 / 州省高亮
-      function applyHighlight(e) {
-        const mine = e.c?.name;
-        const world = e.level === "world";
-        // 去过的国家填色:仅世界层(border-line 全局国界线常显,不在这里控制)
-        lyr("country-fill", world, ["==", ["get", "__v"], 1]);
-        // 去过的州/省填色高亮:国家(分省的)层 + 省层
-        const showState =
-          (e.level === "country" && e.c.split === "region") ||
-          e.level === "region";
-        const sf = ["==", ["get", "country"], mine || "__x__"];
-        lyr("state-fill", showState, sf);
-      }
-
-      // ===== 各层渲染(不改 stack) =====
-      function renderTop(fly = true, noFit = false) {
-        const e = stack[stack.length - 1];
-        navTs = Date.now();
-        // 记录本层范围矩形:视野完全离开它(平移走)时自动退层
-        e._bbox =
-          e.level === "world"
-            ? null
-            : e.level === "country"
-              ? countryBBox(e.c.name) || boundsOf(flatCities(e.c))
-              : e.level === "region"
-                ? boundsOf(e.r.cities)
-                : (() => {
-                    // 城市层范围:有多个景点用景点外接框,否则城市点 ±buffer(避免零尺寸)
-                    const named = (e.ct.spots || []).filter(
-                      (s) => s.spot && s.spot.trim(),
-                    );
-                    if (named.length > 1)
-                      return boundsOf(
-                        named.map((s) => ({ lng: s.lng, lat: s.lat })),
-                      );
-                    const b = new maplibregl.LngLatBounds();
-                    b.extend([e.ct.lng - 0.12, e.ct.lat - 0.1]);
-                    b.extend([e.ct.lng + 0.12, e.ct.lat + 0.1]);
-                    return b;
-                  })();
-        clearMarkers();
-        hideCard();
-        const small = document.querySelector("#title small");
-        if (e.level === "world") {
-          applyHighlight(e);
-          small.textContent = "THE WORLD";
-          DATA.countries.forEach((c) => {
-            addNode(
-              c.center[0],
-              c.center[1],
-              c.name,
-              `${c.cityCount} cities`,
-              c.years,
-              "area",
-              () => navigate({ level: "country", c }),
-            );
-          });
-          if (!noFit)
-            fitTo(
-              DATA.countries.map((c) => c.center),
-              {
-                padding: { top: 150, bottom: 140, left: 80, right: 80 },
-                maxZoom: 4.5,
-                dur: fly ? 650 : 0,
-              },
-            );
-        } else if (e.level === "country") {
-          applyHighlight(e);
-          small.textContent = e.c.name.toUpperCase();
-          if (e.c.split === "region") {
-            e.c.regions.forEach((r) => {
-              const ctr = stateCenter(e.c.name, r.name) || centroid(r.cities);
-              addNode(
-                ctr[0],
-                ctr[1],
-                r.name,
-                `${r.cities.length} cities`,
-                r.years,
-                "area",
-                () => navigate({ level: "region", c: e.c, r }),
-              );
-            });
-          } else {
-            flatCities(e.c).forEach((ct) =>
-              addCityNode(e.c, e.c.regions[0], ct),
-            );
-          }
-          // 显示整个国家地图(本土占满),底图自带州界,去过的州金色高亮
-          if (!noFit) {
-            const bb = countryBBox(e.c.name);
-            if (bb)
-              map.fitBounds(bb, {
-                padding: { top: 96, bottom: 84, left: 40, right: 40 },
-                maxZoom: 6.5,
-                duration: fly ? 650 : 0,
-              });
-            else
-              fitTo(
-                flatCities(e.c).map((ct) => [ct.lng, ct.lat]),
-                { dur: fly ? 650 : 0 },
-              );
-          }
-        } else if (e.level === "region") {
-          applyHighlight(e);
-          small.textContent = e.r.name.toUpperCase();
-          e.r.cities.forEach((ct) => addCityNode(e.c, e.r, ct));
-          if (!noFit)
-            fitTo(
-              e.r.cities.map((ct) => [ct.lng, ct.lat]),
-              { dur: fly ? 650 : 0 },
-            );
-        } else if (e.level === "city") {
-          applyHighlight(e);
-          small.textContent = e.ct.name.toUpperCase();
-          // 只有"多景点"城市才展开景点层;其余(路过点 / 无照片)直接落城市卡
-          const named = (e.ct.spots || []).filter(
-            (s) => s.spot && s.spot.trim(),
-          );
-          if (named.length >= 2) {
-            named.forEach((s) =>
-              addNode(
-                s.lng,
-                s.lat,
-                s.spot,
-                s.count + " 张",
-                s.years,
-                "spot",
-                () => showSpotCard(e.ct, s),
-              ),
-            );
-            if (!noFit)
-              fitTo(
-                named.map((s) => [s.lng, s.lat]),
-                { zoom: 13, dur: fly ? 650 : 0 },
-              );
-          } else {
-            // 路过点 / 无照片城市:飞到城市,直接弹城市卡(不依赖 moveend)
-            if (!noFit)
-              map.flyTo({
-                center: [e.ct.lng, e.ct.lat],
-                zoom: e.ct.source === "web" ? 10 : 12,
-                duration: fly ? 650 : 0,
-              });
-            showCityCard(e.ct);
-          }
-        }
-        renderCrumbs();
-        applyYearFilter();
-        document
-          .querySelectorAll("#years button")
-          .forEach((b) =>
-            b.classList.toggle(
-              "on",
-              String(yearFilter) === b.dataset.y ||
-                (yearFilter === null && b.dataset.y === "all"),
-            ),
-          );
-        map.once("idle", () => {
-          updateScale();
-          declutter();
-          if (!noFit) stack[stack.length - 1]._z = map.getZoom();
-          navTs = Date.now();
-          const top = stack[stack.length - 1];
-          // 世界层:禁止缩到比标准世界视图更小(否则地图缩成一小块、周围空白)
-          if (top.level === "world" && top._z)
-            map.setMinZoom(Math.max(0.6, top._z - 0.2));
-          else map.setMinZoom(0.6);
-        });
-      }
-
-      function addCityNode(c, r, ct) {
-        const kind = ct.source === "web" ? "web" : "spot";
-        addNode(
-          ct.lng,
-          ct.lat,
-          ct.name,
-          ct.count ? ct.count + " photos" : "web",
-          ct.years,
-          kind,
-          () => navigate({ level: "city", c, r, ct }),
-        );
-      }
-
-      function navigate(entry) {
-        stack.push(entry);
-        history.pushState({ d: stack.length }, "");
-        renderTop(true);
-      }
-      function goBack() {
-        if (stack.length <= 1) return;
-        stack.pop();
-        renderTop(true);
-      }
-      // 面包屑回跳到第 i 层
-      function jumpTo(i) {
-        if (i < stack.length - 1) stack.length = i + 1;
-        renderTop(true); // 即使点当前层(如世界)也重新 fit,回到该层标准视图
-      }
-
-      function renderCrumbs() {
-        const wrap = document.getElementById("crumbs");
-        const labels = stack.map((e) =>
-          e.level === "world"
-            ? "The World"
-            : e.level === "country"
-              ? e.c.name
-              : e.level === "region"
-                ? e.r.name
-                : e.ct.name,
-        );
-        let html = "";
-        labels.forEach((lb, i) => {
-          if (i) html += `<span class="sep">›</span>`;
-          // 世界项(i=0)始终可点(点它回初始世界视图);其余仅非当前层可点
-          html +=
-            i === labels.length - 1 && i !== 0
-              ? `<span class="cur">${lb}</span>`
-              : `<span class="cr" data-i="${i}">${lb}</span>`;
-        });
-        wrap.innerHTML = html;
-        wrap
-          .querySelectorAll(".cr")
-          .forEach((s) =>
-            s.addEventListener("click", () => jumpTo(+s.dataset.i)),
-          );
-      }
-
-      // ===== 故事卡(景点 / 城市) =====
-      function showSpotCard(ct, s) {
-        const src = "📷 " + s.count + " photos";
-        card.innerHTML =
-          `<h3>${s.spot}</h3><div class="coord">${s.lat.toFixed(3)}°${s.lat >= 0 ? "N" : "S"} · ${Math.abs(s.lng).toFixed(3)}°${s.lng >= 0 ? "E" : "W"} · ${(s.years || []).join("/") || "—"}</div>` +
-          `<div class="note"><i>journal coming —</i> ${ct.name} · ${s.spot}</div>` +
-          `<div class="photo">— photo · journal —</div>` +
-          `<div class="nav"><span>${src}</span></div>`;
-        card.classList.add("show");
-      }
-      function showCityCard(ct) {
-        const photo = ct.source === "photo";
-        const meta = photo ? "📷 " + ct.count + " photos" : "🖼 web image —";
-        const note = photo
-          ? "<i>journal coming —</i>"
-          : "<i>journal coming —</i> no photos yet, web image to come.";
-        card.innerHTML =
-          `<h3>${ct.name}</h3><div class="coord">${ct.lat.toFixed(3)}°${ct.lat >= 0 ? "N" : "S"} · ${Math.abs(ct.lng).toFixed(3)}°${ct.lng >= 0 ? "E" : "W"} · ${(ct.years || []).join("/") || "—"}</div>` +
-          `<div class="note">${note}</div>` +
-          `<div class="photo">— photo · journal —</div>` +
-          `<div class="nav"><span>${meta}</span></div>`;
-        card.classList.add("show");
-      }
-
-      // ===== 年份带 =====
-      function buildYears() {
-        const [lo, hi] = DATA.yearsRange || [2014, 2026];
-        const wrap = document.getElementById("years");
-        const mk = (label, val) => {
-          const b = document.createElement("button");
-          b.textContent = label;
-          b.dataset.y = val;
-          b.addEventListener("click", () =>
-            setYear(val === "all" ? null : +val),
-          );
-          wrap.appendChild(b);
-        };
-        mk("All", "all");
-        for (let y = lo; y <= hi; y++) mk(y, y); // 连续显示每一年(含没去过的)
-      }
-      function setYear(y) {
-        yearFilter = y;
-        document
-          .querySelectorAll("#years button")
-          .forEach((b) =>
-            b.classList.toggle(
-              "on",
-              String(y) === b.dataset.y ||
-                (y === null && b.dataset.y === "all"),
-            ),
-          );
-        applyYearFilter();
-        declutter();
-      }
-      function applyYearFilter() {
-        portEls.forEach((el) => {
-          const ys = el.__years || [];
-          const show = yearFilter === null || ys.includes(yearFilter);
-          el.style.display = show ? "" : "none";
-        });
-      }
-
-      // ===== 地图空白处点击:收起卡片 =====
-      document.getElementById("map").addEventListener("click", (e) => {
-        if (!e.target.closest(".pin")) hideCard();
-      });
-      document.getElementById("seal").addEventListener("click", goBack);
-      addEventListener("popstate", goBack);
-
-      // ===== 背景音乐 =====
-      const bgm = document.getElementById("bgm");
-      const musicBtn = document.getElementById("music");
-      bgm.volume = 0.5;
-      const EVTS = ["pointerdown", "keydown", "wheel", "touchstart"];
-      const stopFirst = () =>
-        EVTS.forEach((t) => removeEventListener(t, firstPlay, true));
-      const playMusic = () =>
-        bgm
-          .play()
-          .then(() => {
-            musicBtn.classList.add("on");
-            stopFirst();
+      const linkrow = (keys) =>
+        keys
+          .filter((k) => P.links[k])
+          .map((k) => {
+            const href = k === "email" ? "mailto:" + P.email : P.links[k];
+            const ext = k === "email" ? "" : ' target="_blank" rel="noopener"';
+            return `<a class="lnk" href="${E(href)}"${ext}>${LABEL[k]}</a>`;
           })
-          .catch(() => {});
-      playMusic();
-      const firstPlay = (e) => {
-        if (e && e.target.closest && e.target.closest("#music")) return;
-        playMusic();
-      };
-      EVTS.forEach((t) => addEventListener(t, firstPlay, true));
-      musicBtn.addEventListener("click", () => {
-        if (bgm.paused) playMusic();
-        else {
-          bgm.pause();
-          musicBtn.classList.remove("on");
-        }
-      });
+          .join("");
+      const _ti = P.tagline.indexOf(". ");
+      const tagline =
+        _ti > 0
+          ? `<b>${E(P.tagline.slice(0, _ti))}</b>${E(P.tagline.slice(_ti))}`
+          : E(P.tagline);
 
-      // ===== 虹彩开场 =====
-      const intro = document.getElementById("intro");
-      const reduceMotion = matchMedia(
-        "(prefers-reduced-motion: reduce)",
-      ).matches;
-      const setHole = (v) => intro.style.setProperty("--hole", v);
-      const iris = (from, to, dur) =>
-        intro
-          .animate([{ "--hole": from }, { "--hole": to }], {
-            duration: dur,
-            easing: "cubic-bezier(.5,0,.3,1)",
-            fill: "forwards",
+      const itemList = (arr, kind) =>
+        `<ul class="items">${arr
+          .map((e) => {
+            const title =
+              kind === "work"
+                ? `${E(e.company)} <span class="role">· ${E(e.role)}</span>`
+                : E(e.school || e.name);
+            const meta =
+              kind === "edu"
+                ? `${E(e.degree)} · ${E(e.note)}`
+                : `${E(e.project || e.sub)} · ${
+                    e.stack ? e.stack.map(E).join(" · ") : ""
+                  }`;
+            const body = (e.bullets || [])
+              .map((b) => `<p class="item-desc">${E(b)}</p>`)
+              .join("");
+            const url =
+              e.url ||
+              (kind === "proj" && e.repo
+                ? `https://github.com/${P.githubUser}/${e.repo}`
+                : "");
+            const inner = `<div class="item-h"><span class="item-t">${title}</span><span class="item-when">${
+              e.todo ? '<span class="todo-badge">TODO</span>' : ""
+            }${E(e.period)}</span></div><p class="item-meta">${meta}</p>${body}`;
+            const label =
+              E(e.company || e.school || e.name || "") +
+              (e.role ? " · " + E(e.role) : "");
+            const isExtra =
+              (kind === "work" && /Intern|Assistant/i.test(e.role || "")) ||
+              (kind === "proj" && !e.featured);
+            const liClass = isExtra ? ' class="is-extra"' : "";
+            return `<li${liClass}>${
+              url
+                ? `<a class="item" href="${E(
+                    url,
+                  )}" target="_blank" rel="noopener" aria-label="${label}">${inner}</a>`
+                : `<div class="item">${inner}</div>`
+            }</li>`;
           })
-          .finished.then(() => setHole(to));
-      const openIntro = () => {
-        if (reduceMotion) {
-          setHole("112%");
-          return;
+          .join("")}</ul>`;
+
+      document.getElementById("app").innerHTML = `
+      <header class="nav">
+        <a href="#top" class="brand">${E(P.name)}</a>
+        <div class="nav-right">
+          <nav class="navlinks">
+            <a href="#about">About</a><a href="#now">Now</a><a href="#experience">Experience</a><a href="#education">Education</a><a href="#projects">Projects</a><a href="#publications">Papers</a><a href="#certifications">Certs</a><a href="#skills">Skills</a><a href="#map">Footprints</a>
+          </nav>
+          <button type="button" class="theme-toggle" aria-label="Toggle dark mode">
+            <svg class="ic-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+            <svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          </button>
+        </div>
+      </header>
+      <main id="top">
+        <section class="hero">
+          <p class="kicker">${E(P.role)} · ${E(P.location)}</p>
+          <h1 class="hero-title">${E(P.name)}</h1>
+          <p class="hero-lead">${tagline}</p>
+          <div class="links">${linkrow(["email", "github", "linkedin", "resume"])}</div>
+        </section>
+
+        <section class="block" id="about">
+          <h2 class="block-h">About</h2>
+          <div class="prose">
+            <p class="lead">${E(P.about[0])}</p>
+            ${P.about
+              .slice(1)
+              .map((p) => `<p>${E(p)}</p>`)
+              .join("")}
+          </div>
+        </section>
+
+        ${
+          P.now
+            ? `<section class="block" id="now">
+          <h2 class="block-h">Now</h2>
+          <div class="prose">
+            <p class="lead">${E(P.now[0])}</p>
+            ${P.now
+              .slice(1)
+              .map((p) => `<p>${E(p)}</p>`)
+              .join("")}
+          </div>
+        </section>`
+            : ""
         }
-        requestAnimationFrame(() => iris("0%", "112%", 900));
-      };
 
-      // ===== 右上角坐标跟随 =====
-      function updateCoords() {
-        const c = map.getCenter();
-        document.getElementById("stamp").textContent =
-          `${Math.abs(c.lat).toFixed(2)}°${c.lat >= 0 ? "N" : "S"} · ${Math.abs(c.lng).toFixed(2)}°${c.lng >= 0 ? "E" : "W"}`;
-      }
-      function updatePinScale() {
-        const ps = Math.max(
-          0.7,
-          Math.min(1.4, 0.7 + (map.getZoom() - 3) * 0.06),
-        );
-        document.getElementById("map").style.setProperty("--ps", ps.toFixed(2));
-      }
-
-      // ===== 标签避让 =====
-      const wrapRect = () =>
-        document.getElementById("mapwrap").getBoundingClientRect();
-      function rectOf(el) {
-        // 用元素自身的渲染框(文字/圆点),不要用 marker 容器(.port 是 0×0 的点,会让避让失效)
-        const r = el.getBoundingClientRect(),
-          w = wrapRect();
-        return {
-          l: r.left - w.left,
-          t: r.top - w.top,
-          r: r.right - w.left,
-          b: r.bottom - w.top,
-        };
-      }
-      const hit = (a, b) =>
-        !(a.r < b.l - 6 || a.l > b.r + 6 || a.b < b.t - 4 || a.t > b.b + 4);
-      function declutter() {
-        const taken = [];
-        portEls.forEach((el) => {
-          if (el.style.display === "none") return;
-          const pinEl = el.querySelector(".pin");
-          if (pinEl) taken.push(rectOf(pinEl));
-          const lbl = el.querySelector(".lbl");
-          if (!lbl) return;
-          lbl.style.visibility = "hidden";
-          const r = rectOf(lbl);
-          if (!taken.some((t) => hit(t, r))) {
-            lbl.style.visibility = "visible";
-            taken.push(r);
+        <section class="block" id="experience">
+          <h2 class="block-h">Experience</h2>
+          ${itemList(P.experience, "work")}
+          ${
+            P.experience.some((e) => /Intern|Assistant/i.test(e.role || ""))
+              ? `<button type="button" class="show-all-btn" data-more="Show all experience" aria-expanded="false">Show all experience <span class="ar">→</span></button>`
+              : ""
           }
-        });
-      }
+        </section>
 
-      // ===== 罗盘玫瑰 =====
-      function ray(a, L, bw) {
-        const r = (a * Math.PI) / 180,
-          tx = 60 + L * Math.sin(r),
-          ty = 60 - L * Math.cos(r),
-          px = Math.cos(r) * bw,
-          py = Math.sin(r) * bw;
-        return `<path d="M60 60 L${tx.toFixed(1)} ${ty.toFixed(1)} L${(60 - px).toFixed(1)} ${(60 - py).toFixed(1)} Z" fill="#33302a"/><path d="M60 60 L${tx.toFixed(1)} ${ty.toFixed(1)} L${(60 + px).toFixed(1)} ${(60 + py).toFixed(1)} Z" fill="#cdbb96"/>`;
-      }
-      function drawRose() {
-        let s = `<circle cx="60" cy="60" r="57" fill="#e9dcbf" stroke="#9a7b3f" stroke-width="1.4"/>`;
-        s += `<circle cx="60" cy="60" r="51" fill="none" stroke="#7a5e29" stroke-width="0.6"/><circle cx="60" cy="60" r="22" fill="none" stroke="#9a7b3f" stroke-width="0.5"/>`;
-        for (let dg = 0; dg < 360; dg += 5) {
-          const lng = dg % 45 === 0 ? 6 : dg % 15 === 0 ? 4 : 2.5,
-            a = (dg * Math.PI) / 180,
-            r2 = 51,
-            r1 = r2 - lng;
-          s += `<line x1="${(60 + r1 * Math.sin(a)).toFixed(1)}" y1="${(60 - r1 * Math.cos(a)).toFixed(1)}" x2="${(60 + r2 * Math.sin(a)).toFixed(1)}" y2="${(60 - r2 * Math.cos(a)).toFixed(1)}" stroke="#7a5e29" stroke-width="${dg % 45 === 0 ? 0.9 : 0.45}"/>`;
-        }
-        for (let k = 0; k < 16; k++) {
-          if (k % 2 === 0) continue;
-          s += ray(k * 22.5, 22, 1.8);
-        }
-        for (let k = 0; k < 4; k++) s += ray(45 + k * 90, 33, 4);
-        for (let k = 1; k < 4; k++) s += ray(k * 90, 45, 5.2);
-        s += ray(0, 50, 5.2);
-        s += `<path d="M60 5 L64 13 L60 19 L56 13 Z" fill="#9b2d20" stroke="#6b2c22" stroke-width="0.5"/>`;
-        s += `<circle cx="60" cy="60" r="6" fill="#e9dcbf" stroke="#7a5e29" stroke-width="0.9"/><circle cx="60" cy="60" r="2.2" fill="#7a5e29"/>`;
-        const L = (t, x, y, sz, c) =>
-          `<text x="${x}" y="${y}" text-anchor="middle" font-family="Cinzel,serif" font-weight="600" font-size="${sz}" fill="${c}">${t}</text>`;
-        s +=
-          L("N", 60, 33, 13, "#9b2d20") +
-          L("E", 92, 64.5, 11, "#5a4632") +
-          L("S", 60, 99, 11, "#5a4632") +
-          L("W", 28, 64.5, 11, "#5a4632");
-        document.getElementById("compass").innerHTML = s;
-      }
+        <section class="block" id="education">
+          <h2 class="block-h">Education</h2>
+          ${itemList(P.education, "edu")}
+        </section>
 
-      // ===== 比例尺 =====
-      function updateScale() {
-        const el = document.getElementById("scale");
-        if (!map || !map.getCenter) return;
-        const lat = map.getCenter().lat;
-        const mpp =
-          (156543.03392 * Math.cos((lat * Math.PI) / 180)) /
-          Math.pow(2, map.getZoom());
-        const maxMeters = mpp * 100,
-          pw = Math.pow(10, Math.floor(Math.log10(maxMeters)));
-        let dist = pw;
-        for (const cf of [1, 2, 5, 10])
-          if (cf * pw <= maxMeters) dist = cf * pw;
-        const px = dist / mpp,
-          fmt = (m) => (m >= 1000 ? m / 1000 + " km" : m + " m");
-        const x0 = 2,
-          yb = 17,
-          segs = 5,
-          sw = px / segs;
-        let s = "";
-        for (let i = 0; i < segs; i++)
-          s += `<rect x="${(x0 + i * sw).toFixed(1)}" y="${yb - 5}" width="${sw.toFixed(1)}" height="5" fill="${i % 2 ? "#ece3cf" : "#3a2f23"}" stroke="#3a2f23" stroke-width="0.7"/>`;
-        for (const [tx, lab] of [
-          [0, "0"],
-          [px, fmt(dist)],
-        ]) {
-          s += `<line x1="${(x0 + tx).toFixed(1)}" y1="${yb - 8}" x2="${(x0 + tx).toFixed(1)}" y2="${yb + 1}" stroke="#3a2f23" stroke-width="0.9"/>`;
-          s += `<text x="${(x0 + tx).toFixed(1)}" y="${yb + 12}" text-anchor="middle" font-family="var(--fell)" font-style="italic" font-size="10.5" fill="#6b5a44">${lab}</text>`;
-        }
-        const w = px + 44; // 多留右边给末端"X km"标签,不被裁掉
-        el.setAttribute("viewBox", `-6 0 ${w} 31`);
-        el.setAttribute("width", w);
-        el.setAttribute("height", 31);
-        el.innerHTML = s;
-      }
+        <section class="block" id="projects">
+          <h2 class="block-h">Projects</h2>
+          ${itemList(P.projects, "proj")}
+          ${
+            P.projects.some((p) => !p.featured)
+              ? `<button type="button" class="show-all-btn" data-more="Show all projects" aria-expanded="false">Show all projects <span class="ar">→</span></button>`
+              : ""
+          }
+        </section>
 
-      // ===== 火漆印章 =====
-      function drawSeal() {
-        let edge = "";
-        const bumps = [34, 33, 35, 32.5, 34.5, 33, 35, 32, 34, 33.5, 35, 33];
-        for (let i = 0; i < 48; i++) {
-          const a = (i * 7.5 * Math.PI) / 180,
-            r = bumps[i % bumps.length] + (i % 3 === 0 ? 1.2 : 0);
-          edge += `${(40 + r * Math.sin(a)).toFixed(1)},${(40 - r * Math.cos(a)).toFixed(1)} `;
-        }
-        let s = `<defs><radialGradient id="wax" cx="0.38" cy="0.34" r="0.75"><stop offset="0" stop-color="#a8392c"/><stop offset="0.6" stop-color="#8a2420"/><stop offset="1" stop-color="#5e1410"/></radialGradient></defs>`;
-        s += `<polygon points="${edge}" fill="url(#wax)" stroke="#4d100d" stroke-width="1"/>`;
-        s += `<circle cx="40" cy="40" r="28" fill="none" stroke="#caa04a" stroke-width="0.9" opacity="0.55"/>`;
-        s += `<ellipse cx="31" cy="29" rx="13" ry="8" fill="#c4604f" opacity="0.26"/>`;
-        const anchor = (dx, dy, fill, op) =>
-          `<g transform="translate(${dx},${dy})" fill="${fill}" opacity="${op}" stroke="${fill}" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="40" cy="25" r="3.2" fill="none"/><line x1="40" y1="28" x2="40" y2="52"/><line x1="32" y1="34" x2="48" y2="34"/><path d="M30,46 Q31,54 40,55 Q49,54 50,46" fill="none"/><path d="M30,46 l-3,-3 M30,46 l4,-1 M50,46 l3,-3 M50,46 l-4,-1"/></g>`;
-        s += anchor(0.7, 0.8, "#7c5f24", 0.85) + anchor(0, 0, "#f0d488", 0.98);
-        s += `<text x="40" y="70" text-anchor="middle" font-family="'IM Fell English',Georgia,serif" font-style="italic" font-size="7" letter-spacing="1.2" fill="#e0c373" opacity="0.92">· SHERRY ·</text>`;
-        document.getElementById("seal").innerHTML = s;
-      }
+        <section class="block" id="publications">
+          <h2 class="block-h">Papers</h2>
+          <ul class="items">${P.publications
+            .map(
+              (p) => `<li><a class="item" href="${E(
+                p.url,
+              )}" target="_blank" rel="noopener" aria-label="${E(p.title)}"><div class="item-h"><span class="item-t">${E(
+                p.title,
+              )}</span><span class="item-when">${E(
+                p.date,
+              )}</span></div><p class="item-meta">${E(
+                p.venue,
+              )}</p><p class="item-desc">${E(p.note)}</p></a></li>`,
+            )
+            .join("")}</ul>
+        </section>
 
-      drawRose();
-      drawSeal();
+        <section class="block" id="certifications">
+          <h2 class="block-h">Certifications</h2>
+          <ul class="certs">${P.certifications
+            .map(
+              (c) => `<li><a class="cert" href="${E(
+                c.url,
+              )}" target="_blank" rel="noopener"><span class="cert-name">${E(
+                c.name,
+              )}</span><span class="cert-meta">${E(c.authority)}${
+                c.date ? " · " + E(c.date) : ""
+              }</span></a></li>`,
+            )
+            .join("")}</ul>
+        </section>
 
-      // 白天 / 夜晚切换
-      const THEMES = {
-        day: {
-          sea: "#b9cdd0",
-          land: "#ece3cf",
-          cf: "#c9a85a",
-          cfo: 0.32,
-          sf: "#cdab5e",
-          sfo: 0.34,
-          border: "#9a7b3f",
-        },
-        night: {
-          sea: "#0c1722",
-          land: "#1c2a36",
-          cf: "#e7c25c",
-          cfo: 0.5,
-          sf: "#e7c25c",
-          sfo: 0.45,
-          border: "#caa53f",
-        },
-      };
-      let night = false;
-      function applyDayNight() {
-        const t = THEMES[night ? "night" : "day"];
-        const P = (l, p, v) => {
-          if (map.getLayer(l)) map.setPaintProperty(l, p, v);
-        };
-        P("bg", "background-color", t.sea);
-        P("lake", "fill-color", t.sea); // 湖与海同源,夜间一起变深(否则白斑)
-        P("land", "fill-color", t.land);
-        P("country-fill", "fill-color", t.cf);
-        P("country-fill", "fill-opacity", t.cfo);
-        P("state-fill", "fill-color", t.sf);
-        P("state-fill", "fill-opacity", t.sfo);
-        P("border-line", "line-color", t.border);
-        document.body.classList.toggle("night", night);
-        const sv = document.querySelector("#daynight svg");
-        if (sv) {
-          sv.querySelector(".moon").style.display = night ? "none" : "";
-          sv.querySelector(".sun").style.display = night ? "" : "none";
-        }
-      }
-      document.getElementById("daynight").addEventListener("click", () => {
-        night = !night;
-        applyDayNight();
-      });
+        <section class="block" id="skills">
+          <h2 class="block-h">Skills</h2>
+          <dl class="skills">${Object.entries(P.skills)
+            .map(
+              ([c, t]) =>
+                `<div class="skill"><dt>${E(c)}</dt><dd>${t
+                  .map((s) => `<span class="tag">${E(s)}</span>`)
+                  .join("")}</dd></div>`,
+            )
+            .join("")}</dl>
+        </section>
 
-      // ===== 社交链接 =====
-      (function () {
-        const toast = document.getElementById("toast");
-        let timer;
-        function show(node, html, sticky) {
-          const r = node.getBoundingClientRect();
-          toast.innerHTML = html;
-          toast.classList.add("show");
-          toast.style.left = r.right + 12 + "px";
-          toast.style.top = r.top - 6 + "px";
-          clearTimeout(timer);
-          if (!sticky)
-            timer = setTimeout(() => toast.classList.remove("show"), 2200);
-        }
-        function hideSoon(ms) {
-          clearTimeout(timer);
-          timer = setTimeout(() => toast.classList.remove("show"), ms);
-        }
-        function copy(text) {
-          if (navigator.clipboard && window.isSecureContext)
-            navigator.clipboard.writeText(text).catch(() => fallbackCopy(text));
-          else fallbackCopy(text);
-        }
-        function fallbackCopy(text) {
-          const ta = document.createElement("textarea");
-          ta.value = text;
-          ta.style.position = "fixed";
-          ta.style.opacity = "0";
-          document.body.appendChild(ta);
-          ta.select();
+        <section class="block" id="map">
+          <h2 class="block-h">Footprints</h2>
+          <a class="fp" href="${E(P.footprints.href)}">
+            <span class="fp-text">
+              <span class="fp-title">A map of everywhere I've been</span>
+              <span class="fp-meta">13 countries · 2014–2026</span>
+            </span>
+            <span class="more">Open the map <span class="ar">→</span></span>
+          </a>
+        </section>
+      </main>
+      <footer class="foot"><span>${E(P.name)} · ${E(P.location)}</span><span>© ${new Date().getFullYear()}</span></footer>`;
+
+      // ---- dark / light theme toggle ----
+      const themeBtn = document.querySelector(".theme-toggle");
+      if (themeBtn) {
+        themeBtn.addEventListener("click", () => {
+          const next =
+            document.documentElement.getAttribute("data-theme") === "dark"
+              ? "light"
+              : "dark";
+          document.documentElement.setAttribute("data-theme", next);
           try {
-            document.execCommand("copy");
+            localStorage.setItem("theme", next);
           } catch (e) {}
-          document.body.removeChild(ta);
-        }
-        document.querySelectorAll("#links a").forEach((a) => {
-          if (a.dataset.soon)
-            a.addEventListener("click", (e) => {
-              e.preventDefault();
-              show(a, `${a.dataset.soon} · coming soon ✦`);
-            });
-          else if (a.dataset.email)
-            a.addEventListener("click", (e) => {
-              e.preventDefault();
-              show(a, `<span class="copyable">${a.dataset.email}</span>`, true);
-              toast
-                .querySelector(".copyable")
-                .addEventListener("click", (ev) => {
-                  ev.stopPropagation();
-                  copy(a.dataset.email);
-                  toast.innerHTML = `Copied ✦`;
-                  hideSoon(1500);
-                });
-            });
         });
-        document.addEventListener("click", (e) => {
-          if (!e.target.closest("#links") && !e.target.closest("#toast"))
-            toast.classList.remove("show");
-        });
-      })();
+      }
 
-      // ===== 启动:加载数据 → 建世界高亮 → 渲染世界层 =====
-      Promise.all([
-        fetch("data/footprints.json").then((r) => r.json()),
-        fetch("data/world.geojson").then((r) => r.json()),
-        fetch("data/states.geojson").then((r) => r.json()),
-        fetch("data/borders.geojson").then((r) => r.json()),
-        fetch("data/lakes.geojson").then((r) => r.json()),
-      ])
-        .then(([d, w, st, bd, lk]) => {
-          DATA = d;
-          WORLD = w;
-          STATES = st;
-          // 台湾属于中国:把台湾几何并入中国,作为中国的一部分(不再是独立 feature)
-          (() => {
-            const cn = w.features.find((f) => f.properties.NAME === "China");
-            const ti = w.features.findIndex(
-              (f) => f.properties.NAME === "Taiwan",
-            );
-            if (cn && ti >= 0) {
-              const polys = (g) =>
-                g.type === "MultiPolygon" ? g.coordinates : [g.coordinates];
-              cn.geometry = {
-                type: "MultiPolygon",
-                coordinates: [
-                  ...polys(cn.geometry),
-                  ...polys(w.features[ti].geometry),
-                ],
-              };
-              w.features.splice(ti, 1);
-            }
-          })();
-          const visited = new Set(Object.keys(NE2MINE));
-          w.features.forEach((f) => {
-            f.properties.__v = visited.has(f.properties.NAME) ? 1 : 0;
-          });
-          buildYears();
-          map.on("load", () => {
-            map.addSource("world", { type: "geojson", data: w });
-            map.addSource("states", { type: "geojson", data: st });
-            map.addSource("borders", { type: "geojson", data: bd });
-            map.addSource("lakes", { type: "geojson", data: lk });
-            // 全球陆地(NE 同源):纸色;海 = 背景色。陆地与去过高亮用同一份数据,边缘不会错位、不被水域切碎
-            map.addLayer(
-              {
-                id: "land",
-                type: "fill",
-                source: "world",
-                paint: { "fill-color": "#ece3cf" },
-              },
-              "roads",
-            );
-            map.addLayer(
-              {
-                id: "country-fill",
-                type: "fill",
-                source: "world",
-                filter: ["==", ["get", "__v"], 1],
-                paint: { "fill-color": "#c9a85a", "fill-opacity": 0.32 },
-              },
-              "roads",
-            );
-            // 去过的省/州:金色填色 + 一圈淡金描边
-            map.addLayer(
-              {
-                id: "state-fill",
-                type: "fill",
-                source: "states",
-                layout: { visibility: "none" },
-                paint: {
-                  "fill-color": "#cdab5e",
-                  "fill-opacity": 0.34,
-                  "fill-outline-color": "#8a6d3a",
-                },
-              },
-              "roads",
-            );
-            // 湖泊(NE,与陆地同源):海色填充,盖住去过国家金色(五大湖等显示为水面)
-            map.addLayer(
-              {
-                id: "lake",
-                type: "fill",
-                source: "lakes",
-                paint: { "fill-color": "#b9cdd0" },
-              },
-              "roads",
-            );
-            // 州/省界(openfreemap admin_level 4):全国省界淡褐虚线,看得到行政划分
-            map.addLayer(
-              {
-                id: "state-border",
-                type: "line",
-                source: "omt",
-                "source-layer": "boundary",
-                filter: [
-                  "all",
-                  ["has", "admin_level"],
-                  ["==", ["get", "admin_level"], 4],
-                ],
-                paint: {
-                  "line-color": "#9a8666",
-                  "line-width": 0.6,
-                  "line-opacity": 0.45,
-                  "line-dasharray": [3, 2],
-                },
-              },
-              "roads",
-            );
-            // 国界线:只画"去过的国家"的陆地国界(不画全球),不含海岸、淡褐细
-            const VISITED_A3 = [
-              "CAN",
-              "USA",
-              "CHN",
-              "TWN",
-              "GBR",
-              "FRA",
-              "BEL",
-              "DEU",
-              "CHE",
-              "ITA",
-              "VAT",
-              "NOR",
-              "DNK",
-              "THA",
-            ];
-            map.addLayer({
-              id: "border-line",
-              type: "line",
-              source: "borders",
-              filter: [
-                "any",
-                ["in", ["get", "ADM0_A3_L"], ["literal", VISITED_A3]],
-                ["in", ["get", "ADM0_A3_R"], ["literal", VISITED_A3]],
-              ],
-              layout: { "line-join": "round" },
-              paint: {
-                "line-color": "#9a7b3f",
-                "line-width": 0.7,
-                "line-opacity": 0.5,
-              },
-            });
-            // 透明的国家点击层(所有层都可点):点别的国家可直接跳过去
-            map.addLayer({
-              id: "country-hit",
-              type: "fill",
-              source: "world",
-              filter: ["==", ["get", "__v"], 1],
-              paint: { "fill-color": "#000", "fill-opacity": 0 },
-            });
-            map.on("click", "country-hit", (e) => {
-              const c = DATA.countries.find(
-                (x) => x.name === NE2MINE[e.features[0].properties.NAME],
-              );
-              if (!c) return;
-              const cur = stack[stack.length - 1];
-              if (cur.c === c) return; // 已在该国,其州交给 state-fill 处理
-              stack.length = 1; // 回到世界,再进点中的国家(支持任意层跨国直跳)
-              navigate({ level: "country", c });
-            });
-            map.on("click", "state-fill", (e) => {
-              const lvl = stack[stack.length - 1];
-              if (lvl.level !== "country" && lvl.level !== "region") return;
-              const r = lvl.c.regions.find(
-                (x) => x.name === e.features[0].properties.region,
-              );
-              if (r && !(lvl.level === "region" && lvl.r === r))
-                navigate({ level: "region", c: lvl.c, r });
-            });
-            ["country-hit", "state-fill"].forEach((id) => {
-              map.on("mouseenter", id, () =>
-                document.getElementById("cursor")?.classList.add("hot"),
-              );
-              map.on("mouseleave", id, () =>
-                document.getElementById("cursor")?.classList.remove("hot"),
-              );
-            });
-            stack.length = 0;
-            stack.push({ level: "world" });
-            renderTop(false);
-            updateCoords();
-            updatePinScale();
-            window.__ready = true;
-            document.getElementById("loadtip")?.remove();
-            openIntro();
-            map.on("move", () => {
-              updateScale();
-              updatePinScale();
-              updateCoords();
-              declutter();
-            });
-            // 缩小 / 平移出界 → 自动退层;缩得越多一次退越多层(连退到对应层级)
-            // 退层:按"当前层范围占屏比例"判断 —— 山东占屏变小就退到中国,
-            // 中国占屏变小就退到世界(不看绝对缩放);移出视野也退。退后 fit 上层完整地图。
-            map.on("moveend", () => {
-              if (Date.now() - navTs < 350) return; // 仅时间防抖,不用动画锁(避免卡死)
-              let popped = false;
-              while (stack.length > 1) {
-                const e = stack[stack.length - 1];
-                // 标准 drill-down 退层:以"进入该层时的展示 zoom(_z)"为基准,
-                // 缩到比它小近 1 级 → 退上层。基准是每层自己的 _z,与国家大小/
-                // 纬度无关(旧的占屏比例对加拿大/中国这种横跨高纬大国必然失效)。
-                if (e._z == null) break; // 该层还没 fit 完,先不判断
-                const zoomedOut = map.getZoom() < e._z - 0.85;
-                const out =
-                  e._bbox && !boundsIntersect(map.getBounds(), e._bbox);
-                if (zoomedOut || out) {
-                  stack.pop();
-                  popped = true;
-                } else break;
-              }
-              if (popped) renderTop(true); // 一次缩放可连退多层,最后 fit 落点层
-            });
-          });
-          map.on("error", (e) =>
-            console.warn("map:", e.error && e.error.message),
-          );
-          setTimeout(() => {
-            if (window.__ready) return;
-            const tip = document.createElement("div");
-            tip.id = "loadtip";
-            tip.textContent = "Map is loading slowly — check your connection";
-            document.getElementById("mapwrap").appendChild(tip);
-            openIntro();
-          }, 8000);
-        })
-        .catch((err) => {
-          console.error(err);
-          const tip = document.createElement("div");
-          tip.id = "loadtip";
-          tip.textContent = "Failed to load data: " + err.message;
-          document.getElementById("mapwrap").appendChild(tip);
+      // ---- collapse toggles (experience internships, non-featured projects) ----
+      document.querySelectorAll(".show-all-btn").forEach((btn) => {
+        const sec = btn.closest("section");
+        const list = sec && sec.querySelector(".items");
+        if (!list) return;
+        const more = btn.dataset.more || "Show all";
+        btn.addEventListener("click", () => {
+          const open = list.classList.toggle("show-all");
+          btn.setAttribute("aria-expanded", open ? "true" : "false");
+          btn.innerHTML = open
+            ? 'Show fewer <span class="ar">↑</span>'
+            : `${more} <span class="ar">→</span>`;
         });
+      });
     </script>
   </body>
 </html>
