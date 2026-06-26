@@ -101,3 +101,30 @@
 **守住**:🧭 没留下任何地图改动(实验已回退);📇 没动个人内容。
 
 **改动文件**:仅 `LOOP-LOG.md`(footprints.html 试改后已回退,净改动为 0)。
+
+---
+
+## 2026-06-26 02:40 多伦多 · 第 5 轮 — 地图页键盘焦点环(ladder F 无障碍,守美学)
+
+**任务**:无障碍。审 index.html 发现它已较完整(`:focus-visible` 覆盖所有 a/button、`prefers-reduced-motion` 是全局 `*` 重置)→ 没低垂果实。转去用户更在意的地图页 `footprints.html`。
+
+**发现的缺口**:`footprints.html` **完全没有 `:focus-visible` / `:focus` 规则**——键盘 Tab 到音乐钮、昼夜钮、GitHub/LinkedIn/Email 链接、年份按钮时**看不到任何焦点指示**(鼠标用户无感,但键盘 / 读屏用户彻底迷失)。这是真·大厂级无障碍缺口。
+
+**实现**(纯 CSS,零行为改动):给上述原生可聚焦控件加焦点环——
+- `#music` / `#daynight`(30px 圆钮):`outline: 2px solid var(--goldhi); outline-offset: 3px;` → 环跟随 `border-radius:50%` 呈**圆形**。
+- `#links a` / `#years button`:同色环 + `border-radius:6px` 圆角。
+- 用主题既有的 `--goldhi`(#e0c373 亮金),亮/暗两种模式都可见,与古海图金/羊皮纸调一致。**只在键盘 Tab 时出现**,鼠标用户与地图观感零影响。
+
+**为何不做更多**:面包屑 `.cr` 是 `<span>`(无 `tabindex`,键盘根本聚焦不到)、地图 pin 是 `<div>`——要让它们键盘可达需加 `tabindex`+键盘事件,属行为改动,**留作单独一轮**(本轮守原子化,只做纯 CSS 焦点环)。
+
+**验证**(Playwright,真跑):
+- 键盘 `Tab` 后实测 `document.activeElement.matches(':focus-visible')=true`,computed `outline = rgb(224,195,115) 2px`(正是 --goldhi)、`#music` offset 3px 跟随 50% 圆角 ✅。
+- footprints.html console **0 报错** ✅。
+- 三套测试全绿:**design.js 24/24 · design-map.js 13/13 · regression.js 24/24** ✅(焦点环不影响任何断言)。
+- 截图 `.playwright-mcp/m5-focusring-music.png`(已 gitignore,不入库)。
+
+**守住**:🧭 没动地图美学(焦点环仅键盘可见,不改配色/纹理/印章/排版);📇 没动个人内容。
+
+**留给后续**:面包屑 / 地图 pin 的完整键盘可达(tabindex + Enter/Space + role),可单独做一轮。
+
+**改动文件**:`footprints.html`、`LOOP-LOG.md`。

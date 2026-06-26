@@ -689,6 +689,19 @@
         font-weight: 600;
       }
 
+      /* 键盘可达:焦点环 — 仅键盘 Tab 导航时可见,鼠标用户与古海图观感不受影响 */
+      #music:focus-visible,
+      #daynight:focus-visible {
+        outline: 2px solid var(--goldhi);
+        outline-offset: 3px;
+      }
+      #links a:focus-visible,
+      #years button:focus-visible {
+        outline: 2px solid var(--goldhi);
+        outline-offset: 2px;
+        border-radius: 6px;
+      }
+
       #card {
         position: absolute;
         right: 28px;
