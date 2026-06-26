@@ -29,3 +29,23 @@
 - 待用户定（不臆造）：FOOTPRINTS.md/DESIGN-MAP 里「退层」的文字规范是否要随印章改版整体复核一遍。
 
 **改动文件**：`tests/regression.js`、`FOOTPRINTS.md`、`LOOP-LOG.md`（新建）。
+
+---
+
+## 2026-06-26 01:13 多伦多 · 第 2 轮 — 清掉 favicon 404（ladder F 健壮性）
+
+**任务**：健壮性 — 消除控制台报错，向「大厂级 0 console 报错」靠拢。
+
+**发现**：两页都没设 favicon，浏览器默认请求 `/favicon.ico` → 404（footprints.html 之前唯一的 console 报错）。
+
+**修复**：
+- 新建 `favicon.svg`：金色罗盘星 + 深色圆角底，呼应古海图金/羊皮纸调，亮/暗标签栏都可见。
+- `index.html`、`footprints.html` 各加 `<link rel="icon" href="favicon.svg" />`（浏览器改用它，不再请求 favicon.ico）。
+
+**验证**（Playwright）：
+- footprints.html：console **0 报错**（404 消失）✅
+- index.html：console 0 报错；`design.js` 仍 **24/24** ✅（加 favicon 未引入回归）
+
+**守住**：🧭 没动地图美学（favicon 是浏览器标签图标，非地图视觉）；📇 没动个人内容。
+
+**改动文件**：`favicon.svg`（新建）、`index.html`、`footprints.html`、`LOOP-LOG.md`。
