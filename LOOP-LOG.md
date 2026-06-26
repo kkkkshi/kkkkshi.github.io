@@ -128,3 +128,26 @@
 **留给后续**:面包屑 / 地图 pin 的完整键盘可达(tabindex + Enter/Space + role),可单独做一轮。
 
 **改动文件**:`footprints.html`、`LOOP-LOG.md`。
+
+---
+
+## 2026-06-26 02:55 多伦多 · 第 6 轮 — maplibre CDN 加 SRI(ladder G 公开前加固)
+
+**任务**:CDN 加固(TODO ② 明确列了)。`footprints.html` 从 unpkg 加载 **maplibre-gl@4.7.1** 的 CSS(line 9)和 JS(line 980),此前**无完整性校验**——CDN 若被篡改或投毒,用户会静默执行被改过的脚本。
+
+**实现**:给两个标签加 `integrity="sha384-…"` + `crossorigin="anonymous"`。
+- 哈希**不靠猜**:在 localhost(SubtleCrypto 的安全上下文)用浏览器 `fetch` 实际从 unpkg 下载这两个文件 → `crypto.subtle.digest('SHA-384')` → base64,得到**浏览器将要校验的同一份字节**的 integrity 值。
+  - CSS(65534 B):`sha384-MinO0mNliZ3vwppuPOUnGa+iq619pfMhLVUXfC4LHwSCvF9H+6P/KO4Q7qBOYV5V`
+  - JS(803086 B):`sha384-SYKAG6cglRMN0RVvhNeBY0r3FYKNOJtznwA0v7B5Vp9tr31xAHsZC0DqkQ/pZDmj`
+- 版本是**固定的 @4.7.1**(非 @latest),字节不变 → SRI 长期有效,不会因上游升级失效。
+
+**验证**(Playwright,真跑——SRI 错的话脚本会被拦、地图根本起不来):
+- 重载后:`maplibregl` 已定义、`window._map.getZoom()=1.89`、`isStyleLoaded()=true`、maplibre CSS 生效(canvas `position:absolute`)→ **两个资源都通过 SRI 校验并加载** ✅。
+- console **0 报错 0 警告**(无 SRI mismatch)✅。
+- 三套测试:**design-map.js 13/13 · regression.js 24/24** ✅;design.js 测的 index.html 本轮未改(上轮 24/24)。
+
+**未做 / 原因**:Google Fonts 的 `css2` 是**动态无版本端点**,SRI 不适用(官方亦不建议),本轮只加固固定版的 maplibre。底图瓦片/字体的本地化或 fallback 是更大的活,留后续。
+
+**守住**:🧭 没动地图美学(只加资源完整性属性);📇 没动个人内容。
+
+**改动文件**:`footprints.html`(2 个 CDN 标签)、`LOOP-LOG.md`。
