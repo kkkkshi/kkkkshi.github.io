@@ -848,8 +848,8 @@
       <div id="stamp"></div>
       <svg id="scale" aria-hidden="true"></svg>
       <svg id="compass" viewBox="0 0 120 120" aria-hidden="true"></svg>
-      <svg id="seal" viewBox="0 0 80 80" aria-hidden="true">
-        <title>Sherry's seal · click to go back</title>
+      <svg id="seal" viewBox="0 0 80 80">
+        <title>返回个人主页 · Home</title>
       </svg>
       <div id="years"></div>
       <div id="card"></div>
@@ -897,18 +897,6 @@
         </svg>
       </button>
       <nav id="links">
-        <a href="index.html" title="Home" aria-label="Home">
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.8"
-            stroke-linejoin="round"
-          >
-            <path d="M4 11.5 12 4l8 7.5" />
-            <path d="M6 10.5V20h12v-9.5" />
-          </svg>
-        </a>
         <a
           href="https://github.com/kkkkshi"
           target="_blank"
@@ -1536,7 +1524,9 @@
       document.getElementById("map").addEventListener("click", (e) => {
         if (!e.target.closest(".pin")) hideCard();
       });
-      document.getElementById("seal").addEventListener("click", goBack);
+      document.getElementById("seal").addEventListener("click", () => {
+        location.href = "index.html";
+      });
       addEventListener("popstate", goBack);
 
       // ===== 背景音乐 =====
@@ -1888,25 +1878,29 @@
           DATA = d;
           WORLD = w;
           STATES = st;
-          // 台湾属于中国:把台湾几何并入中国,作为中国的一部分(不再是独立 feature)
-          (() => {
-            const cn = w.features.find((f) => f.properties.NAME === "China");
-            const ti = w.features.findIndex(
-              (f) => f.properties.NAME === "Taiwan",
-            );
-            if (cn && ti >= 0) {
-              const polys = (g) =>
-                g.type === "MultiPolygon" ? g.coordinates : [g.coordinates];
-              cn.geometry = {
-                type: "MultiPolygon",
-                coordinates: [
-                  ...polys(cn.geometry),
-                  ...polys(w.features[ti].geometry),
-                ],
-              };
-              w.features.splice(ti, 1);
+          // NE 国名 → 我的国名:从每国 ne_names 推导(数据驱动,代码不写死国家列表)
+          DATA.countries.forEach((c) =>
+            (c.ne_names || [c.name]).forEach((n) => (NE2MINE[n] = c.name)),
+          );
+          // 多territory国家(如中国含台湾):把附属 NE feature 几何并入主 feature(ne_names[0])
+          const polys = (g) =>
+            g.type === "MultiPolygon" ? g.coordinates : [g.coordinates];
+          DATA.countries.forEach((c) => {
+            const names = c.ne_names || [c.name];
+            if (names.length < 2) return;
+            const main = w.features.find((f) => f.properties.NAME === names[0]);
+            if (!main) return;
+            let coords = polys(main.geometry);
+            for (let i = 1; i < names.length; i++) {
+              const idx = w.features.findIndex(
+                (f) => f.properties.NAME === names[i],
+              );
+              if (idx < 0) continue;
+              coords = coords.concat(polys(w.features[idx].geometry));
+              w.features.splice(idx, 1);
             }
-          })();
+            main.geometry = { type: "MultiPolygon", coordinates: coords };
+          });
           const visited = new Set(Object.keys(NE2MINE));
           w.features.forEach((f) => {
             f.properties.__v = visited.has(f.properties.NAME) ? 1 : 0;
@@ -1984,22 +1978,8 @@
               "roads",
             );
             // 国界线:只画"去过的国家"的陆地国界(不画全球),不含海岸、淡褐细
-            const VISITED_A3 = [
-              "CAN",
-              "USA",
-              "CHN",
-              "TWN",
-              "GBR",
-              "FRA",
-              "BEL",
-              "DEU",
-              "CHE",
-              "ITA",
-              "VAT",
-              "NOR",
-              "DNK",
-              "THA",
-            ];
+            // 去过国家的 ISO A3(画陆地国界线):从 DATA 的 iso_a3 推导,不再硬编码
+            const VISITED_A3 = DATA.countries.flatMap((c) => c.iso_a3 || []);
             map.addLayer({
               id: "border-line",
               type: "line",
