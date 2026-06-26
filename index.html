@@ -144,6 +144,30 @@
       ::selection {
         background: var(--accent-soft);
       }
+      /* 无障碍:跳过导航直达主内容(平时移出视口,键盘 Tab 聚焦时滑入) */
+      .skip-link {
+        position: fixed;
+        top: 8px;
+        left: 8px;
+        z-index: 100;
+        padding: 10px 16px;
+        background: var(--accent);
+        color: #fff;
+        font-family: var(--sans);
+        font-size: var(--fs-subhead);
+        font-weight: 600;
+        text-decoration: none;
+        border-radius: var(--radius-sm);
+        box-shadow: var(--shadow-hover);
+        transform: translateY(-200%);
+        transition: transform 0.18s ease;
+      }
+      .skip-link:focus {
+        transform: translateY(0);
+      }
+      #top {
+        outline: none;
+      }
 
       /* ---- nav: Apple material (translucent + blur) ---- */
       .nav {
@@ -713,6 +737,7 @@
     </style>
   </head>
   <body>
+    <a class="skip-link" href="#top">Skip to content</a>
     <div id="app"></div>
     <script src="profile/data.js"></script>
     <script>
@@ -811,7 +836,7 @@
           </button>
         </div>
       </header>
-      <main id="top">
+      <main id="top" tabindex="-1">
         <section class="hero">
           <p class="kicker">${E(P.role)} · ${E(P.location)}</p>
           <h1 class="hero-title">${E(P.name)}</h1>

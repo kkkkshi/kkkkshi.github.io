@@ -338,3 +338,23 @@
 **进度**:这轮刻意避开了主观视觉改动,挑了零回退风险的 print 样式。安全活确实见底——下一轮起多半只剩需你拍板/带主观风险的,会按 §4 写收尾、不硬刷。
 
 **改动文件**:`index.html`(`@media print` 块)、`LOOP-LOG.md`。
+
+---
+
+## 2026-06-26 05:06 多伦多 · 第 15 轮 — 首页「跳到主内容」skip 链接(ladder F 无障碍)
+
+**任务**:无障碍。键盘用户每次 Tab 进页面都得先穿过导航才到正文,缺标准的 skip-link(WCAG 2.4.1 Bypass Blocks)。首页已有 `<main id="top">` 可直接当目标。
+
+**实现**(平时移出视口,仅键盘 Tab 时滑入 → 屏幕视觉零变化):
+- `<body>` 首个元素加 `<a class="skip-link" href="#top">Skip to content</a>`;
+- `<main id="top">` 加 `tabindex="-1"`,使激活 skip 后**焦点真正落入正文**(不只是滚动);
+- `.skip-link` CSS:`position:fixed` + `translateY(-200%)` 默认藏在视口上方,`:focus` 时 `translateY(0)` 滑入(绿底白字、圆角、阴影,与首页体系一致);`#top{outline:none}` 避免容器聚焦时整块描边。
+
+**验证**(Playwright,真跑):
+- 重载后**首个 Tab** 即聚焦 `.skip-link`("Skip to content"),computed `transform=translateY(0)` → 滑入可见 ✅;
+- **激活后 `document.activeElement` = `<main id="top">`**(焦点落入正文,绕过导航)✅;
+- `design.js` **24/24**、console **0 报错** ✅;平时 `translateY(-200%)` 不可见 → 屏幕零变化。
+
+**守住**:🧭 没动地图;📇 没动个人内容;屏幕视觉不变(仅键盘聚焦时出现)。
+
+**改动文件**:`index.html`(skip 链接 + CSS + main tabindex)、`LOOP-LOG.md`。
