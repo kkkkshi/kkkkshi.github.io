@@ -666,6 +666,50 @@
           scroll-behavior: auto !important;
         }
       }
+      /* ---- 打印 / 存 PDF:简历应干净完整(白底黑字、去掉屏幕专属控件、展开折叠) ---- */
+      @media print {
+        /* 即便用户在暗色下打印,也强制浅色省墨清晰 */
+        :root,
+        [data-theme="dark"] {
+          --bg: #fff;
+          --card: #fff;
+          --ink: #1c1c1e;
+          --muted: rgba(60, 60, 67, 0.78);
+          --faint: rgba(60, 60, 67, 0.4);
+          --line: rgba(60, 60, 67, 0.22);
+          --fill: rgba(120, 120, 128, 0.1);
+          --fill-2: rgba(120, 120, 128, 0.14);
+          --accent: #1a5740;
+          --accent-ink: #1a5740;
+          --accent-soft: rgba(31, 99, 71, 0.1);
+          --material: #fff;
+          --shadow: none;
+          --shadow-hover: none;
+        }
+        body {
+          background: #fff;
+        }
+        * {
+          box-shadow: none !important;
+        }
+        /* 屏幕专属控件在纸面无意义 */
+        .nav,
+        .theme-toggle,
+        .fp,
+        .show-all-btn {
+          display: none !important;
+        }
+        /* 折叠的经历 / 项目在打印时全展开 */
+        .is-extra {
+          display: block !important;
+        }
+        /* 卡片 / 分区尽量不被分页切断 */
+        .card,
+        section,
+        .item {
+          break-inside: avoid;
+        }
+      }
     </style>
   </head>
   <body>
