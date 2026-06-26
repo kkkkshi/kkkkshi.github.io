@@ -174,3 +174,26 @@
 **守住**:🧭 没动地图;📇 文案全用原文,没改没编。
 
 **改动文件**:`index.html`(head 加 OG/Twitter meta)、`LOOP-LOG.md`。
+
+---
+
+## 2026-06-26 03:21 多伦多 · 第 8 轮 — 地图页补 description + 社交分享卡片(对称第 7 轮)
+
+**任务**:延续第 7 轮。`footprints.html` 的 `<head>` 此前**极裸**——只有 charset / viewport / favicon / title,**没有 `description`、没有 OG/Twitter**。地图本身(交互式古海图)是很值得分享的作品,缺分享卡同样掉价。
+
+**实现**(纯 `<head>` meta,不碰地图美学/功能):
+- 加 `meta name="description"`;
+- 加 OG(`og:type/title/description/site_name/locale`)+ Twitter(`twitter:card=summary/title/description`)。
+- 文案只**陈述「这页是什么」**——"An interactive antique-style map tracing the places Sherry (Ke) Shi has lived and traveled."(对作品的客观描述,**没编造任何具体旅行地点/年份**,守 📇)。
+- 同第 7 轮:`og:url` / `og:image` 需绝对 URL 且站点未部署 → 没瞎填,留注释待部署后补。
+
+**验证**(Playwright,真跑):
+- 重载后 DOM 实测:`description` / `og:title` / `og:description` / `twitter:card` 全部就位且正确;地图正常加载(`isStyleLoaded()=true`)→ 加 meta 没影响地图 ✅。
+- console **0 报错 0 警告** ✅。
+- 三套测试:**design-map.js 13/13 · regression.js 24/24** ✅;index.html 本轮未改(design.js 上轮 24/24)。
+
+**守住**:🧭 没动地图美学/功能(只加 head meta);📇 描述是对作品的客观陈述,没编造旅行事实。
+
+**留给后续**:① 地图页 `theme-color`——因古海图是 JS 手动昼夜切换(非 OS 偏好),`media=(prefers-color-scheme)` 的写法不跟手,要随昼夜 toggle 用 JS 更新,属单独一轮;② 第 7 轮记的 index.html 双 favicon link 仍待用户二选一;③ 两页的 `og:url` / `og:image` 待部署后补绝对 URL + 分享图。
+
+**改动文件**:`footprints.html`(head 加 description + OG/Twitter)、`LOOP-LOG.md`。
