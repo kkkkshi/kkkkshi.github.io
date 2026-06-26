@@ -151,3 +151,26 @@
 **守住**:🧭 没动地图美学(只加资源完整性属性);📇 没动个人内容。
 
 **改动文件**:`footprints.html`(2 个 CDN 标签)、`LOOP-LOG.md`。
+
+---
+
+## 2026-06-26 03:05 多伦多 · 第 7 轮 — 首页加社交分享卡片(Open Graph / Twitter)
+
+**任务**:公开前加固。`index.html` 已有 `description` / `theme-color`,但**完全没有 Open Graph / Twitter 卡片** → 把主页链接分享到 LinkedIn / 微信 / iMessage / Slack 时只显示裸 URL,没有标题 + 简介的预览卡。对一个求职作品集页,这是很掉价的缺口。
+
+**实现**(纯 `<head>` meta,不碰视觉/事实):加 OG + Twitter 标签——
+- `og:type=website`、`og:title`、`og:description`、`og:site_name`、`og:locale=en_US`;
+- `twitter:card=summary`、`twitter:title`、`twitter:description`。
+- **文案 100% 复用页面已有的 title / description 原文**(`Sherry (Ke) Shi · Data Scientist` + `…Data Scientist in Toronto. Real-time machine learning for fraud and risk.`),一字未改、未臆造(守 📇)。
+- `og:url` / `og:image` 需**绝对** URL,站点还没部署、也没有 1200×630 的分享图 → **没瞎填**,留了注释提示部署后补(避免给出会失效/相对的假值)。
+
+**验证**(Playwright,真跑):
+- 重载后 DOM 实测:`og:type/title/description/site_name`、`twitter:card/title` 全部就位且取值正确 ✅。
+- console **0 报错 0 警告** ✅。
+- `design.js` 仍 **24/24** ✅(meta 不影响断言);本轮只改 `index.html`,地图页两套测试(design-map 13 / regression 24)与此无关,维持上轮绿。
+
+**顺带发现(预存问题,本轮不动,只记一笔)**:`index.html` 有**两个** `<link rel="icon">`——line 6 的 `favicon.svg`(第 2 轮加的金罗盘)和一个 data-uri 的绿色 "S" 圆角块。两者可能互相覆盖(浏览器通常取后者),建议后续二选一统一。**没删**(预存代码,按规矩不顺手清)。
+
+**守住**:🧭 没动地图;📇 文案全用原文,没改没编。
+
+**改动文件**:`index.html`(head 加 OG/Twitter meta)、`LOOP-LOG.md`。
