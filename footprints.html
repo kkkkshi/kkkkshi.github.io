@@ -27,6 +27,8 @@
       content="An interactive antique-style map tracing the places Sherry (Ke) Shi has lived and traveled."
     />
     <!-- 部署后补:og:url 与 og:image(绝对 URL,建议 1200×630 PNG) -->
+    <!-- 提早建立到 unpkg 的连接(DNS+TLS),加速关键的 maplibre CSS/JS;crossorigin 对齐 SRI 的 CORS 请求以便复用连接 -->
+    <link rel="preconnect" href="https://unpkg.com" crossorigin />
     <link
       href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css"
       rel="stylesheet"

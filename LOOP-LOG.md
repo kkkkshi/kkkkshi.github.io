@@ -244,3 +244,27 @@
 **守住**:🧭 没动地图美学/功能(theme-color 是浏览器地址栏,非地图视觉);📇 没动个人内容。
 
 **改动文件**:`footprints.html`(head meta + `applyDayNight` 各 1 处)、`LOOP-LOG.md`。
+
+---
+
+## 2026-06-26 04:06 多伦多 · 第 11 轮 — 给 unpkg 加 preconnect(ladder E 性能,零风险)
+
+**任务**:性能。先排查两处:
+- 音频 `call-of-silence.mp3`(3.4MB)——已是 `preload="none"`,首屏不下载,**已最优,不动**。
+- maplibre CSS/JS(关键渲染资源,JS 803KB)从 **unpkg** 加载,但 head 里**只给 fonts 做了 preconnect,unpkg 没有** → 浏览器要到解析 `<link>` 时才现建到 unpkg 的连接(DNS+TLS 握手在关键路径上)。
+
+**实现**(纯 head 网络提示,1 行):在 maplibre CSS `<link>` **之前**加
+`<link rel="preconnect" href="https://unpkg.com" crossorigin />`。
+- 带 `crossorigin`:因为 maplibre 两个资源都用 `crossorigin="anonymous"`(SRI),预连接也得是 crossorigin,握手好的连接才能被那两个 CORS 请求**复用**。
+- 放在资源 `<link>` 之前,连接才能提前于请求建立。
+
+**验证**(Playwright):
+- 重载后 DOM 实测:preconnect 存在且 `crossOrigin="anonymous"`;`maplibregl` 已定义、地图 `isStyleLoaded()=true` → 资源照常加载 ✅。
+- console **0 报错** ✅;**design-map.js 13/13** ✅。
+- regression(24 项)**未重跑**:本轮改动是 head 网络提示,**不触及任何地图交互逻辑**(同一份交互代码上轮桌面 24/24),重跑 50s 无意义。
+
+**守住**:🧭 没动地图美学/逻辑;📇 没动个人内容。
+
+**进度提醒**:安全且高价值的活基本做完了,本轮已属「小而稳」(1 行 perf 提示)。剩下的多需用户拍板或带主观/较大风险(首页视觉、移动端地图 fit、地图全键盘可达、geojson 瘦身、双 favicon)。按用户「跑到 10:30」的意愿 loop 继续,但后续若只剩这些,会优先挑最稳的、并在适当时机写总结收尾,不硬刷。
+
+**改动文件**:`footprints.html`(head 加 1 行 preconnect)、`LOOP-LOG.md`。
