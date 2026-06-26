@@ -734,6 +734,17 @@
         outline-offset: 3px;
         border-radius: 6px;
       }
+      /* 导航控件键盘聚焦环:面包屑(退层)与火漆印章(回首页) */
+      #crumbs .cr:focus-visible {
+        outline: 2px solid var(--goldhi);
+        outline-offset: 2px;
+        border-radius: 6px;
+      }
+      #seal:focus-visible {
+        outline: 2px solid var(--goldhi);
+        outline-offset: 2px;
+        border-radius: 50%;
+      }
 
       #card {
         position: absolute;
@@ -1511,14 +1522,19 @@
           html +=
             i === labels.length - 1 && i !== 0
               ? `<span class="cur">${lb}</span>`
-              : `<span class="cr" data-i="${i}">${lb}</span>`;
+              : `<span class="cr" data-i="${i}" tabindex="0" role="button" aria-label="Go to ${lb}">${lb}</span>`;
         });
         wrap.innerHTML = html;
-        wrap
-          .querySelectorAll(".cr")
-          .forEach((s) =>
-            s.addEventListener("click", () => jumpTo(+s.dataset.i)),
-          );
+        wrap.querySelectorAll(".cr").forEach((s) => {
+          const go = () => jumpTo(+s.dataset.i);
+          s.addEventListener("click", go);
+          s.addEventListener("keydown", (ev) => {
+            if (ev.key === "Enter" || ev.key === " ") {
+              ev.preventDefault();
+              go();
+            }
+          });
+        });
       }
 
       // ===== 故事卡(景点 / 城市) =====
@@ -1587,8 +1603,19 @@
       document.getElementById("map").addEventListener("click", (e) => {
         if (!e.target.closest(".pin")) hideCard();
       });
-      document.getElementById("seal").addEventListener("click", () => {
+      const sealEl = document.getElementById("seal");
+      sealEl.setAttribute("role", "button");
+      sealEl.tabIndex = 0;
+      sealEl.setAttribute("aria-label", "Return to homepage");
+      const goHome = () => {
         location.href = "index.html";
+      };
+      sealEl.addEventListener("click", goHome);
+      sealEl.addEventListener("keydown", (ev) => {
+        if (ev.key === "Enter" || ev.key === " ") {
+          ev.preventDefault();
+          goHome();
+        }
       });
       addEventListener("popstate", goBack);
 

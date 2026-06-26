@@ -291,3 +291,27 @@
 **留给后续**:面包屑 `.cr` 与火漆印章 `#seal`(返回上层 / 回首页)仍是不可聚焦的 `<span>`/`<svg>`——键盘现在能向下钻、但「向上 / 回首页」还得靠地图 canvas 的 `−` 缩放退层。给这两个也加 tabindex+键盘事件即彻底闭环,可单独一轮。
 
 **改动文件**:`footprints.html`(`addNode` 键盘通道 + 节点焦点环 CSS)、`LOOP-LOG.md`。
+
+---
+
+## 2026-06-26 04:36 多伦多 · 第 13 轮 — 面包屑 + 印章键盘可达,无障碍闭环(ladder F)
+
+**任务**:接第 12 轮收尾。下钻已能键盘操作,但**向上(面包屑退层)和回首页(火漆印章)**还是不可聚焦的 `<span>`/`<svg>` → 键盘导航半通。本轮补齐,闭合整条键盘路径。
+
+**实现**:
+- **面包屑** `renderCrumbs()`:`.cr` 模板加 `tabindex="0" role="button" aria-label="Go to …"`;`forEach` 里给每个 `.cr` 加 `keydown`(Enter/Space → 与点击相同的 `jumpTo`)。
+- **印章** `#seal`:在元素上设 `role="button"` + `tabIndex=0` + `aria-label="Return to homepage"`。**注意**:SVG 内原有 `<title>返回个人主页 · Home</title>` 会被 `drawSeal()` 的 `innerHTML=` 覆盖丢失,所以可达名放在**元素属性 aria-label**(不被 innerHTML 清掉)才稳。加 `keydown`(Enter/Space → `location.href="index.html"`)。
+- CSS:`#crumbs .cr:focus-visible`(圆角环)、`#seal:focus-visible`(`border-radius:50%` 圆环贴合圆形印章),金色 `--goldhi`,仅键盘可见。
+
+**验证**(Playwright,真跑):
+- 键盘 Enter 钻进 Canada → 面包屑 "The World" 实测 `tabindex=0 / role=button / aria-label="Go to The World"`、`:focus-visible` 命中 → **聚焦后 Enter,标题 CANADA → THE WORLD**(键盘退层成功)✅。
+- 印章实测 `role=button / tabindex=0 / aria-label="Return to homepage"` ✅(未真触发以免跳走首页)。
+- console **0 报错** ✅;**design-map.js 13/13 · regression.js 桌面 24/24** ✅(附加键盘通道没破坏原点击退层)。
+
+**🎯 键盘无障碍闭环完成**:第 5 轮(控件焦点环)+ 第 12 轮(下钻 pin)+ 本轮(面包屑上退 / 印章回首页)→ 纯键盘可完成「进入下层 → 退回上层 → 回个人主页」全流程,各控件均有金色焦点环与 ARIA 角色名。
+
+**守住**:🧭 没动地图美学/既有点击行为;📇 没动个人内容。
+
+**进度**:至此**清晰、安全、高价值的迭代基本做完**(13 轮见 git log)。剩下的都落到「需用户拍板」(移动端地图竖屏 fit、双 favicon 二选一、部署后补 og:image/url)或「带主观/较大风险」(首页视觉微调、geojson 瘦身)。下一轮起若仍只剩这些,将按 LOOP-PROMPT §4 写收尾总结、不再硬刷无效轮次。
+
+**改动文件**:`footprints.html`(面包屑 + 印章键盘可达 + 焦点环 CSS)、`LOOP-LOG.md`。
