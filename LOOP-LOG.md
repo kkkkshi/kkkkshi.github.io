@@ -197,3 +197,28 @@
 **留给后续**:① 地图页 `theme-color`——因古海图是 JS 手动昼夜切换(非 OS 偏好),`media=(prefers-color-scheme)` 的写法不跟手,要随昼夜 toggle 用 JS 更新,属单独一轮;② 第 7 轮记的 index.html 双 favicon link 仍待用户二选一;③ 两页的 `og:url` / `og:image` 待部署后补绝对 URL + 分享图。
 
 **改动文件**:`footprints.html`(head 加 description + OG/Twitter)、`LOOP-LOG.md`。
+
+---
+
+## 2026-06-26 03:35 多伦多 · 第 9 轮 — 写根目录 README.md(ladder G / TODO ②③)
+
+**任务**:公开前加固。仓库**根目录没有 README**(只有 `profile/README.md`),GitHub 上打开是裸文件列表。补一个专业、准确的 README。
+
+**实现**:新建 `README.md`,内容**全部据实**(写前用 `package.json` + `ls` 核对过):
+- 项目是什么(两页:个人主页 + 古海图钻取地图,纯静态无构建);
+- 本地运行(`npm install` → `npm start` → localhost:1999);
+- 目录结构(index/footprints、profile/data.js、data/footprints.json、data/*.geojson 底图、photos/audio/tests);
+- 测试怎么跑(3 套**浏览器 console** 脚本——开页面→F12→粘贴→看 ✅/❌ 表,附表格说明各自测什么);
+- 怎么加地点(城市改 json、州省改 json+states.geojson、国家加 json 对象——取自 TODO 已有规则);
+- 技术说明(MapLibre + SRI、Natural Earth 底图本地化)与部署(任意静态托管,gzip 后 ~5MB→~1MB)。
+- **语言用英文**:站点本身英文、面向(北美)招聘方,公开作品集仓库 README 用英文是惯例(内部 DESIGN/TODO 等仍中文,不动)。
+
+**为何不跑 Playwright**:README 是纯文档,**不被任何页面加载、对站点与测试零运行时影响**。对它有意义的验证是事实准确性 + markdown 合法性,已做:
+- 代码围栏配对正确(4 个 ``` = 2 对)✅;
+- README 引用的 10 个文件/路径**全部存在**(逐个 `[ -e ]` 校验)✅;
+- 描述的命令/结构/数字均与 `package.json`、目录、TODO 一致,未臆造。
+- 本轮**未改任何页面**,三套测试与站点维持上轮全绿状态(design 24 / design-map 13 / regression 24)。
+
+**守住**:🧭 没动地图;📇 没编造个人/旅行事实(README 只描述项目本身与已有数据流)。
+
+**改动文件**:`README.md`(新建)、`LOOP-LOG.md`。
