@@ -49,3 +49,24 @@
 **守住**：🧭 没动地图美学（favicon 是浏览器标签图标，非地图视觉）；📇 没动个人内容。
 
 **改动文件**：`favicon.svg`（新建）、`index.html`、`footprints.html`、`LOOP-LOG.md`。
+
+---
+
+## 2026-06-26 01:34 多伦多 · 第 3 轮 — 移动端审查 + theme-color（ladder D / C）
+
+**任务**：移动端（用户从没在别的屏测过）。Playwright 390×844 截图审查两页。
+
+**审查结果**：
+- **首页 `index.html`：移动端良好** ✅ —— 单列自适应，标题/按钮/各分区（经历·教育·项目·论文·技能·语言·地图入口）都正常，Apple HIG 那版已把响应式做掉。截图 `.playwright-mcp/m3-index-mobile.png`。
+- **地图 `footprints.html`：两个真问题**（截图 `.playwright-mcp/m3-map-mobile.png`）：
+  1. 🔴 **世界视图竖屏只露大西洋/欧洲一条**——加拿大/美国/中国等去过的国家在初始视图外，要手动平移才看到（窄竖屏下 `fitBounds` 的结果）。
+  2. 🟠 **欧洲国家标签在窄屏挤成一团**（Denmark/Norway/Germany/UK/France/Italy/Belgium/Switzerland/Vatican 叠在一起）。
+  - ⚠️ 这俩要动地图 fit 逻辑 + 标签避让，且 `design-map.js` 有「世界层 0 隐藏标签」断言——窄屏 declutter 会与之冲突，需协同改测试。**属于要专门做一轮的活，没在半夜硬改**，留给后续 iteration（守 🧭 美学不变，只调 fit/避让行为）。
+
+**本轮落地的安全改进**：首页加 `theme-color` meta（手机浏览器地址栏跟随主题变色，亮 `#f2f2f7` / 暗 `#16161a`，对齐 DESIGN.md token）。Firefox 不支持会优雅降级。
+
+**验证**：`design.js` 仍 **24/24** ✅（meta 不影响）。
+
+**守住**：🧭 没动地图视觉/fit；📇 没动个人内容。截图存 `.playwright-mcp/`（已 gitignore，不入库）。
+
+**改动文件**：`index.html`、`LOOP-LOG.md`。
