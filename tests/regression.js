@@ -2,7 +2,7 @@
  * 用法:浏览器打开 http://localhost:1999 → F12 控制台 → 粘贴本文件全部内容回车。
  * 会自动跑一遍所有交互,最后用 console.table 输出 ✅/❌。
  * 覆盖的是历次提过的问题:点击进入 / 跨国跳转 / 退层 / 台湾属于中国 /
- * 钻取各层 / 印章返回 / 面包屑 / 年份连续 / 夜间切换 / 无中文 / 填色不溢出海 等。
+ * 钻取各层 / 退层(面包屑) / 印章=回首页 / 面包屑 / 年份连续 / 夜间切换 / 无中文 / 填色不溢出海 等。
  */
 (async () => {
   const m = window._map;
@@ -37,10 +37,18 @@
       ),
     );
   };
-  const seal = () =>
-    document
-      .getElementById("seal")
-      .dispatchEvent(new MouseEvent("click", { bubbles: true }));
+  // 退一层：点最后一个面包屑（= 当前层的父层）。印章 #seal 现已是「返回个人主页」，不再退层。
+  const up = () => {
+    const crs = [...document.querySelectorAll("#crumbs .cr")];
+    if (crs.length) crs[crs.length - 1].click();
+  };
+  // 回到世界层：点「The World」面包屑（已在世界层则为无操作）。
+  const toWorld = () => {
+    const w = [...document.querySelectorAll("#crumbs .cr")].find(
+      (c) => c.textContent === "The World",
+    );
+    if (w) w.click();
+  };
   const R = [];
   const ok = (name, cond) => R.push({ 测试: name, 结果: cond ? "✅" : "❌" });
 
@@ -105,10 +113,12 @@
       ),
   );
 
-  // —— 印章返回上一层 ——
-  seal();
+  // —— 退一层（面包屑）回到省层 ——
+  up();
   await sleep(1600);
-  ok("印章返回上一层", T() === "ZHEJIANG" || T() === "HANGZHOU");
+  ok("退一层(面包屑) → 浙江", T() === "ZHEJIANG" || T() === "HANGZHOU");
+  // 注：印章 #seal = 返回个人主页（location.href="index.html"），会离开地图，
+  // 故不在本套件内点击触发；其语义单独验证。
 
   // —— 缩很多 → 退回世界并恢复默认(大国如中国要缩到约 1.0 才退) ——
   m.zoomTo(0.9, { duration: 300 });
@@ -143,10 +153,8 @@
   ok("切回白天模式", !document.body.classList.contains("night"));
 
   // —— 单城市的省/州(如 Alberta 只有 Banff、山东只有济南)进去不应瞬间退回 ——
-  for (let i = 0; i < 5; i++) {
-    seal();
-    await sleep(150);
-  }
+  toWorld();
+  await sleep(900);
   click("Canada");
   await sleep(1800);
   click("Alberta");
@@ -154,10 +162,8 @@
   ok("点单城市省(Alberta)停在省层不瞬退", T() === "ALBERTA");
 
   // —— 国家层省名标签不重叠(避让生效) ——
-  for (let i = 0; i < 5; i++) {
-    seal();
-    await sleep(150);
-  }
+  toWorld();
+  await sleep(900);
   click("Canada");
   await sleep(2300);
   const vlbl = [...document.querySelectorAll(".port .lbl")]
@@ -181,10 +187,8 @@
   ok("国家层可见省名不重叠", ov === 0);
 
   // —— 退层新逻辑(以该层展示 zoom 为基准,与国家大小/纬度无关) ——
-  for (let i = 0; i < 6; i++) {
-    seal();
-    await sleep(150);
-  }
+  toWorld();
+  await sleep(900);
   clickAt(103, 35); // 进中国
   await sleep(2200);
   const cz = m.getZoom();
