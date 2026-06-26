@@ -222,3 +222,25 @@
 **守住**:🧭 没动地图;📇 没编造个人/旅行事实(README 只描述项目本身与已有数据流)。
 
 **改动文件**:`README.md`(新建)、`LOOP-LOG.md`。
+
+---
+
+## 2026-06-26 03:55 多伦多 · 第 10 轮 — 地图页 theme-color 跟随昼夜(移动端地址栏)
+
+**任务**:延续第 3 轮(首页已加 theme-color),给地图页补上。手机浏览器地址栏颜色跟随页面——地图昼夜切换时地址栏也跟着变,是和首页对齐的大厂级细节。
+
+**难点 & 解法**:地图昼夜是 **JS 手动切换**(`body.night` class,不持久化、默认白天),不像首页走 `prefers-color-scheme`,所以 `media=()` 写法不跟手。改用**单个动态 meta + 在切换函数里更新**:
+- head 加 `<meta name="theme-color" content="#b9cdd0">`(默认白天=海色,取自 `THEMES.day.sea`);
+- 在中心函数 `applyDayNight()` 里随 `night` 更新:夜=`#0c1722`(`THEMES.night.sea`)/ 昼=`#b9cdd0`。海色代表世界视图顶部(多为海)的主色。
+- IDE 提示 theme-color 在 Firefox 不支持 → 已知**渐进增强**,Firefox 静默忽略、优雅降级(与首页第 3 轮同),非 bug。
+
+**验证**(Playwright,真跑):
+- 移动视口实测:默认 meta=`#b9cdd0`(昼)→ 点昼夜钮 → `#0c1722`(夜,且 `body.night` 生效)→ 再点 → `#b9cdd0`(昼),三态正确;地图 `isStyleLoaded()=true` ✅。
+- console **0 报错** ✅。
+- 三套测试:**design-map.js 13/13** ✅、**regression.js 桌面 24/24** ✅;index.html 未改(design.js 维持 24)。
+
+**⚠️ 顺带发现(非本轮引入,值得记)**:`regression.js` 在 **390px 移动视口**下有 **2 条断言失败**——「点国家显示整个国家(zoom ~2-4)」「中国缩很多→退世界」。这两条按**桌面视口校准**,窄屏 fit 出的 zoom 不同就不成立。**换回桌面 1280 立刻 24/24 全绿,证明与本轮 theme-color 改动无关**。这与第 4 轮「移动端地图 fit/zoom 行为不同」是同一根源 → 一并归入那个待用户拍板的移动端地图议题(真要支持移动端,测试也得加视口感知)。
+
+**守住**:🧭 没动地图美学/功能(theme-color 是浏览器地址栏,非地图视觉);📇 没动个人内容。
+
+**改动文件**:`footprints.html`(head meta + `applyDayNight` 各 1 处)、`LOOP-LOG.md`。

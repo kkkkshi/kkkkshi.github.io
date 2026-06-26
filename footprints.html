@@ -3,6 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- 手机浏览器地址栏跟随昼夜变色(默认白天=海色;applyDayNight() 切夜时改深) -->
+    <meta name="theme-color" content="#b9cdd0" />
     <link rel="icon" href="favicon.svg" />
     <title>Sherry's Footprints</title>
     <meta
@@ -1834,6 +1836,8 @@
         P("state-fill", "fill-opacity", t.sfo);
         P("border-line", "line-color", t.border);
         document.body.classList.toggle("night", night);
+        const tc = document.querySelector('meta[name="theme-color"]');
+        if (tc) tc.content = night ? "#0c1722" : "#b9cdd0";
         const sv = document.querySelector("#daynight svg");
         if (sv) {
           sv.querySelector(".moon").style.display = night ? "none" : "";
