@@ -727,6 +727,13 @@
         outline-offset: 2px;
         border-radius: 6px;
       }
+      /* 地图节点(城市 pin / 区域标签)键盘聚焦环 */
+      .port .pin:focus-visible,
+      .port.area .lbl:focus-visible {
+        outline: 2px solid var(--goldhi);
+        outline-offset: 3px;
+        border-radius: 6px;
+      }
 
       #card {
         position: absolute;
@@ -1142,11 +1149,23 @@
           `<span class="lbl">${label}</span>`;
         el.__years = years || [];
         const target = el.querySelector(area ? ".lbl" : ".pin");
-        if (onClick && target)
+        if (onClick && target) {
           target.addEventListener("click", (ev) => {
             ev.stopPropagation();
             onClick();
           });
+          // 键盘可达:节点像按钮一样可 Tab 聚焦 + Enter/Space 进入下一层
+          target.tabIndex = 0;
+          target.setAttribute("role", "button");
+          target.setAttribute("aria-label", sub ? `${label} — ${sub}` : label);
+          target.addEventListener("keydown", (ev) => {
+            if (ev.key === "Enter" || ev.key === " ") {
+              ev.preventDefault();
+              ev.stopPropagation();
+              onClick();
+            }
+          });
+        }
         markers.push(
           new maplibregl.Marker({ element: el })
             .setLngLat([lng, lat])

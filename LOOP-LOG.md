@@ -268,3 +268,26 @@
 **进度提醒**:安全且高价值的活基本做完了,本轮已属「小而稳」(1 行 perf 提示)。剩下的多需用户拍板或带主观/较大风险(首页视觉、移动端地图 fit、地图全键盘可达、geojson 瘦身、双 favicon)。按用户「跑到 10:30」的意愿 loop 继续,但后续若只剩这些,会优先挑最稳的、并在适当时机写总结收尾,不硬刷。
 
 **改动文件**:`footprints.html`(head 加 1 行 preconnect)、`LOOP-LOG.md`。
+
+---
+
+## 2026-06-26 04:22 多伦多 · 第 12 轮 — 地图 drill-down 全键盘可达(ladder F,补完第 5 轮)
+
+**任务**:无障碍。第 5 轮给控件(音乐/昼夜/链接/年份)加了焦点环,但**地图的核心交互——点国家/州/城市进入下一层——键盘根本够不到**(节点是 `<div>`,无 `tabindex`、无键盘事件)。键盘 / 读屏用户只能干看,无法 drill-down。本轮补上。
+
+**实现**(集中在唯一的节点工厂 `addNode()`,一处改动覆盖所有节点):
+- 给可点的 target(区域节点=`.lbl`,城市/景点=`.pin`)加 `tabIndex=0` + `role="button"` + `aria-label`(`label — sub`,如 "Canada — 121 cities" / "西湖 — 3 photos");
+- 加 `keydown`:`Enter` / `Space` → `preventDefault` + 调用与点击相同的 `onClick()`(进入下一层);
+- CSS 补 `.port .pin:focus-visible` / `.port.area .lbl:focus-visible` 的金色焦点环(复用 `--goldhi`,仅键盘可见,不碰古海图观感)。
+- 顺带利用浏览器特性:被 declutter 设 `visibility:hidden` 的标签自动**不进 Tab 序**,即「看不见的就不可聚焦」,语义正确。
+
+**验证**(Playwright,真跑):
+- 实测世界层 "Canada" 节点:`tabIndex=0 / role=button / aria-label="Canada — 121 cities"`,`:focus-visible` 命中 ✅;**聚焦后按 Enter,标题从 "THE WORLD" → "CANADA"**——键盘 drill-down 成功 ✅。
+- console **0 报错** ✅。
+- 三套测试:**design-map.js 13/13**(标签全显示断言不受影响)、**regression.js 桌面 24/24**(附加的 keydown 没破坏原 `.click()` 钻取)✅;index.html 未改(design.js 24)。
+
+**守住**:🧭 没动地图美学/既有点击行为(纯附加键盘通道 + 仅键盘可见的焦点环);📇 没动个人内容。
+
+**留给后续**:面包屑 `.cr` 与火漆印章 `#seal`(返回上层 / 回首页)仍是不可聚焦的 `<span>`/`<svg>`——键盘现在能向下钻、但「向上 / 回首页」还得靠地图 canvas 的 `−` 缩放退层。给这两个也加 tabindex+键盘事件即彻底闭环,可单独一轮。
+
+**改动文件**:`footprints.html`(`addNode` 键盘通道 + 节点焦点环 CSS)、`LOOP-LOG.md`。
