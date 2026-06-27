@@ -726,6 +726,18 @@
         color: #7a2a1e;
         font-weight: 600;
       }
+      /* 移动端：年份带放宽到 2 行（原 3 行 106px 挡地图），不缩按钮保 tap 尺寸 */
+      @media (max-width: 700px) {
+        #years {
+          width: 92%;
+          max-width: 92%;
+          gap: 4px;
+        }
+        #years::before {
+          width: calc(100% + 24px);
+          height: 70px;
+        }
+      }
 
       /* 键盘可达:焦点环 — 仅键盘 Tab 导航时可见,鼠标用户与古海图观感不受影响 */
       #music:focus-visible,

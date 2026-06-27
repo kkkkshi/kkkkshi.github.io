@@ -434,3 +434,12 @@
 - 折中：控件竖排间距仅 8px，全 44 热区会互相重叠 → 取 38（非重叠最大值）。
 - 验证：`design-map.js` **13/13**、`regression.js` **24/24**（**干净单跑**）、0 console 报错；`elementFromPoint` 确认控件外沿 2px 仍命中。design.js 未受影响（没动 index.html）。
 - ⚠️ **测试教训**：`regression.js` 必须**单独、fresh 页面**跑——和 `design-map.js` 同页顺跑会因地图状态残留（夜间/钻取层）误报 2 个钻取/缩放项。后续轮注意。
+
+---
+
+## 2026-06-27 ~01:13 · 第 7 轮 / 地图年份带移动端压缩（§4 D 地图项 ✅）
+
+- **发现**：`footprints.html` 原本**没有任何 `@media` 断点**（难怪移动端挤）→ 加了第一个移动断点 `@media (max-width:700px)`。
+- `#years` 年份带：显式 `width:92%`（原 abspos+flex-wrap 是收缩宽度，`max-width` 不强制）→ 从 **3 行 106px → 2 行 51px**，省 ~55px 给地图；按钮尺寸/字号不变（保 tap）；`::before` blur 背景适配（height 70）。
+- 验证：`design-map.js` **13/13**、`regression.js` **24/24（fresh 单跑）**、0 console 报错；`design.js` 未受影响（没动 index.html）。截图 `.playwright-mcp/map-years-2row.png`。
+- 注：左侧**欧洲标签挤成团**（Denmark/Norway/… 竖叠）是 §4 D 另一项（含 `design-map.js` 断言耦合），留单独一轮谨慎做。
