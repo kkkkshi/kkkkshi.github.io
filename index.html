@@ -255,10 +255,20 @@
           flex: 1;
           min-width: 0;
           flex-wrap: wrap;
-          gap: 6px 16px;
+          gap: 2px 16px;
         }
+        /* 触摸热区（HIG ~44pt）：加内边距撑大可点区域，文字/图标不变。
+           9 链接窄屏折行，nav 链接取 ~38px 折中（全 44 会让导航过高）；钮/按钮足 44。 */
         .navlinks a {
           white-space: nowrap;
+          padding: 9px 0;
+        }
+        .theme-toggle {
+          padding: 13px;
+        }
+        button.show-all-btn {
+          padding: 12px 0;
+          margin-top: 6px;
         }
       }
 

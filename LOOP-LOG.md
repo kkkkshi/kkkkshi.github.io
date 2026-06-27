@@ -416,3 +416,12 @@
 - 窄屏（≤700px）`.navlinks` 从 `nowrap + overflow-x:auto`（横滑、9 个只露 3 个）→ `flex-wrap:wrap`（两行折行，gap 6/16），去掉渐隐遮罩 + 滚动条隐藏。
 - 390 实测：**不溢出、9 个链接全可见**、nav 高 52→122px（品牌 + 链接折 3 行）。
 - 文件：`index.html` mobile media query；勾掉 `LOOP-PROMPT.md` §4 D 该项。验证 `design.js` **24/24**。截图 `.playwright-mcp/mobile-nav-wrap.png`。
+
+---
+
+## 2026-06-27 ~00:56 · 第 5 轮 / 移动端点按热区（§4 D ✅）
+
+- 窄屏热区加内边距撑大：**主题钮 26→44×44、Show-all 17→41、nav 链接 20→38**（文字/图标视觉不变）。
+- 折中说明：nav 链接全 44 会让导航 →200px 过高（9 链接折行），取 ~38px 平衡（nav 高 ~182px）；独立钮/按钮足 44。
+- 小坑修复：`.show-all-btn` 基础规则在 media query **之后**、同特异性把我的覆盖了 → 改用 `button.show-all-btn` 提特异性才生效。
+- 文件：`index.html` mobile media query；勾 `LOOP-PROMPT.md` §4 D。`design.js` **24/24**。截图 `.playwright-mcp/mobile-taps.png`。
