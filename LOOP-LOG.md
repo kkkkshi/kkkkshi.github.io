@@ -399,3 +399,12 @@
 - 文件：`index.html` :root + `[data-theme=dark]` + 头注释；`DESIGN.md` §2 配色表 + 顶部 YAML `colors.primary*` + 描述。
 - 验证：`design.js` **24/24 全绿**（含 §9 对比度 AA/AAA、§3.4 accent light≠dark）；截图 `.playwright-mcp/redgold-{light,dark}.png`。
 - 备注：品牌名 / kicker / 链接 hover 现为红系；**「金色」作为次要细节（描边 / 分隔）留待后续轮**（金色文字在浅底对比不足，不硬塞）。
+
+---
+
+## 2026-06-27 ~00:43 · 第 3 轮 / 浅色白卡柔化（§4 C）
+
+- 浅色「纯白刺眼」→ **暖化**：`--bg` `#f2f2f7`→`#f3f0e8`（暖奶油底）、`--card` `#ffffff`→`#fdfbf5`（暖白）、`--material` 同步对齐 bg。整页变暖、白卡不再晃眼，**并柔化了卡片与底的对比**（间接弱化「一块块」）。
+- 暗色「还行」未动。
+- 文件：`index.html` :root；`DESIGN.md` YAML colors + §2 表。验证 `design.js` **24/24**（§3.2 海拔 card>bg、§9 对比度仍达标）。截图 `.playwright-mcp/soften-light.png`。
+- 待续：**结构性「拆盒子」**（去边框 / 降阴影 / hairline 分隔）涉及 `design.js`「卡片有阴影 / 圆角」断言耦合，留后续单独一轮谨慎做。
