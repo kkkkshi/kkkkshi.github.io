@@ -1146,6 +1146,45 @@
         markers.forEach((m) => m.remove());
         markers.length = 0;
         portEls.length = 0;
+        if (map.getLayer("route")) map.removeLayer("route");
+        if (map.getSource("route")) map.removeSource("route");
+      }
+      // 景点连线:城市层把多个景点按顺序连成古海图风格虚线(复原初始版 route)
+      function drawRoute(coords) {
+        if (!coords || coords.length < 2) return;
+        map.addSource("route", {
+          type: "geojson",
+          data: {
+            type: "Feature",
+            geometry: { type: "LineString", coordinates: coords },
+          },
+        });
+        map.addLayer({
+          id: "route",
+          type: "line",
+          source: "route",
+          layout: { "line-cap": "round", "line-join": "round" },
+          paint: {
+            "line-color": "#9b2d20",
+            "line-width": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
+              11, 1.0,
+              13, 1.8,
+              16, 2.8,
+            ],
+            "line-opacity": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
+              11, 0.5,
+              13, 0.8,
+              16, 0.92,
+            ],
+            "line-dasharray": [3, 2.5],
+          },
+        });
       }
 
       // 在地图上放一个可点节点(国家/省/市/景点通用)
@@ -1435,6 +1474,8 @@
                 () => showSpotCard(e.ct, s),
               ),
             );
+            // 景点之间连成虚线路线(古海图风格)
+            drawRoute(named.map((s) => [s.lng, s.lat]));
             if (!noFit)
               fitTo(
                 named.map((s) => [s.lng, s.lat]),
