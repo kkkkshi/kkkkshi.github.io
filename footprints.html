@@ -553,6 +553,18 @@
         color: #f3ecd8;
         transform: scale(1.08);
       }
+      /* 触摸热区：透明 ::before 把可点区域 30→~38（控件间距仅 8px，全 44 会重叠，38 折中）。
+         #music 已有 ::after 虚线环提供同等热区，无需另加。视觉不变。 */
+      #links a {
+        position: relative;
+      }
+      #daynight::before,
+      #links a::before {
+        content: "";
+        position: absolute;
+        inset: -4px;
+        border-radius: 50%;
+      }
 
       #toast {
         position: fixed;

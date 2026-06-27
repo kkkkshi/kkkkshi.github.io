@@ -425,3 +425,12 @@
 - 折中说明：nav 链接全 44 会让导航 →200px 过高（9 链接折行），取 ~38px 平衡（nav 高 ~182px）；独立钮/按钮足 44。
 - 小坑修复：`.show-all-btn` 基础规则在 media query **之后**、同特异性把我的覆盖了 → 改用 `button.show-all-btn` 提特异性才生效。
 - 文件：`index.html` mobile media query；勾 `LOOP-PROMPT.md` §4 D。`design.js` **24/24**。截图 `.playwright-mcp/mobile-taps.png`。
+
+---
+
+## 2026-06-27 ~01:05 · 第 6 轮 / 地图控件移动端热区（§4 D 地图项 ✅）
+
+- `footprints.html` 控件 `#daynight` / `#links a` 加透明 `::before inset:-4px` 把可点区 30→**~38**（`#links a` 补 `position:relative`）。`#music` 已有 `::after` 虚线环提供同等热区，未动。**视觉不变、守古海图美学**。
+- 折中：控件竖排间距仅 8px，全 44 热区会互相重叠 → 取 38（非重叠最大值）。
+- 验证：`design-map.js` **13/13**、`regression.js` **24/24**（**干净单跑**）、0 console 报错；`elementFromPoint` 确认控件外沿 2px 仍命中。design.js 未受影响（没动 index.html）。
+- ⚠️ **测试教训**：`regression.js` 必须**单独、fresh 页面**跑——和 `design-map.js` 同页顺跑会因地图状态残留（夜间/钻取层）误报 2 个钻取/缩放项。后续轮注意。
