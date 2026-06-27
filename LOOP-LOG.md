@@ -451,3 +451,13 @@
 - 故事卡 `#card` 窄屏（≤700px）：从「固定 300px 靠右、390 屏左缘只剩 ~62px」→ **近全宽底部抽屉**：`left/right:12`、`bottom:84`（年份带上方）、`width:auto`（实测 354）、`top:auto`、自下 `translateY(18px)` 滑入。
 - ⚠️ **再遇 source-order 坑**：本 `@media` 块位于 `#card` 基础规则（行 773）**之前**，同特异性被覆盖 → 用 `body #card` 提特异性才生效。（footprints CSS 通病：媒体查询在基础规则之前，覆盖须提特异性或移到样式表末尾。）
 - 验证：`regression.js` **24/24（fresh）**、`design-map.js` **13/13**、0 console 报错；`design.js` 不受影响。桌面卡片未改（仅 mobile media query）。截图 `.playwright-mcp/map-card-drawer.png`。
+
+---
+
+## 2026-06-27 ~01:44 · 第 9 轮 / 多视口移动端验收核验（§4 D 验收底线 ✅，无代码改动）
+
+按用户验收标准核验两页多视口（390 / 430 / 768）：
+- **index.html**：三视口**无横向溢出**、9 导航链接齐、0 console 报错。
+- **footprints.html**：三视口**无横向溢出**、地图 canvas 都渲染、年份带 51px(2 行)不溢出、0 报错。
+- **3 套测试全绿**（各自 fresh 单跑）：`design` 24/24 · `design-map` 13/13 · `regression` 24/24。
+- 结论：今夜移动端改动（导航折行 / 热区、地图控件热区 / 年份带 / 故事卡抽屉）在 390/430/768 全部稳，**验收通过**。
