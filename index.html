@@ -254,15 +254,8 @@
         .navlinks {
           flex: 1;
           min-width: 0;
-          flex-wrap: nowrap;
-          overflow-x: auto;
-          gap: 16px;
-          scrollbar-width: none;
-          -webkit-mask-image: linear-gradient(to right, #000 86%, transparent);
-          mask-image: linear-gradient(to right, #000 86%, transparent);
-        }
-        .navlinks::-webkit-scrollbar {
-          display: none;
+          flex-wrap: wrap;
+          gap: 6px 16px;
         }
         .navlinks a {
           white-space: nowrap;

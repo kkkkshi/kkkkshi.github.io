@@ -408,3 +408,11 @@
 - 暗色「还行」未动。
 - 文件：`index.html` :root；`DESIGN.md` YAML colors + §2 表。验证 `design.js` **24/24**（§3.2 海拔 card>bg、§9 对比度仍达标）。截图 `.playwright-mcp/soften-light.png`。
 - 待续：**结构性「拆盒子」**（去边框 / 降阴影 / hairline 分隔）涉及 `design.js`「卡片有阴影 / 圆角」断言耦合，留后续单独一轮谨慎做。
+
+---
+
+## 2026-06-27 ~00:49 · 第 4 轮 / 移动端导航折行（§4 D ✅）
+
+- 窄屏（≤700px）`.navlinks` 从 `nowrap + overflow-x:auto`（横滑、9 个只露 3 个）→ `flex-wrap:wrap`（两行折行，gap 6/16），去掉渐隐遮罩 + 滚动条隐藏。
+- 390 实测：**不溢出、9 个链接全可见**、nav 高 52→122px（品牌 + 链接折 3 行）。
+- 文件：`index.html` mobile media query；勾掉 `LOOP-PROMPT.md` §4 D 该项。验证 `design.js` **24/24**。截图 `.playwright-mcp/mobile-nav-wrap.png`。
