@@ -67,7 +67,7 @@
         --accent: #1f6347;               /* brand green = app tint */
         --accent-ink: #1a5740;
         --accent-soft: rgba(31, 99, 71, 0.1);
-        --material: rgba(248, 248, 250, 0.85); /* nav material（够实，内容不透出来糊在一起）*/
+        --material: rgba(242, 242, 247, 0.85); /* nav material：RGB 对齐 --bg，导航融入背景不露色差；0.85+毛玻璃仍防滚动内容透出 */
         --radius: 16px;
         --radius-sm: 10px;
         --sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display",
@@ -173,9 +173,7 @@
         background: var(--material);
         -webkit-backdrop-filter: saturate(180%) blur(20px);
         backdrop-filter: saturate(180%) blur(20px);
-        /* 分隔线用极淡暗色阴影：浅色=细灰线；深色≈隐形(靠毛玻璃分隔)，
-           避免夜间出现发白的怪线 */
-        box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+        /* 不画分隔线:导航底色已等于页面背景,无缝融入(滚动时靠毛玻璃自然过渡) */
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -189,11 +187,11 @@
         font-size: var(--fs-body);
         letter-spacing: -0.02em;
         text-decoration: none;
-        color: var(--muted);
+        color: var(--accent);
         transition: color 0.18s;
       }
       .brand:hover {
-        color: var(--ink);
+        color: var(--accent-ink);
       }
       .navlinks {
         display: flex;
