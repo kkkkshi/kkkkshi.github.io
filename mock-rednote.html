@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>看图猜城市 · 小红书风格 mock</title>
+<link rel="icon" href="favicon.svg" />
+<style>
+  /* ============================================================
+     MOCK ONLY · 小红书风格「看图猜城市」探索页
+     独立文件，纯前端零外部请求，地图全程序化 SVG 生成。
+     不影响 index.html / footprints.html。
+     ============================================================ */
+  :root{
+    --paper:#fbf7ef;
+    --ink:#23201b;
+    --muted:#8d8475;
+    --hair:#efe7d9;
+    --xhs:#ff2e4d;
+    --gold:#c9a44a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html,body{height:100%}
+  body{
+    font-family:-apple-system,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;
+    color:var(--ink);
+    background:radial-gradient(125% 90% at 50% -8%, #e9ddc8 0%, #d7c4a3 52%, #c9b48d 100%);
+    display:flex;align-items:flex-start;justify-content:center;
+    min-height:100%;padding:30px 16px 48px;
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+  /* ---------- 手机外壳 ---------- */
+  .phone{
+    width:390px;max-width:100%;height:812px;
+    background:var(--paper);border-radius:46px;overflow:hidden;position:relative;
+    display:flex;flex-direction:column;
+    box-shadow:0 2px 0 #fff inset,0 34px 70px -20px rgba(60,40,15,.6),0 0 0 11px #1b140c,0 0 0 13px #2c2218;
+  }
+  .island{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:108px;height:30px;background:#000;border-radius:18px;z-index:60}
+
+  .status{display:flex;align-items:center;justify-content:space-between;padding:13px 27px 3px;font-size:14px;font-weight:600}
+  .status .r{display:flex;gap:6px;align-items:center}
+  .status svg{display:block}
+
+  /* ---------- 顶部导航 ---------- */
+  .topbar{display:flex;align-items:center;gap:14px;padding:7px 16px 9px}
+  .topbar .ic{color:var(--muted);flex-shrink:0}
+  .tabs{flex:1;display:flex;justify-content:center;gap:24px;font-size:16.5px;color:var(--muted)}
+  .tabs .t{position:relative;padding-bottom:6px;font-weight:600;cursor:pointer}
+  .tabs .t.on{color:var(--ink)}
+  .tabs .t.on::after{content:"";position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:18px;height:3px;border-radius:2px;background:var(--xhs)}
+
+  /* ---------- feed ---------- */
+  .feed{flex:1;overflow-y:auto;padding:4px 7px 80px}
+  .cols{column-count:2;column-gap:7px}
+  .card{break-inside:avoid;margin-bottom:7px;background:#fff;border-radius:13px;overflow:hidden;
+    box-shadow:0 1px 3px rgba(50,35,10,.07);border:1px solid #f1ead8;cursor:pointer;
+    transition:transform .12s ease, box-shadow .12s ease}
+  .card:active{transform:scale(.975)}
+  .card .map{display:block;width:100%}
+  .card .body{padding:8px 9px 9px}
+  .card .ttl{font-size:13.5px;line-height:1.34;font-weight:600;color:#2a261f;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .card .stars{color:var(--gold);font-weight:700;letter-spacing:.5px}
+  .card .meta{display:flex;align-items:center;gap:6px;margin-top:8px;font-size:11.5px;color:var(--muted)}
+  .card .who{display:flex;align-items:center;gap:5px;flex:1;min-width:0}
+  .card .ava{width:18px;height:18px;border-radius:50%;background:linear-gradient(135deg,#caa64c,#9b7b2e);color:#1b140c;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .card .who span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .card .like{display:flex;align-items:center;gap:3px;flex-shrink:0}
+  .card .like svg{width:14px;height:14px;color:#c45}
+  .hero{column-span:all;margin-bottom:7px}
+  .hero .tagrow{padding:9px 11px 0}
+  .hero .tag{display:inline-block;background:rgba(255,46,77,.1);color:var(--xhs);font-size:11px;font-weight:700;padding:3px 9px;border-radius:6px}
+
+  /* ---------- 底部导航 ---------- */
+  .nav{position:absolute;left:0;right:0;bottom:0;height:64px;background:rgba(251,247,239,.94);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-top:1px solid var(--hair);
+    display:flex;align-items:center;justify-content:space-around;padding-bottom:14px;font-size:11px;color:var(--muted);z-index:30}
+  .nav .it{display:flex;flex-direction:column;align-items:center;gap:3px}
+  .nav .it.on{color:var(--ink);font-weight:700}
+  .nav .plus{width:42px;height:29px;border-radius:9px;background:var(--xhs);color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:300}
+
+  /* ---------- 详情帖 overlay ---------- */
+  .post{position:absolute;inset:0;background:var(--paper);z-index:50;display:flex;flex-direction:column;
+    transform:translateX(100%);transition:transform .26s cubic-bezier(.4,.0,.2,1);visibility:hidden}
+  .post.open{transform:none;visibility:visible}
+  .post .pbar{display:flex;align-items:center;gap:10px;padding:50px 14px 9px}
+  .post .back{font-size:24px;line-height:1;color:var(--ink);cursor:pointer;width:28px}
+  .post .pava{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#caa64c,#9b7b2e);color:#1b140c;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .post .pname{font-size:14.5px;font-weight:600;flex:1}
+  .post .follow{font-size:13px;font-weight:600;color:#fff;background:var(--xhs);padding:5px 15px;border-radius:99px;cursor:pointer}
+  .post .pscroll{flex:1;overflow-y:auto;padding-bottom:62px}
+  .post .stage{position:relative;background:#000}
+  .post .stage .map{display:block;width:100%}
+  .post .dots{position:absolute;bottom:9px;left:50%;transform:translateX(-50%);display:flex;gap:5px}
+  .post .dots i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.5)}
+  .post .dots i.on{background:#fff}
+  .post .idx{position:absolute;top:10px;right:12px;background:rgba(0,0,0,.4);color:#fff;font-size:11px;padding:2px 8px;border-radius:99px}
+  .post .pbody{padding:13px 15px 4px}
+  .post .ptitle{font-size:18px;font-weight:700;line-height:1.3}
+  .post .ptitle .stars{color:var(--gold)}
+  .post .pcap{font-size:14.5px;line-height:1.55;margin-top:9px;color:#3a352d}
+  .reveal{margin:13px 0 4px;border:1px dashed #d9b86b;background:#fbf3df;border-radius:12px;padding:12px 14px;cursor:pointer;text-align:center;font-size:14px;font-weight:600;color:#9b7b2e;transition:background .15s}
+  .reveal:active{background:#f6ead0}
+  .reveal .ans{display:none}
+  .reveal.shown .ask{display:none}
+  .reveal.shown .ans{display:block;color:var(--ink)}
+  .reveal.shown{border-style:solid;border-color:#e7d6a8}
+  .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+  .tags a{font-size:13px;color:#3a5a8c;text-decoration:none}
+  .pinfo{font-size:12px;color:var(--muted);margin-top:14px}
+  .comments{border-top:1px solid var(--hair);margin-top:14px;padding-top:13px}
+  .comments h4{font-size:13px;color:var(--muted);font-weight:600;padding:0 15px;margin-bottom:10px}
+  .cmt{display:flex;gap:9px;padding:7px 15px}
+  .cmt .ca{width:28px;height:28px;border-radius:50%;flex-shrink:0;font-size:12px;font-weight:700;color:#fff;display:flex;align-items:center;justify-content:center}
+  .cmt .cb{flex:1}
+  .cmt .cn{font-size:12.5px;color:var(--muted)}
+  .cmt .ct{font-size:14px;margin-top:2px;line-height:1.4}
+  .cmt .cl{font-size:11.5px;color:var(--muted);margin-top:3px}
+  .actionbar{position:absolute;left:0;right:0;bottom:0;height:58px;background:rgba(251,247,239,.96);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-top:1px solid var(--hair);
+    display:flex;align-items:center;gap:10px;padding:0 14px 8px}
+  .actionbar .inp{flex:1;background:#efe7d9;border-radius:99px;padding:9px 15px;font-size:13px;color:var(--muted)}
+  .actionbar .act{display:flex;align-items:center;gap:3px;font-size:13px;color:#5a5246}
+  .actionbar .act svg{width:21px;height:21px}
+  .actionbar .act.liked svg{color:var(--xhs)}
+
+  .hint{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);font-size:12px;color:#6e5c3c;background:rgba(255,255,255,.6);padding:4px 13px;border-radius:20px}
+</style>
+</head>
+<body>
+<div class="phone">
+  <div class="island"></div>
+
+  <div class="status">
+    <span>16:42</span>
+    <span class="r">
+      <svg width="18" height="12" viewBox="0 0 18 12"><rect x="0" y="7" width="3" height="5" rx="1"/><rect x="5" y="4.5" width="3" height="7.5" rx="1"/><rect x="10" y="2" width="3" height="10" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1" opacity=".35"/></svg>
+      <svg width="17" height="12" viewBox="0 0 17 12"><path d="M8.5 11.2 6.6 9c1-1 2.8-1 3.8 0ZM3.8 6.1c2.6-2.6 6.8-2.6 9.4 0l-1.7 1.7c-1.6-1.6-4.4-1.6-6 0ZM.9 3.2c4.2-4.2 10.9-4.2 15.1 0l-1.7 1.7c-3.2-3.2-8.5-3.2-11.7 0Z"/></svg>
+      <svg width="26" height="13" viewBox="0 0 26 13"><rect x="1" y="1" width="22" height="11" rx="3.2" fill="none" stroke="currentColor" stroke-opacity=".4"/><rect x="3" y="3" width="16" height="7" rx="1.6"/><rect x="24" y="4.2" width="1.6" height="4.6" rx=".8" opacity=".5"/></svg>
+    </span>
+  </div>
+
+  <div class="topbar">
+    <svg class="ic" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M3 6h14M3 10h14M3 14h14"/></svg>
+    <div class="tabs"><div class="t">关注</div><div class="t on">发现</div><div class="t">附近</div></div>
+    <svg class="ic" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="9" cy="9" r="6"/><path d="m14 14 3 3"/></svg>
+  </div>
+
+  <div class="feed"><div class="cols" id="cols"></div></div>
+
+  <div class="nav">
+    <div class="it on">首页</div><div class="it">市集</div>
+    <div class="it"><div class="plus">+</div></div>
+    <div class="it">消息</div><div class="it">我</div>
+  </div>
+
+  <!-- 详情帖 -->
+  <div class="post" id="post">
+    <div class="pbar">
+      <span class="back" id="back">‹</span>
+      <div class="pava">S</div>
+      <div class="pname">Sherry</div>
+      <div class="follow">关注</div>
+    </div>
+    <div class="pscroll">
+      <div class="stage" id="stage">
+        <span class="idx">1/3</span>
+        <div class="dots"><i class="on"></i><i></i><i></i></div>
+      </div>
+      <div class="pbody">
+        <div class="ptitle" id="ptitle"></div>
+        <div class="pcap" id="pcap"></div>
+        <div class="reveal" id="reveal">
+          <span class="ask">🟠 点击揭晓这是哪座城市</span>
+          <span class="ans" id="ans"></span>
+        </div>
+        <div class="tags" id="tags"></div>
+        <div class="pinfo" id="pinfo"></div>
+      </div>
+      <div class="comments">
+        <h4 id="cmtcount">共 0 条评论</h4>
+        <div id="cmtlist"></div>
+      </div>
+    </div>
+    <div class="actionbar">
+      <div class="inp">说点什么…</div>
+      <div class="act" id="likebtn"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 17s-6.5-4.2-8.5-8C.2 6.3 1.6 3.5 4.4 3.5c1.8 0 2.9 1 3.6 2 .7-1 1.8-2 3.6-2 2.8 0 4.2 2.8 2.9 5.5C16.5 12.8 10 17 10 17z"/></svg><span id="likenum">0</span></div>
+      <div class="act"><svg viewBox="0 0 20 20" fill="currentColor"><path d="m10 15.3-4.7 2.8 1.3-5.4L2.4 9l5.5-.5L10 3.4 12.1 8.5l5.5.5-4.2 3.7 1.3 5.4z"/></svg><span id="savenum">0</span></div>
+      <div class="act"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 5h14v9H8l-4 3v-3H3z"/></svg><span id="cmtnum">0</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="hint">mock · 小红书风格探索 · 地图程序化生成 · 点卡片进帖</div>
+
+<script>
+/* ---------- 种子随机 ---------- */
+function rng(seed){let a=seed>>>0;return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+
+/* ---------- 暖色 GIS 城市地图（程序化 SVG） ---------- */
+function gisMap(seed,w,h){
+  const r=rng(seed),R=(a,b)=>a+(b-a)*r();
+  const hue=R(21,33);
+  const land =`hsl(${hue} ${R(60,72)}% ${R(56,63)}%)`;
+  const land2=`hsl(${hue} ${R(62,76)}% ${R(47,54)}%)`;
+  const land3=`hsl(${hue+6} ${R(55,68)}% ${R(64,70)}%)`;
+  const water=`hsl(${R(36,44)} ${R(36,46)}% ${R(89,93)}%)`;
+  const road =`hsl(${hue-5} ${R(62,74)}% ${R(33,39)}%)`;
+  let s=`<svg class="map" viewBox="0 0 ${w} ${h}" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">`;
+  s+=`<rect width="${w}" height="${h}" fill="${water}"/>`;
+  s+=`<rect width="${w}" height="${h}" fill="${land}"/>`;
+
+  // 密集街区：网格单元里塞深浅不一的色块
+  const gx=Math.round(R(8,12)),gy=Math.round(R(10,15)),cw=w/gx,ch=h/gy;
+  for(let i=0;i<gx;i++)for(let j=0;j<gy;j++){
+    if(r()<.28)continue;
+    const pad=R(.4,1.5),x=i*cw+pad,y=j*ch+pad;
+    const t=r(),c=t<.4?land2:t<.7?land3:land;
+    s+=`<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${(cw-pad*2).toFixed(1)}" height="${(ch-pad*2).toFixed(1)}" fill="${c}" opacity="${R(.55,1).toFixed(2)}" rx="${R(0,1).toFixed(1)}"/>`;
+  }
+  // 次级街道：浅色细网格
+  s+=`<g stroke="${water}" stroke-width="${R(1,1.7).toFixed(1)}" opacity=".85">`;
+  for(let i=1;i<gx;i++){const x=(i*cw+R(-2,2)).toFixed(1);s+=`<line x1="${x}" y1="0" x2="${x}" y2="${h}"/>`;}
+  for(let j=1;j<gy;j++){const y=(j*ch+R(-2,2)).toFixed(1);s+=`<line x1="0" y1="${y}" x2="${w}" y2="${y}"/>`;}
+  s+=`</g>`;
+  // 主干道：粗、深、斜向 + 一条环
+  s+=`<g stroke="${road}" stroke-width="${R(2.6,3.8).toFixed(1)}" fill="none" stroke-linecap="round" opacity=".9">`;
+  const arts=Math.round(R(3,5));
+  for(let k=0;k<arts;k++){const x0=R(0,w),x1=R(0,w),mx=R(0,w),my=R(.3,.7)*h;
+    s+=`<path d="M${x0.toFixed(0)} 0 Q${mx.toFixed(0)} ${my.toFixed(0)} ${x1.toFixed(0)} ${h}"/>`;}
+  const ry=R(.35,.6)*h;
+  s+=`<path d="M0 ${ry.toFixed(0)} Q${(w/2).toFixed(0)} ${(ry+R(-30,30)).toFixed(0)} ${w} ${(ry+R(-20,20)).toFixed(0)}"/></g>`;
+  // 水体：海湾 + 河（盖最上层，水面无街道）
+  const bc=Math.floor(r()*4),bx=bc%2?w:0,by=bc<2?0:h;
+  s+=`<path d="M${bx} ${by} C ${bx+(bx?-1:1)*R(.2,.45)*w} ${by+(by?-1:1)*R(.05,.2)*h}, ${bx+(bx?-1:1)*R(.05,.2)*w} ${by+(by?-1:1)*R(.25,.5)*h}, ${bx} ${by+(by?-1:1)*R(.45,.7)*h} Z" fill="${water}"/>`;
+  if(r()<.75){const rx=R(.2,.8)*w;
+    s+=`<path d="M${rx.toFixed(0)} 0 C ${(rx+R(-40,40)).toFixed(0)} ${(h*.35).toFixed(0)}, ${(rx+R(-50,50)).toFixed(0)} ${(h*.6).toFixed(0)}, ${(rx+R(-30,30)).toFixed(0)} ${h}" stroke="${water}" stroke-width="${R(6,12).toFixed(0)}" fill="none" stroke-linecap="round"/>`;}
+  // 暗角 → 成图质感
+  s+=`<rect width="${w}" height="${h}" fill="url(#v${seed})"/><defs><radialGradient id="v${seed}" cx="50%" cy="42%" r="78%"><stop offset="58%" stop-color="#000" stop-opacity="0"/><stop offset="100%" stop-color="#3a2410" stop-opacity=".16"/></radialGradient></defs></svg>`;
+  return s;
+}
+
+/* ---------- 真去过的城市（来自 footprints 数据） ---------- */
+const cities=[
+  {cn:"多伦多",star:3,seed:11,h:340,likes:"1.2k",saves:328,cmt:96,hero:true,
+   cap:"住了快两年，湖边那条天际线天天见，反而最先猜不出来的就是自己的城市 🌆 一半是水、一条街直接怼到湖里。",
+   ans:"多伦多 Toronto 🇨🇦 — 我现在所在的城市",tags:["#我所在的城市","#多伦多","#安大略湖"],
+   cmts:[["W","当代打工人","CN Tower 那一戳太明显了哈哈",42],["L","地图控","湖岸线绝了",18]]},
+  {cn:"滑铁卢",star:4,seed:23,h:250,likes:577,saves:128,cmt:33,
+   cap:"本科四年泡在这座理工小城，棋盘格 + 大学城，安静到能听见自己写 bug 📐",
+   ans:"滑铁卢 Waterloo — 本科四年",tags:["#大学城","#滑铁卢","#理工男大本营"],
+   cmts:[["U","校友","UW 永远的神",51]]},
+  {cn:"杭州",star:2,seed:77,h:300,likes:893,saves:240,cmt:67,
+   cap:"回国那段时间待的地方，西湖一圈 + 钱塘江一拐，水系太好认了 🌊",
+   ans:"杭州 Hangzhou — 回国实习那段",tags:["#杭州","#西湖","#回忆中的城市"],
+   cmts:[["H","江浙沪","西湖那个形状一眼出",88]]},
+  {cn:"纽约",star:2,seed:42,h:240,likes:"2.1k",saves:560,cmt:130,
+   cap:"在 Cornell Tech 念书时的通勤范围，曼哈顿那个规整网格 + 中央公园一块绿地直接报答案 🗽",
+   ans:"纽约 New York — Cornell Tech",tags:["#纽约","#曼哈顿","#中央公园"],
+   cmts:[["N","纽漂","中央公园那块太作弊了",77]]},
+  {cn:"哈利法克斯",star:4,seed:31,h:300,likes:128,saves:40,cmt:12,
+   cap:"加拿大东海岸自驾的起点，一座港口城，半圈都是海 ⚓️ 这张真的有点难。",
+   ans:"哈利法克斯 Halifax — 东海岸自驾起点",tags:["#港口城市","#新斯科舍","#自驾"],
+   cmts:[["E","东海岸","Citadel 那个星形要塞呢",9]]},
+  {cn:"伦敦",star:2,seed:64,h:230,likes:740,saves:201,cmt:54,
+   cap:"泰晤士河那个大拐弯一出来基本就露馅了吧 🇬🇧",
+   ans:"伦敦 London",tags:["#伦敦","#泰晤士河","#欧洲"],
+   cmts:[["B","腐国留子","泰晤士河蛇形走位认证",61]]},
+  {cn:"北京",star:3,seed:88,h:270,likes:"3.4k",saves:910,cmt:205,
+   cap:"标准棋盘格 + 二环三环四环，中轴线一条直线穿到底，难度其实不高 🀄️",
+   ans:"北京 Beijing",tags:["#北京","#中轴线","#帝都"],
+   cmts:[["P","胡同串子","环路一圈套一圈太北京了",140]]},
+  {cn:"卑尔根",star:5,seed:55,h:260,likes:402,saves:150,cmt:41,
+   cap:"挪威峡湾边的小城，被山和海夹着，路都顺着地形拐——这张是真的难 🏔",
+   ans:"卑尔根 Bergen 🇳🇴 — 峡湾边",tags:["#挪威","#峡湾","#冷门城市"],
+   cmts:[["F","北欧控","峡湾地形杀我",30]]},
+];
+const star=n=>"★".repeat(n)+"☆".repeat(5-n);
+const heart=`<svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 17s-6.5-4.2-8.5-8C.2 6.3 1.6 3.5 4.4 3.5c1.8 0 2.9 1 3.6 2 .7-1 1.8-2 3.6-2 2.8 0 4.2 2.8 2.9 5.5C16.5 12.8 10 17 10 17z"/></svg>`;
+const avaColors=["#e8704f","#5b8def","#56b97a","#c061c9","#e0a93b"];
+
+/* ---------- 渲染 feed ---------- */
+const cols=document.getElementById('cols');
+cities.forEach((c,i)=>{
+  const w=c.hero?360:180;
+  const div=document.createElement('div');
+  div.className='card'+(c.hero?' hero':'');
+  div.innerHTML=(c.hero?`<div class="tagrow"><span class="tag"># 看图猜城市 挑战赛</span></div>`:'')
+    +gisMap(c.seed,w,c.h)
+    +`<div class="body">
+        <div class="ttl">看图猜城市丨${c.cn} <span class="stars" style="color:var(--gold)">${star(c.star)}</span></div>
+        <div class="meta"><div class="who"><div class="ava">S</div><span>Sherry</span></div>
+          <div class="like">${heart}${c.likes}</div></div>
+      </div>`;
+  div.addEventListener('click',()=>openPost(i));
+  cols.appendChild(div);
+});
+
+/* ---------- 详情帖 ---------- */
+const post=document.getElementById('post');
+function openPost(i){
+  const c=cities[i];
+  document.getElementById('stage').querySelectorAll('.map').forEach(m=>m.remove());
+  document.getElementById('stage').insertAdjacentHTML('afterbegin',gisMap(c.seed,375,375));
+  document.getElementById('ptitle').innerHTML=`看图猜城市丨第 ${i+1} 关 <span class="stars">${star(c.star)}</span>`;
+  document.getElementById('pcap').textContent=c.cap;
+  document.getElementById('ans').textContent="✅ 答案："+c.ans;
+  const rv=document.getElementById('reveal');rv.classList.remove('shown');
+  document.getElementById('tags').innerHTML=["#arcgispro","#GIS绘图","#看图猜城市",...c.tags].map(t=>`<a>${t}</a>`).join("");
+  document.getElementById('pinfo').textContent=`难度 ${star(c.star)} · 编辑于 6 月 26 日`;
+  document.getElementById('likenum').textContent=c.likes;
+  document.getElementById('savenum').textContent=c.saves;
+  document.getElementById('cmtnum').textContent=c.cmt;
+  document.getElementById('cmtcount').textContent=`共 ${c.cmt} 条评论`;
+  document.getElementById('cmtlist').innerHTML=c.cmts.map(([a,n,t,l])=>
+    `<div class="cmt"><div class="ca" style="background:${avaColors[(a.charCodeAt(0))%5]}">${a}</div>
+      <div class="cb"><div class="cn">${n}</div><div class="ct">${t}</div><div class="cl">${l} 赞 · 回复</div></div></div>`).join("");
+  document.getElementById('likebtn').classList.remove('liked');
+  post.classList.add('open');
+}
+document.getElementById('back').addEventListener('click',()=>post.classList.remove('open'));
+document.getElementById('reveal').addEventListener('click',function(){this.classList.toggle('shown');});
+document.getElementById('likebtn').addEventListener('click',function(){this.classList.toggle('liked');});
+</script>
+</body>
+</html>

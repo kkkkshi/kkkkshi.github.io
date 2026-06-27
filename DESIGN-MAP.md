@@ -1,3 +1,34 @@
+---
+version: alpha
+name: 足迹地图 · 古海图主题 — footprints.html
+description: >-
+  Frozen "antique nautical chart" theme — parchment, serif, compass, aged border.
+  This front matter is a READ-ONLY token archive; DO NOT restyle footprints.html from it.
+  Structural rules (materials / elevation / buttons / shape / dark / a11y) layer on UI overlays only.
+colors:
+  primary: "#9b2d20"      # 印章红 / 强调（= marker）
+  paper: "#ece3cf"        # 羊皮纸底
+  ink: "#3a2f23"          # 正文主
+  ink2: "#6b5a44"         # 正文次
+  gold: "#b89344"         # 描边 / 分隔
+  marker: "#9b2d20"       # 印章红
+  night-bg: "#0f1826"     # 夜晚深 navy（非纯黑，符合禁纯黑）
+typography:
+  fell: { fontFamily: "'IM Fell English', 'Songti SC', serif" }   # 古海图衬线
+rounded:
+  card: 10px              # 信息卡片
+  button: 7px             # next 按钮
+  circle: 9999px          # 圆形控件实为 50%
+components:
+  card:
+    backgroundColor: "{colors.paper}"     # 半透明羊皮纸
+    backdropFilter: "blur(20px)"
+    rounded: "{rounded.card}"
+    zIndex: 8
+  years-bar:
+    backdropFilter: "blur(9px)"
+---
+
 # 足迹地图设计规范 — `footprints.html`
 
 > `footprints.html` 是「**古海图**」主题作品，**主题独立**：羊皮纸 + 衬线字 + 罗盘 + 做旧边框。

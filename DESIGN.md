@@ -1,3 +1,67 @@
+---
+version: alpha
+name: Sherry (Ke) Shi — Personal Site
+description: >-
+  Apple-HIG-grounded personal homepage. System fonts, calm neutral surfaces,
+  one brand green, strict 8px grid, Material-3 dark rules. Constrains index.html.
+colors:
+  # 规范要求至少有 primary。品牌绿 = app tint。light 为基准，*-dark 为暗色对应值。
+  primary: "#1f6347"                  # brand green · light
+  primary-dark: "#5cc08a"             # 暗色提亮去饱和
+  primary-ink: "#1a5740"              # accent pressed
+  primary-soft: "rgba(31,99,71,0.10)"
+  bg: "#f2f2f7"                       # systemGroupedBackground · light
+  bg-dark: "#16161a"                  # 非纯黑
+  card: "#ffffff"                     # 卡片表面 · light
+  card-dark: "#1f1f24"                # 比背景更亮（海拔）
+  ink: "#1c1c1e"                      # 主文字 · light
+  ink-dark: "rgba(255,255,255,0.92)"
+  muted: "rgba(60,60,67,0.75)"        # 次文字 · light（≥4.5:1）
+  muted-dark: "rgba(255,255,255,0.58)"
+  faint: "rgba(60,60,67,0.30)"        # 辅助/元信息 · light
+  faint-dark: "rgba(255,255,255,0.38)"
+  line: "rgba(60,60,67,0.16)"         # separator
+  material: "rgba(242,242,247,0.85)"  # 导航毛玻璃 · light（RGB 对齐 bg）
+  material-dark: "rgba(22,22,26,0.72)"
+typography:
+  # 全部用系统字体栈；仅 display/body 标注 fontFamily，其余同栈。
+  display:  { fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', system-ui, sans-serif", fontSize: 64px, fontWeight: 700, lineHeight: 1.05, letterSpacing: -0.02em }  # 响应式 clamp(40px,7vw,64px)
+  title2:   { fontSize: 22px, fontWeight: 600, lineHeight: 1.3 }
+  title3:   { fontSize: 20px, fontWeight: 400, lineHeight: 1.4 }
+  headline: { fontSize: 17px, fontWeight: 600 }
+  body:     { fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', system-ui, sans-serif", fontSize: 16px, fontWeight: 400, lineHeight: 1.5 }
+  callout:  { fontSize: 15px, fontWeight: 400 }
+  subhead:  { fontSize: 14px, fontWeight: 400 }
+  footnote: { fontSize: 13px, fontWeight: 500 }
+  caption:  { fontSize: 12px, fontWeight: 400 }
+spacing:
+  xs: 4px
+  sm: 8px
+  md: 16px
+  lg: 24px
+  xl: 32px
+  xxl: 40px
+rounded:
+  badge: 6px        # 徽章 ≤6
+  control: 10px     # 按钮 / 控件
+  card: 16px        # 卡片
+  full: 9999px      # 仅链接胶囊，不用于卡片
+components:
+  card:
+    backgroundColor: "{colors.card}"
+    rounded: "{rounded.card}"
+    shadow: "0 1px 2px rgba(0,0,0,0.04)"
+    shadowHover: "0 8px 24px -8px rgba(0,0,0,0.16)"
+  button-filled:
+    backgroundColor: "{colors.primary}"
+    textColor: "{colors.card}"
+    rounded: "{rounded.control}"
+  nav:
+    backgroundColor: "{colors.material}"
+    backdropFilter: "blur(20px) saturate(180%)"
+    zIndex: 30
+---
+
 # 个人主页设计规范 — `index.html`
 
 > 目的：首页 UI 按**大厂设计系统的硬规则**走，不自己拍脑袋。这里只收录「适合个人主页」的那部分。
