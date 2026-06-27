@@ -380,3 +380,13 @@
 **守住**:🧭 没动地图;📇 没动个人内容;屏幕视觉不变(仅键盘聚焦时出现)。
 
 **改动文件**:`index.html`(skip 链接 + CSS + main tabindex)、`LOOP-LOG.md`。
+
+---
+
+## 2026-06-27 ~00:25 (周六) · 自驱 loop 启动（多伦多）
+
+**第 1 轮 / §4 A 测试健康基线** —— 无代码改动，仅确认绿底：
+- 3 套测试全绿：`design` 24/24 · `design-map` 13/13 · `regression` 24/24。
+- 开工前 `git stash` 了用户遗留的未提交改动（`index.html` / `favicon.svg`，非本 loop 工作）→ `git stash list` 可见，明早 `git stash pop` 可恢复。
+- 基建已提交 `bf3a7d9`（3 份 DESIGN 接 google design.md 格式 + 小红书填充地图 mock 种子 + 两份 loop 指令更新）。
+- 下一轮起做功能（按用户优先级）：① 首页红金主题 → ② 去「一块块」+ 浅色白卡柔化 → ③ 地图：景点连线随缩放变化 / 标签不叠字 / 水体·边缘正常 → ④ 移动端两页 …
