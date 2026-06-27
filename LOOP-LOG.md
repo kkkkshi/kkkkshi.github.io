@@ -390,3 +390,12 @@
 - 开工前 `git stash` 了用户遗留的未提交改动（`index.html` / `favicon.svg`，非本 loop 工作）→ `git stash list` 可见，明早 `git stash pop` 可恢复。
 - 基建已提交 `bf3a7d9`（3 份 DESIGN 接 google design.md 格式 + 小红书填充地图 mock 种子 + 两份 loop 指令更新）。
 - 下一轮起做功能（按用户优先级）：① 首页红金主题 → ② 去「一块块」+ 浅色白卡柔化 → ③ 地图：景点连线随缩放变化 / 标签不叠字 / 水体·边缘正常 → ④ 移动端两页 …
+
+---
+
+## 2026-06-27 ~00:36 · 第 2 轮 / 首页红金主题（§4 C）
+
+- **首页 accent 品牌绿 → footprints 印章红**（对齐古海图）：`--accent` `#1f6347`→`#9b2d20`（light）、`#5cc08a`→`#d9694e`（dark，提亮去饱和）；`--accent-ink` / `--accent-soft` 同步。
+- 文件：`index.html` :root + `[data-theme=dark]` + 头注释；`DESIGN.md` §2 配色表 + 顶部 YAML `colors.primary*` + 描述。
+- 验证：`design.js` **24/24 全绿**（含 §9 对比度 AA/AAA、§3.4 accent light≠dark）；截图 `.playwright-mcp/redgold-{light,dark}.png`。
+- 备注：品牌名 / kicker / 链接 hover 现为红系；**「金色」作为次要细节（描边 / 分隔）留待后续轮**（金色文字在浅底对比不足，不硬塞）。

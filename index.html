@@ -53,7 +53,7 @@
       /* ============================================================
          Apple Human Interface Guidelines · visual skin
          规则来源：HIG — Materials(透明度) / Elevation(层级) / Buttons
-         强调色 = 品牌绿（作为 system tint color）；其余走苹果中性 + 不透明度分级
+         强调色 = 品牌红（印章红，对齐 footprints 古海图）；其余走苹果中性 + 不透明度分级
          ============================================================ */
       :root {
         --bg: #f2f2f7;                    /* systemGroupedBackground */
@@ -64,9 +64,9 @@
         --line: rgba(60, 60, 67, 0.16);  /* separator */
         --fill: rgba(120, 120, 128, 0.12);   /* tertiarySystemFill */
         --fill-2: rgba(120, 120, 128, 0.16); /* secondarySystemFill */
-        --accent: #1f6347;               /* brand green = app tint */
-        --accent-ink: #1a5740;
-        --accent-soft: rgba(31, 99, 71, 0.1);
+        --accent: #9b2d20;               /* 印章红 = app tint（对齐 footprints 古海图）*/
+        --accent-ink: #7d2017;
+        --accent-soft: rgba(155, 45, 32, 0.1);
         --material: rgba(242, 242, 247, 0.85); /* nav material：RGB 对齐 --bg，导航融入背景不露色差；0.85+毛玻璃仍防滚动内容透出 */
         --radius: 16px;
         --radius-sm: 10px;
@@ -96,9 +96,9 @@
         --line: rgba(255, 255, 255, 0.1);
         --fill: rgba(255, 255, 255, 0.07);
         --fill-2: rgba(255, 255, 255, 0.11);
-        --accent: #5cc08a;                  /* 去饱和/提亮的绿 */
-        --accent-ink: #7ed3a6;
-        --accent-soft: rgba(92, 192, 138, 0.18);
+        --accent: #d9694e;                  /* 提亮去饱和的印章红 */
+        --accent-ink: #e58a72;
+        --accent-soft: rgba(217, 105, 78, 0.18);
         --material: rgba(22, 22, 26, 0.85); /* 导航材质（够实，内容不透出来糊在一起）*/
         --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.3);
         --shadow-hover: 0 12px 30px -10px rgba(0, 0, 0, 0.7);

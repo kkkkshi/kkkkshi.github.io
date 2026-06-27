@@ -3,13 +3,13 @@ version: alpha
 name: Sherry (Ke) Shi — Personal Site
 description: >-
   Apple-HIG-grounded personal homepage. System fonts, calm neutral surfaces,
-  one brand green, strict 8px grid, Material-3 dark rules. Constrains index.html.
+  one brand red (印章红, aligned with footprints), strict 8px grid, Material-3 dark rules. Constrains index.html.
 colors:
   # 规范要求至少有 primary。品牌绿 = app tint。light 为基准，*-dark 为暗色对应值。
-  primary: "#1f6347"                  # brand green · light
-  primary-dark: "#5cc08a"             # 暗色提亮去饱和
-  primary-ink: "#1a5740"              # accent pressed
-  primary-soft: "rgba(31,99,71,0.10)"
+  primary: "#9b2d20"                  # 印章红 · light（对齐 footprints 古海图）
+  primary-dark: "#d9694e"             # 暗色提亮去饱和
+  primary-ink: "#7d2017"              # accent pressed
+  primary-soft: "rgba(155,45,32,0.10)"
   bg: "#f2f2f7"                       # systemGroupedBackground · light
   bg-dark: "#16161a"                  # 非纯黑
   card: "#ffffff"                     # 卡片表面 · light
@@ -108,7 +108,7 @@ components:
 | `--ink` 主文字 | `#1c1c1e` | `rgba(255,255,255,.92)` |
 | `--muted` 次文字 | `rgba(60,60,67,.75)` | `rgba(255,255,255,.58)` |
 | `--faint` 辅助/元信息 | `rgba(60,60,67,.3)` | `rgba(255,255,255,.38)` |
-| `--accent` 品牌绿 | `#1f6347` | `#5cc08a`（提亮去饱和） |
+| `--accent` 品牌红（印章红，对齐 footprints） | `#9b2d20` | `#d9694e`（提亮去饱和） |
 | `--material` 导航材质 | `rgba(248,248,250,.72)` | `rgba(22,22,26,.72)` |
 
 ## 3. 暗色硬规则（重点）⭐
