@@ -443,3 +443,11 @@
 - `#years` 年份带：显式 `width:92%`（原 abspos+flex-wrap 是收缩宽度，`max-width` 不强制）→ 从 **3 行 106px → 2 行 51px**，省 ~55px 给地图；按钮尺寸/字号不变（保 tap）；`::before` blur 背景适配（height 70）。
 - 验证：`design-map.js` **13/13**、`regression.js` **24/24（fresh 单跑）**、0 console 报错；`design.js` 未受影响（没动 index.html）。截图 `.playwright-mcp/map-years-2row.png`。
 - 注：左侧**欧洲标签挤成团**（Denmark/Norway/… 竖叠）是 §4 D 另一项（含 `design-map.js` 断言耦合），留单独一轮谨慎做。
+
+---
+
+## 2026-06-27 ~01:21 · 第 8 轮 / 地图故事卡移动端抽屉（§4 D 地图项 ✅）
+
+- 故事卡 `#card` 窄屏（≤700px）：从「固定 300px 靠右、390 屏左缘只剩 ~62px」→ **近全宽底部抽屉**：`left/right:12`、`bottom:84`（年份带上方）、`width:auto`（实测 354）、`top:auto`、自下 `translateY(18px)` 滑入。
+- ⚠️ **再遇 source-order 坑**：本 `@media` 块位于 `#card` 基础规则（行 773）**之前**，同特异性被覆盖 → 用 `body #card` 提特异性才生效。（footprints CSS 通病：媒体查询在基础规则之前，覆盖须提特异性或移到样式表末尾。）
+- 验证：`regression.js` **24/24（fresh）**、`design-map.js` **13/13**、0 console 报错；`design.js` 不受影响。桌面卡片未改（仅 mobile media query）。截图 `.playwright-mcp/map-card-drawer.png`。

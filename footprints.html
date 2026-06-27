@@ -737,6 +737,19 @@
           width: calc(100% + 24px);
           height: 70px;
         }
+        /* 故事卡：窄屏从「固定 300px 靠右、左缘只剩 ~62px」改成近全宽底部抽屉（年份带上方，自下滑入）。
+           用 `body #card` 提特异性——本 @media 块位于 #card 基础规则之前，同特异性会被覆盖。 */
+        body #card {
+          left: 12px;
+          right: 12px;
+          width: auto;
+          top: auto;
+          bottom: 84px;
+          transform: translateY(18px);
+        }
+        body #card.show {
+          transform: translateY(0);
+        }
       }
 
       /* 键盘可达:焦点环 — 仅键盘 Tab 导航时可见,鼠标用户与古海图观感不受影响 */
