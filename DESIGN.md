@@ -5,14 +5,14 @@ description: >-
   Apple-HIG-grounded personal homepage. System fonts, calm neutral surfaces,
   one brand red (印章红, aligned with footprints), strict 8px grid, Material-3 dark rules. Constrains index.html.
 colors:
-  # 规范要求至少有 primary。品牌绿 = app tint。light 为基准，*-dark 为暗色对应值。
+  # 规范要求至少有 primary。品牌红（印章红）= app tint。light 为基准，*-dark 为暗色对应值。
   primary: "#9b2d20"                  # 印章红 · light（对齐 footprints 古海图）
   primary-dark: "#d9694e"             # 暗色提亮去饱和
   primary-ink: "#7d2017"              # accent pressed
   primary-soft: "rgba(155,45,32,0.10)"
-  bg: "#ece7db"                       # 暖底（降纯白刺眼，仍保 muted AA）· light
+  bg: "#f9f9fa"                       # 近白底【硬规则：不得纯白 #fff】· light
   bg-dark: "#16161a"                  # 非纯黑
-  card: "#f3f0e8"                     # 柔和米白卡片（明显不是纯白，比旧版降 9%）· light
+  card: "#fcfcfc"                     # 近白卡片：靠细描边 + 印章红左边条定义（样式6）· light
   card-dark: "#1f1f24"                # 比背景更亮（海拔）
   ink: "#1c1c1e"                      # 主文字 · light
   ink-dark: "rgba(255,255,255,0.92)"
@@ -21,7 +21,7 @@ colors:
   faint: "rgba(60,60,67,0.30)"        # 辅助/元信息 · light
   faint-dark: "rgba(255,255,255,0.38)"
   line: "rgba(60,60,67,0.16)"         # separator
-  material: "rgba(236,231,219,0.85)"  # 导航毛玻璃 · light（RGB 对齐 bg）
+  material: "rgba(249,249,250,0.85)"  # 导航毛玻璃 · light（RGB 对齐 bg）
   material-dark: "rgba(22,22,26,0.72)"
 typography:
   # 全部用系统字体栈；仅 display/body 标注 fontFamily，其余同栈。
@@ -44,14 +44,14 @@ spacing:
 rounded:
   badge: 6px        # 徽章 ≤6
   control: 10px     # 按钮 / 控件
-  card: 16px        # 卡片
+  card: 8px         # 卡片（样式6：小圆角 + 印章红左边条）
   full: 9999px      # 仅链接胶囊，不用于卡片
 components:
   card:
     backgroundColor: "{colors.card}"
-    rounded: "{rounded.card}"
-    shadow: "0 1px 2px rgba(0,0,0,0.04)"
-    shadowHover: "0 8px 24px -8px rgba(0,0,0,0.16)"
+    rounded: "{rounded.card}"                  # 8px
+    border: "1px solid {colors.line}"
+    borderLeft: "3px solid {colors.primary}"   # 印章红左边条（样式6，替代阴影做定义）
   button-filled:
     backgroundColor: "{colors.primary}"
     textColor: "{colors.card}"
@@ -103,18 +103,18 @@ components:
 
 | token | Light | Dark |
 | --- | --- | --- |
-| `--bg` 背景 | `#ece7db`（暖底） | `#16161a`（**非纯黑**） |
-| `--card` 卡片 | `#f3f0e8`（柔和米白，不晃眼） | `#1f1f24`（比背景**更亮**） |
+| `--bg` 背景 | `#f9f9fa`（近白·**非纯白**） | `#16161a`（**非纯黑**） |
+| `--card` 卡片 | `#fcfcfc`（近白，靠**细描边 + 印章红左边条**定义） | `#1f1f24`（比背景**更亮**） |
 | `--ink` 主文字 | `#1c1c1e` | `rgba(255,255,255,.92)` |
 | `--muted` 次文字 | `rgba(60,60,67,.75)` | `rgba(255,255,255,.58)` |
 | `--faint` 辅助/元信息 | `rgba(60,60,67,.3)` | `rgba(255,255,255,.38)` |
 | `--accent` 品牌红（印章红，对齐 footprints） | `#9b2d20` | `#d9694e`（提亮去饱和） |
-| `--material` 导航材质 | `rgba(248,248,250,.72)` | `rgba(22,22,26,.72)` |
+| `--material` 导航材质 | `rgba(255,255,255,.85)` | `rgba(22,22,26,.85)` |
 
 ## 3. 暗色硬规则（重点）⭐
 
-1. **禁止纯黑**：`--bg` 不得为 `#000`，用深灰。纯黑在大屏发空、刺眼，且让阴影/层级失效。
-2. **海拔 = 更亮表面**：暗色里层级越高表面越亮 → 卡片亮度必须 **>** 背景亮度（不是比背景更暗）。
+1. **禁纯黑 / 禁纯白（硬规则·写死）**：`--bg` 暗色**不得 `#000`**、浅色**不得 `#fff`** —— 纯黑发空、纯白刺眼，且让阴影/层级失效。暗色用深灰、浅色用近白。`design.js` 两条都查。
+2. **海拔（暗色规则）= 更亮表面**：**暗色**里层级越高表面越亮 → 卡片亮度必须 **>** 背景亮度。**浅色不强制**：浅色用「白底 + 近白卡」，卡片靠**细描边 + 印章红 `3px` 左边条**定义（不靠亮度跳白、避免刺眼）；只需卡片与底**可辨**即可。
 3. **文字不透明度分级**：主 92% / 次 58% / 辅 38% 白，不用纯白怼满。
 4. **强调色去饱和**：暗色把品牌色提亮、降饱和（深绿 → 亮绿）。
 5. **柔和阴影**：背景非纯黑后，阴影才能重新表达 elevation。
@@ -128,11 +128,11 @@ components:
 ## 5. 层级 Elevation
 
 - z-index：导航 `30` 高于内容；浮层始终在最上。
-- 阴影分两级：resting（`--shadow`）/ hover（`--shadow-hover`）。
+- **浅色卡片可不用阴影**：用 `1px` 细描边 + **印章红 `3px` 左边条**做定义（样式6，干净不跳白）；hover 给一抹 `--accent-soft` 淡红 + 左边条加深。暗色仍用柔和阴影表达海拔。
 
 ## 6. 形状 Shape
 
-- 圆角：卡片 **16px**、按钮/控件 **10px**、徽章 ≤ **6px**。
+- 圆角：卡片 **8px**（样式6，配印章红 3px 左边条）、按钮/控件 **10px**、徽章 ≤ **6px**。
 - **卡片不得直角**；胶囊（999px）只用于链接按钮，不用于卡片。
 
 ## 7. 间距 Spacing
@@ -172,14 +172,14 @@ components:
 | --- | --- |
 | §1 系统字体 / 无外部字体 / 16px | 系统字体栈、不加载 Google 字体、基准字号 16px |
 | §1 字号阶梯 type scale | 字号都来自 type scale、Hero 在 display 区间(40–64) |
-| §3.1 禁纯黑 | `[dark] 禁止纯黑背景` |
-| §3.2 海拔=更亮 | `[light/dark] 海拔=卡片比背景更亮` |
+| §3.1 禁纯黑 / 纯白 | `[dark] 禁纯黑背景`；`[light] 禁纯白背景` |
+| §3.2 海拔 / 可辨 | `[dark] 卡片更亮`；`[light] 卡片与背景可辨` |
 | §3.3 不透明度分级 | 次级文字用不透明度分级(<1) |
 | §3.4 去饱和 | 强调色暗色去饱和/提亮 |
 | §4 材质 / 同步过渡 / html 背景 | 导航栏毛玻璃、导航与 body 同步过渡、html 设背景 |
 | §6 圆角 | 卡片圆角 6–20px |
-| §5 阴影 | 卡片有阴影 |
+| §5 层级 | 卡片有阴影或描边 |
 | §8 交互态 | `:active` 按压态、`:focus-visible` 焦点环 |
 | §9 对比度 / 减动效 | `[light/dark]` 主文字 ≥7、次文字 ≥4.5、reduced-motion 降级 |
 
-_更新于 2026-06-24。_
+_更新于 2026-06-30。_

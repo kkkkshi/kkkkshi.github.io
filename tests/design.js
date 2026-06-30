@@ -117,7 +117,11 @@
   const item = document.querySelector(".item");
   const rad = parseFloat(gcs(item).borderTopLeftRadius);
   ok("§6 卡片圆角 6–20px(非直角/非胶囊)", rad >= 6 && rad <= 20, rad + "px");
-  ok("§5 卡片有阴影(elevation)", gcs(item).boxShadow !== "none");
+  {
+    const ic = gcs(item);
+    const hasBorder = ["borderTopWidth","borderLeftWidth"].some(p => parseFloat(ic[p]) > 0);
+    ok("§5 卡片有定义(阴影或描边)", ic.boxShadow !== "none" || hasBorder, ic.boxShadow !== "none" ? "shadow" : "border");
+  }
   ok("§8 :active 按压态存在", /:active/.test(css));
   ok("§8 :focus-visible 焦点环存在", /:focus-visible/.test(css));
   ok("§9 prefers-reduced-motion 降级", /prefers-reduced-motion/.test(css));
@@ -159,10 +163,17 @@
         !(bg.r === 0 && bg.g === 0 && bg.b === 0),
         `rgb(${bg.r},${bg.g},${bg.b})`,
       );
+    if (t === "light")
+      ok(
+        tag + "§3.1 禁止纯白背景(会刺眼)",
+        !(bg.r === 255 && bg.g === 255 && bg.b === 255),
+        `rgb(${bg.r},${bg.g},${bg.b})`,
+      );
+    // §3.2 暗色：海拔=卡片比背景更亮；浅色：卡片可比底略沉（暖米白卡），只需与底可辨
     ok(
-      tag + "§3.2 海拔=卡片比背景更亮",
-      lum(card) > lum(bg),
-      `card ${lum(card).toFixed(3)} > bg ${lum(bg).toFixed(3)}`,
+      tag + (t === "dark" ? "§3.2 海拔=卡片比背景更亮" : "§3.2 卡片与背景可辨(浅色卡可略沉)"),
+      t === "dark" ? lum(card) > lum(bg) : Math.abs(lum(card) - lum(bg)) > 0.004,
+      `card ${lum(card).toFixed(3)} vs bg ${lum(bg).toFixed(3)}`,
     );
     ok(tag + "§9 主文字对比 ≥7 (AAA)", ratio(over(ink, bg), bg) >= 7, ratio(over(ink, bg), bg).toFixed(1) + ":1");
     ok(tag + "§9 次文字对比 ≥4.5 (AA)", ratio(over(mut, bg), bg) >= 4.5, ratio(over(mut, bg), bg).toFixed(1) + ":1");

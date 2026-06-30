@@ -27,25 +27,25 @@
         } catch (e) {}
       })();
     </script>
-    <title>Sherry (Ke) Shi · Data Scientist</title>
+    <title>Sherry (Ke) Shi · Data Engineer & ML Engineer</title>
     <meta
       name="description"
-      content="Sherry (Ke) Shi · Data Scientist in Toronto. Real-time machine learning for fraud and risk."
+      content="Sherry (Ke) Shi · Data Engineer & ML Engineer in Toronto. Real-time machine learning for fraud and risk."
     />
     <!-- 社交分享卡片(Open Graph / Twitter):分享到 LinkedIn / 微信 / iMessage / Slack 时显示标题与简介 -->
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Sherry (Ke) Shi · Data Scientist" />
+    <meta property="og:title" content="Sherry (Ke) Shi · Data Engineer & ML Engineer" />
     <meta
       property="og:description"
-      content="Sherry (Ke) Shi · Data Scientist in Toronto. Real-time machine learning for fraud and risk."
+      content="Sherry (Ke) Shi · Data Engineer & ML Engineer in Toronto. Real-time machine learning for fraud and risk."
     />
     <meta property="og:site_name" content="Sherry (Ke) Shi" />
     <meta property="og:locale" content="en_US" />
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="Sherry (Ke) Shi · Data Scientist" />
+    <meta name="twitter:title" content="Sherry (Ke) Shi · Data Engineer & ML Engineer" />
     <meta
       name="twitter:description"
-      content="Sherry (Ke) Shi · Data Scientist in Toronto. Real-time machine learning for fraud and risk."
+      content="Sherry (Ke) Shi · Data Engineer & ML Engineer in Toronto. Real-time machine learning for fraud and risk."
     />
     <!-- 部署后补:og:url 与 og:image(绝对 URL,建议 1200×630 PNG) -->
     <!-- 系统字体（Apple HIG）：Mac 上即 San Francisco，无需外部字体 -->
@@ -56,8 +56,8 @@
          强调色 = 品牌红（印章红，对齐 footprints 古海图）；其余走苹果中性 + 不透明度分级
          ============================================================ */
       :root {
-        --bg: #ece7db;                    /* 暖底（让卡片不再发白刺眼，仍保 muted 文字 AA 对比） */
-        --card: #f3f0e8;                 /* 柔和米白卡片（明显不是纯白、比旧版降 9%，仍亮于 --bg） */
+        --bg: #f9f9fa;                    /* 近白底 ·【硬规则：不得纯白 #fff，会刺眼】 */
+        --card: #fcfcfc;                 /* 近白卡片：靠细描边 + 红色左边条定义，不靠亮度跳白 */
         --ink: #1c1c1e;                  /* label */
         --muted: rgba(60, 60, 67, 0.75); /* secondaryLabel · 调至 ≥4.5:1 (WCAG AA) */
         --faint: rgba(60, 60, 67, 0.3);  /* tertiaryLabel */
@@ -67,7 +67,7 @@
         --accent: #9b2d20;               /* 印章红 = app tint（对齐 footprints 古海图）*/
         --accent-ink: #7d2017;
         --accent-soft: rgba(155, 45, 32, 0.1);
-        --material: rgba(236, 231, 219, 0.85); /* nav material：RGB 对齐 --bg，导航融入背景不露色差；0.85+毛玻璃仍防滚动内容透出 */
+        --material: rgba(249, 249, 250, 0.85); /* nav material：RGB 对齐 --bg，导航融入背景不露色差；0.85+毛玻璃仍防滚动内容透出 */
         --radius: 16px;
         --radius-sm: 10px;
         --sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display",
@@ -269,7 +269,7 @@
 
       /* ---- hero ---- */
       .hero {
-        padding: 56px 0 48px;
+        padding: 48px 0 40px;
       }
       .kicker {
         font-size: var(--fs-footnote);
@@ -277,20 +277,20 @@
         letter-spacing: 0.02em;
         text-transform: uppercase;
         color: var(--accent);
-        margin: 0 0 18px;
+        margin: 0 0 16px;
       }
       .hero-title {
         font-weight: 700;
         font-size: var(--fs-display);
         line-height: 1.04;
         letter-spacing: -0.03em;
-        margin: 0 0 20px;
+        margin: 0 0 8px;
       }
       .hero-lead {
         font-size: var(--fs-title3);
         color: var(--muted);
         max-width: 50ch;
-        margin: 0 0 28px;
+        margin: 0 0 24px;
         text-wrap: pretty;
       }
       .hero-lead b {
@@ -324,19 +324,19 @@
 
       /* ---- sections: Apple grouped-list header ---- */
       .block {
-        padding: 40px 0;
+        padding: 24px 0;
         scroll-margin-top: 110px;
       }
       .block.compact {
-        padding: 32px 0 8px;
+        padding: 24px 0 4px;
       }
       .block-h {
-        font-size: var(--fs-footnote);
+        font-size: var(--fs-subhead);
         font-weight: 600;
         letter-spacing: 0.02em;
         text-transform: uppercase;
-        color: var(--muted);
-        margin: 0 0 20px;
+        color: var(--accent);
+        margin: 0 0 16px;
       }
       .prose .lead {
         font-size: var(--fs-title2);
@@ -369,15 +369,16 @@
         color: inherit;
         text-decoration: none;
         background: var(--card);
-        border: 0.5px solid var(--line);
-        border-radius: var(--radius);
+        border: 1px solid var(--line);
+        border-left: 3px solid var(--accent); /* 样式6：红色左边条（呼应印章红） */
+        border-radius: 8px;
         padding: 22px 24px;
-        box-shadow: var(--shadow);
-        transition: transform 0.18s ease, box-shadow 0.18s ease;
+        box-shadow: none;
+        transition: background 0.15s ease, border-color 0.15s ease;
       }
       .item:hover {
-        transform: translateY(-2px);
-        box-shadow: var(--shadow-hover);
+        background: var(--accent-soft);
+        border-left-color: var(--accent-ink);
       }
       .item:hover .item-t {
         color: var(--accent);
@@ -421,9 +422,11 @@
         justify-content: space-between;
         align-items: baseline;
         gap: 14px;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
       }
       .item-t {
+        flex: 1;
+        min-width: 0;
         font-weight: 600;
         font-size: var(--fs-headline);
         letter-spacing: -0.02em;
@@ -584,38 +587,12 @@
         line-height: 1.2;
       }
 
-      /* ---- certs: list rows w/ hairline separators ---- */
-      .certs {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        display: grid;
+      /* ---- certs: boxed cards (same style as Papers) ---- */
+      .cert-grid {
         grid-template-columns: 1fr 1fr;
-        gap: 2px 36px;
-      }
-      .cert {
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
-        text-decoration: none;
-        padding: 11px 0;
-        border-bottom: 0.5px solid var(--line);
-      }
-      .cert-name {
-        font-size: var(--fs-callout);
-        font-weight: 500;
-        color: var(--ink);
-        transition: color 0.18s;
-      }
-      .cert:hover .cert-name {
-        color: var(--accent);
-      }
-      .cert-meta {
-        font-size: var(--fs-caption);
-        color: var(--faint);
       }
       @media (max-width: 620px) {
-        .certs {
+        .cert-grid {
           grid-template-columns: 1fr;
         }
       }
@@ -743,7 +720,7 @@
         document.getElementById("app").innerHTML =
           '<main style="max-width:640px;margin:90px auto;padding:0 26px;font-family:system-ui,sans-serif;color:#1b1c20">' +
           '<h1 style="font-size:34px;margin:0 0 12px">Sherry (Ke) Shi</h1>' +
-          '<p style="color:#6b6f78;line-height:1.6">Data Scientist · Toronto. The page didn’t load fully. Reach me directly:</p>' +
+          '<p style="color:#6b6f78;line-height:1.6">Data Engineer &amp; ML Engineer · Toronto. The page didn’t load fully. Reach me directly:</p>' +
           '<p><a href="mailto:keshi0330@gmail.com">keshi0330@gmail.com</a> &nbsp;·&nbsp; ' +
           '<a href="https://github.com/kkkkshi">GitHub</a> &nbsp;·&nbsp; ' +
           '<a href="https://www.linkedin.com/in/keshi0330/">LinkedIn</a></p></main>';
@@ -835,8 +812,8 @@
       </header>
       <main id="top" tabindex="-1">
         <section class="hero">
-          <p class="kicker">${E(P.role)} · ${E(P.location)}</p>
           <h1 class="hero-title">${E(P.name)}</h1>
+          <p class="kicker">${E(P.role)} · ${E(P.location)}</p>
           <p class="hero-lead">${tagline}</p>
           <div class="links">${linkrow(["email", "github", "linkedin", "resume"])}</div>
         </section>
@@ -911,15 +888,17 @@
 
         <section class="block" id="certifications">
           <h2 class="block-h">Certifications</h2>
-          <ul class="certs">${P.certifications
+          <ul class="items cert-grid">${P.certifications
             .map(
-              (c) => `<li><a class="cert" href="${E(
+              (c) => `<li><a class="item" href="${E(
                 c.url,
-              )}" target="_blank" rel="noopener"><span class="cert-name">${E(
+              )}" target="_blank" rel="noopener" aria-label="${E(
                 c.name,
-              )}</span><span class="cert-meta">${E(c.authority)}${
-                c.date ? " · " + E(c.date) : ""
-              }</span></a></li>`,
+              )}"><div class="item-h"><span class="item-t">${E(
+                c.name,
+              )}</span><span class="item-when">${E(
+                c.date,
+              )}</span></div><p class="item-meta">${E(c.authority)}</p></a></li>`,
             )
             .join("")}</ul>
         </section>
