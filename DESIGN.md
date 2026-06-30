@@ -10,9 +10,9 @@ colors:
   primary-dark: "#d9694e"             # 暗色提亮去饱和
   primary-ink: "#7d2017"              # accent pressed
   primary-soft: "rgba(155,45,32,0.10)"
-  bg: "#f3f0e8"                       # 暖化浅底（降纯白刺眼）· light
+  bg: "#ece7db"                       # 暖底（降纯白刺眼，仍保 muted AA）· light
   bg-dark: "#16161a"                  # 非纯黑
-  card: "#fdfbf5"                     # 暖白卡片（非纯白，不晃眼）· light
+  card: "#f3f0e8"                     # 柔和米白卡片（明显不是纯白，比旧版降 9%）· light
   card-dark: "#1f1f24"                # 比背景更亮（海拔）
   ink: "#1c1c1e"                      # 主文字 · light
   ink-dark: "rgba(255,255,255,0.92)"
@@ -21,7 +21,7 @@ colors:
   faint: "rgba(60,60,67,0.30)"        # 辅助/元信息 · light
   faint-dark: "rgba(255,255,255,0.38)"
   line: "rgba(60,60,67,0.16)"         # separator
-  material: "rgba(243,240,232,0.85)"  # 导航毛玻璃 · light（RGB 对齐 bg）
+  material: "rgba(236,231,219,0.85)"  # 导航毛玻璃 · light（RGB 对齐 bg）
   material-dark: "rgba(22,22,26,0.72)"
 typography:
   # 全部用系统字体栈；仅 display/body 标注 fontFamily，其余同栈。
@@ -103,8 +103,8 @@ components:
 
 | token | Light | Dark |
 | --- | --- | --- |
-| `--bg` 背景 | `#f3f0e8`（暖化浅底） | `#16161a`（**非纯黑**） |
-| `--card` 卡片 | `#fdfbf5`（暖白，不晃眼） | `#1f1f24`（比背景**更亮**） |
+| `--bg` 背景 | `#ece7db`（暖底） | `#16161a`（**非纯黑**） |
+| `--card` 卡片 | `#f3f0e8`（柔和米白，不晃眼） | `#1f1f24`（比背景**更亮**） |
 | `--ink` 主文字 | `#1c1c1e` | `rgba(255,255,255,.92)` |
 | `--muted` 次文字 | `rgba(60,60,67,.75)` | `rgba(255,255,255,.58)` |
 | `--faint` 辅助/元信息 | `rgba(60,60,67,.3)` | `rgba(255,255,255,.38)` |
