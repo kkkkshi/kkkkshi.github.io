@@ -1074,7 +1074,18 @@
           {
             id: "bg",
             type: "background",
-            paint: { "background-color": "#b9cdd0" },
+            // 远景背景=海;z7.5→8.5 渐变为纸色(近景水面改由瓦片 water 层精确绘制,见 water-omt)
+            paint: {
+              "background-color": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                7.5,
+                "#b9cdd0",
+                8.5,
+                "#ece3cf",
+              ],
+            },
           },
           {
             id: "roads",
@@ -1953,7 +1964,16 @@
         const P = (l, p, v) => {
           if (map.getLayer(l)) map.setPaintProperty(l, p, v);
         };
-        P("bg", "background-color", t.sea);
+        // bg 远景=海、近景=纸(同初始样式的 zoom 渐变,昼夜各换一套色)
+        P("bg", "background-color", [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          7.5,
+          t.sea,
+          8.5,
+          t.land,
+        ]);
         P("lake", "fill-color", t.sea); // 湖与海同源,夜间一起变深(否则白斑)
         P("land", "fill-color", t.land);
         P("country-fill", "fill-color", t.cf);
@@ -2260,3 +2280,19 @@
     </script>
   </body>
 </html>
+        P("water-omt", "fill-color", t.sea); // 近景瓦片水面同步昼夜
+            // NE 50m 岸线点距 5~10km,城市缩放下会切进街区 → z7.5 起隐藏,交给瓦片 water 层
+                maxzoom: 7.5,
+                paint: { "fill-color": "#b9cdd0" },
+              },
+              "roads",
+            );
+            // 近景水面(瓦片,与街道同源米级对齐):z7.5 淡入接替 NE 湖/海,岸线不再切街区
+            map.addLayer(
+              {
+                id: "water-omt",
+                type: "fill",
+                source: "omt",
+                "source-layer": "water",
+                minzoom: 7.5,
+                filter: ["!=", ["get", "class"], "swimming_pool"],
