@@ -5,7 +5,7 @@
 >
 > 标记：**✅** = 有本人照片（在 `photos/`，清单 `_manifest_year.csv`）；**🖼** = 无照片，待补网图（可商用 / CC 来源）。
 > 坐标：✅ 用照片 GPS 中位数、**截断 3 位小数**脱敏；🖼 用城市中心坐标。
-> 🖼 网图已按地标存入 `photos/<country>/<region>/<landmark>_{1,2,3}.jpg`（文件夹/文件名统一 **lowercase snake_case**，无空格/撇号/非 ASCII；每地标 3 张候选，本地、未提交）；坐标已全部接入 `data/footprints.json`（共 330 个地图节点，13 国所有州/省/地标都有点）。
+> 🖼 网图已按地标存入 `photos/<country>/<region>/<landmark>_{1,2,3}.jpg`（文件夹/文件名统一 **lowercase snake_case**，无空格/撇号/非 ASCII；每地标 3 张候选；原图本地不入库，缩略图 `photos/_thumbs` + 清单 `data/webimages.json` 已入库上线）；坐标已全部接入 `data/footprints.json`（共 330 个地图节点，13 国所有州/省/地标都有点）。
 
 ## 去过的国家（13）— 世界地图高亮
 

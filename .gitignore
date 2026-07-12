@@ -1,11 +1,11 @@
 # 依赖
 node_modules/
 
-# 3.2GB 本地照片素材 + 中间数据,网站运行不需要
-photos/
-# 网图清单由 scripts/build-webimages.py 本地生成,路径指向被忽略的 photos/_thumbs;
-# 不入库:换环境时 footprints.html fetch 失败自动降级为无图卡片,不会 404 裂图
-data/webimages.json
+# 2.4GB 本地照片素材(个人原图,按城市分文件夹)不入库;
+# 网图缩略图 photos/_thumbs(景点网图,92MB)+ 清单 data/webimages.json 入库上线,
+# 地图卡片才有图(2026-07-11 用户定)
+photos/*
+!photos/_thumbs/
 
 # 系统 / 工具产物
 .DS_Store
