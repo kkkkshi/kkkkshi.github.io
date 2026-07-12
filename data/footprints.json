@@ -7,7 +7,6 @@
  "countries": [
   {
    "name": "Canada",
-   "name_zh": "加拿大",
    "center": [
     -106,
     56
@@ -37,7 +36,6 @@
    "regions": [
     {
      "name": "Ontario",
-     "name_zh": "安大略",
      "years": [
       2017,
       2018,
@@ -51,7 +49,6 @@
      "cities": [
       {
        "name": "Toronto",
-       "name_zh": "多伦多",
        "lat": 43.65,
        "lng": -79.383,
        "years": [
@@ -394,7 +391,6 @@
       },
       {
        "name": "Fort Erie",
-       "name_zh": "Fort Erie",
        "lat": 42.908,
        "lng": -78.913,
        "years": [
@@ -416,7 +412,6 @@
       },
       {
        "name": "Waterloo",
-       "name_zh": "滑铁卢",
        "lat": 43.464,
        "lng": -80.52,
        "years": [
@@ -432,7 +427,6 @@
       },
       {
        "name": "Allan Gardens",
-       "name_zh": "艾伦花园",
        "lat": 43.661,
        "lng": -79.374,
        "years": [],
@@ -442,7 +436,6 @@
       },
       {
        "name": "CN Tower",
-       "name_zh": "加拿大国家电视塔",
        "lat": 43.642,
        "lng": -79.387,
        "years": [],
@@ -452,7 +445,6 @@
       },
       {
        "name": "City Hall",
-       "name_zh": "多伦多市政厅",
        "lat": 43.653,
        "lng": -79.384,
        "years": [],
@@ -462,7 +454,6 @@
       },
       {
        "name": "Distillery District",
-       "name_zh": "酿酒厂区",
        "lat": 43.65,
        "lng": -79.359,
        "years": [],
@@ -472,7 +463,6 @@
       },
       {
        "name": "Eaton Centre",
-       "name_zh": "伊顿中心",
        "lat": 43.654,
        "lng": -79.38,
        "years": [],
@@ -482,7 +472,6 @@
       },
       {
        "name": "High Park",
-       "name_zh": "高地公园",
        "lat": 43.646,
        "lng": -79.463,
        "years": [],
@@ -492,7 +481,6 @@
       },
       {
        "name": "Lake Ontario",
-       "name_zh": "安大略湖",
        "lat": 43.636,
        "lng": -79.38,
        "years": [],
@@ -502,7 +490,6 @@
       },
       {
        "name": "St Lawrence Market",
-       "name_zh": "圣劳伦斯市场",
        "lat": 43.649,
        "lng": -79.372,
        "years": [],
@@ -512,7 +499,6 @@
       },
       {
        "name": "University of Waterloo",
-       "name_zh": "滑铁卢大学",
        "lat": 43.472,
        "lng": -80.545,
        "years": [],
@@ -522,7 +508,6 @@
       },
       {
        "name": "Yonge-Dundas Square",
-       "name_zh": "央街-登打士广场",
        "lat": 43.656,
        "lng": -79.38,
        "years": [],
@@ -534,7 +519,6 @@
     },
     {
      "name": "Nova Scotia",
-     "name_zh": "新斯科舍",
      "years": [
       2019,
       2024,
@@ -543,7 +527,6 @@
      "cities": [
       {
        "name": "Cape Breton Highlands National Park",
-       "name_zh": "Cape Breton Highlands National Park",
        "lat": 46.748,
        "lng": -60.891,
        "years": [
@@ -576,7 +559,6 @@
       },
       {
        "name": "Halifax",
-       "name_zh": "哈利法克斯",
        "lat": 44.643,
        "lng": -63.575,
        "years": [
@@ -616,7 +598,6 @@
       },
       {
        "name": "Caribou",
-       "name_zh": "Caribou",
        "lat": 45.741,
        "lng": -62.688,
        "years": [
@@ -638,7 +619,6 @@
       },
       {
        "name": "Lunenburg",
-       "name_zh": "卢嫩堡",
        "lat": 44.376,
        "lng": -64.31,
        "years": [
@@ -660,7 +640,6 @@
       },
       {
        "name": "Fort Lawrence",
-       "name_zh": "Fort Lawrence",
        "lat": 45.856,
        "lng": -64.262,
        "years": [
@@ -693,7 +672,6 @@
       },
       {
        "name": "Salt Springs",
-       "name_zh": "Salt Springs",
        "lat": 45.703,
        "lng": -64.03,
        "years": [
@@ -724,7 +702,6 @@
       },
       {
        "name": "Peggys Cove",
-       "name_zh": "佩吉湾",
        "lat": 44.492,
        "lng": -63.918,
        "years": [
@@ -755,7 +732,6 @@
       },
       {
        "name": "Oxford Junction",
-       "name_zh": "Oxford Junction",
        "lat": 45.715,
        "lng": -63.843,
        "years": [
@@ -777,7 +753,6 @@
       },
       {
        "name": "East Chester",
-       "name_zh": "East Chester",
        "lat": 44.589,
        "lng": -64.207,
        "years": [
@@ -799,7 +774,6 @@
       },
       {
        "name": "Martins River",
-       "name_zh": "Martins River",
        "lat": 44.486,
        "lng": -64.345,
        "years": [
@@ -821,7 +795,6 @@
       },
       {
        "name": "South Ingonish Harbour",
-       "name_zh": "South Ingonish Harbour",
        "lat": 46.631,
        "lng": -60.429,
        "years": [
@@ -843,7 +816,6 @@
       },
       {
        "name": "Windsor Road",
-       "name_zh": "Windsor Road",
        "lat": 44.586,
        "lng": -64.263,
        "years": [
@@ -865,7 +837,6 @@
       },
       {
        "name": "Atkinson",
-       "name_zh": "Atkinson",
        "lat": 45.615,
        "lng": -63.74,
        "years": [
@@ -887,7 +858,6 @@
       },
       {
        "name": "Black River Road",
-       "name_zh": "Black River Road",
        "lat": 45.719,
        "lng": -63.909,
        "years": [
@@ -920,7 +890,6 @@
       },
       {
        "name": "Cape Smokey",
-       "name_zh": "Cape Smokey",
        "lat": 46.624,
        "lng": -60.379,
        "years": [
@@ -942,7 +911,6 @@
       },
       {
        "name": "Fauxburg",
-       "name_zh": "Fauxburg",
        "lat": 44.427,
        "lng": -64.381,
        "years": [
@@ -964,7 +932,6 @@
       },
       {
        "name": "Northwest",
-       "name_zh": "Northwest",
        "lat": 44.409,
        "lng": -64.362,
        "years": [
@@ -986,7 +953,6 @@
       },
       {
        "name": "Westchester",
-       "name_zh": "Westchester",
        "lat": 45.603,
        "lng": -63.734,
        "years": [
@@ -1008,7 +974,6 @@
       },
       {
        "name": "Beech Hill",
-       "name_zh": "Beech Hill",
        "lat": 44.561,
        "lng": -64.328,
        "years": [
@@ -1030,7 +995,6 @@
       },
       {
        "name": "Blockhouse",
-       "name_zh": "Blockhouse",
        "lat": 44.444,
        "lng": -64.407,
        "years": [
@@ -1052,7 +1016,6 @@
       },
       {
        "name": "Gold River",
-       "name_zh": "Gold River",
        "lat": 44.545,
        "lng": -64.324,
        "years": [
@@ -1074,7 +1037,6 @@
       },
       {
        "name": "Head of St. Margarets Bay",
-       "name_zh": "Head of St. Margarets Bay",
        "lat": 44.702,
        "lng": -63.92,
        "years": [
@@ -1096,7 +1058,6 @@
       },
       {
        "name": "Lilydale",
-       "name_zh": "Lilydale",
        "lat": 44.391,
        "lng": -64.34,
        "years": [
@@ -1118,7 +1079,6 @@
       },
       {
        "name": "Little Forks",
-       "name_zh": "Little Forks",
        "lat": 45.755,
        "lng": -64.111,
        "years": [
@@ -1140,7 +1100,6 @@
       },
       {
        "name": "Lower Truro",
-       "name_zh": "Lower Truro",
        "lat": 45.365,
        "lng": -63.318,
        "years": [
@@ -1162,7 +1121,6 @@
       },
       {
        "name": "Martins Point",
-       "name_zh": "Martins Point",
        "lat": 44.507,
        "lng": -64.324,
        "years": [
@@ -1184,7 +1142,6 @@
       },
       {
        "name": "Oxford",
-       "name_zh": "Oxford",
        "lat": 45.723,
        "lng": -63.889,
        "years": [
@@ -1206,7 +1163,6 @@
       },
       {
        "name": "Petit Étang",
-       "name_zh": "Petit Étang",
        "lat": 46.643,
        "lng": -60.974,
        "years": [
@@ -1228,7 +1184,6 @@
       },
       {
        "name": "Bedford",
-       "name_zh": "Bedford",
        "lat": 44.741,
        "lng": -63.66,
        "years": [
@@ -1250,7 +1205,6 @@
       },
       {
        "name": "Broadway",
-       "name_zh": "Broadway",
        "lat": 45.576,
        "lng": -62.364,
        "years": [
@@ -1272,7 +1226,6 @@
       },
       {
        "name": "Chester Basin",
-       "name_zh": "Chester Basin",
        "lat": 44.566,
        "lng": -64.325,
        "years": [
@@ -1294,7 +1247,6 @@
       },
       {
        "name": "Cheticamp",
-       "name_zh": "Cheticamp",
        "lat": 46.65,
        "lng": -60.996,
        "years": [
@@ -1316,7 +1268,6 @@
       },
       {
        "name": "Clearland",
-       "name_zh": "Clearland",
        "lat": 44.467,
        "lng": -64.401,
        "years": [
@@ -1338,7 +1289,6 @@
       },
       {
        "name": "Fall River",
-       "name_zh": "Fall River",
        "lat": 44.806,
        "lng": -63.605,
        "years": [
@@ -1360,7 +1310,6 @@
       },
       {
        "name": "French Village",
-       "name_zh": "French Village",
        "lat": 44.633,
        "lng": -63.913,
        "years": [
@@ -1382,7 +1331,6 @@
       },
       {
        "name": "Gold River 21",
-       "name_zh": "Gold River 21",
        "lat": 44.555,
        "lng": -64.33,
        "years": [
@@ -1404,7 +1352,6 @@
       },
       {
        "name": "Grand Étang",
-       "name_zh": "Grand Étang",
        "lat": 46.547,
        "lng": -61.042,
        "years": [
@@ -1426,7 +1373,6 @@
       },
       {
        "name": "Ingonish Ferry",
-       "name_zh": "Ingonish Ferry",
        "lat": 46.628,
        "lng": -60.393,
        "years": [
@@ -1448,7 +1394,6 @@
       },
       {
        "name": "La Prairie",
-       "name_zh": "La Prairie",
        "lat": 46.648,
        "lng": -60.956,
        "years": [
@@ -1470,7 +1415,6 @@
       },
       {
        "name": "Lewis Lake",
-       "name_zh": "Lewis Lake",
        "lat": 44.695,
        "lng": -63.841,
        "years": [
@@ -1492,7 +1436,6 @@
       },
       {
        "name": "Limerock",
-       "name_zh": "Limerock",
        "lat": 45.544,
        "lng": -62.828,
        "years": [
@@ -1514,7 +1457,6 @@
       },
       {
        "name": "Margaree Harbour",
-       "name_zh": "Margaree Harbour",
        "lat": 46.431,
        "lng": -61.107,
        "years": [
@@ -1536,7 +1478,6 @@
       },
       {
        "name": "Mount William",
-       "name_zh": "Mount William",
        "lat": 45.583,
        "lng": -62.711,
        "years": [
@@ -1558,7 +1499,6 @@
       },
       {
        "name": "Oakland",
-       "name_zh": "Oakland",
        "lat": 44.472,
        "lng": -64.375,
        "years": [
@@ -1580,7 +1520,6 @@
       },
       {
        "name": "Otter Lake",
-       "name_zh": "Otter Lake",
        "lat": 44.662,
        "lng": -63.763,
        "years": [
@@ -1602,7 +1541,6 @@
       },
       {
        "name": "Seabright",
-       "name_zh": "Seabright",
        "lat": 44.626,
        "lng": -63.925,
        "years": [
@@ -1624,7 +1562,6 @@
       },
       {
        "name": "Timberlea",
-       "name_zh": "Timberlea",
        "lat": 44.66,
        "lng": -63.758,
        "years": [
@@ -1646,7 +1583,6 @@
       },
       {
        "name": "Upper Onslow",
-       "name_zh": "Upper Onslow",
        "lat": 45.376,
        "lng": -63.321,
        "years": [
@@ -1668,7 +1604,6 @@
       },
       {
        "name": "Upper Tantallon",
-       "name_zh": "Upper Tantallon",
        "lat": 44.694,
        "lng": -63.866,
        "years": [
@@ -1690,7 +1625,6 @@
       },
       {
        "name": "Westville Road",
-       "name_zh": "Westville Road",
        "lat": 45.578,
        "lng": -62.7,
        "years": [
@@ -1712,7 +1646,6 @@
       },
       {
        "name": "Cabot Trail",
-       "name_zh": "卡伯特小径",
        "lat": 46.7,
        "lng": -60.6,
        "years": [],
@@ -1722,7 +1655,6 @@
       },
       {
        "name": "Halifax Citadel",
-       "name_zh": "哈利法克斯城堡",
        "lat": 44.647,
        "lng": -63.58,
        "years": [],
@@ -1732,7 +1664,6 @@
       },
       {
        "name": "Halifax Public Gardens",
-       "name_zh": "哈利法克斯公共花园",
        "lat": 44.643,
        "lng": -63.583,
        "years": [],
@@ -1742,7 +1673,6 @@
       },
       {
        "name": "Halifax Waterfront",
-       "name_zh": "哈利法克斯海滨",
        "lat": 44.648,
        "lng": -63.568,
        "years": [],
@@ -1754,7 +1684,6 @@
     },
     {
      "name": "New Brunswick",
-     "name_zh": "新不伦瑞克",
      "years": [
       2019,
       2025
@@ -1762,7 +1691,6 @@
      "cities": [
       {
        "name": "Hopewell Parish",
-       "name_zh": "Hopewell Parish",
        "lat": 45.821,
        "lng": -64.573,
        "years": [
@@ -1802,7 +1730,6 @@
       },
       {
        "name": "Sackville Parish",
-       "name_zh": "Sackville Parish",
        "lat": 45.866,
        "lng": -64.275,
        "years": [
@@ -1826,7 +1753,6 @@
       },
       {
        "name": "Alma Parish",
-       "name_zh": "Alma Parish",
        "lat": 45.586,
        "lng": -64.972,
        "years": [
@@ -1857,7 +1783,6 @@
       },
       {
        "name": "City of Moncton",
-       "name_zh": "蒙克顿",
        "lat": 46.136,
        "lng": -64.888,
        "years": [
@@ -1879,7 +1804,6 @@
       },
       {
        "name": "Hillsborough Parish",
-       "name_zh": "Hillsborough Parish",
        "lat": 45.955,
        "lng": -64.68,
        "years": [
@@ -1921,7 +1845,6 @@
       },
       {
        "name": "Coverdale Parish",
-       "name_zh": "Coverdale Parish",
        "lat": 45.997,
        "lng": -64.707,
        "years": [
@@ -1952,7 +1875,6 @@
       },
       {
        "name": "Town of Shediac",
-       "name_zh": "Town of Shediac",
        "lat": 46.219,
        "lng": -64.555,
        "years": [
@@ -1974,7 +1896,6 @@
       },
       {
        "name": "Botsford Parish",
-       "name_zh": "Botsford Parish",
        "lat": 46.162,
        "lng": -63.818,
        "years": [
@@ -2005,7 +1926,6 @@
       },
       {
        "name": "Shediac Parish",
-       "name_zh": "Shediac Parish",
        "lat": 46.207,
        "lng": -64.352,
        "years": [
@@ -2036,7 +1956,6 @@
       },
       {
        "name": "Memramcook",
-       "name_zh": "Memramcook",
        "lat": 46.013,
        "lng": -64.528,
        "years": [
@@ -2058,7 +1977,6 @@
       },
       {
        "name": "Fundy National Park",
-       "name_zh": "芬迪国家公园",
        "lat": 45.595,
        "lng": -65.03,
        "years": [],
@@ -2068,7 +1986,6 @@
       },
       {
        "name": "Hopewell Rocks",
-       "name_zh": "好望角岩石",
        "lat": 45.817,
        "lng": -64.578,
        "years": [],
@@ -2078,7 +1995,6 @@
       },
       {
        "name": "Magnetic Hill",
-       "name_zh": "磁力山",
        "lat": 46.118,
        "lng": -64.834,
        "years": [],
@@ -2090,14 +2006,12 @@
     },
     {
      "name": "Prince Edward Island",
-     "name_zh": "爱德华王子岛",
      "years": [
       2025
      ],
      "cities": [
       {
        "name": "Darnley",
-       "name_zh": "Darnley",
        "lat": 46.563,
        "lng": -63.639,
        "years": [
@@ -2119,7 +2033,6 @@
       },
       {
        "name": "North Rustico",
-       "name_zh": "North Rustico",
        "lat": 46.496,
        "lng": -63.342,
        "years": [
@@ -2150,7 +2063,6 @@
       },
       {
        "name": "Charlottetown",
-       "name_zh": "夏洛特敦",
        "lat": 46.234,
        "lng": -63.127,
        "years": [
@@ -2172,7 +2084,6 @@
       },
       {
        "name": "Borden-Carleton",
-       "name_zh": "Borden-Carleton",
        "lat": 46.234,
        "lng": -63.725,
        "years": [
@@ -2212,7 +2123,6 @@
       },
       {
        "name": "Cavendish",
-       "name_zh": "卡文迪许",
        "lat": 46.499,
        "lng": -63.393,
        "years": [
@@ -2234,7 +2144,6 @@
       },
       {
        "name": "Brackley Beach",
-       "name_zh": "Brackley Beach",
        "lat": 46.424,
        "lng": -63.189,
        "years": [
@@ -2265,7 +2174,6 @@
       },
       {
        "name": "French River",
-       "name_zh": "French River",
        "lat": 46.512,
        "lng": -63.514,
        "years": [
@@ -2287,7 +2195,6 @@
       },
       {
        "name": "Paroisse de Botsford",
-       "name_zh": "Paroisse de Botsford",
        "lat": 46.206,
        "lng": -63.757,
        "years": [
@@ -2309,7 +2216,6 @@
       },
       {
        "name": "Stanhope",
-       "name_zh": "Stanhope",
        "lat": 46.43,
        "lng": -63.143,
        "years": [
@@ -2331,7 +2237,6 @@
       },
       {
        "name": "Bonshaw",
-       "name_zh": "Bonshaw",
        "lat": 46.208,
        "lng": -63.348,
        "years": [
@@ -2353,7 +2258,6 @@
       },
       {
        "name": "Desable",
-       "name_zh": "Desable",
        "lat": 46.198,
        "lng": -63.401,
        "years": [
@@ -2375,7 +2279,6 @@
       },
       {
        "name": "New Glasgow",
-       "name_zh": "New Glasgow",
        "lat": 46.396,
        "lng": -63.33,
        "years": [
@@ -2397,7 +2300,6 @@
       },
       {
        "name": "New Haven",
-       "name_zh": "New Haven",
        "lat": 46.221,
        "lng": -63.313,
        "years": [
@@ -2419,7 +2321,6 @@
       },
       {
        "name": "Prince County",
-       "name_zh": "Prince County",
        "lat": 46.273,
        "lng": -63.633,
        "years": [
@@ -2441,7 +2342,6 @@
       },
       {
        "name": "Queens County",
-       "name_zh": "Queens County",
        "lat": 46.374,
        "lng": -63.293,
        "years": [
@@ -2463,7 +2363,6 @@
       },
       {
        "name": "Rustico",
-       "name_zh": "Rustico",
        "lat": 46.43,
        "lng": -63.316,
        "years": [
@@ -2485,7 +2384,6 @@
       },
       {
        "name": "Cavendish Beach",
-       "name_zh": "卡文迪什海滩",
        "lat": 46.498,
        "lng": -63.379,
        "years": [],
@@ -2495,7 +2393,6 @@
       },
       {
        "name": "Confederation Bridge",
-       "name_zh": "联邦大桥",
        "lat": 46.232,
        "lng": -63.687,
        "years": [],
@@ -2505,7 +2402,6 @@
       },
       {
        "name": "Green Gables Heritage Place",
-       "name_zh": "绿山墙故居",
        "lat": 46.494,
        "lng": -63.376,
        "years": [],
@@ -2515,7 +2411,6 @@
       },
       {
        "name": "PEI National Park",
-       "name_zh": "爱德华王子岛国家公园",
        "lat": 46.42,
        "lng": -63.1,
        "years": [],
@@ -2527,7 +2422,6 @@
     },
     {
      "name": "British Columbia",
-     "name_zh": "不列颠哥伦比亚",
      "years": [
       2014,
       2015,
@@ -2538,7 +2432,6 @@
      "cities": [
       {
        "name": "Richmond",
-       "name_zh": "列治文",
        "lat": 49.167,
        "lng": -123.124,
        "years": [
@@ -2560,7 +2453,6 @@
       },
       {
        "name": "Vancouver",
-       "name_zh": "温哥华",
        "lat": 49.283,
        "lng": -123.121,
        "years": [],
@@ -2570,7 +2462,6 @@
       },
       {
        "name": "Victoria",
-       "name_zh": "维多利亚",
        "lat": 48.428,
        "lng": -123.366,
        "years": [
@@ -2585,7 +2476,6 @@
       },
       {
        "name": "BC Parliament Buildings",
-       "name_zh": "卑诗省议会大厦",
        "lat": 48.42,
        "lng": -123.37,
        "years": [],
@@ -2595,7 +2485,6 @@
       },
       {
        "name": "Butchart Gardens",
-       "name_zh": "布查特花园",
        "lat": 48.564,
        "lng": -123.47,
        "years": [],
@@ -2605,7 +2494,6 @@
       },
       {
        "name": "Capilano Suspension Bridge",
-       "name_zh": "卡皮拉诺吊桥",
        "lat": 49.343,
        "lng": -123.115,
        "years": [],
@@ -2615,7 +2503,6 @@
       },
       {
        "name": "Inner Harbour",
-       "name_zh": "内港",
        "lat": 48.422,
        "lng": -123.37,
        "years": [],
@@ -2625,7 +2512,6 @@
       },
       {
        "name": "Joffre Lakes",
-       "name_zh": "乔佛瑞湖",
        "lat": 50.367,
        "lng": -122.498,
        "years": [],
@@ -2635,7 +2521,6 @@
       },
       {
        "name": "Stanley Park",
-       "name_zh": "斯坦利公园",
        "lat": 49.302,
        "lng": -123.144,
        "years": [],
@@ -2645,7 +2530,6 @@
       },
       {
        "name": "Steveston Village",
-       "name_zh": "史蒂夫斯顿渔村",
        "lat": 49.125,
        "lng": -123.182,
        "years": [],
@@ -2655,7 +2539,6 @@
       },
       {
        "name": "Whistler",
-       "name_zh": "惠斯勒",
        "lat": 50.116,
        "lng": -122.957,
        "years": [],
@@ -2667,14 +2550,12 @@
     },
     {
      "name": "Alberta",
-     "name_zh": "阿尔伯塔",
      "years": [
       2014
      ],
      "cities": [
       {
        "name": "Banff",
-       "name_zh": "班夫",
        "lat": 51.178,
        "lng": -115.571,
        "years": [
@@ -2686,7 +2567,6 @@
       },
       {
        "name": "Banff Gondola",
-       "name_zh": "班夫缆车",
        "lat": 51.149,
        "lng": -115.557,
        "years": [],
@@ -2696,7 +2576,6 @@
       },
       {
        "name": "Bow Lake",
-       "name_zh": "弓湖",
        "lat": 51.677,
        "lng": -116.456,
        "years": [],
@@ -2706,7 +2585,6 @@
       },
       {
        "name": "Castle Mountain",
-       "name_zh": "城堡山",
        "lat": 51.272,
        "lng": -115.913,
        "years": [],
@@ -2716,7 +2594,6 @@
       },
       {
        "name": "Johnston Canyon",
-       "name_zh": "约翰斯顿峡谷",
        "lat": 51.245,
        "lng": -115.84,
        "years": [],
@@ -2726,7 +2603,6 @@
       },
       {
        "name": "Lake Louise",
-       "name_zh": "露易丝湖",
        "lat": 51.417,
        "lng": -116.218,
        "years": [],
@@ -2736,7 +2612,6 @@
       },
       {
        "name": "Lake Minnewanka",
-       "name_zh": "明尼万卡湖",
        "lat": 51.247,
        "lng": -115.409,
        "years": [],
@@ -2746,7 +2621,6 @@
       },
       {
        "name": "Moraine Lake",
-       "name_zh": "梦莲湖",
        "lat": 51.322,
        "lng": -116.187,
        "years": [],
@@ -2756,7 +2630,6 @@
       },
       {
        "name": "Peyto Lake",
-       "name_zh": "佩托湖",
        "lat": 51.722,
        "lng": -116.524,
        "years": [],
@@ -2766,7 +2639,6 @@
       },
       {
        "name": "Vermilion Lakes",
-       "name_zh": "朱砂湖",
        "lat": 51.18,
        "lng": -115.601,
        "years": [],
@@ -2776,7 +2648,6 @@
       },
       {
        "name": "Icefields Parkway",
-       "name_zh": "冰原大道",
        "lat": 51.7,
        "lng": -116.49,
        "years": [],
@@ -2786,7 +2657,6 @@
       },
       {
        "name": "Banff National Park",
-       "name_zh": "班夫国家公园",
        "lat": 51.34,
        "lng": -116.1,
        "years": [],
@@ -2800,7 +2670,6 @@
   },
   {
    "name": "United States",
-   "name_zh": "美国",
    "center": [
     -98,
     39
@@ -2825,7 +2694,6 @@
    "regions": [
     {
      "name": "New York",
-     "name_zh": "纽约州",
      "years": [
       2021,
       2023,
@@ -2835,7 +2703,6 @@
      "cities": [
       {
        "name": "Buffalo",
-       "name_zh": "布法罗",
        "lat": 42.886,
        "lng": -78.877,
        "years": [
@@ -2881,7 +2748,6 @@
       },
       {
        "name": "New York",
-       "name_zh": "纽约",
        "lat": 40.753,
        "lng": -73.978,
        "years": [
@@ -2903,7 +2769,6 @@
       },
       {
        "name": "Eggertsville",
-       "name_zh": "埃格茨维尔",
        "lat": 42.998,
        "lng": -78.822,
        "years": [
@@ -2925,7 +2790,6 @@
       },
       {
        "name": "Broadway",
-       "name_zh": "百老汇",
        "lat": 40.759,
        "lng": -73.985,
        "years": [],
@@ -2935,7 +2799,6 @@
       },
       {
        "name": "Brooklyn Bridge",
-       "name_zh": "布鲁克林大桥",
        "lat": 40.706,
        "lng": -73.997,
        "years": [],
@@ -2945,7 +2808,6 @@
       },
       {
        "name": "Buffalo City Hall",
-       "name_zh": "布法罗市政厅",
        "lat": 42.886,
        "lng": -78.879,
        "years": [],
@@ -2955,7 +2817,6 @@
       },
       {
        "name": "Central Park",
-       "name_zh": "中央公园",
        "lat": 40.782,
        "lng": -73.965,
        "years": [],
@@ -2965,7 +2826,6 @@
       },
       {
        "name": "Columbia University",
-       "name_zh": "哥伦比亚大学",
        "lat": 40.808,
        "lng": -73.962,
        "years": [],
@@ -2975,7 +2835,6 @@
       },
       {
        "name": "Cornell University",
-       "name_zh": "康奈尔大学",
        "lat": 42.448,
        "lng": -76.483,
        "years": [],
@@ -2985,7 +2844,6 @@
       },
       {
        "name": "Empire State Building",
-       "name_zh": "帝国大厦",
        "lat": 40.748,
        "lng": -73.986,
        "years": [],
@@ -2995,7 +2853,6 @@
       },
       {
        "name": "Fifth Avenue",
-       "name_zh": "第五大道",
        "lat": 40.775,
        "lng": -73.965,
        "years": [],
@@ -3005,7 +2862,6 @@
       },
       {
        "name": "Grand Central Terminal",
-       "name_zh": "中央车站",
        "lat": 40.753,
        "lng": -73.977,
        "years": [],
@@ -3015,7 +2871,6 @@
       },
       {
        "name": "Maid of the Mist",
-       "name_zh": "雾中少女号",
        "lat": 43.086,
        "lng": -79.075,
        "years": [],
@@ -3025,7 +2880,6 @@
       },
       {
        "name": "Museum of Modern Art",
-       "name_zh": "现代艺术博物馆",
        "lat": 40.761,
        "lng": -73.978,
        "years": [],
@@ -3035,7 +2889,6 @@
       },
       {
        "name": "Niagara Falls",
-       "name_zh": "尼亚加拉瀑布",
        "lat": 43.082,
        "lng": -79.071,
        "years": [],
@@ -3045,7 +2898,6 @@
       },
       {
        "name": "9/11 Memorial & One World Observatory",
-       "name_zh": "911纪念馆·世贸中心",
        "lat": 40.712,
        "lng": -74.013,
        "years": [],
@@ -3055,7 +2907,6 @@
       },
       {
        "name": "Rockefeller Center",
-       "name_zh": "洛克菲勒中心",
        "lat": 40.759,
        "lng": -73.979,
        "years": [],
@@ -3065,7 +2916,6 @@
       },
       {
        "name": "Roosevelt Island",
-       "name_zh": "罗斯福岛",
        "lat": 40.762,
        "lng": -73.95,
        "years": [],
@@ -3075,7 +2925,6 @@
       },
       {
        "name": "St Patrick's Cathedral",
-       "name_zh": "圣帕特里克大教堂",
        "lat": 40.758,
        "lng": -73.976,
        "years": [],
@@ -3085,7 +2934,6 @@
       },
       {
        "name": "Statue of Liberty",
-       "name_zh": "自由女神像",
        "lat": 40.689,
        "lng": -74.045,
        "years": [],
@@ -3095,7 +2943,6 @@
       },
       {
        "name": "Summit One Vanderbilt",
-       "name_zh": "顶点观景台",
        "lat": 40.753,
        "lng": -73.979,
        "years": [],
@@ -3105,7 +2952,6 @@
       },
       {
        "name": "The Metropolitan Museum of Art",
-       "name_zh": "大都会艺术博物馆",
        "lat": 40.779,
        "lng": -73.963,
        "years": [],
@@ -3115,7 +2961,6 @@
       },
       {
        "name": "Times Square",
-       "name_zh": "时代广场",
        "lat": 40.758,
        "lng": -73.985,
        "years": [],
@@ -3125,7 +2970,6 @@
       },
       {
        "name": "Wall Street & Charging Bull",
-       "name_zh": "华尔街·铜牛",
        "lat": 40.706,
        "lng": -74.013,
        "years": [],
@@ -3135,7 +2979,6 @@
       },
       {
        "name": "Niagara Falls State Park",
-       "name_zh": "尼亚加拉瀑布州立公园",
        "lat": 43.084,
        "lng": -79.07,
        "years": [],
@@ -3147,14 +2990,12 @@
     },
     {
      "name": "Pennsylvania",
-     "name_zh": "宾夕法尼亚",
      "years": [
       2026
      ],
      "cities": [
       {
        "name": "Hamlin Township",
-       "name_zh": "哈姆林",
        "lat": 41.761,
        "lng": -78.587,
        "years": [
@@ -3203,7 +3044,6 @@
       },
       {
        "name": "Mead Township",
-       "name_zh": "米德",
        "lat": 41.843,
        "lng": -78.946,
        "years": [
@@ -3259,7 +3099,6 @@
       },
       {
        "name": "Warren",
-       "name_zh": "沃伦",
        "lat": 41.833,
        "lng": -79.167,
        "years": [
@@ -3283,7 +3122,6 @@
       },
       {
        "name": "Fallingwater",
-       "name_zh": "流水别墅",
        "lat": 39.906,
        "lng": -79.468,
        "years": [],
@@ -3293,7 +3131,6 @@
       },
       {
        "name": "Independence Hall & Liberty Bell",
-       "name_zh": "独立厅·自由钟",
        "lat": 39.949,
        "lng": -75.15,
        "years": [],
@@ -3303,7 +3140,6 @@
       },
       {
        "name": "Philadelphia Museum of Art",
-       "name_zh": "费城艺术博物馆",
        "lat": 39.965,
        "lng": -75.181,
        "years": [],
@@ -3313,7 +3149,6 @@
       },
       {
        "name": "Philadelphia",
-       "name_zh": "费城",
        "lat": 39.955,
        "lng": -75.166,
        "years": [],
@@ -3325,7 +3160,6 @@
     },
     {
      "name": "Virginia",
-     "name_zh": "弗吉尼亚",
      "years": [
       2021,
       2022,
@@ -3334,7 +3168,6 @@
      "cities": [
       {
        "name": "Arlington",
-       "name_zh": "阿灵顿",
        "lat": 38.882,
        "lng": -77.069,
        "years": [
@@ -3356,7 +3189,6 @@
       },
       {
        "name": "Mount Vernon",
-       "name_zh": "弗农山庄",
        "lat": 38.708,
        "lng": -77.086,
        "years": [],
@@ -3368,7 +3200,6 @@
     },
     {
      "name": "District of Columbia",
-     "name_zh": "华盛顿特区",
      "years": [
       2021,
       2022,
@@ -3377,7 +3208,6 @@
      "cities": [
       {
        "name": "Washington",
-       "name_zh": "华盛顿",
        "lat": 38.91,
        "lng": -77.074,
        "years": [
@@ -3399,7 +3229,6 @@
       },
       {
        "name": "Georgetown University",
-       "name_zh": "乔治城大学",
        "lat": 38.908,
        "lng": -77.073,
        "years": [],
@@ -3409,7 +3238,6 @@
       },
       {
        "name": "Library of Congress",
-       "name_zh": "国会图书馆",
        "lat": 38.889,
        "lng": -77.005,
        "years": [],
@@ -3419,7 +3247,6 @@
       },
       {
        "name": "National Air and Space Museum",
-       "name_zh": "航空航天博物馆",
        "lat": 38.888,
        "lng": -77.02,
        "years": [],
@@ -3429,7 +3256,6 @@
       },
       {
        "name": "The White House",
-       "name_zh": "白宫",
        "lat": 38.898,
        "lng": -77.037,
        "years": [],
@@ -3439,7 +3265,6 @@
       },
       {
        "name": "Washington Monument",
-       "name_zh": "华盛顿纪念碑",
        "lat": 38.889,
        "lng": -77.035,
        "years": [],
@@ -3451,14 +3276,12 @@
     },
     {
      "name": "Arizona",
-     "name_zh": "亚利桑那",
      "years": [
       2026
      ],
      "cities": [
       {
        "name": "Antelope Canyon",
-       "name_zh": "羚羊谷",
        "lat": 36.862,
        "lng": -111.374,
        "years": [],
@@ -3468,7 +3291,6 @@
       },
       {
        "name": "Grand Canyon National Park",
-       "name_zh": "大峡谷国家公园",
        "lat": 36.107,
        "lng": -112.113,
        "years": [],
@@ -3478,7 +3300,6 @@
       },
       {
        "name": "Horseshoe Bend",
-       "name_zh": "马蹄湾",
        "lat": 36.879,
        "lng": -111.51,
        "years": [],
@@ -3488,7 +3309,6 @@
       },
       {
        "name": "Lake Powell",
-       "name_zh": "鲍威尔湖",
        "lat": 36.936,
        "lng": -111.484,
        "years": [],
@@ -3498,7 +3318,6 @@
       },
       {
        "name": "Monument Valley",
-       "name_zh": "纪念碑谷",
        "lat": 36.998,
        "lng": -110.098,
        "years": [],
@@ -3508,7 +3327,6 @@
       },
       {
        "name": "Sedona",
-       "name_zh": "塞多纳",
        "lat": 34.87,
        "lng": -111.761,
        "years": [],
@@ -3518,7 +3336,6 @@
       },
       {
        "name": "Page",
-       "name_zh": "佩吉",
        "lat": 36.9,
        "lng": -111.46,
        "years": [],
@@ -3530,7 +3347,6 @@
     },
     {
      "name": "California",
-     "name_zh": "加利福尼亚",
      "years": [
       2010,
       2026
@@ -3538,7 +3354,6 @@
      "cities": [
       {
        "name": "Alcatraz Island",
-       "name_zh": "恶魔岛",
        "lat": 37.827,
        "lng": -122.423,
        "years": [],
@@ -3548,7 +3363,6 @@
       },
       {
        "name": "Death Valley National Park",
-       "name_zh": "死亡谷国家公园",
        "lat": 36.505,
        "lng": -117.079,
        "years": [],
@@ -3558,7 +3372,6 @@
       },
       {
        "name": "Disneyland",
-       "name_zh": "迪士尼乐园",
        "lat": 33.812,
        "lng": -117.919,
        "years": [],
@@ -3568,7 +3381,6 @@
       },
       {
        "name": "Fisherman's Wharf & Pier 39",
-       "name_zh": "渔人码头·39号码头",
        "lat": 37.808,
        "lng": -122.41,
        "years": [],
@@ -3578,7 +3390,6 @@
       },
       {
        "name": "Golden Gate Bridge",
-       "name_zh": "金门大桥",
        "lat": 37.819,
        "lng": -122.479,
        "years": [],
@@ -3588,7 +3399,6 @@
       },
       {
        "name": "Griffith Observatory",
-       "name_zh": "格里菲斯天文台",
        "lat": 34.118,
        "lng": -118.3,
        "years": [],
@@ -3598,7 +3408,6 @@
       },
       {
        "name": "Hollywood Walk of Fame",
-       "name_zh": "好莱坞星光大道",
        "lat": 34.101,
        "lng": -118.341,
        "years": [],
@@ -3608,7 +3417,6 @@
       },
       {
        "name": "Joshua Tree National Park",
-       "name_zh": "约书亚树国家公园",
        "lat": 33.873,
        "lng": -115.901,
        "years": [],
@@ -3618,7 +3426,6 @@
       },
       {
        "name": "Lombard Street",
-       "name_zh": "九曲花街",
        "lat": 37.802,
        "lng": -122.419,
        "years": [],
@@ -3628,7 +3435,6 @@
       },
       {
        "name": "Mammoth Lakes",
-       "name_zh": "猛犸湖",
        "lat": 37.649,
        "lng": -118.972,
        "years": [],
@@ -3638,7 +3444,6 @@
       },
       {
        "name": "Redwood National Park",
-       "name_zh": "红杉国家公园",
        "lat": 41.213,
        "lng": -124.005,
        "years": [],
@@ -3648,7 +3453,6 @@
       },
       {
        "name": "Santa Monica Pier",
-       "name_zh": "圣莫尼卡码头",
        "lat": 34.009,
        "lng": -118.498,
        "years": [],
@@ -3658,7 +3462,6 @@
       },
       {
        "name": "Stanford University",
-       "name_zh": "斯坦福大学",
        "lat": 37.427,
        "lng": -122.17,
        "years": [],
@@ -3668,7 +3471,6 @@
       },
       {
        "name": "Twin Peaks",
-       "name_zh": "双子峰",
        "lat": 37.752,
        "lng": -122.447,
        "years": [],
@@ -3678,7 +3480,6 @@
       },
       {
        "name": "Universal Studios Hollywood",
-       "name_zh": "好莱坞环球影城",
        "lat": 34.138,
        "lng": -118.353,
        "years": [],
@@ -3688,7 +3489,6 @@
       },
       {
        "name": "Yosemite",
-       "name_zh": "优胜美地",
        "lat": 37.745,
        "lng": -119.593,
        "years": [],
@@ -3698,7 +3498,6 @@
       },
       {
        "name": "San Francisco",
-       "name_zh": "旧金山",
        "lat": 37.79,
        "lng": -122.43,
        "years": [],
@@ -3708,7 +3507,6 @@
       },
       {
        "name": "Los Angeles",
-       "name_zh": "洛杉矶",
        "lat": 34.07,
        "lng": -118.34,
        "years": [],
@@ -3720,14 +3518,12 @@
     },
     {
      "name": "Florida",
-     "name_zh": "佛罗里达",
      "years": [
       2022
      ],
      "cities": [
       {
        "name": "Key West",
-       "name_zh": "基韦斯特",
        "lat": 24.555,
        "lng": -81.78,
        "years": [],
@@ -3737,7 +3533,6 @@
       },
       {
        "name": "Miami Beach",
-       "name_zh": "迈阿密海滩",
        "lat": 25.79,
        "lng": -80.13,
        "years": [],
@@ -3747,7 +3542,6 @@
       },
       {
        "name": "Universal Orlando",
-       "name_zh": "奥兰多环球影城",
        "lat": 28.474,
        "lng": -81.468,
        "years": [],
@@ -3757,7 +3551,6 @@
       },
       {
        "name": "Walt Disney World",
-       "name_zh": "华特迪士尼世界",
        "lat": 28.385,
        "lng": -81.564,
        "years": [],
@@ -3767,7 +3560,6 @@
       },
       {
        "name": "Orlando",
-       "name_zh": "奥兰多",
        "lat": 28.43,
        "lng": -81.52,
        "years": [],
@@ -3779,7 +3571,6 @@
     },
     {
      "name": "Hawaii",
-     "name_zh": "夏威夷",
      "mark": true,
      "years": [
       2024
@@ -3787,7 +3578,6 @@
      "cities": [
       {
        "name": "Diamond Head",
-       "name_zh": "钻石头山",
        "lat": 21.262,
        "lng": -157.805,
        "years": [],
@@ -3797,7 +3587,6 @@
       },
       {
        "name": "Haleakalā National Park",
-       "name_zh": "哈雷阿卡拉国家公园",
        "lat": 20.71,
        "lng": -156.174,
        "years": [],
@@ -3807,7 +3596,6 @@
       },
       {
        "name": "Hawaii Volcanoes National Park",
-       "name_zh": "夏威夷火山国家公园",
        "lat": 19.421,
        "lng": -155.288,
        "years": [],
@@ -3817,7 +3605,6 @@
       },
       {
        "name": "Manawaiopuna Falls",
-       "name_zh": "马纳瓦伊欧普纳瀑布",
        "lat": 22.08,
        "lng": -159.471,
        "years": [],
@@ -3827,7 +3614,6 @@
       },
       {
        "name": "Manta Ray Night Snorkel",
-       "name_zh": "魔鬼鱼夜潜",
        "lat": 19.563,
        "lng": -155.967,
        "years": [],
@@ -3837,7 +3623,6 @@
       },
       {
        "name": "Mauna Kea",
-       "name_zh": "莫纳克亚山",
        "lat": 19.821,
        "lng": -155.468,
        "years": [],
@@ -3847,7 +3632,6 @@
       },
       {
        "name": "Nā Pali Coast",
-       "name_zh": "纳帕利海岸",
        "lat": 22.168,
        "lng": -159.643,
        "years": [],
@@ -3857,7 +3641,6 @@
       },
       {
        "name": "Pearl Harbor",
-       "name_zh": "珍珠港",
        "lat": 21.365,
        "lng": -157.95,
        "years": [],
@@ -3867,7 +3650,6 @@
       },
       {
        "name": "Punaluu Black Sand Beach",
-       "name_zh": "黑沙滩",
        "lat": 19.136,
        "lng": -155.504,
        "years": [],
@@ -3877,7 +3659,6 @@
       },
       {
        "name": "Road to Hana",
-       "name_zh": "哈纳之路",
        "lat": 20.776,
        "lng": -156.014,
        "years": [],
@@ -3887,7 +3668,6 @@
       },
       {
        "name": "Waikiki Beach",
-       "name_zh": "威基基海滩",
        "lat": 21.276,
        "lng": -157.827,
        "years": [],
@@ -3897,7 +3677,6 @@
       },
       {
        "name": "Waimea Canyon",
-       "name_zh": "威美亚峡谷",
        "lat": 22.075,
        "lng": -159.665,
        "years": [],
@@ -3907,7 +3686,6 @@
       },
       {
        "name": "Honolulu",
-       "name_zh": "檀香山",
        "lat": 21.3,
        "lng": -157.86,
        "years": [],
@@ -3917,7 +3695,6 @@
       },
       {
        "name": "Maui",
-       "name_zh": "茂宜岛",
        "lat": 20.74,
        "lng": -156.09,
        "years": [],
@@ -3927,7 +3704,6 @@
       },
       {
        "name": "Kauai",
-       "name_zh": "考爱岛",
        "lat": 22.108,
        "lng": -159.593,
        "years": [],
@@ -3939,7 +3715,6 @@
     },
     {
      "name": "Massachusetts",
-     "name_zh": "马萨诸塞",
      "years": [
       2022,
       2023
@@ -3947,7 +3722,6 @@
      "cities": [
       {
        "name": "Boston Common & Public Garden",
-       "name_zh": "波士顿公园",
        "lat": 42.355,
        "lng": -71.066,
        "years": [],
@@ -3957,7 +3731,6 @@
       },
       {
        "name": "Freedom Trail",
-       "name_zh": "自由之路",
        "lat": 42.36,
        "lng": -71.056,
        "years": [],
@@ -3967,7 +3740,6 @@
       },
       {
        "name": "Harvard",
-       "name_zh": "哈佛大学",
        "lat": 42.377,
        "lng": -71.117,
        "years": [],
@@ -3977,7 +3749,6 @@
       },
       {
        "name": "MIT",
-       "name_zh": "麻省理工",
        "lat": 42.36,
        "lng": -71.092,
        "years": [],
@@ -3987,7 +3758,6 @@
       },
       {
        "name": "Museum of Fine Arts",
-       "name_zh": "波士顿美术馆",
        "lat": 42.339,
        "lng": -71.094,
        "years": [],
@@ -3997,7 +3767,6 @@
       },
       {
        "name": "Quincy Market",
-       "name_zh": "昆西市场",
        "lat": 42.36,
        "lng": -71.055,
        "years": [],
@@ -4007,7 +3776,6 @@
       },
       {
        "name": "Boston",
-       "name_zh": "波士顿",
        "lat": 42.358,
        "lng": -71.08,
        "years": [],
@@ -4019,14 +3787,12 @@
     },
     {
      "name": "Nevada",
-     "name_zh": "内华达",
      "years": [
       2026
      ],
      "cities": [
       {
        "name": "Bellagio Fountains",
-       "name_zh": "百乐宫喷泉",
        "lat": 36.113,
        "lng": -115.176,
        "years": [],
@@ -4036,7 +3802,6 @@
       },
       {
        "name": "Great Basin National Park",
-       "name_zh": "大盆地国家公园",
        "lat": 38.983,
        "lng": -114.3,
        "years": [],
@@ -4046,7 +3811,6 @@
       },
       {
        "name": "Hoover Dam",
-       "name_zh": "胡佛水坝",
        "lat": 36.016,
        "lng": -114.738,
        "years": [],
@@ -4056,7 +3820,6 @@
       },
       {
        "name": "Lake Mead",
-       "name_zh": "米德湖",
        "lat": 36.131,
        "lng": -114.422,
        "years": [],
@@ -4066,7 +3829,6 @@
       },
       {
        "name": "Sphere",
-       "name_zh": "Sphere 球幕",
        "lat": 36.121,
        "lng": -115.162,
        "years": [],
@@ -4076,7 +3838,6 @@
       },
       {
        "name": "The Strip, Las Vegas",
-       "name_zh": "拉斯维加斯大道",
        "lat": 36.115,
        "lng": -115.173,
        "years": [],
@@ -4086,7 +3847,6 @@
       },
       {
        "name": "Valley of Fire State Park",
-       "name_zh": "火焰谷州立公园",
        "lat": 36.48,
        "lng": -114.53,
        "years": [],
@@ -4096,7 +3856,6 @@
       },
       {
        "name": "Las Vegas",
-       "name_zh": "拉斯维加斯",
        "lat": 36.116,
        "lng": -115.17,
        "years": [],
@@ -4108,14 +3867,12 @@
     },
     {
      "name": "Utah",
-     "name_zh": "犹他",
      "years": [
       2026
      ],
      "cities": [
       {
        "name": "Arches National Park",
-       "name_zh": "拱门国家公园",
        "lat": 38.733,
        "lng": -109.592,
        "years": [],
@@ -4125,7 +3882,6 @@
       },
       {
        "name": "Bryce Canyon National Park",
-       "name_zh": "布莱斯峡谷国家公园",
        "lat": 37.593,
        "lng": -112.187,
        "years": [],
@@ -4135,7 +3891,6 @@
       },
       {
        "name": "Canyonlands National Park",
-       "name_zh": "峡谷地国家公园",
        "lat": 38.327,
        "lng": -109.878,
        "years": [],
@@ -4145,7 +3900,6 @@
       },
       {
        "name": "Zion National Park",
-       "name_zh": "锡安国家公园",
        "lat": 37.298,
        "lng": -113.026,
        "years": [],
@@ -4159,7 +3913,6 @@
   },
   {
    "name": "China",
-   "name_zh": "中国",
    "center": [
     104,
     35
@@ -4198,14 +3951,12 @@
    "regions": [
     {
      "name": "Shanghai",
-     "name_zh": "上海",
      "years": [
       2021
      ],
      "cities": [
       {
        "name": "Shanghai",
-       "name_zh": "上海",
        "lat": 31.16,
        "lng": 121.359,
        "years": [
@@ -4326,7 +4077,6 @@
       },
       {
        "name": "Oriental Pearl Tower",
-       "name_zh": "东方明珠",
        "lat": 31.24,
        "lng": 121.495,
        "years": [],
@@ -4336,7 +4086,6 @@
       },
       {
        "name": "The Bund",
-       "name_zh": "外滩",
        "lat": 31.24,
        "lng": 121.49,
        "years": [],
@@ -4348,7 +4097,6 @@
     },
     {
      "name": "Zhejiang",
-     "name_zh": "浙江",
      "years": [
       1999,
       2000,
@@ -4372,7 +4120,6 @@
      "cities": [
       {
        "name": "Hangzhou",
-       "name_zh": "杭州",
        "lat": 30.253,
        "lng": 120.159,
        "years": [
@@ -4443,7 +4190,6 @@
       },
       {
        "name": "Ningbo",
-       "name_zh": "宁波",
        "lat": 29.469,
        "lng": 121.873,
        "years": [
@@ -4465,7 +4211,6 @@
       },
       {
        "name": "Shaoxing",
-       "name_zh": "绍兴",
        "lat": 30.03,
        "lng": 120.58,
        "years": [],
@@ -4475,7 +4220,6 @@
       },
       {
        "name": "Wenzhou",
-       "name_zh": "温州",
        "lat": 27.994,
        "lng": 120.699,
        "years": [],
@@ -4485,7 +4229,6 @@
       },
       {
        "name": "Zhoushan",
-       "name_zh": "舟山",
        "lat": 29.985,
        "lng": 122.207,
        "years": [],
@@ -4495,7 +4238,6 @@
       },
       {
        "name": "Lingyin Temple",
-       "name_zh": "灵隐寺",
        "lat": 30.241,
        "lng": 120.101,
        "years": [],
@@ -4505,7 +4247,6 @@
       },
       {
        "name": "Tianyi Pavilion",
-       "name_zh": "天一阁",
        "lat": 29.873,
        "lng": 121.546,
        "years": [],
@@ -4515,7 +4256,6 @@
       },
       {
        "name": "Hengdian World Studios",
-       "name_zh": "横店影视城",
        "lat": 29.142,
        "lng": 120.236,
        "years": [],
@@ -4525,7 +4265,6 @@
       },
       {
        "name": "Lu Xun's Hometown",
-       "name_zh": "鲁迅故里",
        "lat": 29.989,
        "lng": 120.585,
        "years": [],
@@ -4535,7 +4274,6 @@
       },
       {
        "name": "Nanxi River",
-       "name_zh": "楠溪江",
        "lat": 28.15,
        "lng": 120.69,
        "years": [],
@@ -4545,7 +4283,6 @@
       },
       {
        "name": "Mount Putuo",
-       "name_zh": "普陀山",
        "lat": 30.008,
        "lng": 122.388,
        "years": [],
@@ -4557,14 +4294,12 @@
     },
     {
      "name": "Hunan",
-     "name_zh": "湖南",
      "years": [
       2020
      ],
      "cities": [
       {
        "name": "Changsha",
-       "name_zh": "长沙",
        "lat": 28.194,
        "lng": 112.971,
        "years": [
@@ -4622,7 +4357,6 @@
       },
       {
        "name": "Zhangjiajie",
-       "name_zh": "张家界",
        "lat": 29.337,
        "lng": 110.465,
        "years": [
@@ -4689,7 +4423,6 @@
       },
       {
        "name": "Wuyi Square",
-       "name_zh": "五一广场",
        "lat": 28.196,
        "lng": 112.978,
        "years": [],
@@ -4701,14 +4434,12 @@
     },
     {
      "name": "Jiangxi",
-     "name_zh": "江西",
      "years": [
       2020
      ],
      "cities": [
       {
        "name": "Nanchang",
-       "name_zh": "南昌",
        "lat": 28.677,
        "lng": 115.848,
        "years": [
@@ -4757,7 +4488,6 @@
       },
       {
        "name": "Tengwang Pavilion",
-       "name_zh": "滕王阁",
        "lat": 28.685,
        "lng": 115.879,
        "years": [],
@@ -4769,7 +4499,6 @@
     },
     {
      "name": "Guangdong",
-     "name_zh": "广东",
      "years": [
       2002,
       2011,
@@ -4778,7 +4507,6 @@
      "cities": [
       {
        "name": "Guangzhou",
-       "name_zh": "广州",
        "lat": 22.991,
        "lng": 113.263,
        "years": [
@@ -4818,7 +4546,6 @@
       },
       {
        "name": "Canton Tower",
-       "name_zh": "广州塔",
        "lat": 23.106,
        "lng": 113.324,
        "years": [],
@@ -4828,7 +4555,6 @@
       },
       {
        "name": "Pearl River Night Cruise",
-       "name_zh": "珠江夜游",
        "lat": 23.114,
        "lng": 113.264,
        "years": [],
@@ -4840,14 +4566,12 @@
     },
     {
      "name": "Hubei",
-     "name_zh": "湖北",
      "years": [
       2021
      ],
      "cities": [
       {
        "name": "Wuhan",
-       "name_zh": "武汉",
        "lat": 30.581,
        "lng": 114.287,
        "years": [
@@ -4869,7 +4593,6 @@
       },
       {
        "name": "Yellow Crane Tower",
-       "name_zh": "黄鹤楼",
        "lat": 30.546,
        "lng": 114.305,
        "years": [],
@@ -4881,14 +4604,12 @@
     },
     {
      "name": "Jiangsu",
-     "name_zh": "江苏",
      "years": [
       2020
      ],
      "cities": [
       {
        "name": "Danyang City",
-       "name_zh": "丹阳",
        "lat": 32.074,
        "lng": 119.495,
        "years": [
@@ -4898,7 +4619,7 @@
        "source": "photo",
        "spots": [
         {
-         "spot": "曲阿街道",
+         "spot": "Qu'a Subdistrict",
          "lat": 32.074,
          "lng": 119.495,
          "years": [
@@ -4910,7 +4631,6 @@
       },
       {
        "name": "Suzhou Classical Gardens",
-       "name_zh": "苏州古典园林",
        "lat": 31.324,
        "lng": 120.629,
        "years": [],
@@ -4922,7 +4642,6 @@
     },
     {
      "name": "Beijing",
-     "name_zh": "北京",
      "years": [
       2006,
       2020
@@ -4930,7 +4649,6 @@
      "cities": [
       {
        "name": "The Forbidden City",
-       "name_zh": "故宫",
        "lat": 39.916,
        "lng": 116.397,
        "years": [],
@@ -4940,7 +4658,6 @@
       },
       {
        "name": "Tiananmen Square",
-       "name_zh": "天安门广场",
        "lat": 39.905,
        "lng": 116.397,
        "years": [],
@@ -4950,7 +4667,6 @@
       },
       {
        "name": "The Great Wall",
-       "name_zh": "长城",
        "lat": 40.432,
        "lng": 116.57,
        "years": [],
@@ -4960,7 +4676,6 @@
       },
       {
        "name": "Temple of Heaven",
-       "name_zh": "天坛",
        "lat": 39.882,
        "lng": 116.41,
        "years": [],
@@ -4970,7 +4685,6 @@
       },
       {
        "name": "Summer Palace",
-       "name_zh": "颐和园",
        "lat": 39.999,
        "lng": 116.275,
        "years": [],
@@ -4980,7 +4694,6 @@
       },
       {
        "name": "Old Summer Palace",
-       "name_zh": "圆明园",
        "lat": 40.008,
        "lng": 116.298,
        "years": [],
@@ -4990,7 +4703,6 @@
       },
       {
        "name": "Bird's Nest & Water Cube",
-       "name_zh": "鸟巢·水立方",
        "lat": 39.993,
        "lng": 116.397,
        "years": [],
@@ -5000,7 +4712,6 @@
       },
       {
        "name": "Beijing",
-       "name_zh": "北京",
        "lat": 39.95,
        "lng": 116.36,
        "years": [],
@@ -5012,14 +4723,12 @@
     },
     {
      "name": "Tianjin",
-     "name_zh": "天津",
      "years": [
       2005
      ],
      "cities": [
       {
        "name": "Tianjin Eye",
-       "name_zh": "天津之眼",
        "lat": 39.153,
        "lng": 117.172,
        "years": [],
@@ -5031,7 +4740,6 @@
     },
     {
      "name": "Shandong",
-     "name_zh": "山东",
      "years": [
       1999,
       2000,
@@ -5042,7 +4750,6 @@
      "cities": [
       {
        "name": "Mount Tai",
-       "name_zh": "泰山",
        "lat": 36.255,
        "lng": 117.101,
        "years": [],
@@ -5054,14 +4761,12 @@
     },
     {
      "name": "Yunnan",
-     "name_zh": "云南",
      "years": [
       2009
      ],
      "cities": [
       {
        "name": "Lijiang Old Town",
-       "name_zh": "丽江古城",
        "lat": 26.876,
        "lng": 100.235,
        "years": [],
@@ -5071,7 +4776,6 @@
       },
       {
        "name": "Jade Dragon Snow Mountain",
-       "name_zh": "玉龙雪山",
        "lat": 27.103,
        "lng": 100.176,
        "years": [],
@@ -5081,7 +4785,6 @@
       },
       {
        "name": "Lugu Lake",
-       "name_zh": "泸沽湖",
        "lat": 27.706,
        "lng": 100.786,
        "years": [],
@@ -5091,7 +4794,6 @@
       },
       {
        "name": "Xishuangbanna",
-       "name_zh": "西双版纳",
        "lat": 22.008,
        "lng": 100.798,
        "years": [],
@@ -5103,7 +4805,6 @@
     },
     {
      "name": "Anhui",
-     "name_zh": "安徽",
      "years": [
       2007,
       2021
@@ -5111,7 +4812,6 @@
      "cities": [
       {
        "name": "Mount Huangshan",
-       "name_zh": "黄山",
        "lat": 30.135,
        "lng": 118.166,
        "years": [],
@@ -5125,7 +4825,6 @@
   },
   {
    "name": "United Kingdom",
-   "name_zh": "英国",
    "center": [
     -2,
     54
@@ -5145,14 +4844,12 @@
    "regions": [
     {
      "name": null,
-     "name_zh": null,
      "years": [
       2013
      ],
      "cities": [
       {
        "name": "Big Ben & Houses of Parliament",
-       "name_zh": "大本钟·议会大厦",
        "lat": 51.5,
        "lng": -0.124,
        "years": [],
@@ -5162,7 +4859,6 @@
       },
       {
        "name": "British Museum",
-       "name_zh": "大英博物馆",
        "lat": 51.519,
        "lng": -0.127,
        "years": [],
@@ -5172,7 +4868,6 @@
       },
       {
        "name": "Buckingham Palace",
-       "name_zh": "白金汉宫",
        "lat": 51.501,
        "lng": -0.142,
        "years": [],
@@ -5182,7 +4877,6 @@
       },
       {
        "name": "Edinburgh",
-       "name_zh": "爱丁堡",
        "lat": 55.953,
        "lng": -3.188,
        "years": [],
@@ -5192,7 +4886,6 @@
       },
       {
        "name": "London Eye",
-       "name_zh": "伦敦眼",
        "lat": 51.503,
        "lng": -0.119,
        "years": [],
@@ -5202,7 +4895,6 @@
       },
       {
        "name": "Oxford & Cambridge",
-       "name_zh": "牛津·剑桥",
        "lat": 51.752,
        "lng": -1.258,
        "years": [],
@@ -5212,7 +4904,6 @@
       },
       {
        "name": "Scottish Highlands",
-       "name_zh": "苏格兰高地",
        "lat": 57.12,
        "lng": -4.713,
        "years": [],
@@ -5222,7 +4913,6 @@
       },
       {
        "name": "Stonehenge",
-       "name_zh": "巨石阵",
        "lat": 51.179,
        "lng": -1.826,
        "years": [],
@@ -5232,7 +4922,6 @@
       },
       {
        "name": "Tower Bridge",
-       "name_zh": "塔桥",
        "lat": 51.505,
        "lng": -0.075,
        "years": [],
@@ -5242,7 +4931,6 @@
       },
       {
        "name": "London",
-       "name_zh": "伦敦",
        "lat": 51.507,
        "lng": -0.122,
        "years": [],
@@ -5256,7 +4944,6 @@
   },
   {
    "name": "France",
-   "name_zh": "法国",
    "center": [
     2.5,
     46.6
@@ -5276,14 +4963,12 @@
    "regions": [
     {
      "name": null,
-     "name_zh": null,
      "years": [
       2013
      ],
      "cities": [
       {
        "name": "Eiffel Tower",
-       "name_zh": "埃菲尔铁塔",
        "lat": 48.858,
        "lng": 2.294,
        "years": [],
@@ -5293,7 +4978,6 @@
       },
       {
        "name": "French Riviera",
-       "name_zh": "蔚蓝海岸",
        "lat": 43.696,
        "lng": 7.266,
        "years": [],
@@ -5303,7 +4987,6 @@
       },
       {
        "name": "Loire Valley",
-       "name_zh": "卢瓦尔河谷",
        "lat": 47.396,
        "lng": 0.689,
        "years": [],
@@ -5313,7 +4996,6 @@
       },
       {
        "name": "Louvre",
-       "name_zh": "卢浮宫",
        "lat": 48.86,
        "lng": 2.337,
        "years": [],
@@ -5323,7 +5005,6 @@
       },
       {
        "name": "Mont Saint-Michel",
-       "name_zh": "圣米歇尔山",
        "lat": 48.636,
        "lng": -1.511,
        "years": [],
@@ -5333,7 +5014,6 @@
       },
       {
        "name": "Provence",
-       "name_zh": "普罗旺斯",
        "lat": 43.949,
        "lng": 4.805,
        "years": [],
@@ -5343,7 +5023,6 @@
       },
       {
        "name": "Versailles",
-       "name_zh": "凡尔赛宫",
        "lat": 48.804,
        "lng": 2.12,
        "years": [],
@@ -5353,7 +5032,6 @@
       },
       {
        "name": "Paris",
-       "name_zh": "巴黎",
        "lat": 48.857,
        "lng": 2.352,
        "years": [],
@@ -5367,7 +5045,6 @@
   },
   {
    "name": "Belgium",
-   "name_zh": "比利时",
    "center": [
     4.5,
     50.6
@@ -5387,14 +5064,12 @@
    "regions": [
     {
      "name": null,
-     "name_zh": null,
      "years": [
       2013
      ],
      "cities": [
       {
        "name": "Bruges",
-       "name_zh": "布鲁日",
        "lat": 51.209,
        "lng": 3.224,
        "years": [],
@@ -5404,7 +5079,6 @@
       },
       {
        "name": "Ghent",
-       "name_zh": "根特",
        "lat": 51.054,
        "lng": 3.722,
        "years": [],
@@ -5414,7 +5088,6 @@
       },
       {
        "name": "Grand Place",
-       "name_zh": "布鲁塞尔大广场",
        "lat": 50.846,
        "lng": 4.352,
        "years": [],
@@ -5428,7 +5101,6 @@
   },
   {
    "name": "Germany",
-   "name_zh": "德国",
    "center": [
     10.4,
     51.2
@@ -5448,14 +5120,12 @@
    "regions": [
     {
      "name": null,
-     "name_zh": null,
      "years": [
       2019
      ],
      "cities": [
       {
        "name": "Munich",
-       "name_zh": "慕尼黑",
        "lat": 48.137,
        "lng": 11.576,
        "years": [
@@ -5477,7 +5147,6 @@
       },
       {
        "name": "Schwangau",
-       "name_zh": "施万高",
        "lat": 47.562,
        "lng": 10.746,
        "years": [
@@ -5499,7 +5168,6 @@
       },
       {
        "name": "Black Forest",
-       "name_zh": "黑森林",
        "lat": 48.27,
        "lng": 8.18,
        "years": [],
@@ -5509,7 +5177,6 @@
       },
       {
        "name": "Brandenburg Gate",
-       "name_zh": "勃兰登堡门",
        "lat": 52.516,
        "lng": 13.378,
        "years": [],
@@ -5519,7 +5186,6 @@
       },
       {
        "name": "Cologne Cathedral",
-       "name_zh": "科隆大教堂",
        "lat": 50.941,
        "lng": 6.958,
        "years": [],
@@ -5529,7 +5195,6 @@
       },
       {
        "name": "Königssee",
-       "name_zh": "国王湖",
        "lat": 47.553,
        "lng": 12.987,
        "years": [],
@@ -5539,7 +5204,6 @@
       },
       {
        "name": "Rothenburg ob der Tauber",
-       "name_zh": "罗滕堡",
        "lat": 49.378,
        "lng": 10.179,
        "years": [],
@@ -5549,7 +5213,6 @@
       },
       {
        "name": "Neuschwanstein Castle",
-       "name_zh": "新天鹅堡",
        "lat": 47.558,
        "lng": 10.75,
        "years": [],
@@ -5563,7 +5226,6 @@
   },
   {
    "name": "Switzerland",
-   "name_zh": "瑞士",
    "center": [
     8.2,
     46.8
@@ -5583,14 +5245,12 @@
    "regions": [
     {
      "name": null,
-     "name_zh": null,
      "years": [
       2019
      ],
      "cities": [
       {
        "name": "Lauterbrunnen",
-       "name_zh": "劳特布龙嫩",
        "lat": 46.56,
        "lng": 7.896,
        "years": [
@@ -5639,7 +5299,6 @@
       },
       {
        "name": "Zermatt",
-       "name_zh": "采尔马特",
        "lat": 45.983,
        "lng": 7.782,
        "years": [
@@ -5661,7 +5320,6 @@
       },
       {
        "name": "Lake Thun",
-       "name_zh": "Lake Thun",
        "lat": 46.688,
        "lng": 7.688,
        "years": [
@@ -5683,7 +5341,6 @@
       },
       {
        "name": "Andermatt",
-       "name_zh": "安德马特",
        "lat": 46.659,
        "lng": 8.671,
        "years": [
@@ -5705,7 +5362,6 @@
       },
       {
        "name": "Fieschertal",
-       "name_zh": "Fieschertal",
        "lat": 46.547,
        "lng": 7.982,
        "years": [
@@ -5727,7 +5383,6 @@
       },
       {
        "name": "Gampel-Bratsch",
-       "name_zh": "Gampel-Bratsch",
        "lat": 46.366,
        "lng": 7.756,
        "years": [
@@ -5749,7 +5404,6 @@
       },
       {
        "name": "Lucerne",
-       "name_zh": "琉森",
        "lat": 47.052,
        "lng": 8.308,
        "years": [
@@ -5771,7 +5425,6 @@
       },
       {
        "name": "Spiez",
-       "name_zh": "施皮茨",
        "lat": 46.687,
        "lng": 7.686,
        "years": [
@@ -5793,7 +5446,6 @@
       },
       {
        "name": "Chillon Castle",
-       "name_zh": "西庸城堡",
        "lat": 46.414,
        "lng": 6.928,
        "years": [],
@@ -5803,7 +5455,6 @@
       },
       {
        "name": "Glacier Express",
-       "name_zh": "冰川快车",
        "lat": 46.677,
        "lng": 9.674,
        "years": [],
@@ -5813,7 +5464,6 @@
       },
       {
        "name": "Jungfraujoch",
-       "name_zh": "少女峰",
        "lat": 46.548,
        "lng": 7.985,
        "years": [],
@@ -5823,7 +5473,6 @@
       },
       {
        "name": "Rhine Falls",
-       "name_zh": "莱茵瀑布",
        "lat": 47.677,
        "lng": 8.615,
        "years": [],
@@ -5837,7 +5486,6 @@
   },
   {
    "name": "Italy",
-   "name_zh": "意大利",
    "center": [
     12.5,
     42.8
@@ -5857,14 +5505,12 @@
    "regions": [
     {
      "name": null,
-     "name_zh": null,
      "years": [
       2013
      ],
      "cities": [
       {
        "name": "Amalfi Coast",
-       "name_zh": "阿马尔菲海岸",
        "lat": 40.634,
        "lng": 14.602,
        "years": [],
@@ -5874,7 +5520,6 @@
       },
       {
        "name": "Cinque Terre",
-       "name_zh": "五渔村",
        "lat": 44.128,
        "lng": 9.711,
        "years": [],
@@ -5884,7 +5529,6 @@
       },
       {
        "name": "Colosseum",
-       "name_zh": "罗马斗兽场",
        "lat": 41.89,
        "lng": 12.492,
        "years": [],
@@ -5894,7 +5538,6 @@
       },
       {
        "name": "Florence Duomo",
-       "name_zh": "佛罗伦萨大教堂",
        "lat": 43.773,
        "lng": 11.256,
        "years": [],
@@ -5904,7 +5547,6 @@
       },
       {
        "name": "Leaning Tower of Pisa",
-       "name_zh": "比萨斜塔",
        "lat": 43.723,
        "lng": 10.396,
        "years": [],
@@ -5914,7 +5556,6 @@
       },
       {
        "name": "Venice",
-       "name_zh": "威尼斯",
        "lat": 45.434,
        "lng": 12.339,
        "years": [],
@@ -5928,7 +5569,6 @@
   },
   {
    "name": "Vatican City",
-   "name_zh": "梵蒂冈",
    "center": [
     12.45,
     41.9
@@ -5948,14 +5588,12 @@
    "regions": [
     {
      "name": null,
-     "name_zh": null,
      "years": [
       2013
      ],
      "cities": [
       {
        "name": "St Peter's Basilica",
-       "name_zh": "圣彼得大教堂",
        "lat": 41.902,
        "lng": 12.453,
        "years": [],
@@ -5969,7 +5607,6 @@
   },
   {
    "name": "Norway",
-   "name_zh": "挪威",
    "center": [
     9,
     61
@@ -5989,14 +5626,12 @@
    "regions": [
     {
      "name": null,
-     "name_zh": null,
      "years": [
       2019
      ],
      "cities": [
       {
        "name": "Strand",
-       "name_zh": "Strand",
        "lat": 58.987,
        "lng": 6.189,
        "years": [
@@ -6027,7 +5662,6 @@
       },
       {
        "name": "Ullensvang",
-       "name_zh": "Ullensvang",
        "lat": 60.133,
        "lng": 6.754,
        "years": [
@@ -6049,7 +5683,6 @@
       },
       {
        "name": "Bergen",
-       "name_zh": "卑尔根",
        "lat": 60.288,
        "lng": 5.232,
        "years": [
@@ -6071,7 +5704,6 @@
       },
       {
        "name": "Hjelmeland",
-       "name_zh": "Hjelmeland",
        "lat": 59.325,
        "lng": 6.43,
        "years": [
@@ -6093,7 +5725,6 @@
       },
       {
        "name": "Flåm Railway",
-       "name_zh": "弗洛姆铁路",
        "lat": 60.863,
        "lng": 7.113,
        "years": [],
@@ -6103,7 +5734,6 @@
       },
       {
        "name": "Geirangerfjord",
-       "name_zh": "盖朗厄尔峡湾",
        "lat": 62.101,
        "lng": 7.205,
        "years": [],
@@ -6113,7 +5743,6 @@
       },
       {
        "name": "Kjeragbolten",
-       "name_zh": "谢拉格伯尔顿巨石",
        "lat": 59.034,
        "lng": 6.591,
        "years": [],
@@ -6123,7 +5752,6 @@
       },
       {
        "name": "Lofoten Islands",
-       "name_zh": "罗弗敦群岛",
        "lat": 67.933,
        "lng": 13.088,
        "years": [],
@@ -6133,7 +5761,6 @@
       },
       {
        "name": "Preikestolen",
-       "name_zh": "布道石",
        "lat": 58.986,
        "lng": 6.19,
        "years": [],
@@ -6143,7 +5770,6 @@
       },
       {
        "name": "Trolltunga",
-       "name_zh": "巨魔之舌",
        "lat": 60.124,
        "lng": 6.74,
        "years": [],
@@ -6153,7 +5779,6 @@
       },
       {
        "name": "Tromsø",
-       "name_zh": "特罗姆瑟",
        "lat": 69.649,
        "lng": 18.956,
        "years": [],
@@ -6167,7 +5792,6 @@
   },
   {
    "name": "Denmark",
-   "name_zh": "丹麦",
    "center": [
     10,
     56
@@ -6187,14 +5811,12 @@
    "regions": [
     {
      "name": null,
-     "name_zh": null,
      "years": [
       2019
      ],
      "cities": [
       {
        "name": "Sundbyerne",
-       "name_zh": "Sundbyerne",
        "lat": 55.681,
        "lng": 12.586,
        "years": [
@@ -6216,7 +5838,6 @@
       },
       {
        "name": "Kronborg Castle",
-       "name_zh": "克伦堡(哈姆雷特城堡)",
        "lat": 56.039,
        "lng": 12.622,
        "years": [],
@@ -6226,7 +5847,6 @@
       },
       {
        "name": "Nyhavn",
-       "name_zh": "新港",
        "lat": 55.68,
        "lng": 12.591,
        "years": [],
@@ -6236,7 +5856,6 @@
       },
       {
        "name": "Rosenborg Castle",
-       "name_zh": "罗森堡宫",
        "lat": 55.685,
        "lng": 12.577,
        "years": [],
@@ -6246,7 +5865,6 @@
       },
       {
        "name": "Round Tower",
-       "name_zh": "圆塔",
        "lat": 55.681,
        "lng": 12.575,
        "years": [],
@@ -6256,7 +5874,6 @@
       },
       {
        "name": "The Little Mermaid",
-       "name_zh": "小美人鱼像",
        "lat": 55.693,
        "lng": 12.599,
        "years": [],
@@ -6266,7 +5883,6 @@
       },
       {
        "name": "Tivoli Gardens",
-       "name_zh": "趣伏里乐园",
        "lat": 55.674,
        "lng": 12.568,
        "years": [],
@@ -6276,7 +5892,6 @@
       },
       {
        "name": "Copenhagen",
-       "name_zh": "哥本哈根",
        "lat": 55.676,
        "lng": 12.568,
        "years": [],
@@ -6290,7 +5905,6 @@
   },
   {
    "name": "Thailand",
-   "name_zh": "泰国",
    "center": [
     101,
     15
@@ -6310,14 +5924,12 @@
    "regions": [
     {
      "name": null,
-     "name_zh": null,
      "years": [
       2008
      ],
      "cities": [
       {
        "name": "Ayutthaya",
-       "name_zh": "大城",
        "lat": 14.357,
        "lng": 100.578,
        "years": [],
@@ -6327,7 +5939,6 @@
       },
       {
        "name": "Chiang Mai & Doi Suthep",
-       "name_zh": "清迈·素贴山",
        "lat": 18.788,
        "lng": 98.985,
        "years": [],
@@ -6337,7 +5948,6 @@
       },
       {
        "name": "Damnoen Saduak Floating Market",
-       "name_zh": "丹嫩沙多水上市场",
        "lat": 13.52,
        "lng": 99.957,
        "years": [],
@@ -6347,7 +5957,6 @@
       },
       {
        "name": "Grand Palace & Wat Phra Kaew",
-       "name_zh": "大皇宫·玉佛寺",
        "lat": 13.751,
        "lng": 100.491,
        "years": [],
@@ -6357,7 +5966,6 @@
       },
       {
        "name": "Wat Arun",
-       "name_zh": "郑王庙(黎明寺)",
        "lat": 13.744,
        "lng": 100.489,
        "years": [],
@@ -6367,7 +5975,6 @@
       },
       {
        "name": "Wat Pho",
-       "name_zh": "卧佛寺",
        "lat": 13.747,
        "lng": 100.493,
        "years": [],
@@ -6377,7 +5984,6 @@
       },
       {
        "name": "White Temple",
-       "name_zh": "白庙",
        "lat": 19.824,
        "lng": 99.763,
        "years": [],
@@ -6387,7 +5993,6 @@
       },
       {
        "name": "Bangkok",
-       "name_zh": "曼谷",
        "lat": 13.752,
        "lng": 100.494,
        "years": [],

@@ -1,17 +1,17 @@
-# 依赖
+# Dependencies
 node_modules/
 
-# 2.4GB 本地照片素材(个人原图,按城市分文件夹)不入库;
-# 网图缩略图 photos/_thumbs(景点网图,92MB)+ 清单 data/webimages.json 入库上线,
-# 地图卡片才有图(2026-07-11 用户定)
+# 2.4GB of local photo material (personal originals, foldered by city) stays out of the repo;
+# web-image thumbnails photos/_thumbs (landmark web images, 92MB) + the manifest data/webimages.json
+# are committed and deployed so the map cards have images (user decision, 2026-07-11)
 photos/*
 !photos/_thumbs/
 
-# 系统 / 工具产物
+# System / tool artifacts
 .DS_Store
 .playwright-mcp/
 .claude/
 __pycache__/
 
-# 照片筛选用的硬链接文件夹(本地)
+# Hard-link folders used for photo triage (local only)
 _sorted/

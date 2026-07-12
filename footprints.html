@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="zh">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- 手机浏览器地址栏跟随昼夜变色(默认白天=海色;applyDayNight() 切夜时改深) -->
+    <!-- Mobile browser address bar follows day/night (default day = sea color; applyDayNight() darkens it at night) -->
     <meta name="theme-color" content="#b9cdd0" />
     <link rel="icon" href="assets/icons/favicon.svg" />
     <title>Sherry's Footprints</title>
@@ -11,7 +11,7 @@
       name="description"
       content="An interactive antique-style map tracing the places Sherry (Ke) Shi has lived and traveled."
     />
-    <!-- 社交分享卡片(Open Graph / Twitter):分享地图链接时显示标题与简介 -->
+    <!-- Social share card (Open Graph / Twitter): title and blurb shown when the map link is shared -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Sherry's Footprints" />
     <meta
@@ -32,13 +32,13 @@
       name="twitter:description"
       content="An interactive antique-style map tracing the places Sherry (Ke) Shi has lived and traveled."
     />
-    <!-- MapLibre 自托管(assets/vendor,SHA384 与原 unpkg SRI 校验一致):
-         unpkg 在中国大陆常整站不可达,自托管后地图页不再依赖第三方 CDN -->
+    <!-- MapLibre self-hosted (assets/vendor, SHA384 matches the original unpkg SRI):
+         unpkg is often unreachable in mainland China; self-hosting removes the third-party CDN dependency -->
     <link
       href="assets/vendor/maplibre-gl-4.7.1/maplibre-gl.css"
       rel="stylesheet"
     />
-    <!-- 字体自托管(assets/fonts/,由 Google Fonts 下载):国内访客不依赖 gstatic -->
+    <!-- Fonts self-hosted (assets/fonts/, downloaded from Google Fonts): visitors in China don't depend on gstatic -->
     <link href="assets/fonts/fonts.css" rel="stylesheet" />
     <style>
       :root {
@@ -163,7 +163,7 @@
       .port .pin:hover {
         transform: translate(-50%, -50%) scale(calc(var(--ps, 1) * 1.25));
       }
-      /* 上层节点(国家/省/市)用稍大的金心标记,区别于景点红点 */
+      /* Upper-level nodes (country/region/city): slightly larger gold-center marker, distinct from red spot dots */
       .port.area .pin {
         width: 17px;
         height: 17px;
@@ -173,7 +173,7 @@
       .port.area .pin::after {
         background: var(--golddk);
       }
-      /* 照片点与网图景点统一样式(用户定):不再用虚线圈区分,靠小注(N photos)自明 */
+      /* Photo spots and web-image attractions share one style (user decision): no dashed-ring distinction; the small note (N photos) speaks for itself */
       .port .lbl {
         position: absolute;
         left: 12px;
@@ -186,19 +186,19 @@
           0 0 5px rgba(236, 227, 207, 1);
         pointer-events: none;
       }
-      /* 城市名下的小注(只有能钻进去的容器点才有,如 "5 places"),古地图注记风 */
+      /* Small note under a city name (only on drillable container points, e.g. "5 places"), antique-map annotation style */
       .port .lbl small {
         display: block;
         font: italic 10.5px var(--fell);
         letter-spacing: 0.03em;
         color: var(--ink2);
       }
-      /* 密集区被避让藏掉的名字:悬停圆点时临时显出来(放大后自然全显) */
+      /* Names hidden by decluttering in dense areas: shown temporarily on dot hover (all appear naturally once zoomed in) */
       .port .pin:hover + .lbl {
         visibility: visible !important;
         z-index: 5;
       }
-      /* 区域(国家/州)无圆点:文字居中、可点,点填色块或文字都进入 */
+      /* Areas (country/state) have no dot: centered clickable text; clicking the fill or the text both enter */
       .port.area .lbl {
         left: 50%;
         top: 50%;
@@ -217,7 +217,7 @@
       .port.area .lbl:hover {
         color: #7a2a1e;
       }
-      /* 世界层的远飞地群岛标注(如夏威夷):小一号,古图注记风,别抢国名 */
+      /* World-level labels for remote island exclaves (e.g. Hawaii): one size smaller, antique annotation style, must not upstage country names */
       .port.area.minor .lbl {
         font:
           600 10.5px "Cinzel",
@@ -261,7 +261,7 @@
         pointer-events: none;
         opacity: 0.9;
       }
-      /* 图例:比例尺上方一行古地图注记(点 / 航线 / 去过的填色) */
+      /* Legend: one antique-style annotation line above the scale bar (dot / route / visited fill) */
       #legend {
         position: absolute;
         left: 28px;
@@ -301,7 +301,7 @@
         border: 1px solid #8a6d3a;
         vertical-align: -1px;
       }
-      /* BGM 署名(CC-BY 要求):比图例再淡一点,不抢戏 */
+      /* BGM credit (CC-BY requirement): a bit fainter than the legend, unobtrusive */
       #legend .lg-credit {
         opacity: 0.75;
         font-size: 10.5px;
@@ -429,7 +429,7 @@
         pointer-events: none;
       }
 
-      /* 面包屑导航(标题下方,避开标题花线) */
+      /* Breadcrumb nav (below the title, clear of its ornamental rules) */
       #crumbs {
         position: absolute;
         top: 116px;
@@ -523,7 +523,7 @@
         }
       }
 
-      /* 白天/夜晚切换 */
+      /* Day/night toggle */
       #daynight {
         position: absolute;
         left: 30px;
@@ -553,11 +553,11 @@
         width: 17px;
         height: 17px;
       }
-      /* 夜晚模式:文字/底色转浅,配合地图深色 */
+      /* Night mode: text/backgrounds lighten to match the dark map */
       body.night {
         --ink: #ece0c2;
         --ink2: #b7a684;
-        --marker: #c9604c; /* 标记/图例的印章红提亮一档,深底上才看得清 */
+        --marker: #c9604c; /* marker/legend seal red brightened one step to read on dark ground */
       }
       body.night #map {
         background: #0f1826;
@@ -583,8 +583,8 @@
         background: rgba(20, 30, 46, 0.85);
         color: #e7c25c;
       }
-      /* 夜晚:其余浮层同步转深 —— 左侧按钮(亮底看不清图标)、面包屑(亮光晕发怪)、
-         卡片/toast(羊皮纸大亮块)。金色线框保留,古图气质不变 */
+      /* Night: remaining overlays darken too — left buttons (icons unreadable on light ground), breadcrumbs (light halo looks odd),
+         card/toast (big bright parchment blocks). Gold outlines stay; antique feel unchanged */
       body.night #music,
       body.night #links a {
         background: rgba(20, 30, 46, 0.85);
@@ -611,7 +611,7 @@
       body.night #yearlist {
         text-shadow: 0 0 5px rgba(10, 16, 26, 0.95);
       }
-      /* 夜晚 pin 全金(用户定):白天红圈好看,夜里"白圈红圈白心"像 target 图标 */
+      /* Night pins all gold (user decision): red rings look good by day, but at night "white ring, red ring, white center" reads like a target icon */
       body.night .port .pin {
         border-color: #e7c25c;
         background: #232f42;
@@ -657,7 +657,7 @@
         outline-color: rgba(10, 16, 26, 0.6);
         color: #cdbb96;
       }
-      /* 夜晚:自定义鼠标转浅(白天深墨色在深色海面上看不见) */
+      /* Night: custom cursor lightens (day's dark ink is invisible on the dark sea) */
       body.night #cursor {
         color: #ece0c2;
       }
@@ -700,8 +700,8 @@
         color: #f3ecd8;
         transform: scale(1.08);
       }
-      /* 触摸热区：透明 ::before 把可点区域 30→~38（控件间距仅 8px，全 44 会重叠，38 折中）。
-         #music 已有 ::after 虚线环提供同等热区，无需另加。视觉不变。 */
+      /* Touch hit area: transparent ::before grows the tap target 30→~38 (controls sit only 8px apart; a full 44 would overlap, 38 is the compromise).
+         #music's ::after dashed ring already provides the same hit area, nothing extra needed. No visual change. */
       #links a {
         position: relative;
       }
@@ -809,7 +809,7 @@
         );
       }
 
-      /* 年份带(底部居中) */
+      /* Year strip (bottom center) */
       #years {
         position: absolute;
         left: 50%;
@@ -818,7 +818,7 @@
         z-index: 7;
         display: flex;
         gap: 4px;
-        /* 按文字基线对齐:‹›(21px)和年份(13px)行盒不同高,盒子居中会错位 */
+        /* Align by text baseline: ‹› (21px) and years (13px) have different line-box heights; box centering would misalign */
         align-items: baseline;
         flex-wrap: wrap;
         justify-content: center;
@@ -833,7 +833,7 @@
         top: 50%;
         transform: translate(-50%, -50%);
         width: calc(100% + 90px);
-        /* 随内容长高(选中年份时上方多一行地点),单行时 ≈ 原 64px */
+        /* Grows with content (an extra places row above when a year is selected); single row ≈ original 64px */
         height: calc(100% + 38px);
         background: transparent;
         -webkit-backdrop-filter: blur(9px);
@@ -875,14 +875,14 @@
         color: #7a2a1e;
         font-weight: 600;
       }
-      /* 翻页箭头(‹ 往前退到更早年份,› 翻回更近),到头自动消失;
-         比年份按钮大且深(用户反馈 15px/0.55 透明度根本看不见) */
+      /* Paging arrows (‹ back to earlier years, › forward to later), auto-hide at the ends;
+         larger and darker than year buttons (user feedback: 15px / 0.55 opacity was simply invisible) */
       #years button.pg {
         font-style: normal;
         font-size: 21px;
         line-height: 1;
         padding: 3px 8px;
-        /* 实测墨迹:‹ 中心在基线上方 7px,数字 5px → 下移 2px 令视觉中线重合 */
+        /* Measured glyphs: ‹ centers 7px above baseline, digits 5px → shift down 2px so visual midlines coincide */
         transform: translateY(2px);
         color: var(--ink);
         opacity: 0.8;
@@ -890,15 +890,15 @@
       #years button.pg:hover {
         opacity: 1;
       }
-      /* 收起态(默认):整条年份带只留一枚 "Years ▾" 开关,点开才展开
-         (用户定:一开始不用全部摆出来) */
+      /* Collapsed state (default): the whole strip shows only a "Years ▾" toggle, expanding on click
+         (user decision: don't lay them all out at first) */
       #years:not(.open) button:not(.tg) {
         display: none;
       }
       #years button.tg {
         opacity: 0.75;
       }
-      /* 选中某年时,在年份带上方一行列出那年去过的地方(黄色块粒度) */
+      /* When a year is selected, list that year's visited places in a row above the strip (gold-fill granularity) */
       #yearlist {
         flex-basis: 100%;
         text-align: center;
@@ -908,7 +908,7 @@
         text-shadow: 0 0 5px rgba(236, 227, 207, 0.95);
         margin-bottom: 3px;
       }
-      /* 移动端：年份带放宽到 2 行（原 3 行 106px 挡地图），不缩按钮保 tap 尺寸 */
+      /* Mobile: year strip widened to 2 rows (3 rows / 106px covered the map); buttons not shrunk, preserving tap size */
       @media (max-width: 700px) {
         #years {
           width: 92%;
@@ -919,8 +919,8 @@
           width: calc(100% + 24px);
           height: calc(100% + 16px);
         }
-        /* 故事卡：窄屏从「固定 300px 靠右、左缘只剩 ~62px」改成近全宽底部抽屉（年份带上方，自下滑入）。
-           用 `body #card` 提特异性——本 @media 块位于 #card 基础规则之前，同特异性会被覆盖。 */
+        /* Story card: on narrow screens, switch from "fixed 300px right-aligned, ~62px left edge remaining" to a near-full-width bottom drawer (above the year strip, slides up).
+           `body #card` raises specificity — this @media block precedes the base #card rules, so equal specificity would be overridden. */
         body #card {
           left: 12px;
           right: 12px;
@@ -934,7 +934,7 @@
         }
       }
 
-      /* 键盘可达:焦点环 — 仅键盘 Tab 导航时可见,鼠标用户与古海图观感不受影响 */
+      /* Keyboard access: focus rings visible only when Tab-navigating; mouse users and the antique-chart look are unaffected */
       #music:focus-visible,
       #daynight:focus-visible {
         outline: 2px solid var(--goldhi);
@@ -946,14 +946,14 @@
         outline-offset: 2px;
         border-radius: 6px;
       }
-      /* 地图节点(城市 pin / 区域标签)键盘聚焦环 */
+      /* Keyboard focus ring for map nodes (city pins / area labels) */
       .port .pin:focus-visible,
       .port.area .lbl:focus-visible {
         outline: 2px solid var(--goldhi);
         outline-offset: 3px;
         border-radius: 6px;
       }
-      /* 导航控件键盘聚焦环:面包屑(退层)与火漆印章(回首页) */
+      /* Keyboard focus rings for nav controls: breadcrumbs (go up a level) and wax seal (back home) */
       #crumbs .cr:focus-visible {
         outline: 2px solid var(--goldhi);
         outline-offset: 2px;
@@ -1034,8 +1034,8 @@
         font: italic 11px var(--fell);
         color: var(--ink2);
       }
-      /* 有网图时:金边装裱,整幅显示、任何方向都不裁剪——
-         相框收缩到与图同宽(fit-content)居中,两侧不留衬纸边 */
+      /* With a web image: gold-framed mount, full image shown, never cropped in any direction —
+         frame shrinks to the image's width (fit-content), centered, no mat strips on the sides */
       #card .photo.has-img {
         position: relative;
         height: auto;
@@ -1043,20 +1043,20 @@
         margin-left: auto;
         margin-right: auto;
         padding: 2px;
-        background: #e2d6b4; /* 只剩 2px 装裱缝的底色 */
+        background: #e2d6b4; /* base color of the remaining 2px mount gap */
       }
       #card .photo.has-img img {
         display: block;
         width: auto;
         height: auto;
-        /* 320 = 卡片 360 - 左右内边距 36 - 框缝 4(卡片宽度变了要同步) */
+        /* 320 = card 360 - horizontal padding 36 - frame gap 4 (keep in sync if card width changes) */
         max-width: 320px;
         max-height: min(380px, 48vh);
-        filter: saturate(0.9) sepia(0.12); /* 轻做旧,融入羊皮纸 */
+        filter: saturate(0.9) sepia(0.12); /* light aging to blend into the parchment */
       }
-      /* 容器城市卡的图位:不放图,放"点击进入"面板。
-         底色 = 地图陆地羊皮纸色(--paper #ece3cf,和背景一个颜色);
-         悬停只加深一档羊皮纸,不变红(用户定) */
+      /* Container-city card image slot: no image, a "click to enter" panel instead.
+         Base = the map's land parchment (--paper #ece3cf, same color as the background);
+         hover only darkens the parchment one step, never turns red (user decision) */
       #card .photo.enter {
         height: 64px;
         padding: 0 16px;
@@ -1073,8 +1073,8 @@
         background: #e2d6b4;
         border-color: var(--gold);
       }
-      /* ‹› 切换按钮:挂在卡片左右边缘中线(卡片垂直居中 → 屏幕位置固定,
-         图无论横竖大小都能在同一个点连点快速浏览);圆点仍在图底部 */
+      /* ‹› buttons: hung at the midline of the card's left/right edges (card is vertically centered → fixed screen position,
+         so images of any size/orientation can be flipped through rapidly at the same spot); dots stay at the image bottom */
       #card .ph-prev,
       #card .ph-next {
         position: absolute;
@@ -1187,11 +1187,11 @@
       <svg id="scale" aria-hidden="true"></svg>
       <svg id="compass" viewBox="0 0 120 120" aria-hidden="true"></svg>
       <svg id="seal" viewBox="0 0 80 80">
-        <title>返回个人主页 · Home</title>
+        <title>Back to homepage · Home</title>
       </svg>
       <div id="years"></div>
       <div id="card"></div>
-      <!-- BGM: Debussy, Clair de Lune — 演奏 Laurens Goedhart (2011), CC-BY 3.0, via Wikimedia Commons -->
+      <!-- BGM: Debussy, Clair de Lune — performed by Laurens Goedhart (2011), CC-BY 3.0, via Wikimedia Commons -->
       <audio
         id="bgm"
         src="audio/clair-de-lune.m4a"
@@ -1216,7 +1216,7 @@
           <circle class="note" cx="16.5" cy="15" r="2.5" fill="#3a2f23" />
         </svg>
       </button>
-      <button id="daynight" title="白天 / 夜晚">
+      <button id="daynight" title="Day / Night">
         <svg
           viewBox="0 0 24 24"
           fill="none"
@@ -1307,7 +1307,7 @@
 
     <script src="assets/vendor/maplibre-gl-4.7.1/maplibre-gl.js"></script>
     <script>
-      // ===== 古海图底图样式(矢量瓦片) =====
+      // ===== Antique nautical-chart basemap style (vector tiles) =====
       const style = {
         version: 8,
         sources: {
@@ -1317,7 +1317,7 @@
           {
             id: "bg",
             type: "background",
-            // 远景背景=海;z6→7 渐变为纸色(近景水面改由瓦片 water 层精确绘制,见 water-omt)
+            // Far background = sea; fades to paper over z6→7 (close-up water is drawn precisely by the tile water layer, see water-omt)
             paint: {
               "background-color": [
                 "interpolate",
@@ -1335,11 +1335,11 @@
             type: "line",
             source: "omt",
             "source-layer": "transportation",
-            // 排除轮渡航线(ferry)，否则海面会画出一片交织的航线
+            // Exclude ferry routes, otherwise the sea gets a web of crisscrossing lines
             filter: ["!=", ["get", "class"], "ferry"],
             layout: { "line-cap": "round", "line-join": "round" },
             paint: {
-              // 公路网是背景纹理不是主角:淡暖灰,别压过景点标记(用户定)
+              // Road network is background texture, not the star: pale warm gray, must not overpower spot markers (user decision)
               "line-color": "#8f8069",
               "line-opacity": 0.7,
               "line-width": [
@@ -1391,11 +1391,11 @@
         maxZoom: 17,
         attributionControl: false,
         dragRotate: false,
-        renderWorldCopies: true, // 允许水平无限滚动(可一直往东/西滑)
+        renderWorldCopies: true, // allow infinite horizontal scrolling (keep panning east/west forever)
       });
       window._map = map;
 
-      // ===== 自定义光标 =====
+      // ===== Custom cursor =====
       const CLICKABLE_SEL =
         ".port .pin,.port.area .lbl,#seal,#years button,#crumbs .cr,#card .ph-prev,#card .ph-next,#card .photo.enter,#music,#links a";
       if (matchMedia("(pointer: fine)").matches) {
@@ -1418,17 +1418,17 @@
         addEventListener("mouseover", () => (cursorEl.style.opacity = ""));
       }
 
-      // ===== 数据 + 状态机 =====
+      // ===== Data + state machine =====
       let DATA = null,
         WORLD = null,
         STATES = null,
         WEBIMG = {};
-      // NaturalEarth 国名 → footprints.json 国名:从 DATA 的 ne_names 推导(见下方数据加载),
-      // 不再硬编码。加国家只需在 footprints.json 里给该国填 ne_names / iso_a3。
+      // NaturalEarth country name → footprints.json name: derived from ne_names in DATA (see data loading below),
+      // no longer hardcoded. To add a country, just fill in its ne_names / iso_a3 in footprints.json.
       const NE2MINE = {};
       const stack = []; // [{level,c,r,ct}] level: world|country|region|city
-      let yearFilter = null; // null=全部, 否则整数年
-      let navTs = 0; // 上次切层时间戳(最小间隔防抖)
+      let yearFilter = null; // null = all, otherwise an integer year
+      let navTs = 0; // timestamp of last level change (minimum-interval debounce)
       const markers = [],
         portEls = [];
 
@@ -1442,7 +1442,7 @@
         if (map.getLayer("route")) map.removeLayer("route");
         if (map.getSource("route")) map.removeSource("route");
       }
-      // 景点连线:古海图风格虚线。lines = 多条线(每省一个闭合环)
+      // Spot route lines: antique-chart dashed style. lines = multiple lines (one closed ring per region)
       function drawRoute(lines) {
         lines = (lines || []).filter((l) => l && l.length >= 2);
         if (!lines.length) return;
@@ -1459,7 +1459,7 @@
           source: "route",
           layout: { "line-cap": "round", "line-join": "round" },
           paint: {
-            // 路线虚线随昼夜:夜里暗红在深蓝底上隐形,换亮陶土色
+            // Route dashes follow day/night: dark red vanishes on deep blue at night, use bright terracotta instead
             "line-color": (night ? THEMES.night : THEMES.day).route,
             "line-width": [
               "interpolate",
@@ -1469,7 +1469,7 @@
               13, 1.8,
               16, 2.8,
             ],
-            // 夜里不透明度也提上来:50% 的暗红远景在深底上等于隐形
+            // Raise opacity at night too: 50% dark red at far zoom is effectively invisible on dark ground
             "line-opacity": night
               ? 0.8
               : ["interpolate", ["linear"], ["zoom"], 11, 0.5, 13, 0.8, 16, 0.92],
@@ -1479,9 +1479,9 @@
       }
 
       const bbCenter = (b) => [(b[0] + b[2]) / 2, (b[1] + b[3]) / 2];
-      // 远飞地群岛州(数据标 mark:true,如夏威夷)的标注锚点:用实际点位的
-      // 外接框中心。不用州面外接框——夏威夷州面含西北链岛(远至 -178°),
-      // 州名会漂到主岛群西边几十度的空海上
+      // Label anchor for remote island states (data flag mark:true, e.g. Hawaii): use the
+      // bbox center of the actual points. Not the state polygon's bbox — Hawaii's polygon
+      // includes the NW island chain (out to -178°), drifting the label into empty ocean far west of the main islands
       function markBBox(c, r) {
         const pts = (r.cities || []).map((q) => [q.lng, q.lat]);
         if (!pts.length) return stateBBox(c.name, r.name);
@@ -1498,7 +1498,7 @@
         return [x0, y0, x1, y1];
       }
 
-      // 一组城市的环线坐标:年份筛选 + 可见性过滤 + 环排序 + 闭合
+      // Ring coordinates for a set of cities: year filter + visibility filter + ring ordering + closing
       function ringCoords(c, r, cities) {
         const pts = ringOrder(
           cities.filter(
@@ -1512,8 +1512,8 @@
         if (pts.length >= 3) pts.push(pts[0]);
         return pts;
       }
-      // 按当前层级 + 年份筛选画连线:只连实际显示的点,闭合成环。
-      // 省层给全国每个省各画一环(邻省的点显示着,线也要在);世界层无线
+      // Draw routes per current level + year filter: connect only points actually shown, closed into rings.
+      // Region level draws one ring per region nationwide (neighbor regions' points show, so should their lines); no lines at world level
       function redrawRoute() {
         if (map.getLayer("route")) map.removeLayer("route");
         if (map.getSource("route")) map.removeSource("route");
@@ -1523,7 +1523,7 @@
         if (e.level === "region") {
           lines = e.c.regions.map((r2) => ringCoords(e.c, r2, r2.cities));
         } else if (e.level === "country") {
-          // 所有扁平国家各画一环(邻国的点显示着,线也要在);分省国家在省层才有环
+          // One ring per flat country (neighbor countries' points show, so should their lines); region-split countries only get rings at region level
           lines = DATA.countries
             .filter((c2) => c2.split !== "region")
             .map((c2) => ringCoords(c2, c2.regions[0], flatCities(c2)));
@@ -1535,8 +1535,8 @@
         drawRoute(lines);
       }
 
-      // 环线排序:按绕质心的方位角排,连出来是外圈一环(巡游环),
-      // 不按数据序/就近序来回穿。key 取坐标,items 可以是坐标数组也可以是城市对象
+      // Ring ordering: sort by angle around the centroid so the path forms one outer loop (a tour ring),
+      // not zigzagging in data/nearest order. key extracts coords; items may be coord arrays or city objects
       function ringOrder(items, key = (p) => p) {
         if (items.length < 3) return items;
         let cx = 0,
@@ -1555,7 +1555,7 @@
         return items.slice().sort((a, b) => ang(a) - ang(b));
       }
 
-      // 当前层可见点位的连线顺序(画虚线和卡片 ‹› 跨景点跳转共用一个序)
+      // Route order of the current level's visible points (dashed lines and card ‹› cross-spot jumps share one order)
       function levelSeq() {
         const e = stack[stack.length - 1];
         if (!e) return [];
@@ -1578,7 +1578,7 @@
             (c) => [c.lng, c.lat],
           );
         if (e.level === "city") {
-          // 城市层:网图景点 + 有图照片点,卡片 ‹› 翻完顺跳下一处
+          // City level: web attractions + photo spots with images; card ‹› rolls over to the next place
           const k = cityKids(e.c, e.r, e.ct);
           return ringOrder(vis([...k.webs, ...k.imgSpots]), (c) => [
             c.lng,
@@ -1588,40 +1588,40 @@
         return [];
       }
 
-      // 有图子节点数(城市钻层判定 / 容器判定共用)
+      // Count of image-backed children (shared by city drill-down and container checks)
       function cityPlaces(c, r, ct) {
         const k = cityKids(c, r, ct);
         return k.imgSpots.length + k.webs.length;
       }
-      // 点位是否上图:能钻层(≥2 个有图子点)或自己能出图(本名/借图)。
-      // 出不了图的点(如没配图的路过城市)不显示(用户定:photos 里有图的才算点)
+      // Whether a point goes on the map: drillable (≥2 image-backed children) or can show an image itself (own name / borrowed).
+      // Points that can't show an image (e.g. pass-through cities without one) are hidden (user decision: only photo-backed places count)
       function cityVisible(c, r, ct) {
         return cityPlaces(c, r, ct) >= 2 || webImgs(ct).length > 0;
       }
-      // 当前层上下文里,该点的有图子点数(不在省/国家层时为 0)
+      // Image-backed child count of this point in the current level's context (0 outside region/country levels)
       function containerPlaces(x) {
         const e = stack[stack.length - 1];
         if (!e || !e.c || e.level === "city") return 0;
         const r = e.level === "region" ? e.r : e.c.regions[0];
         return cityPlaces(e.c, r, x);
       }
-      // "容器"城市(可钻层,如 Toronto/San Francisco):卡片图位显示"点击进入"面板
+      // "Container" city (drillable, e.g. Toronto/San Francisco): card image slot shows a "click to enter" panel
       function isContainer(x) {
         return containerPlaces(x) >= 2;
       }
 
-      // 在地图上放一个可点节点(国家/省/市/景点通用)
+      // Place a clickable node on the map (shared by country/region/city/spot)
       function addNode(lng, lat, label, sub, years, kind, onClick) {
         const el = document.createElement("div");
-        // minor = 区域的小号变体(世界层的远飞地群岛标注,如夏威夷)
+        // minor = small variant of area (world-level remote island labels, e.g. Hawaii)
         const area = kind === "area" || kind === "minor";
         el.className =
           "port" +
           (area ? " area" : "") +
           (kind === "minor" ? " minor" : "") +
           (kind === "web" ? " web" : "");
-        // 区域(国家/州)不要圆点,只用文字;城市/景点保留 pin。
-        // 城市/景点的 sub(照片数·地点数)显示为名字下的小注;区域仍只进 aria
+        // Areas (country/state) get no dot, text only; cities/spots keep the pin.
+        // City/spot sub (photo count · place count) shows as a small note under the name; area sub still goes into aria only
         el.innerHTML =
           (area ? "" : `<span class="pin"></span>`) +
           `<span class="lbl">${label}${
@@ -1634,7 +1634,7 @@
             ev.stopPropagation();
             onClick();
           });
-          // 键盘可达:节点像按钮一样可 Tab 聚焦 + Enter/Space 进入下一层
+          // Keyboard access: node is Tab-focusable like a button; Enter/Space drills into the next level
           target.tabIndex = 0;
           target.setAttribute("role", "button");
           target.setAttribute("aria-label", sub ? `${label} — ${sub}` : label);
@@ -1655,7 +1655,7 @@
         return el;
       }
 
-      // 视图自适应:一组坐标 fitBounds;单点 flyTo
+      // View fitting: fitBounds for a set of coords; flyTo for a single point
       function fitTo(coords, opts = {}) {
         if (!coords.length) return;
         if (coords.length === 1) {
@@ -1684,7 +1684,7 @@
         cities.reduce((s, c) => s + c.lat, 0) / cities.length,
       ];
       const flatCities = (c) => c.regions.flatMap((r) => r.cities);
-      // 州/省的外接框(从州面数据算);中心用来放州名标签
+      // State/province bbox (computed from state polygon data); its center places the state label
       function stateBBox(mine, region) {
         if (!STATES) return null;
         const f = STATES.features.find(
@@ -1707,14 +1707,14 @@
         scan(f.geometry.coordinates);
         return [x0, y0, x1, y1];
       }
-      // 州/省的几何中心,让州名标在州中心而非去过城市的中心
+      // Geometric center of a state, so its label sits at the state's center rather than the visited cities' centroid
       function stateCenter(mine, region) {
         const b = stateBBox(mine, region);
         return b && [(b[0] + b[2]) / 2, (b[1] + b[3]) / 2];
       }
-      // 整个国家的边界范围(从 world geojson 该国轮廓算),用于"点国家先显示全国地图"
-      // 国家"主体"范围:取面积最大的多边形(本土),忽略阿拉斯加等分离块,
-      // 这样点国家能放大到本土占满屏,而不是被远块拉成一小点
+      // Whole-country bounds (from its outline in world geojson), for "click a country → show the whole country first".
+      // "Mainland" bounds: take the largest polygon and ignore detached pieces like Alaska,
+      // so clicking a country zooms the mainland to fill the screen instead of shrinking to fit far-flung parts
       function countryBBox(mineName) {
         if (!WORLD) return null;
         const ne = Object.keys(NE2MINE).find((k) => NE2MINE[k] === mineName);
@@ -1747,8 +1747,8 @@
         }
         return best ? new maplibregl.LngLatBounds(best[0], best[1]) : null;
       }
-      // 点落在该国哪个州(states.geojson 多边形,射线法,只看外环):
-      // 远飞地州(如夏威夷)不在国家标准视野框内,世界层直点它时用这个定位到州
+      // Which state of the country a point falls in (states.geojson polygons, ray casting, outer ring only):
+      // remote states (e.g. Hawaii) lie outside the standard country view; world-level direct clicks use this to locate the state
       function regionAt(c, ll) {
         if (!STATES) return null;
         const inRing = (ring) => {
@@ -1775,12 +1775,12 @@
         return f ? c.regions.find((r) => r.name === f.properties.region) : null;
       }
 
-      // 一组城市的外接矩形
+      // Bounding box of a set of cities
       function boundsOf(cities) {
         const b = new maplibregl.LngLatBounds();
         cities.forEach((c) => b.extend([c.lng, c.lat]));
-        // 防零尺寸:单城市/单点会让占屏比例=0 → 一进去就被判定"太小"立刻退层。
-        // 给个最小地理范围兜底。
+        // Guard against zero size: a single city/point makes screen coverage = 0 → judged "too small" and popped right after entering.
+        // Provide a minimum geographic extent as a fallback.
         if (
           b.getEast() - b.getWest() < 0.3 ||
           b.getNorth() - b.getSouth() < 0.25
@@ -1791,7 +1791,7 @@
         }
         return b;
       }
-      // 两个矩形是否相交(只要还看得见该区域就不退层)
+      // Whether two boxes intersect (don't pop the level while the area is still in view)
       function boundsIntersect(a, b) {
         if (!a || !b) return true;
         return !(
@@ -1806,24 +1806,24 @@
         map.setLayoutProperty(id, "visibility", vis ? "visible" : "none");
         if (vis && filt) map.setFilter(id, filt);
       }
-      // 按当前层级统一控制:世界填色 / 国界线勾勒 / 州省高亮
+      // Central control per current level: world fill / country outlines / state highlight
       function applyHighlight(e) {
         const mine = e.c?.name;
         const world = e.level === "world";
-        // 年份带选中某年:金色只留那年去过的块(靠面上的 __ys 年份数组)
+        // Year strip has a year selected: gold only on shapes visited that year (via the __ys year array on features)
         const yc =
           yearFilter === null ? null : ["in", yearFilter, ["get", "__ys"]];
-        // 去过的国家填色:仅世界层(border-line 全局国界线常显,不在这里控制)
+        // Visited-country fill: world level only (border-line global borders always show, not controlled here)
         const cf = ["==", ["get", "__v"], 1];
         lyr("country-fill", world, yc ? ["all", cf, yc] : cf);
-        // 去过的州/省填色高亮:国家(分省的)层 + 省层
+        // Visited state/province fill highlight: (region-split) country level + region level
         const showState =
           (e.level === "country" && e.c.split === "region") ||
           e.level === "region";
         const sf = ["==", ["get", "country"], mine || "__x__"];
         lyr("state-fill", showState, yc ? ["all", sf, yc] : sf);
-        // 边界线深浅随层级(用户定):世界总览淡(不然满图深线),
-        // 点进"能看到景点的具体地图"(扁平国家/省/城市层)才加深
+        // Border darkness follows level (user decision): faint at world overview (else the whole map is dark lines),
+        // deepened only inside "concrete maps where spots are visible" (flat country / region / city levels)
         const deep =
           e.level === "region" ||
           e.level === "city" ||
@@ -1837,24 +1837,24 @@
         });
       }
 
-      // ===== 各层渲染(不改 stack) =====
+      // ===== Per-level rendering (does not mutate stack) =====
       function renderTop(fly = true, noFit = false) {
         const e = stack[stack.length - 1];
         navTs = Date.now();
-        // 记录本层范围矩形:视野完全离开它(平移走)时自动退层
+        // Record this level's bounds: auto-pop when the view fully leaves them (panned away)
         e._bbox =
           e.level === "world"
             ? null
             : e.level === "country"
               ? e.c.split === "region"
                 ? countryBBox(e.c.name) || boundsOf(flatCities(e.c))
-                : null // 扁平国家层:邻国的点也显示着(如欧洲),平移不按出界退层(缩小仍退)
+                : null // flat country level: neighbor countries' points also show (e.g. Europe); panning out doesn't pop (zooming out still does)
               : e.level === "region"
-                ? // 省层平移范围放宽到全国:邻省的点也显示着,平移过去不该瞬退
+                ? // region level's pan range widened to the whole country: neighbor regions' points show too; panning there must not insta-pop
                   countryBBox(e.c.name) || boundsOf(e.r.cities)
                 : (() => {
-                    // 城市层范围:有图照片点 + 折进来的网图景点一起算外接框;
-                    // 只有单点则城市点 ±buffer(避免零尺寸)
+                    // City-level bounds: image-backed photo spots + nested web attractions in one bbox;
+                    // with just one point, use the city point ± buffer (avoid zero size)
                     const k = cityKids(e.c, e.r, e.ct);
                     const pts = [...k.imgSpots, ...k.webs];
                     if (pts.length > 1)
@@ -1883,9 +1883,9 @@
               () => navigate({ level: "country", c }),
             );
           });
-          // 远飞地小群岛(如夏威夷)岛太小世界层看不见,像没放上去:
-          // 补一个小号名字标注。点名字进该州,但层级里保留所属国家
-          // (The World › United States › Hawaii),和直接点岛的处理一致
+          // Remote small islands (e.g. Hawaii) are too tiny to see at world level, as if missing:
+          // add a small name label. Clicking it enters the state while keeping the country in the stack
+          // (The World › United States › Hawaii), same as clicking the islands directly
           DATA.countries.forEach((c) =>
             (c.regions || [])
               .filter((r) => r.mark)
@@ -1920,7 +1920,7 @@
           small.textContent = e.c.name.toUpperCase();
           if (e.c.split === "region") {
             e.c.regions.forEach((r) => {
-              // 标注州(如夏威夷)的名字放点位外接框中心,其余放州面几何中心
+              // Marked states (e.g. Hawaii) get their label at the points' bbox center; others at the state polygon's geometric center
               const rb = r.mark && markBBox(e.c, r);
               const ctr = rb
                 ? bbCenter(rb)
@@ -1936,8 +1936,8 @@
               );
             });
           }
-          // 所有"扁平国家"的点一起放(平移到邻国也有点可点,如欧洲各国;
-          // 出不了图的点仍不上图)。分省国家自己的州标签在上面 if 里放
+          // Place all flat countries' points together (points stay clickable when panning to a neighbor, e.g. across Europe;
+          // image-less points still stay off the map). A region-split country's own state labels are placed in the if above
           DATA.countries
             .filter((c2) => c2.split !== "region")
             .forEach((c2) =>
@@ -1945,14 +1945,14 @@
                 .filter((ct) => cityVisible(c2, c2.regions[0], ct))
                 .forEach((ct) => addCityNode(c2, c2.regions[0], ct)),
             );
-          // 显示整个国家地图(本土占满),底图自带州界,去过的州金色高亮
+          // Show the whole country (mainland filling the view); basemap provides state borders, visited states highlighted gold
           if (!noFit) {
             const bb = countryBBox(e.c.name);
-            // 远飞地州(如夏威夷)不在本土范围框内:fit 并上所有州标签锚点,
-            // 否则进美国根本看不到 Hawaii 标签,等于藏起来了
+            // Remote states (e.g. Hawaii) fall outside the mainland box: extend the fit with all state label anchors,
+            // otherwise entering the US never shows the Hawaii label, effectively hiding it
             if (bb && e.c.split === "region")
               e.c.regions.forEach((r) => {
-                // 标注州(如夏威夷)并入的锚点和州名标签同源(点位框中心)
+                // Marked states' (e.g. Hawaii) merged anchor shares the state label's source (points' bbox center)
                 const rb = r.mark && markBBox(e.c, r);
                 const ctr = rb
                   ? bbCenter(rb)
@@ -1976,8 +1976,8 @@
         } else if (e.level === "region") {
           applyHighlight(e);
           small.textContent = e.r.name.toUpperCase();
-          // 全国各省的点一起放(平移到邻省黄色区也有点可点;出不了图的点仍不上图);
-          // 视野只对准当前省,连线环和 ‹› 连播也只走当前省
+          // Place all regions' points nationwide (points stay clickable when panning to a neighbor's gold area; image-less points still hidden);
+          // the view fits only the current region, and route rings / ‹› playthrough stay within it too
           e.c.regions.forEach((r2) =>
             r2.cities
               .filter((ct) => cityVisible(e.c, r2, ct))
@@ -1993,10 +1993,10 @@
         } else if (e.level === "city") {
           applyHighlight(e);
           small.textContent = e.ct.name.toUpperCase();
-          // 多个"有图"子节点才展开;没图的小地点不再上图(用户定:photos 里有图的才算点)
+          // Expand only with multiple image-backed children; image-less minor places stay off the map (user decision: only photo-backed places count)
           const k = cityKids(e.c, e.r, e.ct);
           if (k.imgSpots.length + k.webs.length >= 2) {
-            // 有图照片点:可连播的城市卡(同名网图 3 张,翻完顺跳下一处);标签只写地名
+            // Image-backed photo spots: city card with playthrough (3 same-name web images, then rolls to the next place); label shows the name only
             k.imgSpots.forEach((s) =>
               addNode(
                 s.lng,
@@ -2008,7 +2008,7 @@
                 () => showCityCard(s),
               ),
             );
-            // 网图景点:名字自明,不加小注(照片点有 N photos 小注,已可区分)
+            // Web attractions: name is self-explanatory, no small note (photo spots carry the N photos note, already distinct)
             k.webs.forEach((w) =>
               addNode(w.lng, w.lat, w.name, "", w.years, "web", () =>
                 showCityCard(w),
@@ -2020,7 +2020,7 @@
                 { zoom: 13, dur: fly ? 650 : 0 },
               );
           } else {
-            // 路过点 / 无照片城市:飞到城市,直接弹城市卡(不依赖 moveend)
+            // Pass-through point / photo-less city: fly to it and open the city card directly (not relying on moveend)
             if (!noFit)
               map.flyTo({
                 center: [e.ct.lng, e.ct.lat],
@@ -2048,7 +2048,7 @@
           if (!noFit) stack[stack.length - 1]._z = map.getZoom();
           navTs = Date.now();
           const top = stack[stack.length - 1];
-          // 世界层:禁止缩到比标准世界视图更小(否则地图缩成一小块、周围空白)
+          // World level: forbid zooming out below the standard world view (else the map shrinks to a patch amid blank space)
           if (top.level === "world" && top._z)
             map.setMinZoom(Math.max(0.6, top._z - 0.2));
           else map.setMinZoom(0.6);
@@ -2057,10 +2057,10 @@
 
       function addCityNode(c, r, ct) {
         const kind = ct.source === "web" ? "web" : "spot";
-        // 多个"有图"子节点城市才钻层(含折进来的网图景点,如 Vancouver);
-        // 单点(景点/路过点)原地弹卡,周围 pin 保持可点。
-        // 能钻进去的点标 "N places ›"(› 提示可点进去);单点只写地名;
-        // 州/省文字标签不标数(填色已表明去过)——它们走 area 分支,天然无小注
+        // Cities drill down only with multiple image-backed children (incl. nested web attractions, e.g. Vancouver);
+        // single points (spot / pass-through) pop the card in place, surrounding pins stay clickable.
+        // Drillable points read "N places ›" (› hints they can be entered); single points show the name only;
+        // state text labels carry no count (fill already marks them visited) — they take the area branch, naturally note-less
         const places = cityPlaces(c, r, ct);
         addNode(
           ct.lng,
@@ -2071,7 +2071,7 @@
           kind,
           places >= 2
             ? () => {
-                // 从别的省/别的国点进来:先把当前层换成该点所在地,面包屑/返回才对得上
+                // Clicked from another region/country: first swap the current level to the point's home so breadcrumbs/back line up
                 const top = stack[stack.length - 1];
                 if (top.level === "region" && top.r !== r)
                   stack[stack.length - 1] = { level: "region", c, r };
@@ -2093,10 +2093,10 @@
         stack.pop();
         renderTop(true);
       }
-      // 面包屑回跳到第 i 层
+      // Breadcrumb jump back to level i
       function jumpTo(i) {
         if (i < stack.length - 1) stack.length = i + 1;
-        renderTop(true); // 即使点当前层(如世界)也重新 fit,回到该层标准视图
+        renderTop(true); // re-fit even when clicking the current level (e.g. world), returning to its standard view
       }
 
       function renderCrumbs() {
@@ -2113,7 +2113,7 @@
         let html = "";
         labels.forEach((lb, i) => {
           if (i) html += `<span class="sep">›</span>`;
-          // 世界项(i=0)始终可点(点它回初始世界视图);其余仅非当前层可点
+          // The World item (i=0) is always clickable (returns to the initial world view); others only when not the current level
           html +=
             i === labels.length - 1 && i !== 0
               ? `<span class="cur">${lb}</span>`
@@ -2132,8 +2132,8 @@
         });
       }
 
-      // ===== 密集点整理 =====
-      // 两点球面近似距离(km):半径判断都在城市尺度,平面近似足够
+      // ===== Dense-point cleanup =====
+      // Approximate spherical distance (km): all radius checks are city-scale, planar approximation suffices
       const kmDist = (a, b) => {
         const dy = (a.lat - b.lat) * 111;
         const dx =
@@ -2142,17 +2142,17 @@
           Math.cos((((a.lat + b.lat) / 2) * Math.PI) / 180);
         return Math.hypot(dx, dy);
       };
-      const NEST_KM = 25; // 网图景点离城市锚点这个距离内,折进该城市(省层不再叠一堆点)
-      const MERGE_KM = 0.8; // 城市层照片微地点合并半径(反向地理编码的街名太碎)
-      // 省层收拢:把"配了网图的景点"折进最近的城市锚点(有照片的城市,或没配图的
-      // 城市聚合点,如 Vancouver/Banff)。多伦多市中心一堆景点从此挂在 Toronto 下。
+      const NEST_KM = 25; // web attractions within this distance of a city anchor nest into that city (no point pile-up at region level)
+      const MERGE_KM = 0.8; // merge radius for city-level photo micro-places (reverse-geocoded street names are too fragmented)
+      // Region-level nesting: fold web-imaged attractions into the nearest city anchor (a city with photos, or an
+      // image-less city cluster point like Vancouver/Banff). Downtown Toronto's pile of spots now hangs under Toronto.
       function nestAttractions() {
         DATA.countries.forEach((c) => {
           c.regions.forEach((r) => {
             const rName = r && r.name ? r.name : "";
             const key = (x) => `${c.name}|${rName}|${x.name}`;
-            // 锚点排除"路过点"(照片<5,如 Eggertsville):否则大景点会被折进
-            // 无名小点,在省层消失
+            // Anchors exclude pass-through points (<5 photos, e.g. Eggertsville): otherwise major attractions
+            // would nest into nameless specks and vanish at region level
             const anchors = r.cities.filter((ct) =>
               ct.source === "photo" ? ct.count >= 5 : !WEBIMG[key(ct)],
             );
@@ -2177,9 +2177,9 @@
           });
         });
       }
-      // 城市层子节点(带缓存):照片微地点按 MERGE_KM 合并(计数相加、年份并集、
-      // 大点留名);折进来的网图景点与照片地点同名(如 Distillery District)则去重,
-      // 景点卡靠同名键自动带图
+      // City-level children (cached): photo micro-places merged within MERGE_KM (counts summed, years unioned,
+      // biggest keeps the name); nested web attractions sharing a photo place's name (e.g. Distillery District) are deduped,
+      // and the spot card picks up images automatically via the shared name key
       function cityKids(c, r, ct) {
         if (!ct._kids) {
           const named = (ct.spots || []).filter((s) => s.spot && s.spot.trim());
@@ -2202,8 +2202,8 @@
                 (s) => s.spot.toLowerCase() === w.name.toLowerCase(),
               ),
           );
-          // 有图的照片点包成与网图景点同构的节点(复用同一对象,跨点连播靠
-          // levelSeq 里的对象同一性),点它弹城市卡、翻完顺跳下一处
+          // Wrap image-backed photo places as nodes isomorphic to web attractions (reuse the same object; cross-point
+          // playthrough relies on object identity in levelSeq); clicking opens the city card, then rolls to the next place
           const K = (n) => `${c.name}|${r && r.name ? r.name : ""}|${n}`;
           const imgSpots = merged
             .filter((s) => WEBIMG[K(s.spot)])
@@ -2221,12 +2221,12 @@
         return ct._kids;
       }
 
-      // ===== 故事卡(城市 / 景点共用 showCityCard) =====
-      // 当前地点的网图(data/webimages.json,键=国家|省|地名;扁平国家省位空串)。
-      // 城市聚合点(如 Vancouver)自己没图时,借第一个折进来的景点的图;
-      // 再没有就借自己有图的照片 spot(如 Sundbyerne 借 Christianshavn)
+      // ===== Story card (cities and spots share showCityCard) =====
+      // Web images for the current place (data/webimages.json, key = country|region|name; flat countries use an empty region).
+      // A city cluster point (e.g. Vancouver) with no images of its own borrows the first nested attraction's;
+      // failing that, one of its own image-backed photo spots (e.g. Sundbyerne borrows Christianshavn)
       function webImgs(ct) {
-        // 优先用点位自带的国家/省(跨省显示时当前层上下文对不上);缺则回退当前层
+        // Prefer the point's own country/region (the current level's context mismatches in cross-region display); fall back to the current level
         const e = stack[stack.length - 1];
         const cn = ct._c || (e && e.c ? e.c.name : "");
         const rn =
@@ -2245,8 +2245,8 @@
         let idx = imgs.length
           ? Math.min(Math.max(imgIdx, 0), imgs.length - 1)
           : 0;
-        // 卡片只留:地名 + 坐标·年份 + 图(3张可切换);
-        // 容器城市(如 San Francisco)图位不放借来的图,放"点击进入"面板(用户定)
+        // Card keeps only: name + coords · years + images (3, switchable);
+        // container cities (e.g. San Francisco) show a "click to enter" panel instead of borrowed images (user decision)
         const photoBox = cont
           ? `<div class="photo enter" role="button" tabindex="0" aria-label="Enter ${ct.name}">` +
             `<span>${containerPlaces(ct)} places — click to enter ›</span></div>`
@@ -2257,7 +2257,7 @@
                 : "") +
               `</div>`
             : "";
-        // ‹› 挂在卡片左右边缘中线上(卡片垂直居中,位置不随图大小变,可连点快速浏览)
+        // ‹› hung at the midline of the card's edges (card is vertically centered; position ignores image size, allowing rapid click-through)
         const navBtns =
           cont || imgs.length > 1
             ? `<button class="ph-prev" aria-label="Previous">‹</button>` +
@@ -2267,7 +2267,7 @@
           `<h3>${ct.name}</h3><div class="coord">${ct.lat.toFixed(3)}°${ct.lat >= 0 ? "N" : "S"} · ${Math.abs(ct.lng).toFixed(3)}°${ct.lng >= 0 ? "E" : "W"} · ${(ct.years || []).join("/") || "—"}</div>` +
           photoBox +
           navBtns;
-        // ‹›连播:翻到头/容器卡时,顺环线跳到上/下一个点(有图景点或容器都算一站)
+        // ‹› playthrough: at the last image / on a container card, follow the ring to the prev/next point (imaged spots and containers both count as stops)
         const jump = (d) => {
           const seq = levelSeq().filter(
             (x) => webImgs(x).length || isContainer(x),
@@ -2301,7 +2301,7 @@
             .addEventListener("click", () => jump(1));
         } else if (imgs.length) {
           const imgEl = card.querySelector(".photo img");
-          // 图加载失败(如换环境没带图)整块收起,不留裂图/占位
+          // On image load failure (e.g. images missing in a new environment), collapse the whole block; no broken image/placeholder
           imgEl.addEventListener("error", () => {
             card.querySelector(".photo")?.remove();
           });
@@ -2311,7 +2311,7 @@
               const ni = idx + d;
               if (ni < 0 || ni >= imgs.length) {
                 if (jump(d)) return;
-                idx = (ni + imgs.length) % imgs.length; // 本层没别处:回绕
+                idx = (ni + imgs.length) % imgs.length; // nowhere else on this level: wrap around
               } else idx = ni;
               imgEl.src = imgs[idx];
               dots.forEach((el, i) => el.classList.toggle("on", i === idx));
@@ -2322,7 +2322,7 @@
             card
               .querySelector(".ph-next")
               .addEventListener("click", () => go(1));
-            // 预热其余两张,切换不闪
+            // Preload the other two so switching doesn't flash
             imgs.slice(1).forEach((s) => {
               new Image().src = s;
             });
@@ -2331,14 +2331,14 @@
         card.classList.add("show");
       }
 
-      // ===== 年份带 =====
-      // 跨度从 1999 起是用户定的人生跨度(照片数据只到 2014,更早年份按用户
-      // 口述补录);28 年全摆占三行挡地图,一次只显示 10 年(默认 2017–2026),
-      // ‹ 往前退、› 翻回,到头箭头消失
+      // ===== Year strip =====
+      // Starting at 1999 is the user's chosen life span (photo data only reaches back to 2014; earlier years
+      // backfilled from the user's own account); all 28 years take three rows and cover the map, so show 10 at a time (default 2017–2026),
+      // ‹ pages back, › pages forward, arrows vanish at the ends
       const YR_LO = 1999;
       const YR_SPAN = 10;
-      let yrPage = 0; // 0 = 最近一页,每 +1 往前退 YR_SPAN 年
-      let yrOpen = false; // 默认收起,只露 "Years ▾" 开关
+      let yrPage = 0; // 0 = most recent page; each +1 steps back YR_SPAN years
+      let yrOpen = false; // collapsed by default, only the "Years ▾" toggle shows
       function buildYears() {
         const hi = (DATA.yearsRange || [2014, 2026])[1];
         const maxPage = Math.ceil((hi - YR_LO + 1) / YR_SPAN) - 1;
@@ -2346,7 +2346,7 @@
         wrap.innerHTML = "";
         wrap.classList.toggle("open", yrOpen);
         wrap.appendChild(document.createElement("div")).id = "yearlist";
-        // 开关:收起时只剩它(带当前选中年份),点开才见整条年份带
+        // Toggle: when collapsed only it remains (showing the selected year); click to reveal the whole strip
         const tg = document.createElement("button");
         tg.className = "tg";
         tg.textContent =
@@ -2384,7 +2384,7 @@
         for (let y = Math.max(YR_LO, winHi - YR_SPAN + 1); y <= winHi; y++)
           mk(y, y);
         if (yrPage > 0) pg("›", -1, "Later years");
-        // 翻页重建后恢复选中态与地点行
+        // After a paging rebuild, restore selection state and the places row
         wrap
           .querySelectorAll("button")
           .forEach((b) =>
@@ -2398,14 +2398,14 @@
       }
       function setYear(y) {
         yearFilter = y;
-        buildYears(); // 重建:选中态 + 开关上的当前年份 + 地点行一起更新
+        buildYears(); // rebuild: selection state + current year on the toggle + places row all update together
         applyYearFilter();
-        applyHighlight(stack[stack.length - 1]); // 金色填色跟随年份
+        applyHighlight(stack[stack.length - 1]); // gold fill follows the year
         redrawRoute();
         declutter();
       }
-      // 选中某年 → 年份带上方列出那年去过的国家(用户定:只列国家不列省,
-      // 省级细节交给地图金色块自己说话)
+      // Year selected → list that year's visited countries above the strip (user decision: countries only, no regions;
+      // region-level detail is left to the map's gold fills)
       function renderYearList() {
         const el = document.getElementById("yearlist");
         if (yearFilter === null) {
@@ -2421,8 +2421,8 @@
       function applyYearFilter() {
         portEls.forEach((el) => {
           const ys = el.__years || [];
-          // 年份有的层是数字有的层是字符串(景点),统一转数字比;
-          // 没年份的点(网图景点,哪年去的未知)不参与筛选常显,不然一选年全消失
+          // Years are numbers on some levels, strings on others (spots): compare as numbers;
+          // year-less points (web attractions, visit year unknown) skip the filter and always show, else selecting a year hides them all
           const show =
             yearFilter === null ||
             !ys.length ||
@@ -2431,7 +2431,7 @@
         });
       }
 
-      // ===== 地图空白处点击:收起卡片 =====
+      // ===== Click on empty map: hide the card =====
       document.getElementById("map").addEventListener("click", (e) => {
         if (!e.target.closest(".pin")) hideCard();
       });
@@ -2451,7 +2451,7 @@
       });
       addEventListener("popstate", goBack);
 
-      // ===== 背景音乐 =====
+      // ===== Background music =====
       const bgm = document.getElementById("bgm");
       const musicBtn = document.getElementById("music");
       bgm.volume = 0.5;
@@ -2466,7 +2466,7 @@
             stopFirst();
           })
           .catch(() => {});
-      // 进页面即播(2026-07-10 用户定);浏览器拦掉无手势自动播时,首次交互兜底续播
+      // Play on page load (user decision 2026-07-10); if the browser blocks gesture-less autoplay, resume on first interaction
       playMusic();
       const firstPlay = (e) => {
         if (e && e.target.closest && e.target.closest("#music")) return;
@@ -2481,7 +2481,7 @@
         }
       });
 
-      // ===== 虹彩开场 =====
+      // ===== Iris-reveal intro =====
       const intro = document.getElementById("intro");
       const reduceMotion = matchMedia(
         "(prefers-reduced-motion: reduce)",
@@ -2503,7 +2503,7 @@
         requestAnimationFrame(() => iris("0%", "112%", 900));
       };
 
-      // ===== 右上角坐标跟随 =====
+      // ===== Top-right coordinate readout =====
       function updateCoords() {
         const c = map.getCenter();
         document.getElementById("stamp").textContent =
@@ -2517,11 +2517,11 @@
         document.getElementById("map").style.setProperty("--ps", ps.toFixed(2));
       }
 
-      // ===== 标签避让 =====
+      // ===== Label decluttering =====
       const wrapRect = () =>
         document.getElementById("mapwrap").getBoundingClientRect();
       function rectOf(el) {
-        // 用元素自身的渲染框(文字/圆点),不要用 marker 容器(.port 是 0×0 的点,会让避让失效)
+        // Use the element's own render box (text/dot), not the marker container (.port is a 0×0 point and would break decluttering)
         const r = el.getBoundingClientRect(),
           w = wrapRect();
         return {
@@ -2533,7 +2533,7 @@
       }
       const hit = (a, b) =>
         !(a.r < b.l - 6 || a.l > b.r + 6 || a.b < b.t - 4 || a.t > b.b + 4);
-      // 世界层标签位移候选:先原位,再一圈圈往外挪(保留 .lbl 的居中)
+      // World-level label nudge candidates: original spot first, then ring by ring outward (keeping .lbl centered)
       const NUDGE = (() => {
         const STEP = 11,
           c = [[0, 0]];
@@ -2548,8 +2548,8 @@
       function declutter() {
         const top = stack[stack.length - 1];
         const world = top && top.level === "world";
-        // 记 {r, el}:标签避让要排除"自己的圆点",否则名签永远和自身 pin 相撞、
-        // 城市/景点层的名字一律被藏(老 bug:之前这两层从来没显示过标签)
+        // Store {r, el}: decluttering must exclude a label's own dot, else labels always collide with their own pin
+        // and city/spot-level names all get hidden (old bug: those two levels never showed labels)
         const taken = [];
         portEls.forEach((el) => {
           if (el.style.display === "none") return;
@@ -2558,7 +2558,7 @@
           const lbl = el.querySelector(".lbl");
           if (!lbl) return;
           if (world) {
-            // 世界层:国家不多,不藏标签,改为"移开"——和已放置的冲突就位移,直到不重叠
+            // World level: few countries, so never hide labels — nudge instead: shift on conflict with placed ones until clear
             lbl.style.visibility = "visible";
             for (const [dx, dy] of NUDGE) {
               lbl.style.transform =
@@ -2573,7 +2573,7 @@
             }
             return;
           }
-          // 其它层:先试挪位(右移/翻到左侧/上下错开),密到实在放不下才藏
+          // Other levels: try nudging first (shift right / flip to the left / offset up-down); hide only when truly no room
           lbl.style.visibility = "hidden";
           let placed = false;
           for (const cand of [
@@ -2597,7 +2597,7 @@
         });
       }
 
-      // ===== 罗盘玫瑰 =====
+      // ===== Compass rose =====
       function ray(a, L, bw) {
         const r = (a * Math.PI) / 180,
           tx = 60 + L * Math.sin(r),
@@ -2635,7 +2635,7 @@
         document.getElementById("compass").innerHTML = s;
       }
 
-      // ===== 比例尺 =====
+      // ===== Scale bar =====
       function updateScale() {
         const el = document.getElementById("scale");
         if (!map || !map.getCenter) return;
@@ -2654,7 +2654,7 @@
           yb = 17,
           segs = 5,
           sw = px / segs;
-        // 夜间墨色反转:白天的深墨段在深底上看不见
+        // Night ink inversion: day's dark ink segments are invisible on dark ground
         const ink = night ? "#cdbb96" : "#3a2f23";
         const paper = night ? "#16202e" : "#ece3cf";
         const txt = night ? "#b7a684" : "#6b5a44";
@@ -2668,14 +2668,14 @@
           s += `<line x1="${(x0 + tx).toFixed(1)}" y1="${yb - 8}" x2="${(x0 + tx).toFixed(1)}" y2="${yb + 1}" stroke="${ink}" stroke-width="0.9"/>`;
           s += `<text x="${(x0 + tx).toFixed(1)}" y="${yb + 12}" text-anchor="middle" font-family="var(--fell)" font-style="italic" font-size="10.5" fill="${txt}">${lab}</text>`;
         }
-        const w = px + 44; // 多留右边给末端"X km"标签,不被裁掉
+        const w = px + 44; // extra room on the right for the trailing "X km" label so it isn't clipped
         el.setAttribute("viewBox", `-6 0 ${w} 31`);
         el.setAttribute("width", w);
         el.setAttribute("height", 31);
         el.innerHTML = s;
       }
 
-      // ===== 火漆印章 =====
+      // ===== Wax seal =====
       function drawSeal() {
         let edge = "";
         const bumps = [34, 33, 35, 32.5, 34.5, 33, 35, 32, 34, 33.5, 35, 33];
@@ -2698,7 +2698,7 @@
       drawRose();
       drawSeal();
 
-      // 白天 / 夜晚切换
+      // Day / night toggle
       const THEMES = {
         day: {
           sea: "#b9cdd0",
@@ -2707,7 +2707,7 @@
           cfo: 0.32,
           sf: "#cdab5e",
           sfo: 0.34,
-          // 边界固定对应制(用户定):白天=印章红系,夜晚=金色系
+          // Fixed border color pairing (user decision): day = seal-red family, night = gold family
           border: "#8e2f20",
           sborder: "#a04434",
           route: "#9b2d20",
@@ -2732,7 +2732,7 @@
         const P = (l, p, v) => {
           if (map.getLayer(l)) map.setPaintProperty(l, p, v);
         };
-        // bg 远景=海、近景=纸(同初始样式的 zoom 渐变,昼夜各换一套色)
+        // bg far = sea, near = paper (same zoom ramp as the initial style, each mode with its own colors)
         P("bg", "background-color", [
           "interpolate",
           ["linear"],
@@ -2742,19 +2742,19 @@
           7,
           t.land,
         ]);
-        P("lake", "fill-color", t.sea); // 湖与海同源,夜间一起变深(否则白斑)
-        P("water-omt", "fill-color", t.sea); // 近景瓦片水面同步昼夜
+        P("lake", "fill-color", t.sea); // lakes share the sea color, darkening together at night (else white patches)
+        P("water-omt", "fill-color", t.sea); // close-up tile water follows day/night
         P("land", "fill-color", t.land);
         P("country-fill", "fill-color", t.cf);
         P("country-fill", "fill-opacity", t.cfo);
         P("state-fill", "fill-color", t.sf);
         P("state-fill", "fill-opacity", t.sfo);
         P("border-line", "line-color", t.border);
-        // 州/省界虚线昼夜同步(夜里深褐看不见,换暗金)
+        // State border dashes follow day/night (dark brown invisible at night, switch to dim gold)
         ["state-border-far", "state-border"].forEach((id) =>
           P(id, "line-color", t.sborder),
         );
-        // 景点连线 + 公路网 + 比例尺同步(夜里暗红/深墨都隐形)
+        // Spot routes + roads + scale bar follow too (dark red / dark ink both vanish at night)
         P("route", "line-color", t.route);
         P(
           "route",
@@ -2779,7 +2779,7 @@
         applyDayNight();
       });
 
-      // ===== 社交链接 =====
+      // ===== Social links =====
       (function () {
         const toast = document.getElementById("toast");
         let timer;
@@ -2835,18 +2835,18 @@
         });
       })();
 
-      // ===== 启动:加载数据 → 建世界高亮 → 渲染世界层 =====
+      // ===== Boot: load data → build world highlights → render world level =====
       Promise.all([
         fetch("data/footprints.json").then((r) => r.json()),
         fetch("data/world.geojson").then((r) => r.json()),
         fetch("data/states.geojson").then((r) => r.json()),
         fetch("data/borders.geojson").then((r) => r.json()),
         fetch("data/lakes.geojson").then((r) => r.json()),
-        // 网图清单(scripts/build-webimages.py 生成);缺了不挡地图,只是卡片没图
+        // Web image manifest (generated by scripts/build-webimages.py); missing it doesn't block the map, cards just lack images
         fetch("data/webimages.json")
           .then((r) => (r.ok ? r.json() : {}))
           .catch(() => ({})),
-        // 全量省界线(NE 50m admin-1,美/加/中):瓦片省界低 zoom 没数据,国家视图会空旷
+        // Full state border lines (NE 50m admin-1, US/CA/CN): tile borders lack low-zoom data, leaving the country view empty
         fetch("data/states-lines.geojson")
           .then((r) => (r.ok ? r.json() : null))
           .catch(() => null),
@@ -2856,7 +2856,7 @@
           WORLD = w;
           STATES = st;
           WEBIMG = wi;
-          // 每个点位记住自己的国家/省:跨省显示时图片键、卡片都不依赖当前层上下文
+          // Each point remembers its own country/region: image keys and cards don't depend on the current level's context in cross-region display
           DATA.countries.forEach((c) =>
             c.regions.forEach((r) =>
               r.cities.forEach((ct) => {
@@ -2865,12 +2865,12 @@
               }),
             ),
           );
-          nestAttractions(); // 收拢密集点:市内网图景点折进所在城市(见函数注释)
-          // NE 国名 → 我的国名:从每国 ne_names 推导(数据驱动,代码不写死国家列表)
+          nestAttractions(); // tidy dense points: in-city web attractions fold into their city (see the function's comment)
+          // NE country name → my name: derived from each country's ne_names (data-driven, no hardcoded country list)
           DATA.countries.forEach((c) =>
             (c.ne_names || [c.name]).forEach((n) => (NE2MINE[n] = c.name)),
           );
-          // 多territory国家(如中国含台湾):把附属 NE feature 几何并入主 feature(ne_names[0])
+          // Multi-territory countries (e.g. China incl. Taiwan): merge subsidiary NE feature geometry into the main feature (ne_names[0])
           const polys = (g) =>
             g.type === "MultiPolygon" ? g.coordinates : [g.coordinates];
           DATA.countries.forEach((c) => {
@@ -2893,8 +2893,8 @@
           w.features.forEach((f) => {
             f.properties.__v = visited.has(f.properties.NAME) ? 1 : 0;
           });
-          // 每个面记住去过的年份(国家=国家年份,州/省=该区年份):
-          // 年份带选中某年时,金色填色只留那年去过的块
+          // Each shape remembers its visited years (country = country years, state = that region's years):
+          // with a year selected in the strip, gold fill stays only on shapes visited that year
           const cYs = {};
           DATA.countries.forEach((c) => (cYs[c.name] = c.years || []));
           w.features.forEach((f) => {
@@ -2916,7 +2916,7 @@
             map.addSource("states", { type: "geojson", data: st });
             map.addSource("borders", { type: "geojson", data: bd });
             map.addSource("lakes", { type: "geojson", data: lk });
-            // 全球陆地(NE 同源):纸色;海 = 背景色。陆地与去过高亮用同一份数据,边缘不会错位、不被水域切碎
+            // Global land (same NE source): paper color; sea = background. Land and visited highlights share one dataset, so edges align and aren't sliced by water
             map.addLayer(
               {
                 id: "land",
@@ -2936,7 +2936,7 @@
               },
               "roads",
             );
-            // 去过的省/州:金色填色 + 一圈淡金描边
+            // Visited states/provinces: gold fill + a faint gold outline
             map.addLayer(
               {
                 id: "state-fill",
@@ -2951,9 +2951,9 @@
               },
               "roads",
             );
-            // 湖泊(NE,与陆地同源):海色填充,盖住去过国家金色(五大湖等显示为水面)
-            // NE 50m 岸线点距 5~10km,z6+ 误差就有好几像素(Ontario 区域视图 z7.45 时
-            // 多伦多标记会陷湖里 ~9px) → z6 起隐藏,交给瓦片 water 层
+            // Lakes (NE, same source as land): sea-colored fill covering visited-country gold (Great Lakes etc. show as water).
+            // NE 50m coastline vertices sit 5~10km apart; from z6+ the error spans several pixels (at Ontario view z7.45 the
+            // Toronto marker sinks ~9px into the lake) → hide from z6, hand off to the tile water layer
             map.addLayer(
               {
                 id: "lake",
@@ -2964,7 +2964,7 @@
               },
               "roads",
             );
-            // 近中景水面(瓦片,与街道同源米级对齐):z6 淡入接替 NE 湖/海,岸线不再切街区/吞标记
+            // Near/mid water (tiles, meter-level aligned with streets from the same source): fades in at z6 to replace NE lakes/sea; coastlines no longer cut blocks or swallow markers
             map.addLayer(
               {
                 id: "water-omt",
@@ -2977,9 +2977,9 @@
               },
               "roads",
             );
-            // 州/省界两套互补:
-            // ① 本地 NE 50m 全量省界线(美/加/中):瓦片在低 zoom 基本没 admin_level 4,
-            //    国家视图只剩去过的金色州、周围空旷 —— 本地线从 z3 起补齐全部州/省
+            // Two complementary state border sets:
+            // 1) Local NE 50m full state lines (US/CA/CN): tiles have almost no admin_level 4 at low zoom,
+            //    leaving the country view with only the gold visited states amid emptiness — local lines fill in all states from z3
             if (sl) {
               map.addSource("statesLines", { type: "geojson", data: sl });
               map.addLayer(
@@ -2999,7 +2999,7 @@
                 "roads",
               );
             }
-            // ② 瓦片省界(openfreemap admin_level 4):z8+ 数据齐,接手近景(两套同款虚线)
+            // 2) Tile state borders (openfreemap admin_level 4): complete from z8+, take over close-up (both sets use the same dash style)
             map.addLayer(
               {
                 id: "state-border",
@@ -3021,8 +3021,8 @@
               },
               "roads",
             );
-            // 国界线:全球陆地国界全画(用户定:得看清是哪个国家),不含海岸;
-            // 墨褐实线,明显深于灰褐公路网 —— 古图气质靠色相(墨褐)不靠淡
+            // Country borders: draw all land borders worldwide (user decision: must be able to tell which country is which), no coastlines;
+            // solid ink-brown, clearly darker than the gray-brown roads — the antique feel comes from the hue (ink brown), not faintness
             map.addLayer({
               id: "border-line",
               type: "line",
@@ -3042,7 +3042,7 @@
                 "line-opacity": 0.33,
               },
             });
-            // 透明的国家点击层(所有层都可点):点别的国家可直接跳过去
+            // Transparent country hit layer (clickable at every level): click another country to jump straight there
             map.addLayer({
               id: "country-hit",
               type: "fill",
@@ -3056,10 +3056,10 @@
               );
               if (!c) return;
               const cur = stack[stack.length - 1];
-              if (cur.c === c) return; // 已在该国,其州交给 state-fill 处理
-              stack.length = 1; // 回到世界,再进点中的国家(支持任意层跨国直跳)
-              // 点在该国"远飞地"州上(夏威夷这类不在国家标准视野框内):直接进那个州
-              // ——否则跳到国家视图只显示本土,点的地方根本不在画面里,像"点不进去"
+              if (cur.c === c) return; // already in this country; its states are handled by state-fill
+              stack.length = 1; // back to world, then into the clicked country (cross-country jump from any level)
+              // Click landed on a remote state (like Hawaii, outside the standard country view): enter that state directly
+              // — otherwise the country view shows only the mainland and the clicked spot is off-screen, feeling unclickable
               const bb = countryBBox(c.name);
               const r =
                 c.split === "region" && bb && !bb.contains(e.lngLat)
@@ -3101,18 +3101,18 @@
               updateCoords();
               declutter();
             });
-            // 缩小 / 平移出界 → 自动退层;缩得越多一次退越多层(连退到对应层级)
-            // 退层:按"当前层范围占屏比例"判断 —— 山东占屏变小就退到中国,
-            // 中国占屏变小就退到世界(不看绝对缩放);移出视野也退。退后 fit 上层完整地图。
+            // Zoom out / pan out of bounds → auto-pop levels; the more you zoom out, the more levels pop at once (down to the matching level).
+            // Popping judged by "how much of the current level's bounds fills the screen" — Shandong shrinking pops to China,
+            // China shrinking pops to the world (not absolute zoom); leaving the view also pops. Afterwards fit the parent's full map.
             map.on("moveend", () => {
-              if (Date.now() - navTs < 350) return; // 仅时间防抖,不用动画锁(避免卡死)
+              if (Date.now() - navTs < 350) return; // time debounce only, no animation lock (avoids deadlock)
               let popped = false;
               while (stack.length > 1) {
                 const e = stack[stack.length - 1];
-                // 标准 drill-down 退层:以"进入该层时的展示 zoom(_z)"为基准,
-                // 缩到比它小近 1 级 → 退上层。基准是每层自己的 _z,与国家大小/
-                // 纬度无关(旧的占屏比例对加拿大/中国这种横跨高纬大国必然失效)。
-                if (e._z == null) break; // 该层还没 fit 完,先不判断
+                // Standard drill-down popping: baseline is the display zoom (_z) recorded when entering the level;
+                // zooming nearly 1 level below it → pop up. Each level uses its own _z, independent of country size /
+                // latitude (the old screen-coverage ratio inevitably failed for high-latitude giants like Canada/China).
+                if (e._z == null) break; // this level hasn't finished fitting yet; skip judging
                 const zoomedOut = map.getZoom() < e._z - 0.85;
                 const out =
                   e._bbox && !boundsIntersect(map.getBounds(), e._bbox);
@@ -3122,10 +3122,10 @@
                 } else break;
               }
               if (popped) {
-                renderTop(true); // 一次缩放可连退多层,最后 fit 落点层
+                renderTop(true); // one zoom can pop several levels; finally fit the landing level
                 return;
               }
-              // 地图中心落在哪个去过的国家(country-hit 只含去过)
+              // Which visited country the map center falls on (country-hit contains visited only)
               const top = stack[stack.length - 1];
               const hit = map.queryRenderedFeatures(
                 map.project(map.getCenter()),
@@ -3137,8 +3137,8 @@
                   (x) => x.name === NE2MINE[hit.properties.NAME],
                 );
               if (top.level === "country") {
-                // 国家层平移过界:标题/高亮跟着换国(如比利时平移到德国,上面不能还挂
-                // Belgium);只换层不动镜头,_z 沿用保退层判断有效
+                // Country level panned across a border: title/highlight switch country (panning Belgium → Germany must not
+                // still show Belgium up top); swap the level only, no camera move; keep _z so pop detection stays valid
                 if (c && c !== top.c) {
                   stack[stack.length - 1] = { level: "country", c, _z: top._z };
                   renderTop(false, true);
@@ -3149,8 +3149,8 @@
                 top._z != null &&
                 map.getZoom() > top._z + 0.7
               ) {
-                // 世界层明显放大且中心在某去过国家上:自动进该国(与"缩小退层"对称,
-                // 否则满屏中国标题还挂着 world);滞回防抖,只换标题/标记不动镜头
+                // World level clearly zoomed in with the center on a visited country: auto-enter it (symmetric with zoom-out popping,
+                // else a screen-filling China still carries the world title); hysteresis debounce, swap title/markers only, no camera move
                 stack.push({ level: "country", c, _z: map.getZoom() });
                 renderTop(false, true);
               }

@@ -6,7 +6,7 @@ window.PROFILE = {
   name: "Sherry (Ke) Shi",
   initials: "S",
   role: "Data Engineer & Machine Learning Engineer",
-  company: "EnStream", // 显示在 hero kicker(角色 · 公司 · 城市),留空则不显示
+  company: "EnStream", // shown in the hero kicker (role · company · city); leave empty to hide
   tagline: "Data is the best language.",
   location: "Toronto, ON",
   email: "keshi0330@gmail.com",
@@ -26,7 +26,7 @@ window.PROFILE = {
   ],
 
   // what I'm exploring right now (shown as the "Now" section)
-  // 支持 [text](url) 链接写法(index.html 渲染时转 <a>)
+  // supports [text](url) link syntax (index.html converts it to <a> when rendering)
   now: [
     "Her current focus is LLMs and AI agents.",
     "She is also building [Schedule](https://schedule-drab-one.vercel.app), a small planner app.",
@@ -163,8 +163,8 @@ window.PROFILE = {
     },
   ],
 
-  // All projects, newest first. `todo: true` 仅作内部标记(页面不渲染):
-  // 还差最终链接/收尾,之后自己挑着修。
+  // All projects, newest first. `todo: true` is an internal marker only (not rendered on the page):
+  // final link / polish still missing; fix these selectively later.
   projects: [
     {
       name: "Align AI",
@@ -233,7 +233,7 @@ window.PROFILE = {
       featured: true,
       sub: "NLP · Big Data",
       period: "Sep 2022 – Dec 2022",
-      stack: ["PySpark", "LSTM", "Azure"], // sub 已含 NLP,别在 meta 行里重复渲染
+      stack: ["PySpark", "LSTM", "Azure"], // sub already contains NLP; don't render it again in the meta line
       repo: "",
       url: "https://hotarugusa.github.io/reddit/index.html",
       bullets: [
@@ -320,14 +320,14 @@ window.PROFILE = {
     {
       title:
         "A Blockchain-Driven Electronic Contract Management System for Commodity Procurement in the Electronic Power Industry",
-      venue: "IEEE Access", // 具体刊名(Crossref 核实,DOI 10.1109/ACCESS.2021.3049562)
+      venue: "IEEE Access", // exact journal name (verified via Crossref, DOI 10.1109/ACCESS.2021.3049562)
       date: "Jan 2021",
       url: "https://ieeexplore.ieee.org/document/9316177",
       note: "A process-oriented blockchain contract system (Hyperledger Fabric, SHA-256) deployed for a power-grid enterprise. Over 6,000 contracts and US$1B+ signed, with settlement time cut from about three months to one.",
     },
   ],
 
-  // featured: true 默认展示;其余收进 "Show all certifications"
+  // featured: true shown by default; the rest collapse behind "Show all certifications"
   certifications: [
     { name: "Claude Code in Action", authority: "Anthropic", date: "May 2026", url: "https://verify.skilljar.com/c/vjmkur55sxv3", featured: true },
     { name: "Claude Code 101", authority: "Anthropic", date: "May 2026", url: "https://verify.skilljar.com/c/no8kw6kydhqn", featured: true },
@@ -342,7 +342,7 @@ window.PROFILE = {
   ],
 
   skills: {
-    // 类目顺序跟工作经历走:现职 DE(数据栈) → MLE/DS → AI 方向 → 实习按新到旧(CV→Viz→区块链)
+    // Category order follows work history: current DE role (data stack) → MLE/DS → AI focus → internships newest to oldest (CV → Viz → Blockchain)
     Programming: [
       "Python",
       "SQL",
@@ -380,7 +380,7 @@ window.PROFILE = {
       "Classical ML (RF · SVM · KNN)",
       "Anomaly Detection (Isolation Forest · K-Means)",
     ],
-    // 类目名会被 CSS 全大写:"NLP & LLMs"会渲染成"NLP & LLMS"像笔误,改用大写安全的名字
+    // Category names are uppercased by CSS: "NLP & LLMs" would render as "NLP & LLMS", which looks like a typo; use an uppercase-safe name
     "Language Models & NLP": [
       "LLMs (GPT-4 · Claude)",
       "NLP",
@@ -408,8 +408,8 @@ window.PROFILE = {
   },
 
   footprints: {
-    // 国家数源头是 data/footprints.json(countryCount);年份 1999 起是用户定的(人生跨度,
-    // 不跟地图年份带走);"some photos" 措辞=只有部分是网图(隐私原因自己的照片不放)
+    // Country count comes from data/footprints.json (countryCount); the 1999 start year is the user's choice (life span,
+    // independent of the map's year band); "some photos" wording = only some are web images (own photos withheld for privacy)
     title: "A map of everywhere she's been",
     meta: "13 countries · 1999–2026 · some photos from the web",
     href: "footprints.html",

@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-"""网图清单 + 缩略图构建。
+"""Web-image manifest + thumbnail builder.
 
-扫 photos/ 里的景点网图(景点名_1/2/3.jpg),和 data/footprints.json 里
-source:web 的条目按"规范化名字"匹配(重音折叠、&→and、撇号删除、centre/center 等),
-用 sips 生成 photos/_thumbs/ 缩略图(最长边 1200px,原图不动),
-输出 data/webimages.json: { "国家|省|地名": ["photos/_thumbs/....jpg", ...] }。
-幂等:缩略图已存在则跳过。用法: python3 scripts/build-webimages.py
+Scans landmark web images in photos/ (landmark_name_1/2/3.jpg) and matches them
+against source:web entries in data/footprints.json by "normalized name"
+(accent folding, & -> and, apostrophe removal, centre/center, etc.),
+generates thumbnails into photos/_thumbs/ with sips (longest side 1200px, originals untouched),
+and writes data/webimages.json: { "country|region|place": ["photos/_thumbs/....jpg", ...] }.
+Idempotent: existing thumbnails are skipped. Usage: python3 scripts/build-webimages.py
 """
 
 import json
@@ -19,9 +20,9 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PHOTOS = os.path.join(ROOT, "photos")
 THUMBS = os.path.join(PHOTOS, "_thumbs")
 OUT = os.path.join(ROOT, "data", "webimages.json")
-MAX_PX = "800"  # 卡片图实显约 260px,800 覆盖 3x 屏;压体积为将来托管留余地
+MAX_PX = "800"  # cards render at ~260px; 800 covers 3x screens; smaller files leave headroom for future hosting
 
-# NFD 折不掉的字母手动映射
+# Manual mapping for letters NFD normalization cannot fold
 CHAR_MAP = {"ø": "o", "æ": "ae", "ß": "ss", "đ": "d", "ł": "l"}
 
 
@@ -41,15 +42,15 @@ def variants(name: str):
         w = snake(name.lower().replace(a, b))
         if w not in v:
             v.append(w)
-    sq = snake(name).replace("_", "")  # 拆词差异反向:数据名带下划线、文件名不带
+    sq = snake(name).replace("_", "")  # reverse of the word-split mismatch: data name has underscores, filename doesn't
     if sq not in v:
         v.append(sq)
     return v
 
 
 def dir_index(reldir: str):
-    """目录下文件按去掉 _N 后缀的词干分组: stem -> [相对路径(按 _N 排序)]。
-    同时给"去下划线"的词干建别名(zhang_jia_jie ≙ zhangjiajie 这类拆词差异)。"""
+    """Group files in a directory by stem (with the _N suffix stripped): stem -> [relative paths, sorted by _N].
+    Also aliases each stem with its underscore-free form (word-split mismatches like zhang_jia_jie ≙ zhangjiajie)."""
     absdir = os.path.join(PHOTOS, reldir) if reldir else PHOTOS
     idx = {}
     if not os.path.isdir(absdir):
@@ -69,7 +70,7 @@ def dir_index(reldir: str):
 def make_thumb(rel: str) -> str:
     src = os.path.join(PHOTOS, rel)
     dst = os.path.join(THUMBS, rel)
-    # 缺失或原图比缩略图新时(重)生成
+    # (Re)generate when missing or when the original is newer than the thumbnail
     if not os.path.exists(dst) or os.path.getmtime(dst) < os.path.getmtime(src):
         os.makedirs(os.path.dirname(dst), exist_ok=True)
         r = subprocess.run(
@@ -77,7 +78,7 @@ def make_thumb(rel: str) -> str:
              "-Z", MAX_PX, src, "--out", dst],
             capture_output=True, text=True)
         if r.returncode != 0:
-            print(f"  !! sips 失败 {rel}: {r.stderr.strip()}", file=sys.stderr)
+            print(f"  !! sips failed {rel}: {r.stderr.strip()}", file=sys.stderr)
             return ""
     return "photos/_thumbs/" + rel.replace(os.sep, "/")
 
@@ -101,17 +102,17 @@ def main():
         for r in c.get("regions", []):
             rname = r.get("name") or ""
             for ct in r["cities"]:
-                # 先试 国家/省/ 再试 国家/ (扁平国家没有省子目录)
+                # Try country/region/ first, then country/ (flat countries have no region subdirectory)
                 reldirs = ([os.path.join(cdir, snake(rname))] if rname else []) + [cdir]
-                # 城市/景点条目本身(photo 城市如 Zhangjiajie 也参与匹配),
-                # 加上照片城市里的命名 spot(如 Changsha 的 Juzizhou)
+                # The city/landmark entry itself (photo cities like Zhangjiajie also participate in matching),
+                # plus named spots within photo cities (e.g. Juzizhou in Changsha)
                 names = [ct["name"]] + [
                     s["spot"] for s in ct.get("spots") or [] if (s.get("spot") or "").strip()
                 ]
                 for i, name in enumerate(names):
                     files = find_files(reldirs, name)
                     if not files:
-                        # 只报 web 条目的缺图(photo 城市/spot 没配网图属正常留白)
+                        # Only report missing images for web entries (photo cities/spots without web images are intentionally blank)
                         if i == 0 and ct.get("source") == "web":
                             missing.append(f"{c['name']} | {rname} | {ct['name']}")
                         continue
@@ -124,9 +125,9 @@ def main():
                         matched += 1
                         thumbed += len(thumbs)
     json.dump(out, open(OUT, "w"), ensure_ascii=False, indent=1)
-    print(f"匹配 {matched} 个景点 / {thumbed} 张缩略图 -> {os.path.relpath(OUT, ROOT)}")
+    print(f"Matched {matched} landmarks / {thumbed} thumbnails -> {os.path.relpath(OUT, ROOT)}")
     if missing:
-        print(f"没找到图的 {len(missing)} 个(数据里有、photos/ 里没有):")
+        print(f"{len(missing)} with no images found (in the data but not in photos/):")
         for m in missing:
             print("  -", m)
 

@@ -1,7 +1,7 @@
 # TODO
 
-1. **手机端实测**：真机过一遍（触摸拖图 · 点位热区 · 横竖屏 · 夜间）。
-2. **作文**：每个景点的小手记。
-3. **想起遗漏的国家 / 省**随时补。
+1. **Real-device mobile testing**: run through on an actual phone (touch-drag the map · marker hit areas · portrait/landscape · dark mode).
+2. **Write-ups**: a short note for each landmark.
+3. **Add any forgotten countries / provinces** whenever they come to mind.
 
-_更新于 2026-07-11。_
+_Updated 2026-07-11._

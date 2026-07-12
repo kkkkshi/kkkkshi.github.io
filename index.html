@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- SVG 为主;PNG 兜底(Safari 不认 SVG 图标);apple-touch-icon 给 iOS 加主屏 -->
+    <!-- SVG primary; PNG fallback (Safari doesn't support SVG favicons); apple-touch-icon for iOS add-to-home-screen -->
     <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="assets/icons/favicon.png" type="image/png" sizes="32x32" />
     <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
@@ -27,7 +27,7 @@
               ? "dark"
               : "light";
           document.documentElement.setAttribute("data-theme", t);
-          // theme-color meta 只认系统偏好,手动主题要跟着改(浏览器 UI 颜色)
+          // theme-color meta only follows the system preference; manual theme switches must update it too (browser UI color)
           window.__syncThemeColor = function (theme) {
             document
               .querySelectorAll('meta[name="theme-color"]')
@@ -45,7 +45,7 @@
       name="description"
       content="Sherry (Ke) Shi · Data Engineer & ML Engineer in Toronto. Real-time machine learning for fraud and risk."
     />
-    <!-- 社交分享卡片(Open Graph / Twitter):分享到 LinkedIn / 微信 / iMessage / Slack 时显示标题与简介 -->
+    <!-- Social share cards (Open Graph / Twitter): show title and blurb when shared to LinkedIn / WeChat / iMessage / Slack -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Sherry (Ke) Shi · Data Engineer & ML Engineer" />
     <meta
@@ -66,7 +66,7 @@
       name="twitter:description"
       content="Sherry (Ke) Shi · Data Engineer & ML Engineer in Toronto. Real-time machine learning for fraud and risk."
     />
-    <!-- 站点地址 = https://kkkkshi.github.io/(仓库需改名 kkkkshi.github.io 并开 Pages 才生效) -->
+    <!-- Site URL = https://kkkkshi.github.io/ (live via GitHub Pages) -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -89,55 +89,55 @@
         ]
       }
     </script>
-    <!-- 系统字体（Apple HIG）：Mac 上即 San Francisco，无需外部字体 -->
+    <!-- System fonts (Apple HIG): San Francisco on Mac, no external fonts needed -->
     <style>
       /* ============================================================
          Apple Human Interface Guidelines · visual skin
-         规则来源：HIG — Materials(透明度) / Elevation(层级) / Buttons
-         强调色 = 品牌红（印章红，对齐 footprints 古海图）；其余走苹果中性 + 不透明度分级
+         Rules from: HIG — Materials (translucency) / Elevation (layering) / Buttons
+         Accent = brand red (seal red, matching the footprints antique nautical chart); everything else uses Apple neutrals + opacity tiers
          ============================================================ */
       :root {
-        --bg: #f9f9fa;                    /* 近白底 ·【硬规则：不得纯白 #fff，会刺眼】 */
-        --card: #fcfcfc;                 /* 近白卡片：靠细描边 + 红色左边条定义，不靠亮度跳白 */
+        --bg: #f9f9fa;                    /* near-white background · [hard rule: never pure white #fff, it glares] */
+        --card: #fcfcfc;                 /* near-white card: defined by hairline border + red left bar, not by jumping to a brighter white */
         --ink: #1c1c1e;                  /* label */
-        --muted: rgba(60, 60, 67, 0.75); /* secondaryLabel · 调至 ≥4.5:1 (WCAG AA) */
+        --muted: rgba(60, 60, 67, 0.75); /* secondaryLabel · tuned to ≥4.5:1 (WCAG AA) */
         --faint: rgba(60, 60, 67, 0.3);  /* tertiaryLabel */
         --line: rgba(60, 60, 67, 0.16);  /* separator */
         --fill: rgba(120, 120, 128, 0.12);   /* tertiarySystemFill */
-        --accent: #9b2d20;               /* 印章红 = app tint（对齐 footprints 古海图）*/
+        --accent: #9b2d20;               /* seal red = app tint (matching the footprints antique nautical chart) */
         --accent-ink: #7d2017;
         --accent-soft: rgba(155, 45, 32, 0.1);
-        --material: rgba(249, 249, 250, 0.95); /* nav material：RGB 对齐 --bg，导航融入背景不露色差；0.95+毛玻璃:滚过的 hero 大标题不再透成灰渍 */
-        --content-inset: 27px; /* 卡片文字起点 = 3px 左边条 + 24px 内边距;非卡片内容对齐这条线 */
+        --material: rgba(249, 249, 250, 0.95); /* nav material: RGB matches --bg so the nav blends into the background with no color seam; 0.95 + blur: the hero title scrolling past no longer bleeds through as a gray smudge */
+        --content-inset: 27px; /* card text starts at 3px left bar + 24px padding; non-card content aligns to this line */
         --radius-sm: 10px;
         --sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display",
           "Segoe UI", system-ui, Roboto, Helvetica, Arial, sans-serif;
         --shadow-hover: 0 8px 24px -8px rgba(0, 0, 0, 0.16);
-        /* 字号阶梯 type scale（对齐 Apple 体系，消除零散/小数字号）*/
-        --fs-display: clamp(40px, 5vw, 48px); /* Hero(64 太压头,对齐 andrewng.org 的轻头部;design.js 要求 40–64) */
-        --fs-title2: 22px;   /* 区块标题 */
-        --fs-title3: 20px;   /* Hero 副文案 */
-        --fs-headline: 17px; /* 卡片标题 · Apple headline（DESIGN.md §1）*/
-        --fs-body: 16px;     /* 正文 */
-        --fs-callout: 15px;  /* 描述 */
-        --fs-subhead: 14px;  /* 次要描述 */
-        --fs-footnote: 13px; /* 标签/眉头/时间 */
-        --fs-caption: 12px;  /* 元信息 */
+        /* Type scale (aligned with the Apple system; eliminates stray/fractional sizes) */
+        --fs-display: clamp(40px, 5vw, 48px); /* Hero (64 too heavy; matches andrewng.org's light header; design.js requires 40–64) */
+        --fs-title2: 22px;   /* section titles */
+        --fs-title3: 20px;   /* hero subtitle */
+        --fs-headline: 17px; /* card titles · Apple headline (DESIGN.md §1) */
+        --fs-body: 16px;     /* body text */
+        --fs-callout: 15px;  /* descriptions */
+        --fs-subhead: 14px;  /* secondary descriptions */
+        --fs-footnote: 13px; /* tags/kickers/dates */
+        --fs-caption: 12px;  /* meta info */
       }
       [data-theme="dark"] {
-        /* 暗色规范(Material/HIG)：① 不用纯黑 ② 海拔=更亮的表面
-           ③ 文字按不透明度分级 ④ 强调色去饱和 ⑤ 柔和阴影表达层级 */
-        --bg: #16161a;                      /* 基础表面：深灰，非纯黑 */
-        --card: #1f1f24;                    /* +1 海拔：比底更亮 */
-        --ink: rgba(255, 255, 255, 0.92);   /* 高强调 */
-        --muted: rgba(255, 255, 255, 0.58); /* 中强调 */
-        --faint: rgba(255, 255, 255, 0.38); /* 低强调 */
+        /* Dark-mode rules (Material/HIG): 1. no pure black 2. elevation = brighter surface
+           3. text tiered by opacity 4. desaturated accent 5. soft shadows convey layering */
+        --bg: #16161a;                      /* base surface: dark gray, not pure black */
+        --card: #1f1f24;                    /* +1 elevation: brighter than the base */
+        --ink: rgba(255, 255, 255, 0.92);   /* high emphasis */
+        --muted: rgba(255, 255, 255, 0.58); /* medium emphasis */
+        --faint: rgba(255, 255, 255, 0.38); /* low emphasis */
         --line: rgba(255, 255, 255, 0.1);
         --fill: rgba(255, 255, 255, 0.07);
-        --accent: #d96a55;                  /* 暗色砖红:守住印章红身份不漂成桃色（暗底对比≈5.3:1,AA）*/
+        --accent: #d96a55;                  /* dark-mode brick red: keeps the seal-red identity without drifting to peach (contrast on dark bg ≈5.3:1, AA) */
         --accent-ink: #e2836b;
-        --accent-soft: #402c2d; /* hover 红底 = 0.18 accent 预混进 card:半透明直接叠 #16161a 会沉成浑红,比静息卡还暗 */
-        --material: rgba(22, 22, 26, 0.95); /* 导航材质（够实，内容不透出来糊在一起）*/
+        --accent-soft: #402c2d; /* hover red bg = 0.18 accent premixed into card: layering translucency directly over #16161a sinks into a muddy red, darker than a resting card */
+        --material: rgba(22, 22, 26, 0.95); /* nav material (solid enough that content doesn't bleed through and blur together) */
         --shadow-hover: 0 12px 30px -10px rgba(0, 0, 0, 0.7);
       }
       * {
@@ -163,14 +163,14 @@
       #app {
         max-width: 840px;
         margin: 0 auto;
-        padding: 0 24px 32px; /* 底部收到 32:footer 下不留大片空白 */
+        padding: 0 24px 32px; /* bottom tightened to 32: no big empty band below the footer */
       }
       a {
         color: inherit;
       }
       a:focus-visible,
       button:focus-visible {
-        /* 焦点环用全强度品牌红:非文字元素对比 ≥3:1(WCAG),淡红 0.1α 肉眼不可见 */
+        /* Focus ring uses full-strength brand red: non-text elements need ≥3:1 contrast (WCAG); 0.1-alpha faint red is invisible */
         outline: 2px solid var(--accent);
         outline-offset: 2px;
         border-radius: 6px;
@@ -178,14 +178,14 @@
       ::selection {
         background: var(--accent-soft);
       }
-      /* 无障碍:跳过导航直达主内容(平时移出视口,键盘 Tab 聚焦时滑入) */
+      /* Accessibility: skip nav straight to main content (off-viewport normally, slides in on keyboard Tab focus) */
       .skip-link {
         position: fixed;
         top: 8px;
         left: 8px;
         z-index: 100;
         padding: 8px 16px;
-        background: #9b2d20; /* 钉死浅色印章红:暗色 #d96a55 配白字只有 3.3:1,过不了 AA */
+        background: #9b2d20; /* pinned to the light-mode seal red: dark-mode #d96a55 with white text is only 3.3:1, fails AA */
         color: #fcfcfc;
         font-family: var(--sans);
         font-size: var(--fs-subhead);
@@ -211,7 +211,7 @@
         background: var(--material);
         -webkit-backdrop-filter: saturate(180%) blur(20px);
         backdrop-filter: saturate(180%) blur(20px);
-        /* 不画分隔线:导航底色已等于页面背景,无缝融入(滚动时靠毛玻璃自然过渡) */
+        /* No divider line: nav background already equals the page background, blending seamlessly (frosted glass handles the transition while scrolling) */
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -221,7 +221,7 @@
         transition: background-color 0.3s ease;
       }
       .nav.scrolled {
-        /* 顶部仍与背景无缝;滚起来后一条发丝线把导航从内容里定出来 */
+        /* Still seamless with the background at the top; once scrolled, a hairline sets the nav apart from the content */
         box-shadow: 0 1px 0 var(--line);
       }
       .brand {
@@ -277,8 +277,8 @@
         display: inline;
       }
       @media (max-width: 700px) {
-        /* 导航单行横滚（iOS 分段控件模式）：9 链接不再折 4 行常驻 ~180px,
-           整条降到 ~60px;右缘渐隐提示可滚,滚动条隐藏;链接热区 ≥44pt(HIG)。 */
+        /* Nav scrolls horizontally on one line (iOS segmented-control pattern): 9 links no longer wrap to 4 lines taking ~180px;
+           the whole bar drops to ~60px; right-edge fade hints at scrollability, scrollbar hidden; link hit targets ≥44pt (HIG). */
         .nav {
           gap: 4px 16px;
           padding: 4px 0;
@@ -325,7 +325,7 @@
 
       /* ---- hero ---- */
       .hero {
-        padding: 48px 0 24px; /* 底 24 与 .block 一致 → hero→About 间距 = 区块间距 48px */
+        padding: 48px 0 24px; /* bottom 24 matches .block → hero→About gap = section gap of 48px */
       }
       .kicker {
         font-size: var(--fs-subhead);
@@ -336,7 +336,7 @@
         margin: 0 0 16px;
       }
       .kicker .kicker-sub {
-        /* 红只给职位;公司/城市降灰,整条 67 字符全红会压过 tagline */
+        /* Red only for the role; company/city drop to gray — 67 characters of all-red would overpower the tagline */
         color: var(--muted);
       }
       .hero-title {
@@ -347,7 +347,7 @@
         margin: 0 0 8px;
       }
       .hero-lead {
-        /* 20px 常规字重上墨色:副标题有存在感但不与名字抢戏(不加粗) */
+        /* 20px regular weight in ink color: the subtitle has presence but doesn't compete with the name (no bold) */
         font-size: var(--fs-title3);
         color: var(--ink);
         max-width: 50ch;
@@ -359,7 +359,7 @@
         flex-wrap: wrap;
         gap: 8px;
       }
-      /* 幽灵胶囊:透明底 + 发丝描边,比灰底填充更收敛(hover 才上色) */
+      /* Ghost pill: transparent background + hairline border, more restrained than a gray fill (color only on hover) */
       .lnk {
         display: inline-flex;
         align-items: center;
@@ -383,22 +383,22 @@
         transform: scale(0.97);
       }
 
-      /* ---- sections: 真标题分块(墨色 22px),全页只有一套"标题=大、内容=16px 灰"的层级 ---- */
+      /* ---- sections: real title blocks (ink 22px); the whole page has a single "title = large, content = 16px gray" hierarchy ---- */
       .block {
-        padding: 24px 0; /* 区块间距 48px(64 太空,对齐 andrewng.org 的紧凑感) */
+        padding: 24px 0; /* section gap 48px (64 too airy; matches andrewng.org's compactness) */
         scroll-margin-top: 110px;
       }
       .block-h {
         font-size: var(--fs-title2);
         font-weight: 600;
         letter-spacing: -0.02em;
-        color: var(--ink); /* 墨色更正式;红只留给 kicker/卡片边条/链接,不满页跑 */
-        /* 标题绑内容(8px) < 段落/卡片间距(16px) < 区块间距(48px):三档节奏,标题拥有自己的块 */
+        color: var(--ink); /* ink is more formal; red is reserved for kickers/card bars/links, not scattered across the page */
+        /* title tied to content (8px) < paragraph/card gap (16px) < section gap (48px): three-tier rhythm, each title owns its block */
         margin: 0 0 8px;
       }
       .prose {
-        max-width: 68ch; /* 行长上限:95+ 字符的整块灰字读起来瘫 */
-        /* 对齐卡片文字起点(3px 边条+24px 内边距):全页正文同一条左基线,标题挂在 0 */
+        max-width: 68ch; /* line-length cap: a solid block of gray text at 95+ characters reads limp */
+        /* Aligns with card text start (3px bar + 24px padding): all body text shares one left baseline, titles hang at 0 */
         padding-left: var(--content-inset);
       }
       .prose p {
@@ -410,7 +410,7 @@
         margin: 0;
       }
       .prose a {
-        /* 正文链接:强调色 + 细下划线,不然全灰 + 默认下划线不像可点 */
+        /* Body links: accent color + thin underline; otherwise all-gray + default underline doesn't look clickable */
         color: var(--accent);
         text-decoration: underline;
         text-decoration-thickness: 1px;
@@ -437,13 +437,13 @@
         text-decoration: none;
         background: var(--card);
         border: 1px solid var(--line);
-        border-left: 3px solid var(--accent); /* 样式6：红色左边条（呼应印章红） */
+        border-left: 3px solid var(--accent); /* style 6: red left bar (echoing the seal red) */
         border-radius: 8px;
         padding: 24px;
         box-shadow: none;
         transition: background 0.15s ease, border-color 0.15s ease;
       }
-      /* hover 只给可点的链接卡:无 url 的 div 卡不给假可点反馈 */
+      /* Hover only on clickable link cards: div cards without a url get no fake clickable feedback */
       a.item:hover {
         background: var(--accent-soft);
         border-left-color: var(--accent-ink);
@@ -454,14 +454,14 @@
       a.item .item-t::after {
         content: "↗";
         font-size: 0.78em;
-        color: var(--muted); /* faint 过不了 3:1 非文字对比,静息也要能看出可点 */
+        color: var(--muted); /* faint fails the 3:1 non-text contrast; even at rest it must read as clickable */
         margin-left: 8px;
         transition: color 0.18s;
       }
       a.item:hover .item-t::after {
         color: var(--accent);
       }
-      /* 暗色 hover 红底上 --accent 只有 ~3.8:1,红字压红底发糊;提亮到 accent-ink(≈4.7:1 AA) */
+      /* In dark mode, --accent on the hover red bg is only ~3.8:1; red text on red bg smears — brighten to accent-ink (≈4.7:1 AA) */
       [data-theme="dark"] a.item:hover .item-t,
       [data-theme="dark"] a.item:hover .item-t::after,
       [data-theme="dark"] .lnk:hover,
@@ -476,7 +476,7 @@
       }
       /* Apple plain/text button */
       .show-all-btn {
-        margin-top: 16px; /* 顶格:和区块标题同一条左缘,作为区块级控件 */
+        margin-top: 16px; /* flush left: same left edge as the section title, acting as a section-level control */
         background: none;
         border: 0;
         padding: 0;
@@ -513,13 +513,13 @@
       }
       .item-when {
         font-size: var(--fs-footnote);
-        color: var(--muted); /* 日期是招聘官扫读的关键信息,faint(0.3α)太淡 */
+        color: var(--muted); /* dates are key info recruiters scan for; faint (0.3 alpha) is too dim */
         font-weight: 500;
         white-space: nowrap;
       }
       .item-meta {
         font-size: var(--fs-footnote);
-        color: var(--muted); /* 降噪:红色只留左边条/眉头/可点元素,meta 行不与标题抢眼 */
+        color: var(--muted); /* noise reduction: red is kept to left bars/kickers/clickable elements; the meta line doesn't compete with the title */
         font-weight: 500;
         margin: 8px 0 0;
       }
@@ -556,7 +556,7 @@
         margin: 0;
         display: grid;
         gap: 8px;
-        padding-left: var(--content-inset); /* 与卡片文字同一条左基线 */
+        padding-left: var(--content-inset); /* same left baseline as card text */
       }
       .skill {
         display: grid;
@@ -564,7 +564,7 @@
         gap: 16px;
         align-items: start;
       }
-      /* 技能类目折叠:.skill 自带 display:grid,要显式覆盖 is-extra 的显隐 */
+      /* Skill-category collapsing: .skill defaults to display:grid, so is-extra visibility must be overridden explicitly */
       .skill.is-extra {
         display: none;
       }
@@ -606,14 +606,14 @@
       .cert-grid .item {
         flex: 1;
         padding: 16px;
-        /* 等高行里矮卡的机构行沉底,同一行内部对齐 */
+        /* In equal-height rows, the authority line of shorter cards sinks to the bottom, aligning within the row */
         display: flex;
         flex-direction: column;
       }
       .cert-grid .item-meta {
         margin-top: auto;
       }
-      /* 证书折叠:li 是 flex(等高),要显式覆盖 is-extra 的显隐 */
+      /* Certification collapsing: li is flex (equal height), so is-extra visibility must be overridden explicitly */
       .cert-grid > li.is-extra {
         display: none;
       }
@@ -626,7 +626,7 @@
         }
       }
 
-      /* ---- footprints card（样式6,与 .item 同一卡片语言）---- */
+      /* ---- footprints card (style 6, same card language as .item) ---- */
       .fp {
         display: flex;
         align-items: center;
@@ -672,7 +672,7 @@
         flex-wrap: wrap;
         gap: 8px;
         padding-top: 32px;
-        color: var(--muted); /* faint 在浅色只有 1.7:1,footer 也要过 AA */
+        color: var(--muted); /* faint is only 1.7:1 in light mode; the footer must pass AA too */
         font-size: var(--fs-footnote);
         font-weight: 500;
       }
@@ -680,7 +680,7 @@
         .skill {
           grid-template-columns: 1fr;
         }
-        /* 窄屏日期换行到标题下方:不再和标题挤一行把标题切碎 */
+        /* On narrow screens the date wraps below the title: no longer crowding the title's line and chopping it up */
         .item-h {
           flex-wrap: wrap;
           row-gap: 4px;
@@ -701,9 +701,9 @@
           scroll-behavior: auto !important;
         }
       }
-      /* ---- 打印 / 存 PDF:简历应干净完整(白底黑字、去掉屏幕专属控件、展开折叠) ---- */
+      /* ---- Print / save-as-PDF: the résumé should be clean and complete (black on white, screen-only controls removed, collapsed sections expanded) ---- */
       @media print {
-        /* 即便用户在暗色下打印,也强制浅色省墨清晰 */
+        /* Force light mode even if the user prints from dark mode: saves ink and stays crisp */
         :root,
         [data-theme="dark"] {
           --bg: #fff;
@@ -713,7 +713,7 @@
           --faint: rgba(60, 60, 67, 0.4);
           --line: rgba(60, 60, 67, 0.22);
           --fill: rgba(120, 120, 128, 0.1);
-          /* 打印保持品牌印章红(深红打印更实);白底是省墨的有意豁免 */
+          /* Keep the brand seal red in print (darker red prints more solid); the white background is a deliberate ink-saving exemption */
           --accent: #7d2017;
           --accent-ink: #7d2017;
           --accent-soft: rgba(155, 45, 32, 0.08);
@@ -726,14 +726,14 @@
         * {
           box-shadow: none !important;
         }
-        /* 屏幕专属控件在纸面无意义(#map 整区隐藏,免得留一个光杆 Footprints 标题) */
+        /* Screen-only controls are meaningless on paper (hide the whole #map section so no orphaned Footprints title is left behind) */
         .nav,
         .theme-toggle,
         #map,
         .show-all-btn {
           display: none !important;
         }
-        /* 折叠的经历 / 项目 / 证书 / 技能在打印时全展开(恢复各自的 display) */
+        /* Collapsed experience / projects / certifications / skills all expand in print (restoring their respective display values) */
         .is-extra {
           display: block !important;
         }
@@ -743,7 +743,7 @@
         .skill.is-extra {
           display: grid !important;
         }
-        /* 卡片 / 分区尽量不被分页切断 */
+        /* Keep cards / sections from being cut by page breaks where possible */
         section,
         .item {
           break-inside: avoid;
@@ -775,15 +775,15 @@
           '<a href="https://www.linkedin.com/in/keshi0330/">LinkedIn</a></p></main>';
         throw new Error("PROFILE data unavailable");
       }
-      /* title / meta description 用 <head> 里的静态值:JS 覆盖会让标签页闪变、
-         并把搜索摘要降级成 5 词 tagline(Google 抓 JS 渲染后的结果) */
+      /* title / meta description use the static values in <head>: overriding via JS makes the tab flicker
+         and downgrades the search snippet to the 5-word tagline (Google indexes the JS-rendered result) */
 
       const E = (s) =>
         String(s).replace(
           /[&<>"]/g,
           (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c],
         );
-      /* [text](url) → <a>,仅用于 now 段落;输入先过 E() 转义,再由这里放行受控的 <a> */
+      /* [text](url) → <a>, used only in the Now paragraphs; input goes through E() escaping first, then this lets controlled <a> through */
       const mdLink = (s) =>
         s.replace(
           /\[([^\]]+)\]\((https?:\/\/[^\s)]+|mailto:[^\s)]+)\)/g,
@@ -813,7 +813,7 @@
               kind === "work"
                 ? `${E(e.company)} <span class="role">· ${E(e.role)}</span>`
                 : E(e.school || e.name);
-            /* 逐段转义后过滤空值再拼:防 undefined / 悬空 " · " */
+            /* Escape each part, filter out empties, then join: prevents undefined / dangling " · " */
             const meta = (
               kind === "edu"
                 ? [e.degree, e.note].map((s) => s && E(s))
@@ -1012,7 +1012,7 @@
         });
       }
 
-      // ---- nav: 滚动后加发丝线(配合 0.95 材质,滚过的 hero 标题不透成灰渍) ----
+      // ---- nav: add a hairline after scrolling (paired with the 0.95 material so the hero title scrolling past doesn't bleed through as a gray smudge) ----
       const navEl = document.querySelector(".nav");
       addEventListener(
         "scroll",

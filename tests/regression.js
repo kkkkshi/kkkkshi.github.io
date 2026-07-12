@@ -1,19 +1,19 @@
-/* SHERRY'S FOOTPRINTS — 回归测试
- * 用法:浏览器打开 http://localhost:1999 → F12 控制台 → 粘贴本文件全部内容回车。
- * 会自动跑一遍所有交互,最后用 console.table 输出 ✅/❌。
- * 覆盖的是历次提过的问题:点击进入 / 跨国跳转 / 退层 / 台湾属于中国 /
- * 钻取各层 / 退层(面包屑) / 印章=回首页 / 面包屑 / 年份连续 / 夜间切换 / 无中文 / 填色不溢出海 等。
+/* SHERRY'S FOOTPRINTS — regression tests
+ * Usage: open http://localhost:1999 in a browser → F12 console → paste this entire file and press Enter.
+ * Runs through all interactions automatically, then prints ✅/❌ via console.table.
+ * Covers issues reported over time: click to enter / cross-country jump / going up a level / Taiwan belongs to China /
+ * drilling into each level / going up via breadcrumbs / seal = back to homepage / breadcrumbs / consecutive years / night toggle / no Chinese / fill not spilling into the sea, etc.
  */
 (async () => {
   const m = window._map;
-  if (!m) return console.error("没找到地图,确认在 localhost:1999 且已加载");
+  if (!m) return console.error("Map not found; make sure you're on localhost:1999 and it has loaded");
   const sleep = (ms) => new Promise((f) => setTimeout(f, ms));
   const T = () => document.querySelector("#title small").textContent;
   const labels = () =>
     [...document.querySelectorAll(".port .lbl")].map((l) => l.textContent);
   const click = (t) => {
     const all = [...document.querySelectorAll(".port")];
-    // 先精确匹配;城市标签可能带副标题(如 "Hangzhou··123 photos"),退回前缀匹配
+    // Exact match first; city labels may carry a subtitle (e.g. "Hangzhou··123 photos"), fall back to prefix match
     const p =
       all.find((p) => p.querySelector(".lbl")?.textContent === t) ||
       all.find((p) => p.querySelector(".lbl")?.textContent.startsWith(t));
@@ -39,12 +39,12 @@
       ),
     );
   };
-  // 退一层：点最后一个面包屑（= 当前层的父层）。印章 #seal 现已是「返回个人主页」，不再退层。
+  // Go up one level: click the last breadcrumb (= parent of the current level). The seal #seal is now "back to homepage" and no longer goes up.
   const up = () => {
     const crs = [...document.querySelectorAll("#crumbs .cr")];
     if (crs.length) crs[crs.length - 1].click();
   };
-  // 回到世界层：点「The World」面包屑（已在世界层则为无操作）。
+  // Back to world level: click the "The World" breadcrumb (no-op if already at world level).
   const toWorld = () => {
     const w = [...document.querySelectorAll("#crumbs .cr")].find(
       (c) => c.textContent === "The World",
@@ -52,24 +52,24 @@
     if (w) w.click();
   };
   const R = [];
-  const ok = (name, cond) => R.push({ 测试: name, 结果: cond ? "✅" : "❌" });
+  const ok = (name, cond) => R.push({ test: name, result: cond ? "✅" : "❌" });
 
   await sleep(4000);
 
-  // —— 世界层 ——
-  // 远飞地小群岛标注(.minor,如夏威夷)不算国家
+  // —— World level ——
+  // Distant-exclave island labels (.minor, e.g. Hawaii) don't count as countries
   ok(
-    "世界层显示 13 个国家",
+    "World level shows 13 countries",
     [...document.querySelectorAll(".port:not(.minor) .lbl")].length === 13,
   );
   ok(
-    "世界层有远飞地标注(夏威夷)",
+    "World level has distant-exclave label (Hawaii)",
     [...document.querySelectorAll(".port.minor .lbl")].some(
       (l) => l.textContent === "Hawaii",
     ),
   );
   ok(
-    "台湾属于中国(地图填色)",
+    "Taiwan belongs to China (map fill)",
     m
       .queryRenderedFeatures(m.project([121, 23.7]), {
         layers: ["country-fill"],
@@ -77,7 +77,7 @@
       .some((f) => f.properties.NAME === "China"),
   );
   ok(
-    "界面无中文",
+    "No Chinese in UI",
     (document.body.innerText.match(/[一-鿿]/g) || []).length === 0,
   );
   const yrVisible = () =>
@@ -85,15 +85,15 @@
       .filter((b) => b.offsetWidth > 0)
       .map((b) => b.textContent)
       .join();
-  ok("年份带默认收起(只一枚 Years 开关)", yrVisible() === "Years ▾");
+  ok("Year strip collapsed by default (only the Years toggle)", yrVisible() === "Years ▾");
   document.querySelector("#years button.tg").click();
   ok(
-    "点开 → 默认窗口 2017–2026(带 ‹ 可往前退)",
+    "Open → default window 2017–2026 (with ‹ to page back)",
     yrVisible() ===
       "Years ▴,‹,All,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026",
   );
   ok(
-    "陆地用 NE land、海=背景(同源不被水域切碎)",
+    "Land uses NE land, sea = background (same source, not cut up by water areas)",
     !!m.getLayer("land") &&
       !m.getLayer("water") &&
       (() => {
@@ -101,29 +101,29 @@
         return ls.indexOf("country-fill") > ls.indexOf("land");
       })(),
   );
-  ok("国界线图层存在(全球陆地国界)", !!m.getLayer("border-line"));
-  ok("州省界图层存在(看得到行政划分)", !!m.getLayer("state-border"));
-  ok("湖泊图层存在(五大湖等)", !!m.getLayer("lake"));
+  ok("Border-line layer exists (global land borders)", !!m.getLayer("border-line"));
+  ok("State-border layer exists (admin divisions visible)", !!m.getLayer("state-border"));
+  ok("Lake layer exists (Great Lakes etc.)", !!m.getLayer("lake"));
 
-  // —— 点台湾应进中国 ——
+  // —— Clicking Taiwan should enter China ——
   clickAt(121, 23.7);
   await sleep(2200);
-  ok("点台湾 → 进入中国", T() === "CHINA");
+  ok("Click Taiwan → enter China", T() === "CHINA");
 
-  // —— 钻取 China → Zhejiang → Hangzhou → 景点卡 ——
+  // —— Drill down China → Zhejiang → Hangzhou → spot card ——
   click("Zhejiang");
   await sleep(1600);
-  ok("中国 → 浙江(省层)", T() === "ZHEJIANG");
+  ok("China → Zhejiang (province level)", T() === "ZHEJIANG");
   click("Hangzhou");
   await sleep(1900);
-  ok("浙江 → 杭州(市层)", T() === "HANGZHOU");
+  ok("Zhejiang → Hangzhou (city level)", T() === "HANGZHOU");
   const sp = [...document.querySelectorAll(".port")].find((p) =>
     p.querySelector(".lbl"),
   );
   if (sp) sp.querySelector(".pin").click();
   await sleep(600);
   ok(
-    "点景点 → 故事卡(有图或照片留白)",
+    "Click spot → story card (image or photo placeholder)",
     document.getElementById("card").classList.contains("show") &&
       (!!document.querySelector("#card .photo img") ||
         /photo|journal/i.test(
@@ -131,55 +131,55 @@
         )),
   );
 
-  // —— 退一层（面包屑）回到省层 ——
+  // —— Go up one level (breadcrumb) back to province level ——
   up();
   await sleep(1600);
-  ok("退一层(面包屑) → 浙江", T() === "ZHEJIANG" || T() === "HANGZHOU");
-  // 注：印章 #seal = 返回个人主页（location.href="index.html"），会离开地图，
-  // 故不在本套件内点击触发；其语义单独验证。
+  ok("Up one level (breadcrumb) → Zhejiang", T() === "ZHEJIANG" || T() === "HANGZHOU");
+  // Note: the seal #seal = back to homepage (location.href="index.html"), which leaves the map,
+  // so it isn't clicked in this suite; its semantics are verified separately.
 
-  // —— 缩很多 → 退回世界并恢复默认(大国如中国要缩到约 1.0 才退) ——
+  // —— Zoom way out → back to world and restore defaults (large countries like China only exit around 1.0) ——
   m.zoomTo(0.9, { duration: 300 });
   await sleep(700);
   m.fire("moveend");
   await sleep(900);
-  ok("缩很多 → 退回世界(大国也能退)", T() === "THE WORLD");
+  ok("Zoom way out → back to world (works for large countries too)", T() === "THE WORLD");
 
-  // —— 跨国直点:世界点美国陆地,再点加拿大陆地直接跳 ——
+  // —— Direct cross-country click: from world click US land, then click Canadian land to jump directly ——
   clickAt(-98, 39);
   await sleep(2200);
-  ok("点美国陆地 → 进入美国", T() === "UNITED STATES");
-  ok("点国家显示整个国家(zoom 合理 ~2-4)", m.getZoom() > 2 && m.getZoom() < 5);
+  ok("Click US land → enter United States", T() === "UNITED STATES");
+  ok("Clicking a country shows the whole country (reasonable zoom ~2-4)", m.getZoom() > 2 && m.getZoom() < 5);
   clickAt(-110, 56);
   await sleep(2200);
-  ok("美国层点加拿大 → 跨国直跳", T() === "CANADA");
+  ok("Click Canada from US level → direct cross-country jump", T() === "CANADA");
 
-  // —— 面包屑 The World 回初始 ——
+  // —— Breadcrumb The World back to initial view ——
   const cr = [...document.querySelectorAll("#crumbs .cr")].find(
     (c) => c.textContent === "The World",
   );
   if (cr) cr.click();
   await sleep(1500);
-  ok("点面包屑 The World → 回世界", T() === "THE WORLD");
+  ok("Click breadcrumb The World → back to world", T() === "THE WORLD");
 
-  // —— 夜间 / 白天切换 ——
+  // —— Night / day toggle ——
   document.getElementById("daynight").click();
   await sleep(400);
-  ok("切换到夜间模式", document.body.classList.contains("night"));
+  ok("Switch to night mode", document.body.classList.contains("night"));
   document.getElementById("daynight").click();
   await sleep(300);
-  ok("切回白天模式", !document.body.classList.contains("night"));
+  ok("Switch back to day mode", !document.body.classList.contains("night"));
 
-  // —— 单城市的省/州(如 Alberta 只有 Banff、山东只有济南)进去不应瞬间退回 ——
+  // —— Single-city province/state (e.g. Alberta only has Banff, Shandong only Jinan) shouldn't bounce back instantly ——
   toWorld();
   await sleep(900);
   click("Canada");
   await sleep(1800);
   click("Alberta");
   await sleep(2400);
-  ok("点单城市省(Alberta)停在省层不瞬退", T() === "ALBERTA");
+  ok("Click single-city province (Alberta) stays at province level", T() === "ALBERTA");
 
-  // —— 国家层省名标签不重叠(避让生效) ——
+  // —— Province labels at country level don't overlap (collision avoidance works) ——
   toWorld();
   await sleep(900);
   click("Canada");
@@ -202,26 +202,26 @@
       )
         ov++;
     }
-  ok("国家层可见省名不重叠", ov === 0);
+  ok("Visible province labels don't overlap at country level", ov === 0);
 
-  // —— 退层新逻辑(以该层展示 zoom 为基准,与国家大小/纬度无关) ——
+  // —— New exit-level logic (based on the level's display zoom, independent of country size/latitude) ——
   toWorld();
   await sleep(900);
-  clickAt(103, 35); // 进中国
+  clickAt(103, 35); // enter China
   await sleep(2200);
   const cz = m.getZoom();
-  m.zoomTo(cz - 0.5, { duration: 300 }); // 层内适度缩放
+  m.zoomTo(cz - 0.5, { duration: 300 }); // moderate zoom within the level
   await sleep(700);
   m.fire("moveend");
   await sleep(900);
-  ok("国家层内适度缩放不误退(留在中国)", T() === "CHINA");
-  m.zoomTo(0.95, { duration: 300 }); // 缩很多
+  ok("Moderate zoom within country level doesn't falsely exit (stays in China)", T() === "CHINA");
+  m.zoomTo(0.95, { duration: 300 }); // zoom way out
   await sleep(700);
   m.fire("moveend");
   await sleep(900);
-  ok("中国缩很多 → 退回世界(大国也能退)", T() === "THE WORLD");
+  ok("China zoom way out → back to world (works for large countries too)", T() === "THE WORLD");
 
-  // —— 年份筛选:点年份只显示该年去过的国家,All 恢复 ——
+  // —— Year filter: clicking a year shows only that year's countries, All restores ——
   const visPorts = () =>
     [...document.querySelectorAll(".port")].filter(
       (p) => p.style.display !== "none",
@@ -234,11 +234,11 @@
   yearBtn(2019).click();
   await sleep(600);
   ok(
-    "年份筛选:点 2019 国家变少且按钮高亮",
+    "Year filter: click 2019, fewer countries and button highlighted",
     visPorts() < nAll && yearBtn(2019).classList.contains("on"),
   );
   ok(
-    "年份地点行:选 2019 列出国家(含 Canada,不列省)",
+    "Year places row: 2019 lists countries (includes Canada, no provinces)",
     document.getElementById("yearlist").textContent.includes("Canada") &&
       !document.getElementById("yearlist").textContent.includes("Ontario"),
   );
@@ -247,19 +247,19 @@
       layers: ["country-fill"],
     }).length > 0;
   ok(
-    "年份填色:2019 中国不金、加拿大金",
+    "Year fill: in 2019 China not gold, Canada gold",
     !goldAt(103, 35) && goldAt(-106, 56),
   );
   yearBtn("all").click();
   await sleep(600);
-  ok("年份筛选:点 All 恢复全部", visPorts() === nAll);
-  ok("年份填色:All 恢复中国金色", goldAt(103, 35));
+  ok("Year filter: click All restores everything", visPorts() === nAll);
+  ok("Year fill: All restores China's gold", goldAt(103, 35));
   ok(
-    "年份地点行:All 时隐藏",
+    "Year places row: hidden when All",
     document.getElementById("yearlist").style.display === "none",
   );
 
-  // —— 年份带翻页:‹ 往前退,到 1999 到头,› 翻回默认 ——
+  // —— Year strip paging: ‹ pages back, stops at 1999, › pages back to default ——
   const yrTexts = () =>
     [...document.querySelectorAll("#years button")]
       .filter((b) => !b.classList.contains("tg"))
@@ -271,51 +271,51 @@
     );
   pgBtn("‹").click();
   ok(
-    "年份带 ‹ 一次 → 2007–2016",
+    "Year strip ‹ once → 2007–2016",
     yrTexts() ===
       "‹,All,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,›",
   );
   pgBtn("‹").click();
   ok(
-    "年份带 ‹ 两次 → 1999–2006 到头(‹ 消失)",
+    "Year strip ‹ twice → 1999–2006 at the end (‹ disappears)",
     yrTexts() === "All,1999,2000,2001,2002,2003,2004,2005,2006,›",
   );
   pgBtn("›").click();
   pgBtn("›").click();
   ok(
-    "年份带 › 翻回默认 2017–2026",
+    "Year strip › back to default 2017–2026",
     yrTexts().startsWith("‹,All,2017") && yrTexts().endsWith("2026"),
   );
 
-  // —— 边界线深浅随层级(用户定):世界层淡,点进省层国界+州线都加深 ——
+  // —— Border darkness follows level (user-specified): faint at world level, country + state lines darken at province level ——
   const op = (l, p) => m.getPaintProperty(l, p);
-  ok("世界层边界淡(国界 opacity ≤0.5)", op("border-line", "line-opacity") <= 0.5);
-  clickAt(-98, 39); // 进美国
+  ok("World level borders faint (country opacity ≤0.5)", op("border-line", "line-opacity") <= 0.5);
+  clickAt(-98, 39); // enter US
   await sleep(2200);
   click("California");
   await sleep(2400);
   ok(
-    "省层边界加深(国界+州线 opacity >0.8)",
+    "Province level borders darker (country + state opacity >0.8)",
     op("border-line", "line-opacity") > 0.8 &&
       op("state-border", "line-opacity") > 0.8,
   );
 
-  // —— 国家层平移过界 → 标题/面包屑跟着换国(镜头不动) ——
-  up(); // 面包屑回美国层
+  // —— Panning across a border at country level → title/breadcrumbs switch country (camera stays) ——
+  up(); // breadcrumb back to US level
   await sleep(1600);
-  m.panTo([-105, 56], { duration: 400 }); // 平移到加拿大中部
+  m.panTo([-105, 56], { duration: 400 }); // pan to central Canada
   await sleep(700);
   m.fire("moveend");
   await sleep(1200);
-  ok("美国层平移到加拿大 → 标题换 CANADA", T() === "CANADA");
+  ok("Pan from US level to Canada → title becomes CANADA", T() === "CANADA");
 
-  // —— 国家层平移到大洋深处(视野完全离开该国范围框) → 退回世界 ——
+  // —— Pan to deep ocean at country level (view fully leaves the country's bounding box) → back to world ——
   m.jumpTo({ center: [-20, -15], zoom: m.getZoom() });
   m.fire("moveend");
   await sleep(1200);
-  ok("平移到大洋深处 → 退回世界", T() === "THE WORLD");
+  ok("Pan to deep ocean → back to world", T() === "THE WORLD");
 
-  // —— 世界层左右平移跨日界线:标记跟着世界副本走,不退层 ——
+  // —— Panning across the date line at world level: markers follow the world copy, no level exit ——
   m.jumpTo({ center: [175, 30], zoom: m.getZoom() });
   m.fire("moveend");
   await sleep(900);
@@ -324,21 +324,21 @@
   );
   const cnx = chinaLbl ? chinaLbl.getBoundingClientRect().x : -1;
   ok(
-    "跨日界线平移:中国标记在视口内且仍是世界层",
+    "Cross-date-line pan: China marker in viewport and still world level",
     T() === "THE WORLD" && cnx > 0 && cnx < innerWidth,
   );
   toWorld();
   await sleep(1200);
 
-  // —— 右上角坐标戳随平移更新 ——
+  // —— Top-right coordinate stamp updates on pan ——
   const st0 = document.getElementById("stamp").textContent;
   m.panBy([160, 0], { duration: 200 });
   await sleep(600);
-  ok("坐标戳随平移更新", document.getElementById("stamp").textContent !== st0);
+  ok("Coordinate stamp updates on pan", document.getElementById("stamp").textContent !== st0);
 
-  // —— 社交按钮 ——
+  // —— Social buttons ——
   ok(
-    "GitHub/LinkedIn 外链 _blank + noopener",
+    "GitHub/LinkedIn external links _blank + noopener",
     [...document.querySelectorAll('#links a[target="_blank"]')].length === 2 &&
       [...document.querySelectorAll('#links a[target="_blank"]')].every((a) =>
         (a.rel || "").includes("noopener"),
@@ -351,14 +351,14 @@
   mailA.click();
   await sleep(400);
   ok(
-    "邮箱按钮 → toast 显示地址且不跳页",
+    "Email button → toast shows address without navigating",
     document.getElementById("toast").classList.contains("show") &&
       document.getElementById("toast").textContent.includes("@") &&
       location.href === urlB,
   );
 
-  // —— 音乐按钮:能播则亮灯,再点暂停熄灭;
-  //    浏览器自动播放策略挡下(非用户手势环境)不算失败 ——
+  // —— Music button: lights up if it can play, clicking again pauses and dims;
+  //    being blocked by the browser autoplay policy (no user gesture) doesn't count as failure ——
   const bgm = document.getElementById("bgm");
   const mus = document.getElementById("music");
   mus.click();
@@ -366,39 +366,39 @@
   for (let i = 0; i < 30 && !(lit = mus.classList.contains("on")); i++)
     await sleep(200);
   const blocked = bgm.paused && !bgm.error;
-  ok("音乐按钮:播放亮灯(或被自动播放策略挡下)", lit || blocked);
+  ok("Music button: playing lights up (or blocked by autoplay policy)", lit || blocked);
   if (lit) {
     mus.click();
     await sleep(300);
-    ok("音乐按钮:再点暂停熄灭", bgm.paused && !mus.classList.contains("on"));
-  } else ok("音乐按钮:再点暂停熄灭", true);
+    ok("Music button: click again pauses and dims", bgm.paused && !mus.classList.contains("on"));
+  } else ok("Music button: click again pauses and dims", true);
 
-  // —— 世界层直点夏威夷群岛(远飞地州):直接进州,而不是跳到只显示本土的美国 ——
+  // —— Click the Hawaiian islands directly from world level (distant-exclave state): enter the state directly, not mainland-only US ——
   m.panTo([-157, 21], { duration: 400 });
   await sleep(1200);
-  clickAt(-155.5, 19.6); // 大岛
+  clickAt(-155.5, 19.6); // Big Island
   await sleep(2600);
-  ok("世界层点夏威夷群岛 → 直接进 HAWAII", T() === "HAWAII");
+  ok("Click Hawaiian islands from world level → enter HAWAII directly", T() === "HAWAII");
   toWorld();
   await sleep(1800);
 
-  // —— 世界层看进中国(中心在中国且明显放大) → 自动进入中国;缩回 → 退回世界 ——
+  // —— Looking into China from world level (centered on China and clearly zoomed in) → auto-enter China; zoom back → back to world ——
   m.jumpTo({ center: [104, 35], zoom: 3.8 });
   m.fire("moveend");
   await sleep(1200);
-  ok("世界层放大看中国 → 标题自动换 CHINA", T() === "CHINA");
+  ok("Zoom into China from world level → title auto-switches to CHINA", T() === "CHINA");
   m.zoomTo(1.2, { duration: 300 });
   await sleep(700);
   m.fire("moveend");
   await sleep(1500);
-  ok("从自动进入的国家缩回 → 退回世界", T() === "THE WORLD");
+  ok("Zoom back from auto-entered country → back to world", T() === "THE WORLD");
 
   console.table(R);
-  const fail = R.filter((r) => r.结果 === "❌");
+  const fail = R.filter((r) => r.result === "❌");
   console.log(
     fail.length
-      ? `❌ ${fail.length}/${R.length} 项失败`
-      : `✅ 全部 ${R.length} 项通过`,
+      ? `❌ ${fail.length}/${R.length} tests failed`
+      : `✅ all ${R.length} tests passed`,
   );
   window._testFP = { total: R.length, fail: fail.length, R };
 })();
