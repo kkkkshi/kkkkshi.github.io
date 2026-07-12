@@ -98,4 +98,11 @@
 2. **作文**：每个景点的小手记。
 3. **想起遗漏的国家 / 省**随时补。
 
+## 开发备忘（README 只留对外介绍，内部说明都在这）
+
+- 本地跑：`npm install && npm start`，开 http://localhost:1999。
+- 自检：浏览器控制台粘贴 `tests/` 下脚本回车，出 ✅/❌ 表。design.js 对主页、design-map.js 对地图、regression.js 是地图交互回归。
+- 加地点：全在 `data/footprints.json`（城市直接加；新省要同时往 `data/states.geojson` 加边界面；新国家给 center / ne_names / iso_a3 / regions）。`data/*.geojson` 是 Natural Earth 几何，不手改。
+- 网图：往 `photos/<国家>[/<省>]/` 放 `<景点>_{1,2,3}.jpg` 后跑 `scripts/build-webimages.py`，提交 `photos/_thumbs` 和 `data/webimages.json`。
+
 _更新于 2026-07-11。已上线 https://kkkkshi.github.io/。_
