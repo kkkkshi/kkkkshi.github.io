@@ -117,6 +117,28 @@
   const item = document.querySelector(".item");
   const rad = parseFloat(gcs(item).borderTopLeftRadius);
   ok("§6 卡片圆角 6–20px(非直角/非胶囊)", rad >= 6 && rad <= 20, rad + "px");
+  // §5/§6 样式6:所有卡片(.item 与 .fp)统一 8px 圆角 + 印章红 3px 左边条
+  {
+    const accent = parse(getComputedStyle(root).getPropertyValue("--accent"));
+    const cards = [".item", ".fp"].map((s) => document.querySelector(s)).filter(Boolean);
+    const style6 = cards.every((el) => {
+      const c = gcs(el);
+      const bc = parse(c.borderLeftColor);
+      return (
+        parseFloat(c.borderTopLeftRadius) === 8 &&
+        parseFloat(c.borderLeftWidth) === 3 &&
+        bc.r === accent.r && bc.g === accent.g && bc.b === accent.b
+      );
+    });
+    ok("§5 样式6:卡片 8px 圆角 + 3px 印章红左边条(.item/.fp 同一语言)", style6,
+      cards.map((el) => `${el.className.split(" ")[0]}: r${parseFloat(gcs(el).borderTopLeftRadius)} b${parseFloat(gcs(el).borderLeftWidth)}`).join(" / "));
+  }
+  // §1 headline 对 DESIGN.md 字面值(17px):从变量自读会自证,必须写死
+  ok(
+    "§1 --fs-headline = 17px(对照 DESIGN.md 字面值)",
+    getComputedStyle(root).getPropertyValue("--fs-headline").trim() === "17px",
+    getComputedStyle(root).getPropertyValue("--fs-headline").trim(),
+  );
   {
     const ic = gcs(item);
     const hasBorder = ["borderTopWidth","borderLeftWidth"].some(p => parseFloat(ic[p]) > 0);
@@ -138,8 +160,8 @@
   ].map((n) => parseFloat(getComputedStyle(root).getPropertyValue(n)));
   const onScale = (px) => scale.some((v) => Math.abs(v - px) < 0.6);
   const typeSels = [
-    ".hero-lead", ".prose .lead", ".item-t", ".item-desc", ".repo-t", ".repo-d",
-    ".tag", ".cert-name", ".cert-meta", ".fp-title", ".fp-meta", ".block-h",
+    ".hero-lead", ".prose .lead", ".item-t", ".item-desc", ".item-meta",
+    ".item-when", ".tag", ".fp-title", ".fp-meta", ".block-h",
     ".kicker", ".lnk", ".navlinks a",
   ];
   const offScale = typeSels.filter(

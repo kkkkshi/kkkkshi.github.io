@@ -1,15 +1,13 @@
 /* ============================================================
    profile/data.js  ·  edit THIS file to update the homepage.
-   Everything the homepage shows comes from here (except the
-   live GitHub data, which is fetched at load time and merged
-   with `featuredRepos` below).
+   Everything the homepage shows comes from here.
    ============================================================ */
 window.PROFILE = {
   name: "Sherry (Ke) Shi",
   initials: "S",
-  role: "Data Scientist",
-  tagline:
-    "Real-time machine learning for fraud and risk. I turn high-volume, messy data into systems that hold up in production.",
+  role: "Data Engineer & Machine Learning Engineer",
+  company: "EnStream", // 显示在 hero kicker(角色 · 公司 · 城市),留空则不显示
+  tagline: "Data is the best language.",
   location: "Toronto, ON",
   email: "keshi0330@gmail.com",
   githubUser: "kkkkshi",
@@ -22,18 +20,34 @@ window.PROFILE = {
   },
 
   about: [
-    "Statistician turned engineer. I stopped chasing elegant models and started shipping ones that survive 3 a.m. in production.",
-    "Today that's real-time fraud detection at Paytm Labs — account- and card-takeover models scoring tens of millions of events a day. I own the full lifecycle: features, modeling, deployment, drift monitoring. The unglamorous parts — clean labels, a quiet on-call page — matter as much as the model.",
-    "Statistics at Waterloo, data science at Georgetown, CS at Cornell Tech — across fraud, computer vision, NLP, and a blockchain paper. I land in unfamiliar domains and turn the mess into something that works. Based in Toronto; I keep a map of the rest.",
+    "Sherry (Ke) Shi is a Data Engineer & Machine Learning Engineer at EnStream, where she owns the data pipeline behind Trust Score, a real-time fraud and identity-risk signal for high-volume telecom events, and the AWS infrastructure for the company's cross-team data-exchange platform.",
+    "She was previously a Data Scientist at Paytm Labs, where she built real-time account and card takeover models scoring tens of millions of events a day; her account-takeover model cut fraud losses by roughly 60% while reducing user friction. Her work spans fraud detection, computer vision, and NLP, and she co-authored an IEEE paper on blockchain-based contract management.",
+    "She holds a B.Math in Statistics from the University of Waterloo, an M.S. in Data Science & Analytics from Georgetown University, and an M.Eng. in Computer Science from Cornell Tech.",
   ],
 
   // what I'm exploring right now (shown as the "Now" section)
+  // 支持 [text](url) 链接写法(index.html 渲染时转 <a>)
   now: [
-    "Deep in LLM agents — building agentic tooling, wiring up multi-agent systems, routing them through Claude Code.",
-    "The frontier moves fast. I'd rather build on it than read about it.",
+    "Her current focus is LLMs and AI agents.",
+    "She is also building [Schedule](https://schedule-drab-one.vercel.app), a small planner app.",
+    "If you're exploring similar ideas, feel free to [reach out](mailto:keshi0330@gmail.com).",
   ],
 
   experience: [
+    {
+      company: "EnStream LP",
+      url: "https://www.enstream.com/",
+      role: "Data Engineer & Machine Learning Engineer",
+      location: "Toronto, Canada",
+      period: "Mar 2026 – Present",
+      project: "Trust Score · Real-time Fraud & Identity Risk",
+      stack: ["Python", "Terraform", "AWS", "Isolation Forest", "K-Means"],
+      bullets: [
+        "Own the data pipeline behind Trust Score (v0.5), EnStream's real-time fraud and identity-risk signal. It moves high-volume telecom events (SIM, device, port-out) into the feature layer that feeds scoring.",
+        "Drive the unsupervised scoring core, built on Isolation Forest, its online Mondrian variant (iMF), and K-Means, to surface anomalous identity behavior without labels.",
+        "Build the AWS infrastructure for Tulip, a cross-team data-exchange platform, entirely in Terraform, so the data pipeline and compute stay reproducible, version-controlled, and reviewable.",
+      ],
+    },
     {
       company: "Paytm Labs",
       url: "https://pi.paytm.com/", // company/school website makes this card a clickable link (new tab); leave empty for a plain info card
@@ -43,8 +57,8 @@ window.PROFILE = {
       project: "Real-time Fraud Detection System (ATO & CTO)",
       stack: ["PySpark", "AWS SageMaker", "Python", "SQL"],
       bullets: [
-        "Built the account-takeover (ATO) model that scores 15M+ events/day and cut fraud losses ~60% at 3× less user friction. Distilled 600+ features to a top-50 set with SHAP and Bayesian optimization.",
-        "Shipped the card-takeover (CTO) model at 40M+ requests/day under 12 ms, cutting fraud-per-million 37% while lifting approvals 30%; owned the TB-scale S3 migration, drift monitoring, and labeling that kept V1–V4 honest.",
+        "Built the account-takeover (ATO) model scoring 15M+ events/day; cut fraud losses ~60% with one-third the user friction. Distilled 600+ features to a top-50 set with SHAP and Bayesian optimization.",
+        "Shipped the card-takeover (CTO) model serving 40M+ requests/day at under 12 ms, cutting fraud per million 37% while lifting approvals 30%; owned the TB-scale S3 migration, drift monitoring, and labeling that kept V1–V4 honest.",
       ],
     },
     {
@@ -56,7 +70,7 @@ window.PROFILE = {
       project: "Intelligent Security Surveillance & Anomaly Detection",
       stack: ["YOLOv5", "TensorFlow", "OpenCV", "Python"],
       bullets: [
-        "Built a greenfield computer-vision surveillance system with YOLOv5 for real-time hazard and intrusion detection and automated alerts, trained on 400GB+ of video from 200+ feeds and benchmarked six architectures for edge deployment.",
+        "Built a greenfield computer-vision surveillance system with YOLOv5 for real-time hazard and intrusion detection and automated alerts, trained on 400 GB+ of video from 200+ feeds, and benchmarked six architectures for edge deployment.",
       ],
     },
     {
@@ -68,7 +82,7 @@ window.PROFILE = {
       project: "Equity-Risk Analytics · South China",
       stack: ["C", "SQL", "Wind", "Excel"],
       bullets: [
-        "Automated shareholder-risk detection with C/SQL over Wind financial data for a 7-analyst team, replacing manual verification and lifting processing efficiency ~80%; managed delivery across three client portfolios.",
+        "Automated shareholder-risk detection with C/SQL over Wind financial data for a 7-analyst team, replacing manual verification and raising processing efficiency ~80%; managed delivery across three client portfolios.",
       ],
     },
     {
@@ -104,7 +118,7 @@ window.PROFILE = {
       project: "Hyperchain Blockchain Platform",
       stack: ["Python", "C++", "Linux", "Cryptography"],
       bullets: [
-        "Optimized cryptographic modules and consensus on a proprietary blockchain platform (Hyperchain) and shipped two client products; benchmarked Hyperchain/Fabric/Libra/PlatOn into a strategy report that shaped the roadmap.",
+        "Optimized cryptographic modules and consensus on a proprietary blockchain platform (Hyperchain) and shipped two client products; benchmarked Hyperchain, Fabric, Libra, and PlatOn and distilled the results into a strategy report that shaped the roadmap.",
       ],
     },
     {
@@ -116,7 +130,7 @@ window.PROFILE = {
       project: "Blockchain & FinTech Research",
       stack: ["Hyperledger Fabric", "Smart Contracts", "Cryptography"],
       bullets: [
-        "Researched blockchain for power-industry procurement (Hyperledger Fabric, SHA-256); co-authored an IEEE paper on a contract-management system that secured $1B+ in contracts and cut settlement time ~66%.",
+        "Researched blockchain for power-industry procurement (Hyperledger Fabric, SHA-256); co-authored an IEEE paper on a contract-management system that secured US$1B+ in contracts and cut settlement time ~66%.",
       ],
     },
   ],
@@ -149,8 +163,8 @@ window.PROFILE = {
     },
   ],
 
-  // All projects, newest first. `todo: true` shows a TODO badge on the card
-  // (still needs a final link / cleanup, pick & fix later).
+  // All projects, newest first. `todo: true` 仅作内部标记(页面不渲染):
+  // 还差最终链接/收尾,之后自己挑着修。
   projects: [
     {
       name: "Align AI",
@@ -160,28 +174,28 @@ window.PROFILE = {
       stack: ["Python", "GPT-4", "AWS", "Microservices", "React"],
       repo: "milestone-3-alignai",
       bullets: [
-        "Co-founded a B2B SaaS that turns fragmented Jira and GitHub data into real-time engineering reports — Python microservices on AWS and an LLM (GPT-4) inference engine. Shipped a production MVP to 3 pilot customers.",
+        "Co-founded a B2B SaaS that turns fragmented Jira and GitHub data into real-time engineering reports, built as Python microservices on AWS with an LLM inference engine (GPT-4). Shipped a production MVP to 3 pilot customers.",
       ],
     },
     {
       name: "miniTorch",
       featured: true,
-      sub: "Deep-learning framework",
+      sub: "Deep-Learning Framework",
       period: "Jan 2024 – Apr 2024",
       stack: ["Python", "CUDA", "Autograd"],
       repo: "CS5781_minitorch",
       bullets: [
-        "A teaching deep-learning framework built from scratch: reverse-mode autodiff, tensors, modular layers, and custom CUDA kernels for GPU training.",
+        "Built a teaching deep-learning framework from scratch: reverse-mode autodiff, tensors, modular layers, and custom CUDA kernels for GPU training.",
       ],
     },
     {
-      name: "Blockchain",
-      sub: "From scratch",
+      name: "Blockchain from Scratch",
+      sub: "Cornell · Consensus",
       period: "Jan 2024 – Apr 2024",
       stack: ["Python", "Proof-of-Work"],
       repo: "CS5433_BlockChain",
       bullets: [
-        "A from-scratch blockchain with proof-of-work, transactions, and consensus.",
+        "Built a blockchain from scratch with proof-of-work, transactions, and consensus.",
       ],
     },
     {
@@ -191,7 +205,7 @@ window.PROFILE = {
       stack: ["JavaScript", "Web", "MVP"],
       repo: "CS5356_Building_Startup_System",
       bullets: [
-        "A full-stack web app built end-to-end in Cornell Tech's Building Startup Systems course, from product spec to a deployed MVP.",
+        "Built a full-stack web app end-to-end in Cornell Tech's Building Startup Systems course, from product spec to a deployed MVP.",
       ],
     },
     {
@@ -201,7 +215,7 @@ window.PROFILE = {
       stack: ["Python", "Data Structures", "Complexity"],
       repo: "CS5112_Algorithms",
       bullets: [
-        "Implementations and analysis of core algorithms and data structures from Cornell Tech's graduate algorithms course.",
+        "Implemented and analyzed core algorithms and data structures from Cornell Tech's graduate algorithms course.",
       ],
     },
     {
@@ -211,7 +225,7 @@ window.PROFILE = {
       stack: ["C", "Sockets", "TCP/IP"],
       repo: "CS5450_Network",
       bullets: [
-        "A systems-level networking project in C for Cornell Tech's networks course, building protocol mechanics from the socket up.",
+        "Built protocol mechanics from the socket up in C for Cornell Tech's networks course.",
       ],
     },
     {
@@ -219,11 +233,11 @@ window.PROFILE = {
       featured: true,
       sub: "NLP · Big Data",
       period: "Sep 2022 – Dec 2022",
-      stack: ["NLP", "PySpark", "LSTM", "Azure"],
+      stack: ["PySpark", "LSTM", "Azure"], // sub 已含 NLP,别在 meta 行里重复渲染
       repo: "",
       url: "https://hotarugusa.github.io/reddit/index.html",
       bullets: [
-        "EDA, NLP, and a big-data pipeline over Reddit and YouTube data to study game communities, benchmarking classical ML against LSTM.",
+        "Ran EDA, NLP, and a big-data pipeline over Reddit and YouTube data to study game communities, benchmarking classical ML against LSTM.",
       ],
     },
     {
@@ -234,7 +248,7 @@ window.PROFILE = {
       repo: "",
       url: "https://github.com/kkkkshi/ANLY580_Final_Project",
       bullets: [
-        "Essay auto-grader scoring six writing traits for 8–12th-grade ESL students, combining TF-IDF, a Conv1D model, and an SVM ensemble.",
+        "Built an essay auto-grader scoring six writing traits for 8th–12th-grade ESL students, combining TF-IDF, a Conv1D model, and an SVM ensemble.",
       ],
     },
     {
@@ -244,7 +258,7 @@ window.PROFILE = {
       stack: ["Conv2D", "Regression", "Python"],
       repo: "Pawpularity",
       bullets: [
-        "Kaggle competition predicting shelter-pet photo appeal from images and tabular metadata.",
+        "Predicted shelter-pet photo appeal from images and tabular metadata for a Kaggle competition.",
       ],
     },
     {
@@ -276,7 +290,7 @@ window.PROFILE = {
       stack: ["Python", "Scikit-learn"],
       repo: "Dataset_Toolbox",
       bullets: [
-        "Utilities for cleaning, transforming, and packaging ML datasets: EDA, ROC, and tree / kd-tree-KNN classifiers.",
+        "Built utilities for cleaning, transforming, and packaging ML datasets: EDA helpers, ROC plots, and decision-tree and kd-tree KNN classifiers.",
       ],
     },
     {
@@ -287,7 +301,7 @@ window.PROFILE = {
       repo: "",
       todo: true,
       bullets: [
-        "Supervised and unsupervised analysis of the World Happiness dataset (KNN, Random Forest), packaged into a storytelling web page.",
+        "Ran supervised and unsupervised analysis of the World Happiness dataset (KNN, Random Forest) and packaged it into a storytelling web page.",
       ],
     },
     {
@@ -297,7 +311,7 @@ window.PROFILE = {
       stack: ["C++", "UML"],
       repo: "The-Magic-Tower",
       bullets: [
-        "A remake of the classic Magic Tower puzzle-RPG, with four monster types and three boss stages.",
+        "Rebuilt the classic Magic Tower puzzle-RPG with four monster types and three boss stages.",
       ],
     },
   ],
@@ -306,18 +320,19 @@ window.PROFILE = {
     {
       title:
         "A Blockchain-Driven Electronic Contract Management System for Commodity Procurement in the Electronic Power Industry",
-      venue: "IEEE",
+      venue: "IEEE Access", // 具体刊名(Crossref 核实,DOI 10.1109/ACCESS.2021.3049562)
       date: "Jan 2021",
       url: "https://ieeexplore.ieee.org/document/9316177",
-      note: "A process-oriented blockchain contract system (Hyperledger Fabric, SHA-256) deployed for a power-grid enterprise. Over 6,000 contracts and ¥6.5B signed, with settlement time cut from about three months to one.",
+      note: "A process-oriented blockchain contract system (Hyperledger Fabric, SHA-256) deployed for a power-grid enterprise. Over 6,000 contracts and US$1B+ signed, with settlement time cut from about three months to one.",
     },
   ],
 
+  // featured: true 默认展示;其余收进 "Show all certifications"
   certifications: [
-    { name: "Claude Code in Action", authority: "Anthropic", date: "May 2026", url: "https://verify.skilljar.com/c/vjmkur55sxv3" },
-    { name: "Claude Code 101", authority: "Anthropic", date: "May 2026", url: "https://verify.skilljar.com/c/no8kw6kydhqn" },
-    { name: "Claude 101", authority: "Anthropic", date: "May 2026", url: "https://verify.skilljar.com/c/jt8kq2scu5q2" },
-    { name: "Introduction to Claude Cowork", authority: "Anthropic", date: "May 2026", url: "https://verify.skilljar.com/c/yq93jiso5n7s" },
+    { name: "Claude Code in Action", authority: "Anthropic", date: "May 2026", url: "https://verify.skilljar.com/c/vjmkur55sxv3", featured: true },
+    { name: "Claude Code 101", authority: "Anthropic", date: "May 2026", url: "https://verify.skilljar.com/c/no8kw6kydhqn", featured: true },
+    { name: "Claude 101", authority: "Anthropic", date: "May 2026", url: "https://verify.skilljar.com/c/jt8kq2scu5q2", featured: true },
+    { name: "Introduction to Claude Cowork", authority: "Anthropic", date: "May 2026", url: "https://verify.skilljar.com/c/yq93jiso5n7s", featured: true },
     { name: "Django App Development with SQL & Databases", authority: "IBM", date: "Nov 2023", url: "https://www.coursera.org/account/accomplishments/verify/EED4FG2STA9V" },
     { name: "Python for Data Science, AI & Development", authority: "IBM", date: "Oct 2023", url: "https://www.coursera.org/account/accomplishments/verify/VS74BKG63WWK" },
     { name: "Developing AI Applications with Python & Flask", authority: "IBM", date: "Oct 2023", url: "https://coursera.org/verify/QLPA24GG7NFU" },
@@ -327,6 +342,7 @@ window.PROFILE = {
   ],
 
   skills: {
+    // 类目顺序跟工作经历走:现职 DE(数据栈) → MLE/DS → AI 方向 → 实习按新到旧(CV→Viz→区块链)
     Programming: [
       "Python",
       "SQL",
@@ -336,6 +352,21 @@ window.PROFILE = {
       "JavaScript / TypeScript",
       "R",
       "Shell",
+    ],
+    "Data, Cloud & MLOps": [
+      "Spark / PySpark",
+      "Hadoop",
+      "Cassandra",
+      "AWS (SageMaker · S3 · Athena)",
+      "Azure",
+      "GCP",
+      "Terraform",
+      "Docker",
+      "CI/CD",
+      "Git",
+      "ELK Stack",
+      "Drift Monitoring",
+      "Linux / UNIX",
     ],
     "Machine Learning": [
       "PyTorch",
@@ -347,9 +378,11 @@ window.PROFILE = {
       "SHAP",
       "Bayesian Optimization",
       "Classical ML (RF · SVM · KNN)",
+      "Anomaly Detection (Isolation Forest · K-Means)",
     ],
-    "NLP & LLMs": [
-      "LLMs (GPT-4)",
+    // 类目名会被 CSS 全大写:"NLP & LLMs"会渲染成"NLP & LLMS"像笔误,改用大写安全的名字
+    "Language Models & NLP": [
+      "LLMs (GPT-4 · Claude)",
       "NLP",
       "LSTM",
       "TF-IDF",
@@ -369,28 +402,16 @@ window.PROFILE = {
       "CNNs (AlexNet · VGG · Inception)",
       "Image Classification",
     ],
-    "Data, Cloud & MLOps": [
-      "Spark / PySpark",
-      "Hadoop",
-      "Cassandra",
-      "AWS (SageMaker · S3 · Athena)",
-      "Azure",
-      "GCP",
-      "Docker",
-      "CI/CD",
-      "Git",
-      "ELK Stack",
-      "Drift Monitoring",
-      "Linux / UNIX",
-    ],
     "Data Viz": ["Tableau", "Matplotlib", "ECharts", "D3.js"],
     Blockchain: ["Hyperledger Fabric", "Smart Contracts", "Cryptography"],
-    Languages: ["Chinese (native)", "English (native)", "Japanese", "French"],
+    Languages: ["Chinese (native)", "English (native)", "Japanese (JLPT N3)", "French (basic)"],
   },
 
   footprints: {
-    blurb:
-      "Beyond the résumé: a hand-built, multi-layer map of everywhere I've lived and traveled. 13 countries, 2014 to 2026, with photos and field notes.",
+    // 国家数源头是 data/footprints.json(countryCount);年份 1999 起是用户定的(人生跨度,
+    // 不跟地图年份带走);"some photos" 措辞=只有部分是网图(隐私原因自己的照片不放)
+    title: "A map of everywhere she's been",
+    meta: "13 countries · 1999–2026 · some photos from the web",
     href: "footprints.html",
   },
 };

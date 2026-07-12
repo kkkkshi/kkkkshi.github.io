@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- 手机浏览器地址栏跟随昼夜变色(默认白天=海色;applyDayNight() 切夜时改深) -->
     <meta name="theme-color" content="#b9cdd0" />
-    <link rel="icon" href="favicon.svg" />
+    <link rel="icon" href="assets/icons/favicon.svg" />
     <title>Sherry's Footprints</title>
     <meta
       name="description"
@@ -20,27 +20,26 @@
     />
     <meta property="og:site_name" content="Sherry (Ke) Shi" />
     <meta property="og:locale" content="en_US" />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:url" content="https://kkkkshi.github.io/footprints.html" />
+    <meta property="og:image" content="https://kkkkshi.github.io/og-image-map.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <link rel="canonical" href="https://kkkkshi.github.io/footprints.html" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://kkkkshi.github.io/og-image-map.png" />
     <meta name="twitter:title" content="Sherry's Footprints" />
     <meta
       name="twitter:description"
       content="An interactive antique-style map tracing the places Sherry (Ke) Shi has lived and traveled."
     />
-    <!-- 部署后补:og:url 与 og:image(绝对 URL,建议 1200×630 PNG) -->
-    <!-- 提早建立到 unpkg 的连接(DNS+TLS),加速关键的 maplibre CSS/JS;crossorigin 对齐 SRI 的 CORS 请求以便复用连接 -->
-    <link rel="preconnect" href="https://unpkg.com" crossorigin />
+    <!-- MapLibre 自托管(assets/vendor,SHA384 与原 unpkg SRI 校验一致):
+         unpkg 在中国大陆常整站不可达,自托管后地图页不再依赖第三方 CDN -->
     <link
-      href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css"
-      rel="stylesheet"
-      integrity="sha384-MinO0mNliZ3vwppuPOUnGa+iq619pfMhLVUXfC4LHwSCvF9H+6P/KO4Q7qBOYV5V"
-      crossorigin="anonymous"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=IM+Fell+English:ital@0;1&display=swap"
+      href="assets/vendor/maplibre-gl-4.7.1/maplibre-gl.css"
       rel="stylesheet"
     />
+    <!-- 字体自托管(assets/fonts/,由 Google Fonts 下载):国内访客不依赖 gstatic -->
+    <link href="assets/fonts/fonts.css" rel="stylesheet" />
     <style>
       :root {
         --paper: #ece3cf;
@@ -147,9 +146,7 @@
         border: 2.2px solid var(--marker);
         border-radius: 50%;
         background: #efe7d2;
-        box-shadow:
-          0 0 0 2.6px rgba(236, 227, 207, 0.92),
-          0 1px 2px rgba(30, 18, 4, 0.3);
+        box-shadow: 0 1px 2px rgba(30, 18, 4, 0.3);
         transition: transform 0.18s ease;
       }
       .port .pin::after {
@@ -176,9 +173,7 @@
       .port.area .pin::after {
         background: var(--golddk);
       }
-      .port.web .pin {
-        border-style: dashed;
-      }
+      /* 照片点与网图景点统一样式(用户定):不再用虚线圈区分,靠小注(N photos)自明 */
       .port .lbl {
         position: absolute;
         left: 12px;
@@ -190,6 +185,18 @@
           0 1px 0 rgba(236, 227, 207, 0.95),
           0 0 5px rgba(236, 227, 207, 1);
         pointer-events: none;
+      }
+      /* 城市名下的小注(只有能钻进去的容器点才有,如 "5 places"),古地图注记风 */
+      .port .lbl small {
+        display: block;
+        font: italic 10.5px var(--fell);
+        letter-spacing: 0.03em;
+        color: var(--ink2);
+      }
+      /* 密集区被避让藏掉的名字:悬停圆点时临时显出来(放大后自然全显) */
+      .port .pin:hover + .lbl {
+        visibility: visible !important;
+        z-index: 5;
       }
       /* 区域(国家/州)无圆点:文字居中、可点,点填色块或文字都进入 */
       .port.area .lbl {
@@ -209,6 +216,14 @@
       }
       .port.area .lbl:hover {
         color: #7a2a1e;
+      }
+      /* 世界层的远飞地群岛标注(如夏威夷):小一号,古图注记风,别抢国名 */
+      .port.area.minor .lbl {
+        font:
+          600 10.5px "Cinzel",
+          serif;
+        letter-spacing: 0.06em;
+        opacity: 0.88;
       }
       .port.area .cnt {
         left: 50%;
@@ -245,6 +260,56 @@
         z-index: 6;
         pointer-events: none;
         opacity: 0.9;
+      }
+      /* 图例:比例尺上方一行古地图注记(点 / 航线 / 去过的填色) */
+      #legend {
+        position: absolute;
+        left: 28px;
+        bottom: 56px;
+        z-index: 6;
+        pointer-events: none;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        font: italic 11.5px var(--fell);
+        color: var(--ink2);
+        opacity: 0.92;
+        text-shadow: 0 1px 0 rgba(236, 227, 207, 0.9);
+      }
+      #legend i {
+        display: inline-block;
+        margin-right: 5px;
+      }
+      #legend .lg-pin {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        border: 1.8px solid var(--marker);
+        background: #efe7d2;
+        vertical-align: -1px;
+      }
+      #legend .lg-route {
+        width: 20px;
+        border-top: 1.6px dashed var(--marker);
+        opacity: 0.75;
+        vertical-align: 3px;
+      }
+      #legend .lg-gold {
+        width: 13px;
+        height: 9px;
+        background: rgba(205, 171, 94, 0.45);
+        border: 1px solid #8a6d3a;
+        vertical-align: -1px;
+      }
+      /* BGM 署名(CC-BY 要求):比图例再淡一点,不抢戏 */
+      #legend .lg-credit {
+        opacity: 0.75;
+        font-size: 10.5px;
+      }
+      @media (max-width: 640px) {
+        #legend {
+          display: none;
+        }
       }
       #seal {
         position: absolute;
@@ -492,6 +557,7 @@
       body.night {
         --ink: #ece0c2;
         --ink2: #b7a684;
+        --marker: #c9604c; /* 标记/图例的印章红提亮一档,深底上才看得清 */
       }
       body.night #map {
         background: #0f1826;
@@ -516,6 +582,87 @@
       body.night #daynight {
         background: rgba(20, 30, 46, 0.85);
         color: #e7c25c;
+      }
+      /* 夜晚:其余浮层同步转深 —— 左侧按钮(亮底看不清图标)、面包屑(亮光晕发怪)、
+         卡片/toast(羊皮纸大亮块)。金色线框保留,古图气质不变 */
+      body.night #music,
+      body.night #links a {
+        background: rgba(20, 30, 46, 0.85);
+        color: #e7c25c;
+      }
+      body.night #music .note {
+        stroke: #e7c25c;
+      }
+      body.night #music circle.note {
+        fill: #e7c25c;
+      }
+      body.night #crumbs {
+        text-shadow:
+          0 0 5px rgba(10, 16, 26, 0.95),
+          0 1px 0 rgba(10, 16, 26, 0.9);
+      }
+      body.night #crumbs .cr {
+        color: #d99a6c;
+      }
+      body.night #crumbs .cr:hover {
+        color: #ecc06a;
+      }
+      body.night #years button,
+      body.night #yearlist {
+        text-shadow: 0 0 5px rgba(10, 16, 26, 0.95);
+      }
+      /* 夜晚 pin 全金(用户定):白天红圈好看,夜里"白圈红圈白心"像 target 图标 */
+      body.night .port .pin {
+        border-color: #e7c25c;
+        background: #232f42;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+      }
+      body.night .port .pin::after {
+        background: #e7c25c;
+      }
+      body.night #legend .lg-pin {
+        border-color: #e7c25c;
+        background: #232f42;
+      }
+      body.night #legend .lg-route {
+        border-top-color: #ec9a82;
+      }
+      body.night #card {
+        background: linear-gradient(
+          rgba(26, 37, 52, 0.88),
+          rgba(19, 29, 44, 0.88)
+        );
+        box-shadow:
+          inset 0 1px 0 rgba(255, 250, 235, 0.08),
+          0 0 0 3px rgba(10, 16, 26, 0.5),
+          0 1px 2px rgba(0, 0, 0, 0.3),
+          0 14px 30px -10px rgba(0, 0, 0, 0.6);
+      }
+      body.night #card .photo {
+        background: repeating-linear-gradient(
+          45deg,
+          #1b2635,
+          #1b2635 6px,
+          #16202e 6px,
+          #16202e 12px
+        );
+      }
+      body.night #card .ph-prev,
+      body.night #card .ph-next {
+        background: rgba(20, 30, 46, 0.95);
+        color: #e7c25c;
+      }
+      body.night #toast {
+        background: linear-gradient(#1a2534, #131d2c);
+        outline-color: rgba(10, 16, 26, 0.6);
+        color: #cdbb96;
+      }
+      /* 夜晚:自定义鼠标转浅(白天深墨色在深色海面上看不见) */
+      body.night #cursor {
+        color: #ece0c2;
+      }
+      body.night #cursor.hot {
+        color: #ecc06a;
       }
 
       #links {
@@ -671,7 +818,8 @@
         z-index: 7;
         display: flex;
         gap: 4px;
-        align-items: center;
+        /* 按文字基线对齐:‹›(21px)和年份(13px)行盒不同高,盒子居中会错位 */
+        align-items: baseline;
         flex-wrap: wrap;
         justify-content: center;
         max-width: 76%;
@@ -685,7 +833,8 @@
         top: 50%;
         transform: translate(-50%, -50%);
         width: calc(100% + 90px);
-        height: 64px;
+        /* 随内容长高(选中年份时上方多一行地点),单行时 ≈ 原 64px */
+        height: calc(100% + 38px);
         background: transparent;
         -webkit-backdrop-filter: blur(9px);
         backdrop-filter: blur(9px);
@@ -726,6 +875,39 @@
         color: #7a2a1e;
         font-weight: 600;
       }
+      /* 翻页箭头(‹ 往前退到更早年份,› 翻回更近),到头自动消失;
+         比年份按钮大且深(用户反馈 15px/0.55 透明度根本看不见) */
+      #years button.pg {
+        font-style: normal;
+        font-size: 21px;
+        line-height: 1;
+        padding: 3px 8px;
+        /* 实测墨迹:‹ 中心在基线上方 7px,数字 5px → 下移 2px 令视觉中线重合 */
+        transform: translateY(2px);
+        color: var(--ink);
+        opacity: 0.8;
+      }
+      #years button.pg:hover {
+        opacity: 1;
+      }
+      /* 收起态(默认):整条年份带只留一枚 "Years ▾" 开关,点开才展开
+         (用户定:一开始不用全部摆出来) */
+      #years:not(.open) button:not(.tg) {
+        display: none;
+      }
+      #years button.tg {
+        opacity: 0.75;
+      }
+      /* 选中某年时,在年份带上方一行列出那年去过的地方(黄色块粒度) */
+      #yearlist {
+        flex-basis: 100%;
+        text-align: center;
+        font: italic 12.5px var(--fell);
+        color: var(--ink2);
+        letter-spacing: 0.04em;
+        text-shadow: 0 0 5px rgba(236, 227, 207, 0.95);
+        margin-bottom: 3px;
+      }
       /* 移动端：年份带放宽到 2 行（原 3 行 106px 挡地图），不缩按钮保 tap 尺寸 */
       @media (max-width: 700px) {
         #years {
@@ -735,7 +917,7 @@
         }
         #years::before {
           width: calc(100% + 24px);
-          height: 70px;
+          height: calc(100% + 16px);
         }
         /* 故事卡：窄屏从「固定 300px 靠右、左缘只剩 ~62px」改成近全宽底部抽屉（年份带上方，自下滑入）。
            用 `body #card` 提特异性——本 @media 块位于 #card 基础规则之前，同特异性会被覆盖。 */
@@ -789,8 +971,7 @@
         top: 50%;
         transform: translateY(-50%) translateX(12px);
         z-index: 8;
-        width: 300px;
-        min-height: 234px;
+        width: 360px;
         pointer-events: auto;
         background: linear-gradient(
           rgba(243, 236, 216, 0.84),
@@ -836,12 +1017,6 @@
         letter-spacing: 0.08em;
         margin-bottom: 8px;
       }
-      #card .note {
-        font: italic 14.5px var(--fell);
-        color: #5a4632;
-        line-height: 1.5;
-        min-height: 48px;
-      }
       #card .photo {
         margin-top: 4px;
         height: 56px;
@@ -859,37 +1034,99 @@
         font: italic 11px var(--fell);
         color: var(--ink2);
       }
-      #card .nav {
-        margin-top: 11px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+      /* 有网图时:金边装裱,整幅显示、任何方向都不裁剪——
+         相框收缩到与图同宽(fit-content)居中,两侧不留衬纸边 */
+      #card .photo.has-img {
+        position: relative;
+        height: auto;
+        width: fit-content;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 2px;
+        background: #e2d6b4; /* 只剩 2px 装裱缝的底色 */
       }
-      #card .nav span {
-        font: italic 11px var(--fell);
-        color: var(--ink2);
+      #card .photo.has-img img {
+        display: block;
+        width: auto;
+        height: auto;
+        /* 320 = 卡片 360 - 左右内边距 36 - 框缝 4(卡片宽度变了要同步) */
+        max-width: 320px;
+        max-height: min(380px, 48vh);
+        filter: saturate(0.9) sepia(0.12); /* 轻做旧,融入羊皮纸 */
       }
-      #card .next {
+      /* 容器城市卡的图位:不放图,放"点击进入"面板。
+         底色 = 地图陆地羊皮纸色(--paper #ece3cf,和背景一个颜色);
+         悬停只加深一档羊皮纸,不变红(用户定) */
+      #card .photo.enter {
+        height: 64px;
+        padding: 0 16px;
+        cursor: pointer;
+        background: #ece3cf;
+        border-color: rgba(184, 147, 68, 0.5);
         font: italic 13px var(--fell);
         color: #7a2a1e;
-        cursor: pointer;
-        border: 1px solid var(--gold);
-        border-radius: 7px;
-        padding: 3px 12px;
-        background: rgba(236, 227, 207, 0.6);
         transition:
           background 0.18s,
-          color 0.18s,
-          transform 0.1s;
+          border-color 0.18s;
       }
-      #card .next:hover {
+      #card .photo.enter:hover {
+        background: #e2d6b4;
+        border-color: var(--gold);
+      }
+      /* ‹› 切换按钮:挂在卡片左右边缘中线(卡片垂直居中 → 屏幕位置固定,
+         图无论横竖大小都能在同一个点连点快速浏览);圆点仍在图底部 */
+      #card .ph-prev,
+      #card .ph-next {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        border: 1px solid var(--gold);
+        background: rgba(236, 227, 207, 0.95);
+        color: #7a2a1e;
+        font: 16px/1 var(--fell);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 0 2px;
+        box-shadow: 0 2px 6px rgba(30, 18, 4, 0.18);
+        transition:
+          background 0.18s,
+          color 0.18s;
+      }
+      #card .ph-prev {
+        left: -14px;
+      }
+      #card .ph-next {
+        right: -14px;
+      }
+      #card .ph-prev:hover,
+      #card .ph-next:hover {
         background: var(--gold);
         color: #fff;
       }
-      #card .next:active {
-        transform: scale(0.96);
+      #card .ph-dots {
+        position: absolute;
+        left: 50%;
+        bottom: 8px;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 5px;
       }
-
+      #card .ph-dots i {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: rgba(236, 227, 207, 0.8);
+        border: 1px solid rgba(122, 42, 30, 0.55);
+      }
+      #card .ph-dots i.on {
+        background: var(--marker, #9b2d20);
+        border-color: #9b2d20;
+      }
       #loadtip {
         position: absolute;
         left: 50%;
@@ -941,6 +1178,12 @@
       </div>
       <div id="crumbs"></div>
       <div id="stamp"></div>
+      <div id="legend" aria-hidden="true">
+        <span><i class="lg-pin"></i>place</span>
+        <span><i class="lg-route"></i>route</span>
+        <span><i class="lg-gold"></i>visited</span>
+        <span class="lg-credit">♪ Debussy · Clair de Lune — L. Goedhart, CC-BY</span>
+      </div>
       <svg id="scale" aria-hidden="true"></svg>
       <svg id="compass" viewBox="0 0 120 120" aria-hidden="true"></svg>
       <svg id="seal" viewBox="0 0 80 80">
@@ -948,13 +1191,17 @@
       </svg>
       <div id="years"></div>
       <div id="card"></div>
+      <!-- BGM: Debussy, Clair de Lune — 演奏 Laurens Goedhart (2011), CC-BY 3.0, via Wikimedia Commons -->
       <audio
         id="bgm"
-        src="audio/call-of-silence.mp3"
+        src="audio/clair-de-lune.m4a"
         loop
         preload="none"
       ></audio>
-      <button id="music" title="Music">
+      <button
+        id="music"
+        title="Music — Debussy, Clair de Lune · performed by Laurens Goedhart (CC-BY 3.0)"
+      >
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path
             class="note"
@@ -1058,11 +1305,7 @@
       </svg>
     </div>
 
-    <script
-      src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"
-      integrity="sha384-SYKAG6cglRMN0RVvhNeBY0r3FYKNOJtznwA0v7B5Vp9tr31xAHsZC0DqkQ/pZDmj"
-      crossorigin="anonymous"
-    ></script>
+    <script src="assets/vendor/maplibre-gl-4.7.1/maplibre-gl.js"></script>
     <script>
       // ===== 古海图底图样式(矢量瓦片) =====
       const style = {
@@ -1074,15 +1317,15 @@
           {
             id: "bg",
             type: "background",
-            // 远景背景=海;z7.5→8.5 渐变为纸色(近景水面改由瓦片 water 层精确绘制,见 water-omt)
+            // 远景背景=海;z6→7 渐变为纸色(近景水面改由瓦片 water 层精确绘制,见 water-omt)
             paint: {
               "background-color": [
                 "interpolate",
                 ["linear"],
                 ["zoom"],
-                7.5,
+                6,
                 "#b9cdd0",
-                8.5,
+                7,
                 "#ece3cf",
               ],
             },
@@ -1096,7 +1339,8 @@
             filter: ["!=", ["get", "class"], "ferry"],
             layout: { "line-cap": "round", "line-join": "round" },
             paint: {
-              "line-color": "#3a2f23",
+              // 公路网是背景纹理不是主角:淡暖灰,别压过景点标记(用户定)
+              "line-color": "#8f8069",
               "line-opacity": 0.7,
               "line-width": [
                 "interpolate",
@@ -1153,7 +1397,7 @@
 
       // ===== 自定义光标 =====
       const CLICKABLE_SEL =
-        ".port .pin,.port.area .lbl,#seal,#years button,#crumbs .cr,#card .next,#music,#links a";
+        ".port .pin,.port.area .lbl,#seal,#years button,#crumbs .cr,#card .ph-prev,#card .ph-next,#card .photo.enter,#music,#links a";
       if (matchMedia("(pointer: fine)").matches) {
         document.documentElement.classList.add("ccursor");
         const cursorEl = document.getElementById("cursor");
@@ -1177,7 +1421,8 @@
       // ===== 数据 + 状态机 =====
       let DATA = null,
         WORLD = null,
-        STATES = null;
+        STATES = null,
+        WEBIMG = {};
       // NaturalEarth 国名 → footprints.json 国名:从 DATA 的 ne_names 推导(见下方数据加载),
       // 不再硬编码。加国家只需在 footprints.json 里给该国填 ne_names / iso_a3。
       const NE2MINE = {};
@@ -1197,14 +1442,15 @@
         if (map.getLayer("route")) map.removeLayer("route");
         if (map.getSource("route")) map.removeSource("route");
       }
-      // 景点连线:城市层把多个景点按顺序连成古海图风格虚线(复原初始版 route)
-      function drawRoute(coords) {
-        if (!coords || coords.length < 2) return;
+      // 景点连线:古海图风格虚线。lines = 多条线(每省一个闭合环)
+      function drawRoute(lines) {
+        lines = (lines || []).filter((l) => l && l.length >= 2);
+        if (!lines.length) return;
         map.addSource("route", {
           type: "geojson",
           data: {
             type: "Feature",
-            geometry: { type: "LineString", coordinates: coords },
+            geometry: { type: "MultiLineString", coordinates: lines },
           },
         });
         map.addLayer({
@@ -1213,7 +1459,8 @@
           source: "route",
           layout: { "line-cap": "round", "line-join": "round" },
           paint: {
-            "line-color": "#9b2d20",
+            // 路线虚线随昼夜:夜里暗红在深蓝底上隐形,换亮陶土色
+            "line-color": (night ? THEMES.night : THEMES.day).route,
             "line-width": [
               "interpolate",
               ["linear"],
@@ -1222,29 +1469,164 @@
               13, 1.8,
               16, 2.8,
             ],
-            "line-opacity": [
-              "interpolate",
-              ["linear"],
-              ["zoom"],
-              11, 0.5,
-              13, 0.8,
-              16, 0.92,
-            ],
+            // 夜里不透明度也提上来:50% 的暗红远景在深底上等于隐形
+            "line-opacity": night
+              ? 0.8
+              : ["interpolate", ["linear"], ["zoom"], 11, 0.5, 13, 0.8, 16, 0.92],
             "line-dasharray": [3, 2.5],
           },
         });
       }
 
+      const bbCenter = (b) => [(b[0] + b[2]) / 2, (b[1] + b[3]) / 2];
+      // 远飞地群岛州(数据标 mark:true,如夏威夷)的标注锚点:用实际点位的
+      // 外接框中心。不用州面外接框——夏威夷州面含西北链岛(远至 -178°),
+      // 州名会漂到主岛群西边几十度的空海上
+      function markBBox(c, r) {
+        const pts = (r.cities || []).map((q) => [q.lng, q.lat]);
+        if (!pts.length) return stateBBox(c.name, r.name);
+        let x0 = 1e9,
+          y0 = 1e9,
+          x1 = -1e9,
+          y1 = -1e9;
+        pts.forEach(([x, y]) => {
+          if (x < x0) x0 = x;
+          if (x > x1) x1 = x;
+          if (y < y0) y0 = y;
+          if (y > y1) y1 = y;
+        });
+        return [x0, y0, x1, y1];
+      }
+
+      // 一组城市的环线坐标:年份筛选 + 可见性过滤 + 环排序 + 闭合
+      function ringCoords(c, r, cities) {
+        const pts = ringOrder(
+          cities.filter(
+            (x) =>
+              (yearFilter === null ||
+                (x.years || []).some((y) => +y === yearFilter)) &&
+              cityVisible(c, r, x),
+          ),
+          (q) => [q.lng, q.lat],
+        ).map((q) => [q.lng, q.lat]);
+        if (pts.length >= 3) pts.push(pts[0]);
+        return pts;
+      }
+      // 按当前层级 + 年份筛选画连线:只连实际显示的点,闭合成环。
+      // 省层给全国每个省各画一环(邻省的点显示着,线也要在);世界层无线
+      function redrawRoute() {
+        if (map.getLayer("route")) map.removeLayer("route");
+        if (map.getSource("route")) map.removeSource("route");
+        const e = stack[stack.length - 1];
+        if (!e) return;
+        let lines = [];
+        if (e.level === "region") {
+          lines = e.c.regions.map((r2) => ringCoords(e.c, r2, r2.cities));
+        } else if (e.level === "country") {
+          // 所有扁平国家各画一环(邻国的点显示着,线也要在);分省国家在省层才有环
+          lines = DATA.countries
+            .filter((c2) => c2.split !== "region")
+            .map((c2) => ringCoords(c2, c2.regions[0], flatCities(c2)));
+        } else if (e.level === "city") {
+          const pts = levelSeq().map((ct) => [ct.lng, ct.lat]);
+          if (pts.length >= 3) pts.push(pts[0]);
+          lines = [pts];
+        }
+        drawRoute(lines);
+      }
+
+      // 环线排序:按绕质心的方位角排,连出来是外圈一环(巡游环),
+      // 不按数据序/就近序来回穿。key 取坐标,items 可以是坐标数组也可以是城市对象
+      function ringOrder(items, key = (p) => p) {
+        if (items.length < 3) return items;
+        let cx = 0,
+          cy = 0;
+        items.forEach((q) => {
+          const c = key(q);
+          cx += c[0];
+          cy += c[1];
+        });
+        cx /= items.length;
+        cy /= items.length;
+        const ang = (q) => {
+          const c = key(q);
+          return Math.atan2(c[1] - cy, c[0] - cx);
+        };
+        return items.slice().sort((a, b) => ang(a) - ang(b));
+      }
+
+      // 当前层可见点位的连线顺序(画虚线和卡片 ‹› 跨景点跳转共用一个序)
+      function levelSeq() {
+        const e = stack[stack.length - 1];
+        if (!e) return [];
+        const vis = (l) =>
+          l.filter(
+            (x) =>
+              yearFilter === null ||
+              (x.years || []).some((y) => +y === yearFilter),
+          );
+        if (e.level === "region")
+          return ringOrder(
+            vis(e.r.cities).filter((ct) => cityVisible(e.c, e.r, ct)),
+            (c) => [c.lng, c.lat],
+          );
+        if (e.level === "country" && e.c.split !== "region")
+          return ringOrder(
+            vis(flatCities(e.c)).filter((ct) =>
+              cityVisible(e.c, e.c.regions[0], ct),
+            ),
+            (c) => [c.lng, c.lat],
+          );
+        if (e.level === "city") {
+          // 城市层:网图景点 + 有图照片点,卡片 ‹› 翻完顺跳下一处
+          const k = cityKids(e.c, e.r, e.ct);
+          return ringOrder(vis([...k.webs, ...k.imgSpots]), (c) => [
+            c.lng,
+            c.lat,
+          ]);
+        }
+        return [];
+      }
+
+      // 有图子节点数(城市钻层判定 / 容器判定共用)
+      function cityPlaces(c, r, ct) {
+        const k = cityKids(c, r, ct);
+        return k.imgSpots.length + k.webs.length;
+      }
+      // 点位是否上图:能钻层(≥2 个有图子点)或自己能出图(本名/借图)。
+      // 出不了图的点(如没配图的路过城市)不显示(用户定:photos 里有图的才算点)
+      function cityVisible(c, r, ct) {
+        return cityPlaces(c, r, ct) >= 2 || webImgs(ct).length > 0;
+      }
+      // 当前层上下文里,该点的有图子点数(不在省/国家层时为 0)
+      function containerPlaces(x) {
+        const e = stack[stack.length - 1];
+        if (!e || !e.c || e.level === "city") return 0;
+        const r = e.level === "region" ? e.r : e.c.regions[0];
+        return cityPlaces(e.c, r, x);
+      }
+      // "容器"城市(可钻层,如 Toronto/San Francisco):卡片图位显示"点击进入"面板
+      function isContainer(x) {
+        return containerPlaces(x) >= 2;
+      }
+
       // 在地图上放一个可点节点(国家/省/市/景点通用)
       function addNode(lng, lat, label, sub, years, kind, onClick) {
         const el = document.createElement("div");
-        const area = kind === "area";
+        // minor = 区域的小号变体(世界层的远飞地群岛标注,如夏威夷)
+        const area = kind === "area" || kind === "minor";
         el.className =
-          "port" + (area ? " area" : "") + (kind === "web" ? " web" : "");
-        // 区域(国家/州)不要圆点,只用文字;城市/景点保留 pin
+          "port" +
+          (area ? " area" : "") +
+          (kind === "minor" ? " minor" : "") +
+          (kind === "web" ? " web" : "");
+        // 区域(国家/州)不要圆点,只用文字;城市/景点保留 pin。
+        // 城市/景点的 sub(照片数·地点数)显示为名字下的小注;区域仍只进 aria
         el.innerHTML =
           (area ? "" : `<span class="pin"></span>`) +
-          `<span class="lbl">${label}</span>`;
+          `<span class="lbl">${label}${
+            !area && sub ? `<small>${sub}</small>` : ""
+          }</span>`;
         el.__years = years || [];
         const target = el.querySelector(area ? ".lbl" : ".pin");
         if (onClick && target) {
@@ -1302,8 +1684,8 @@
         cities.reduce((s, c) => s + c.lat, 0) / cities.length,
       ];
       const flatCities = (c) => c.regions.flatMap((r) => r.cities);
-      // 州/省的几何中心(从州面数据算),让州名标在州中心而非去过城市的中心
-      function stateCenter(mine, region) {
+      // 州/省的外接框(从州面数据算);中心用来放州名标签
+      function stateBBox(mine, region) {
         if (!STATES) return null;
         const f = STATES.features.find(
           (x) =>
@@ -1323,7 +1705,12 @@
           } else c.forEach(scan);
         };
         scan(f.geometry.coordinates);
-        return [(x0 + x1) / 2, (y0 + y1) / 2];
+        return [x0, y0, x1, y1];
+      }
+      // 州/省的几何中心,让州名标在州中心而非去过城市的中心
+      function stateCenter(mine, region) {
+        const b = stateBBox(mine, region);
+        return b && [(b[0] + b[2]) / 2, (b[1] + b[3]) / 2];
       }
       // 整个国家的边界范围(从 world geojson 该国轮廓算),用于"点国家先显示全国地图"
       // 国家"主体"范围:取面积最大的多边形(本土),忽略阿拉斯加等分离块,
@@ -1359,6 +1746,33 @@
           }
         }
         return best ? new maplibregl.LngLatBounds(best[0], best[1]) : null;
+      }
+      // 点落在该国哪个州(states.geojson 多边形,射线法,只看外环):
+      // 远飞地州(如夏威夷)不在国家标准视野框内,世界层直点它时用这个定位到州
+      function regionAt(c, ll) {
+        if (!STATES) return null;
+        const inRing = (ring) => {
+          let hit = false;
+          for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+            const [xi, yi] = ring[i],
+              [xj, yj] = ring[j];
+            if (
+              yi > ll.lat !== yj > ll.lat &&
+              ll.lng < ((xj - xi) * (ll.lat - yi)) / (yj - yi) + xi
+            )
+              hit = !hit;
+          }
+          return hit;
+        };
+        const f = STATES.features.find(
+          (x) =>
+            x.properties.country === c.name &&
+            (x.geometry.type === "MultiPolygon"
+              ? x.geometry.coordinates
+              : [x.geometry.coordinates]
+            ).some((poly) => inRing(poly[0])),
+        );
+        return f ? c.regions.find((r) => r.name === f.properties.region) : null;
       }
 
       // 一组城市的外接矩形
@@ -1396,14 +1810,31 @@
       function applyHighlight(e) {
         const mine = e.c?.name;
         const world = e.level === "world";
+        // 年份带选中某年:金色只留那年去过的块(靠面上的 __ys 年份数组)
+        const yc =
+          yearFilter === null ? null : ["in", yearFilter, ["get", "__ys"]];
         // 去过的国家填色:仅世界层(border-line 全局国界线常显,不在这里控制)
-        lyr("country-fill", world, ["==", ["get", "__v"], 1]);
+        const cf = ["==", ["get", "__v"], 1];
+        lyr("country-fill", world, yc ? ["all", cf, yc] : cf);
         // 去过的州/省填色高亮:国家(分省的)层 + 省层
         const showState =
           (e.level === "country" && e.c.split === "region") ||
           e.level === "region";
         const sf = ["==", ["get", "country"], mine || "__x__"];
-        lyr("state-fill", showState, sf);
+        lyr("state-fill", showState, yc ? ["all", sf, yc] : sf);
+        // 边界线深浅随层级(用户定):世界总览淡(不然满图深线),
+        // 点进"能看到景点的具体地图"(扁平国家/省/城市层)才加深
+        const deep =
+          e.level === "region" ||
+          e.level === "city" ||
+          (e.level === "country" && e.c.split !== "region");
+        const B = (id, p, v) =>
+          map.getLayer(id) && map.setPaintProperty(id, p, v);
+        B("border-line", "line-opacity", deep ? 0.85 : 0.33);
+        ["state-border-far", "state-border"].forEach((id) => {
+          B(id, "line-width", deep ? 1.1 : 0.7);
+          B(id, "line-opacity", deep ? 0.85 : 0.4);
+        });
       }
 
       // ===== 各层渲染(不改 stack) =====
@@ -1415,17 +1846,20 @@
           e.level === "world"
             ? null
             : e.level === "country"
-              ? countryBBox(e.c.name) || boundsOf(flatCities(e.c))
+              ? e.c.split === "region"
+                ? countryBBox(e.c.name) || boundsOf(flatCities(e.c))
+                : null // 扁平国家层:邻国的点也显示着(如欧洲),平移不按出界退层(缩小仍退)
               : e.level === "region"
-                ? boundsOf(e.r.cities)
+                ? // 省层平移范围放宽到全国:邻省的点也显示着,平移过去不该瞬退
+                  countryBBox(e.c.name) || boundsOf(e.r.cities)
                 : (() => {
-                    // 城市层范围:有多个景点用景点外接框,否则城市点 ±buffer(避免零尺寸)
-                    const named = (e.ct.spots || []).filter(
-                      (s) => s.spot && s.spot.trim(),
-                    );
-                    if (named.length > 1)
+                    // 城市层范围:有图照片点 + 折进来的网图景点一起算外接框;
+                    // 只有单点则城市点 ±buffer(避免零尺寸)
+                    const k = cityKids(e.c, e.r, e.ct);
+                    const pts = [...k.imgSpots, ...k.webs];
+                    if (pts.length > 1)
                       return boundsOf(
-                        named.map((s) => ({ lng: s.lng, lat: s.lat })),
+                        pts.map((s) => ({ lng: s.lng, lat: s.lat })),
                       );
                     const b = new maplibregl.LngLatBounds();
                     b.extend([e.ct.lng - 0.12, e.ct.lat - 0.1]);
@@ -1449,6 +1883,29 @@
               () => navigate({ level: "country", c }),
             );
           });
+          // 远飞地小群岛(如夏威夷)岛太小世界层看不见,像没放上去:
+          // 补一个小号名字标注。点名字进该州,但层级里保留所属国家
+          // (The World › United States › Hawaii),和直接点岛的处理一致
+          DATA.countries.forEach((c) =>
+            (c.regions || [])
+              .filter((r) => r.mark)
+              .forEach((r) => {
+                const b = markBBox(c, r);
+                const ctr = b ? bbCenter(b) : centroid(r.cities);
+                addNode(
+                  ctr[0],
+                  ctr[1],
+                  r.name,
+                  `${r.cities.length} cities`,
+                  r.years,
+                  "minor",
+                  () => {
+                    stack.push({ level: "country", c });
+                    navigate({ level: "region", c, r });
+                  },
+                );
+              }),
+          );
           if (!noFit)
             fitTo(
               DATA.countries.map((c) => c.center),
@@ -1463,7 +1920,11 @@
           small.textContent = e.c.name.toUpperCase();
           if (e.c.split === "region") {
             e.c.regions.forEach((r) => {
-              const ctr = stateCenter(e.c.name, r.name) || centroid(r.cities);
+              // 标注州(如夏威夷)的名字放点位外接框中心,其余放州面几何中心
+              const rb = r.mark && markBBox(e.c, r);
+              const ctr = rb
+                ? bbCenter(rb)
+                : stateCenter(e.c.name, r.name) || centroid(r.cities);
               addNode(
                 ctr[0],
                 ctr[1],
@@ -1474,14 +1935,30 @@
                 () => navigate({ level: "region", c: e.c, r }),
               );
             });
-          } else {
-            flatCities(e.c).forEach((ct) =>
-              addCityNode(e.c, e.c.regions[0], ct),
-            );
           }
+          // 所有"扁平国家"的点一起放(平移到邻国也有点可点,如欧洲各国;
+          // 出不了图的点仍不上图)。分省国家自己的州标签在上面 if 里放
+          DATA.countries
+            .filter((c2) => c2.split !== "region")
+            .forEach((c2) =>
+              flatCities(c2)
+                .filter((ct) => cityVisible(c2, c2.regions[0], ct))
+                .forEach((ct) => addCityNode(c2, c2.regions[0], ct)),
+            );
           // 显示整个国家地图(本土占满),底图自带州界,去过的州金色高亮
           if (!noFit) {
             const bb = countryBBox(e.c.name);
+            // 远飞地州(如夏威夷)不在本土范围框内:fit 并上所有州标签锚点,
+            // 否则进美国根本看不到 Hawaii 标签,等于藏起来了
+            if (bb && e.c.split === "region")
+              e.c.regions.forEach((r) => {
+                // 标注州(如夏威夷)并入的锚点和州名标签同源(点位框中心)
+                const rb = r.mark && markBBox(e.c, r);
+                const ctr = rb
+                  ? bbCenter(rb)
+                  : stateCenter(e.c.name, r.name) || centroid(r.cities);
+                if (ctr) bb.extend(ctr);
+              });
             if (bb)
               map.fitBounds(bb, {
                 padding: { top: 96, bottom: 84, left: 40, right: 40 },
@@ -1490,43 +1967,56 @@
               });
             else
               fitTo(
-                flatCities(e.c).map((ct) => [ct.lng, ct.lat]),
+                flatCities(e.c)
+                  .filter((ct) => cityVisible(e.c, e.c.regions[0], ct))
+                  .map((ct) => [ct.lng, ct.lat]),
                 { dur: fly ? 650 : 0 },
               );
           }
         } else if (e.level === "region") {
           applyHighlight(e);
           small.textContent = e.r.name.toUpperCase();
-          e.r.cities.forEach((ct) => addCityNode(e.c, e.r, ct));
+          // 全国各省的点一起放(平移到邻省黄色区也有点可点;出不了图的点仍不上图);
+          // 视野只对准当前省,连线环和 ‹› 连播也只走当前省
+          e.c.regions.forEach((r2) =>
+            r2.cities
+              .filter((ct) => cityVisible(e.c, r2, ct))
+              .forEach((ct) => addCityNode(e.c, r2, ct)),
+          );
           if (!noFit)
             fitTo(
-              e.r.cities.map((ct) => [ct.lng, ct.lat]),
+              e.r.cities
+                .filter((ct) => cityVisible(e.c, e.r, ct))
+                .map((ct) => [ct.lng, ct.lat]),
               { dur: fly ? 650 : 0 },
             );
         } else if (e.level === "city") {
           applyHighlight(e);
           small.textContent = e.ct.name.toUpperCase();
-          // 只有"多景点"城市才展开景点层;其余(路过点 / 无照片)直接落城市卡
-          const named = (e.ct.spots || []).filter(
-            (s) => s.spot && s.spot.trim(),
-          );
-          if (named.length >= 2) {
-            named.forEach((s) =>
+          // 多个"有图"子节点才展开;没图的小地点不再上图(用户定:photos 里有图的才算点)
+          const k = cityKids(e.c, e.r, e.ct);
+          if (k.imgSpots.length + k.webs.length >= 2) {
+            // 有图照片点:可连播的城市卡(同名网图 3 张,翻完顺跳下一处);标签只写地名
+            k.imgSpots.forEach((s) =>
               addNode(
                 s.lng,
                 s.lat,
-                s.spot,
-                s.count + " 张",
+                s.name,
+                "",
                 s.years,
                 "spot",
-                () => showSpotCard(e.ct, s),
+                () => showCityCard(s),
               ),
             );
-            // 景点之间连成虚线路线(古海图风格)
-            drawRoute(named.map((s) => [s.lng, s.lat]));
+            // 网图景点:名字自明,不加小注(照片点有 N photos 小注,已可区分)
+            k.webs.forEach((w) =>
+              addNode(w.lng, w.lat, w.name, "", w.years, "web", () =>
+                showCityCard(w),
+              ),
+            );
             if (!noFit)
               fitTo(
-                named.map((s) => [s.lng, s.lat]),
+                [...k.imgSpots, ...k.webs].map((s) => [s.lng, s.lat]),
                 { zoom: 13, dur: fly ? 650 : 0 },
               );
           } else {
@@ -1542,6 +2032,7 @@
         }
         renderCrumbs();
         applyYearFilter();
+        redrawRoute();
         document
           .querySelectorAll("#years button")
           .forEach((b) =>
@@ -1566,14 +2057,29 @@
 
       function addCityNode(c, r, ct) {
         const kind = ct.source === "web" ? "web" : "spot";
+        // 多个"有图"子节点城市才钻层(含折进来的网图景点,如 Vancouver);
+        // 单点(景点/路过点)原地弹卡,周围 pin 保持可点。
+        // 能钻进去的点标 "N places ›"(› 提示可点进去);单点只写地名;
+        // 州/省文字标签不标数(填色已表明去过)——它们走 area 分支,天然无小注
+        const places = cityPlaces(c, r, ct);
         addNode(
           ct.lng,
           ct.lat,
           ct.name,
-          ct.count ? ct.count + " photos" : "web",
+          places >= 2 ? places + " places" : "",
           ct.years,
           kind,
-          () => navigate({ level: "city", c, r, ct }),
+          places >= 2
+            ? () => {
+                // 从别的省/别的国点进来:先把当前层换成该点所在地,面包屑/返回才对得上
+                const top = stack[stack.length - 1];
+                if (top.level === "region" && top.r !== r)
+                  stack[stack.length - 1] = { level: "region", c, r };
+                else if (top.level === "country" && top.c !== c)
+                  stack[stack.length - 1] = { level: "country", c };
+                navigate({ level: "city", c, r, ct });
+              }
+            : () => showCityCard(ct),
         );
       }
 
@@ -1626,34 +2132,232 @@
         });
       }
 
-      // ===== 故事卡(景点 / 城市) =====
-      function showSpotCard(ct, s) {
-        const src = "📷 " + s.count + " photos";
-        card.innerHTML =
-          `<h3>${s.spot}</h3><div class="coord">${s.lat.toFixed(3)}°${s.lat >= 0 ? "N" : "S"} · ${Math.abs(s.lng).toFixed(3)}°${s.lng >= 0 ? "E" : "W"} · ${(s.years || []).join("/") || "—"}</div>` +
-          `<div class="note"><i>journal coming —</i> ${ct.name} · ${s.spot}</div>` +
-          `<div class="photo">— photo · journal —</div>` +
-          `<div class="nav"><span>${src}</span></div>`;
-        card.classList.add("show");
+      // ===== 密集点整理 =====
+      // 两点球面近似距离(km):半径判断都在城市尺度,平面近似足够
+      const kmDist = (a, b) => {
+        const dy = (a.lat - b.lat) * 111;
+        const dx =
+          (a.lng - b.lng) *
+          111 *
+          Math.cos((((a.lat + b.lat) / 2) * Math.PI) / 180);
+        return Math.hypot(dx, dy);
+      };
+      const NEST_KM = 25; // 网图景点离城市锚点这个距离内,折进该城市(省层不再叠一堆点)
+      const MERGE_KM = 0.8; // 城市层照片微地点合并半径(反向地理编码的街名太碎)
+      // 省层收拢:把"配了网图的景点"折进最近的城市锚点(有照片的城市,或没配图的
+      // 城市聚合点,如 Vancouver/Banff)。多伦多市中心一堆景点从此挂在 Toronto 下。
+      function nestAttractions() {
+        DATA.countries.forEach((c) => {
+          c.regions.forEach((r) => {
+            const rName = r && r.name ? r.name : "";
+            const key = (x) => `${c.name}|${rName}|${x.name}`;
+            // 锚点排除"路过点"(照片<5,如 Eggertsville):否则大景点会被折进
+            // 无名小点,在省层消失
+            const anchors = r.cities.filter((ct) =>
+              ct.source === "photo" ? ct.count >= 5 : !WEBIMG[key(ct)],
+            );
+            const webs = r.cities.filter(
+              (ct) => ct.source === "web" && WEBIMG[key(ct)],
+            );
+            webs.forEach((s) => {
+              let best = null,
+                bd = NEST_KM;
+              anchors.forEach((a) => {
+                const d = kmDist(a, s);
+                if (d < bd) {
+                  bd = d;
+                  best = a;
+                }
+              });
+              if (best) {
+                (best.webSpots = best.webSpots || []).push(s);
+                r.cities.splice(r.cities.indexOf(s), 1);
+              }
+            });
+          });
+        });
       }
-      function showCityCard(ct) {
-        const photo = ct.source === "photo";
-        const meta = photo ? "📷 " + ct.count + " photos" : "🖼 web image —";
-        const note = photo
-          ? "<i>journal coming —</i>"
-          : "<i>journal coming —</i> no photos yet, web image to come.";
+      // 城市层子节点(带缓存):照片微地点按 MERGE_KM 合并(计数相加、年份并集、
+      // 大点留名);折进来的网图景点与照片地点同名(如 Distillery District)则去重,
+      // 景点卡靠同名键自动带图
+      function cityKids(c, r, ct) {
+        if (!ct._kids) {
+          const named = (ct.spots || []).filter((s) => s.spot && s.spot.trim());
+          const merged = [];
+          named
+            .slice()
+            .sort((a, b) => b.count - a.count)
+            .forEach((s) => {
+              const hit = merged.find((o) => kmDist(o, s) < MERGE_KM);
+              if (hit) {
+                hit.count += s.count;
+                hit.years = [
+                  ...new Set([...(hit.years || []), ...(s.years || [])]),
+                ].sort();
+              } else merged.push({ ...s });
+            });
+          const webs = (ct.webSpots || []).filter(
+            (w) =>
+              !merged.some(
+                (s) => s.spot.toLowerCase() === w.name.toLowerCase(),
+              ),
+          );
+          // 有图的照片点包成与网图景点同构的节点(复用同一对象,跨点连播靠
+          // levelSeq 里的对象同一性),点它弹城市卡、翻完顺跳下一处
+          const K = (n) => `${c.name}|${r && r.name ? r.name : ""}|${n}`;
+          const imgSpots = merged
+            .filter((s) => WEBIMG[K(s.spot)])
+            .map((s) => ({
+              name: s.spot,
+              lat: s.lat,
+              lng: s.lng,
+              years: s.years,
+              count: s.count,
+              source: "photo",
+              _spot: s,
+            }));
+          ct._kids = { spots: merged, webs, imgSpots };
+        }
+        return ct._kids;
+      }
+
+      // ===== 故事卡(城市 / 景点共用 showCityCard) =====
+      // 当前地点的网图(data/webimages.json,键=国家|省|地名;扁平国家省位空串)。
+      // 城市聚合点(如 Vancouver)自己没图时,借第一个折进来的景点的图;
+      // 再没有就借自己有图的照片 spot(如 Sundbyerne 借 Christianshavn)
+      function webImgs(ct) {
+        // 优先用点位自带的国家/省(跨省显示时当前层上下文对不上);缺则回退当前层
+        const e = stack[stack.length - 1];
+        const cn = ct._c || (e && e.c ? e.c.name : "");
+        const rn =
+          ct._r !== undefined ? ct._r : e && e.r && e.r.name ? e.r.name : "";
+        const k = (n) => `${cn}|${rn}|${n}`;
+        const own = WEBIMG[k(ct.name)];
+        if (own) return own;
+        const w = (ct.webSpots || []).find((s) => WEBIMG[k(s.name)]);
+        if (w) return WEBIMG[k(w.name)];
+        const sp = (ct.spots || []).find((s) => s.spot && WEBIMG[k(s.spot)]);
+        return sp ? WEBIMG[k(sp.spot)] : [];
+      }
+      function showCityCard(ct, imgIdx = 0) {
+        const cont = isContainer(ct);
+        const imgs = cont ? [] : webImgs(ct);
+        let idx = imgs.length
+          ? Math.min(Math.max(imgIdx, 0), imgs.length - 1)
+          : 0;
+        // 卡片只留:地名 + 坐标·年份 + 图(3张可切换);
+        // 容器城市(如 San Francisco)图位不放借来的图,放"点击进入"面板(用户定)
+        const photoBox = cont
+          ? `<div class="photo enter" role="button" tabindex="0" aria-label="Enter ${ct.name}">` +
+            `<span>${containerPlaces(ct)} places — click to enter ›</span></div>`
+          : imgs.length
+            ? `<div class="photo has-img"><img src="${imgs[idx]}" alt="${ct.name}" decoding="async">` +
+              (imgs.length > 1
+                ? `<span class="ph-dots">${imgs.map((_, i) => `<i${i === idx ? ' class="on"' : ""}></i>`).join("")}</span>`
+                : "") +
+              `</div>`
+            : "";
+        // ‹› 挂在卡片左右边缘中线上(卡片垂直居中,位置不随图大小变,可连点快速浏览)
+        const navBtns =
+          cont || imgs.length > 1
+            ? `<button class="ph-prev" aria-label="Previous">‹</button>` +
+              `<button class="ph-next" aria-label="Next">›</button>`
+            : "";
         card.innerHTML =
           `<h3>${ct.name}</h3><div class="coord">${ct.lat.toFixed(3)}°${ct.lat >= 0 ? "N" : "S"} · ${Math.abs(ct.lng).toFixed(3)}°${ct.lng >= 0 ? "E" : "W"} · ${(ct.years || []).join("/") || "—"}</div>` +
-          `<div class="note">${note}</div>` +
-          `<div class="photo">— photo · journal —</div>` +
-          `<div class="nav"><span>${meta}</span></div>`;
+          photoBox +
+          navBtns;
+        // ‹›连播:翻到头/容器卡时,顺环线跳到上/下一个点(有图景点或容器都算一站)
+        const jump = (d) => {
+          const seq = levelSeq().filter(
+            (x) => webImgs(x).length || isContainer(x),
+          );
+          const pos = seq.indexOf(ct);
+          if (pos < 0 || seq.length < 2) return false;
+          const nxt = seq[(pos + d + seq.length) % seq.length];
+          map.easeTo({ center: [nxt.lng, nxt.lat], duration: 650 });
+          showCityCard(nxt, d > 0 ? 0 : Math.max(webImgs(nxt).length - 1, 0));
+          return true;
+        };
+        if (cont) {
+          const box = card.querySelector(".photo.enter");
+          const enter = () => {
+            const e = stack[stack.length - 1];
+            const r = e.level === "region" ? e.r : e.c.regions[0];
+            navigate({ level: "city", c: e.c, r, ct });
+          };
+          box.addEventListener("click", enter);
+          box.addEventListener("keydown", (ev) => {
+            if (ev.key === "Enter" || ev.key === " ") {
+              ev.preventDefault();
+              enter();
+            }
+          });
+          card
+            .querySelector(".ph-prev")
+            .addEventListener("click", () => jump(-1));
+          card
+            .querySelector(".ph-next")
+            .addEventListener("click", () => jump(1));
+        } else if (imgs.length) {
+          const imgEl = card.querySelector(".photo img");
+          // 图加载失败(如换环境没带图)整块收起,不留裂图/占位
+          imgEl.addEventListener("error", () => {
+            card.querySelector(".photo")?.remove();
+          });
+          if (imgs.length > 1) {
+            const dots = [...card.querySelectorAll(".ph-dots i")];
+            const go = (d) => {
+              const ni = idx + d;
+              if (ni < 0 || ni >= imgs.length) {
+                if (jump(d)) return;
+                idx = (ni + imgs.length) % imgs.length; // 本层没别处:回绕
+              } else idx = ni;
+              imgEl.src = imgs[idx];
+              dots.forEach((el, i) => el.classList.toggle("on", i === idx));
+            };
+            card
+              .querySelector(".ph-prev")
+              .addEventListener("click", () => go(-1));
+            card
+              .querySelector(".ph-next")
+              .addEventListener("click", () => go(1));
+            // 预热其余两张,切换不闪
+            imgs.slice(1).forEach((s) => {
+              new Image().src = s;
+            });
+          }
+        }
         card.classList.add("show");
       }
 
       // ===== 年份带 =====
+      // 跨度从 1999 起是用户定的人生跨度(照片数据只到 2014,更早年份按用户
+      // 口述补录);28 年全摆占三行挡地图,一次只显示 10 年(默认 2017–2026),
+      // ‹ 往前退、› 翻回,到头箭头消失
+      const YR_LO = 1999;
+      const YR_SPAN = 10;
+      let yrPage = 0; // 0 = 最近一页,每 +1 往前退 YR_SPAN 年
+      let yrOpen = false; // 默认收起,只露 "Years ▾" 开关
       function buildYears() {
-        const [lo, hi] = DATA.yearsRange || [2014, 2026];
+        const hi = (DATA.yearsRange || [2014, 2026])[1];
+        const maxPage = Math.ceil((hi - YR_LO + 1) / YR_SPAN) - 1;
         const wrap = document.getElementById("years");
+        wrap.innerHTML = "";
+        wrap.classList.toggle("open", yrOpen);
+        wrap.appendChild(document.createElement("div")).id = "yearlist";
+        // 开关:收起时只剩它(带当前选中年份),点开才见整条年份带
+        const tg = document.createElement("button");
+        tg.className = "tg";
+        tg.textContent =
+          (yearFilter === null ? "Years" : yearFilter) +
+          (yrOpen ? " ▴" : " ▾");
+        tg.setAttribute("aria-label", yrOpen ? "Hide years" : "Filter by year");
+        tg.addEventListener("click", () => {
+          yrOpen = !yrOpen;
+          buildYears();
+        });
+        wrap.appendChild(tg);
         const mk = (label, val) => {
           const b = document.createElement("button");
           b.textContent = label;
@@ -1663,27 +2367,66 @@
           );
           wrap.appendChild(b);
         };
+        const pg = (label, step, aria) => {
+          const b = document.createElement("button");
+          b.textContent = label;
+          b.className = "pg";
+          b.setAttribute("aria-label", aria);
+          b.addEventListener("click", () => {
+            yrPage = Math.min(maxPage, Math.max(0, yrPage + step));
+            buildYears();
+          });
+          wrap.appendChild(b);
+        };
+        if (yrPage < maxPage) pg("‹", 1, "Earlier years");
         mk("All", "all");
-        for (let y = lo; y <= hi; y++) mk(y, y); // 连续显示每一年(含没去过的)
-      }
-      function setYear(y) {
-        yearFilter = y;
-        document
-          .querySelectorAll("#years button")
+        const winHi = hi - yrPage * YR_SPAN;
+        for (let y = Math.max(YR_LO, winHi - YR_SPAN + 1); y <= winHi; y++)
+          mk(y, y);
+        if (yrPage > 0) pg("›", -1, "Later years");
+        // 翻页重建后恢复选中态与地点行
+        wrap
+          .querySelectorAll("button")
           .forEach((b) =>
             b.classList.toggle(
               "on",
-              String(y) === b.dataset.y ||
-                (y === null && b.dataset.y === "all"),
+              String(yearFilter) === b.dataset.y ||
+                (yearFilter === null && b.dataset.y === "all"),
             ),
           );
+        renderYearList();
+      }
+      function setYear(y) {
+        yearFilter = y;
+        buildYears(); // 重建:选中态 + 开关上的当前年份 + 地点行一起更新
         applyYearFilter();
+        applyHighlight(stack[stack.length - 1]); // 金色填色跟随年份
+        redrawRoute();
         declutter();
+      }
+      // 选中某年 → 年份带上方列出那年去过的国家(用户定:只列国家不列省,
+      // 省级细节交给地图金色块自己说话)
+      function renderYearList() {
+        const el = document.getElementById("yearlist");
+        if (yearFilter === null) {
+          el.style.display = "none";
+          return;
+        }
+        const places = DATA.countries
+          .filter((c) => (c.years || []).some((y) => +y === yearFilter))
+          .map((c) => c.name);
+        el.textContent = places.join(" · ") || "no record";
+        el.style.display = "";
       }
       function applyYearFilter() {
         portEls.forEach((el) => {
           const ys = el.__years || [];
-          const show = yearFilter === null || ys.includes(yearFilter);
+          // 年份有的层是数字有的层是字符串(景点),统一转数字比;
+          // 没年份的点(网图景点,哪年去的未知)不参与筛选常显,不然一选年全消失
+          const show =
+            yearFilter === null ||
+            !ys.length ||
+            ys.some((y) => +y === yearFilter);
           el.style.display = show ? "" : "none";
         });
       }
@@ -1723,14 +2466,13 @@
             stopFirst();
           })
           .catch(() => {});
-      // 自动播放已临时关闭（开发期免打扰）；用右下角音乐按钮手动播放
-      // playMusic();
+      // 进页面即播(2026-07-10 用户定);浏览器拦掉无手势自动播时,首次交互兜底续播
+      playMusic();
       const firstPlay = (e) => {
         if (e && e.target.closest && e.target.closest("#music")) return;
         playMusic();
       };
-      // 首次交互自动播放也关闭（开发期免打扰）
-      // EVTS.forEach((t) => addEventListener(t, firstPlay, true));
+      EVTS.forEach((t) => addEventListener(t, firstPlay, true));
       musicBtn.addEventListener("click", () => {
         if (bgm.paused) playMusic();
         else {
@@ -1806,11 +2548,13 @@
       function declutter() {
         const top = stack[stack.length - 1];
         const world = top && top.level === "world";
+        // 记 {r, el}:标签避让要排除"自己的圆点",否则名签永远和自身 pin 相撞、
+        // 城市/景点层的名字一律被藏(老 bug:之前这两层从来没显示过标签)
         const taken = [];
         portEls.forEach((el) => {
           if (el.style.display === "none") return;
           const pinEl = el.querySelector(".pin");
-          if (pinEl) taken.push(rectOf(pinEl));
+          if (pinEl) taken.push({ r: rectOf(pinEl), el });
           const lbl = el.querySelector(".lbl");
           if (!lbl) return;
           if (world) {
@@ -1822,21 +2566,34 @@
                   ? `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px))`
                   : "translate(-50%, -50%)";
               const r = rectOf(lbl);
-              if (!taken.some((t) => hit(t, r))) {
-                taken.push(r);
+              if (!taken.some((t) => hit(t.r, r))) {
+                taken.push({ r, el });
                 break;
               }
             }
             return;
           }
-          // 其它层:沿用原避让(隐藏);清掉可能残留的世界层位移,让 CSS 居中复位
-          lbl.style.transform = "";
+          // 其它层:先试挪位(右移/翻到左侧/上下错开),密到实在放不下才藏
           lbl.style.visibility = "hidden";
-          const r = rectOf(lbl);
-          if (!taken.some((t) => hit(t, r))) {
-            lbl.style.visibility = "visible";
-            taken.push(r);
+          let placed = false;
+          for (const cand of [
+            "",
+            "translate(0, -16px)",
+            "translate(0, 16px)",
+            "translate(calc(-100% - 22px), 0)",
+            "translate(calc(-100% - 22px), -16px)",
+            "translate(calc(-100% - 22px), 16px)",
+          ]) {
+            lbl.style.transform = cand;
+            const r = rectOf(lbl);
+            if (!taken.some((t) => t.el !== el && hit(t.r, r))) {
+              lbl.style.visibility = "visible";
+              taken.push({ r, el });
+              placed = true;
+              break;
+            }
           }
+          if (!placed) lbl.style.transform = "";
         });
       }
 
@@ -1897,15 +2654,19 @@
           yb = 17,
           segs = 5,
           sw = px / segs;
+        // 夜间墨色反转:白天的深墨段在深底上看不见
+        const ink = night ? "#cdbb96" : "#3a2f23";
+        const paper = night ? "#16202e" : "#ece3cf";
+        const txt = night ? "#b7a684" : "#6b5a44";
         let s = "";
         for (let i = 0; i < segs; i++)
-          s += `<rect x="${(x0 + i * sw).toFixed(1)}" y="${yb - 5}" width="${sw.toFixed(1)}" height="5" fill="${i % 2 ? "#ece3cf" : "#3a2f23"}" stroke="#3a2f23" stroke-width="0.7"/>`;
+          s += `<rect x="${(x0 + i * sw).toFixed(1)}" y="${yb - 5}" width="${sw.toFixed(1)}" height="5" fill="${i % 2 ? paper : ink}" stroke="${ink}" stroke-width="0.7"/>`;
         for (const [tx, lab] of [
           [0, "0"],
           [px, fmt(dist)],
         ]) {
-          s += `<line x1="${(x0 + tx).toFixed(1)}" y1="${yb - 8}" x2="${(x0 + tx).toFixed(1)}" y2="${yb + 1}" stroke="#3a2f23" stroke-width="0.9"/>`;
-          s += `<text x="${(x0 + tx).toFixed(1)}" y="${yb + 12}" text-anchor="middle" font-family="var(--fell)" font-style="italic" font-size="10.5" fill="#6b5a44">${lab}</text>`;
+          s += `<line x1="${(x0 + tx).toFixed(1)}" y1="${yb - 8}" x2="${(x0 + tx).toFixed(1)}" y2="${yb + 1}" stroke="${ink}" stroke-width="0.9"/>`;
+          s += `<text x="${(x0 + tx).toFixed(1)}" y="${yb + 12}" text-anchor="middle" font-family="var(--fell)" font-style="italic" font-size="10.5" fill="${txt}">${lab}</text>`;
         }
         const w = px + 44; // 多留右边给末端"X km"标签,不被裁掉
         el.setAttribute("viewBox", `-6 0 ${w} 31`);
@@ -1946,7 +2707,11 @@
           cfo: 0.32,
           sf: "#cdab5e",
           sfo: 0.34,
-          border: "#9a7b3f",
+          // 边界固定对应制(用户定):白天=印章红系,夜晚=金色系
+          border: "#8e2f20",
+          sborder: "#a04434",
+          route: "#9b2d20",
+          road: "#8f8069",
         },
         night: {
           sea: "#0c1722",
@@ -1956,6 +2721,9 @@
           sf: "#e7c25c",
           sfo: 0.45,
           border: "#caa53f",
+          sborder: "#a98f4e",
+          route: "#ec9a82",
+          road: "#66788e",
         },
       };
       let night = false;
@@ -1969,18 +2737,34 @@
           "interpolate",
           ["linear"],
           ["zoom"],
-          7.5,
+          6,
           t.sea,
-          8.5,
+          7,
           t.land,
         ]);
         P("lake", "fill-color", t.sea); // 湖与海同源,夜间一起变深(否则白斑)
+        P("water-omt", "fill-color", t.sea); // 近景瓦片水面同步昼夜
         P("land", "fill-color", t.land);
         P("country-fill", "fill-color", t.cf);
         P("country-fill", "fill-opacity", t.cfo);
         P("state-fill", "fill-color", t.sf);
         P("state-fill", "fill-opacity", t.sfo);
         P("border-line", "line-color", t.border);
+        // 州/省界虚线昼夜同步(夜里深褐看不见,换暗金)
+        ["state-border-far", "state-border"].forEach((id) =>
+          P(id, "line-color", t.sborder),
+        );
+        // 景点连线 + 公路网 + 比例尺同步(夜里暗红/深墨都隐形)
+        P("route", "line-color", t.route);
+        P(
+          "route",
+          "line-opacity",
+          night
+            ? 0.8
+            : ["interpolate", ["linear"], ["zoom"], 11, 0.5, 13, 0.8, 16, 0.92],
+        );
+        P("roads", "line-color", t.road);
+        updateScale();
         document.body.classList.toggle("night", night);
         const tc = document.querySelector('meta[name="theme-color"]');
         if (tc) tc.content = night ? "#0c1722" : "#b9cdd0";
@@ -2031,12 +2815,7 @@
           document.body.removeChild(ta);
         }
         document.querySelectorAll("#links a").forEach((a) => {
-          if (a.dataset.soon)
-            a.addEventListener("click", (e) => {
-              e.preventDefault();
-              show(a, `${a.dataset.soon} · coming soon ✦`);
-            });
-          else if (a.dataset.email)
+          if (a.dataset.email)
             a.addEventListener("click", (e) => {
               e.preventDefault();
               show(a, `<span class="copyable">${a.dataset.email}</span>`, true);
@@ -2063,11 +2842,30 @@
         fetch("data/states.geojson").then((r) => r.json()),
         fetch("data/borders.geojson").then((r) => r.json()),
         fetch("data/lakes.geojson").then((r) => r.json()),
+        // 网图清单(scripts/build-webimages.py 生成);缺了不挡地图,只是卡片没图
+        fetch("data/webimages.json")
+          .then((r) => (r.ok ? r.json() : {}))
+          .catch(() => ({})),
+        // 全量省界线(NE 50m admin-1,美/加/中):瓦片省界低 zoom 没数据,国家视图会空旷
+        fetch("data/states-lines.geojson")
+          .then((r) => (r.ok ? r.json() : null))
+          .catch(() => null),
       ])
-        .then(([d, w, st, bd, lk]) => {
+        .then(([d, w, st, bd, lk, wi, sl]) => {
           DATA = d;
           WORLD = w;
           STATES = st;
+          WEBIMG = wi;
+          // 每个点位记住自己的国家/省:跨省显示时图片键、卡片都不依赖当前层上下文
+          DATA.countries.forEach((c) =>
+            c.regions.forEach((r) =>
+              r.cities.forEach((ct) => {
+                ct._c = c.name;
+                ct._r = r && r.name ? r.name : "";
+              }),
+            ),
+          );
+          nestAttractions(); // 收拢密集点:市内网图景点折进所在城市(见函数注释)
           // NE 国名 → 我的国名:从每国 ne_names 推导(数据驱动,代码不写死国家列表)
           DATA.countries.forEach((c) =>
             (c.ne_names || [c.name]).forEach((n) => (NE2MINE[n] = c.name)),
@@ -2094,6 +2892,23 @@
           const visited = new Set(Object.keys(NE2MINE));
           w.features.forEach((f) => {
             f.properties.__v = visited.has(f.properties.NAME) ? 1 : 0;
+          });
+          // 每个面记住去过的年份(国家=国家年份,州/省=该区年份):
+          // 年份带选中某年时,金色填色只留那年去过的块
+          const cYs = {};
+          DATA.countries.forEach((c) => (cYs[c.name] = c.years || []));
+          w.features.forEach((f) => {
+            f.properties.__ys = cYs[NE2MINE[f.properties.NAME]] || [];
+          });
+          const rYs = {};
+          DATA.countries.forEach((c) =>
+            c.regions.forEach((r) => {
+              if (r.name) rYs[c.name + "/" + r.name] = r.years || [];
+            }),
+          );
+          st.features.forEach((f) => {
+            f.properties.__ys =
+              rYs[f.properties.country + "/" + f.properties.region] || [];
           });
           buildYears();
           map.on("load", () => {
@@ -2137,53 +2952,94 @@
               "roads",
             );
             // 湖泊(NE,与陆地同源):海色填充,盖住去过国家金色(五大湖等显示为水面)
+            // NE 50m 岸线点距 5~10km,z6+ 误差就有好几像素(Ontario 区域视图 z7.45 时
+            // 多伦多标记会陷湖里 ~9px) → z6 起隐藏,交给瓦片 water 层
             map.addLayer(
               {
                 id: "lake",
                 type: "fill",
                 source: "lakes",
+                maxzoom: 6,
                 paint: { "fill-color": "#b9cdd0" },
               },
               "roads",
             );
-            // 州/省界(openfreemap admin_level 4):全国省界淡褐虚线,看得到行政划分
+            // 近中景水面(瓦片,与街道同源米级对齐):z6 淡入接替 NE 湖/海,岸线不再切街区/吞标记
+            map.addLayer(
+              {
+                id: "water-omt",
+                type: "fill",
+                source: "omt",
+                "source-layer": "water",
+                minzoom: 6,
+                filter: ["!=", ["get", "class"], "swimming_pool"],
+                paint: { "fill-color": "#b9cdd0" },
+              },
+              "roads",
+            );
+            // 州/省界两套互补:
+            // ① 本地 NE 50m 全量省界线(美/加/中):瓦片在低 zoom 基本没 admin_level 4,
+            //    国家视图只剩去过的金色州、周围空旷 —— 本地线从 z3 起补齐全部州/省
+            if (sl) {
+              map.addSource("statesLines", { type: "geojson", data: sl });
+              map.addLayer(
+                {
+                  id: "state-border-far",
+                  type: "line",
+                  source: "statesLines",
+                  minzoom: 3,
+                  maxzoom: 8,
+                  paint: {
+                    "line-color": "#a04434",
+                    "line-width": 0.7,
+                    "line-opacity": 0.4,
+                    "line-dasharray": [3, 2],
+                  },
+                },
+                "roads",
+              );
+            }
+            // ② 瓦片省界(openfreemap admin_level 4):z8+ 数据齐,接手近景(两套同款虚线)
             map.addLayer(
               {
                 id: "state-border",
                 type: "line",
                 source: "omt",
                 "source-layer": "boundary",
+                minzoom: 8,
                 filter: [
                   "all",
                   ["has", "admin_level"],
                   ["==", ["get", "admin_level"], 4],
                 ],
                 paint: {
-                  "line-color": "#9a8666",
-                  "line-width": 0.6,
-                  "line-opacity": 0.45,
+                  "line-color": "#a04434",
+                  "line-width": 0.7,
+                  "line-opacity": 0.4,
                   "line-dasharray": [3, 2],
                 },
               },
               "roads",
             );
-            // 国界线:只画"去过的国家"的陆地国界(不画全球),不含海岸、淡褐细
-            // 去过国家的 ISO A3(画陆地国界线):从 DATA 的 iso_a3 推导,不再硬编码
-            const VISITED_A3 = DATA.countries.flatMap((c) => c.iso_a3 || []);
+            // 国界线:全球陆地国界全画(用户定:得看清是哪个国家),不含海岸;
+            // 墨褐实线,明显深于灰褐公路网 —— 古图气质靠色相(墨褐)不靠淡
             map.addLayer({
               id: "border-line",
               type: "line",
               source: "borders",
-              filter: [
-                "any",
-                ["in", ["get", "ADM0_A3_L"], ["literal", VISITED_A3]],
-                ["in", ["get", "ADM0_A3_R"], ["literal", VISITED_A3]],
-              ],
               layout: { "line-join": "round" },
               paint: {
-                "line-color": "#9a7b3f",
-                "line-width": 0.7,
-                "line-opacity": 0.5,
+                "line-color": "#8e2f20",
+                "line-width": [
+                  "interpolate",
+                  ["linear"],
+                  ["zoom"],
+                  2,
+                  1,
+                  6,
+                  1.6,
+                ],
+                "line-opacity": 0.33,
               },
             });
             // 透明的国家点击层(所有层都可点):点别的国家可直接跳过去
@@ -2202,7 +3058,17 @@
               const cur = stack[stack.length - 1];
               if (cur.c === c) return; // 已在该国,其州交给 state-fill 处理
               stack.length = 1; // 回到世界,再进点中的国家(支持任意层跨国直跳)
-              navigate({ level: "country", c });
+              // 点在该国"远飞地"州上(夏威夷这类不在国家标准视野框内):直接进那个州
+              // ——否则跳到国家视图只显示本土,点的地方根本不在画面里,像"点不进去"
+              const bb = countryBBox(c.name);
+              const r =
+                c.split === "region" && bb && !bb.contains(e.lngLat)
+                  ? regionAt(c, e.lngLat)
+                  : null;
+              if (r) {
+                stack.push({ level: "country", c });
+                navigate({ level: "region", c, r });
+              } else navigate({ level: "country", c });
             });
             map.on("click", "state-fill", (e) => {
               const lvl = stack[stack.length - 1];
@@ -2255,7 +3121,39 @@
                   popped = true;
                 } else break;
               }
-              if (popped) renderTop(true); // 一次缩放可连退多层,最后 fit 落点层
+              if (popped) {
+                renderTop(true); // 一次缩放可连退多层,最后 fit 落点层
+                return;
+              }
+              // 地图中心落在哪个去过的国家(country-hit 只含去过)
+              const top = stack[stack.length - 1];
+              const hit = map.queryRenderedFeatures(
+                map.project(map.getCenter()),
+                { layers: ["country-hit"] },
+              )[0];
+              const c =
+                hit &&
+                DATA.countries.find(
+                  (x) => x.name === NE2MINE[hit.properties.NAME],
+                );
+              if (top.level === "country") {
+                // 国家层平移过界:标题/高亮跟着换国(如比利时平移到德国,上面不能还挂
+                // Belgium);只换层不动镜头,_z 沿用保退层判断有效
+                if (c && c !== top.c) {
+                  stack[stack.length - 1] = { level: "country", c, _z: top._z };
+                  renderTop(false, true);
+                }
+              } else if (
+                top.level === "world" &&
+                c &&
+                top._z != null &&
+                map.getZoom() > top._z + 0.7
+              ) {
+                // 世界层明显放大且中心在某去过国家上:自动进该国(与"缩小退层"对称,
+                // 否则满屏中国标题还挂着 world);滞回防抖,只换标题/标记不动镜头
+                stack.push({ level: "country", c, _z: map.getZoom() });
+                renderTop(false, true);
+              }
             });
           });
           map.on("error", (e) =>
@@ -2265,7 +3163,7 @@
             if (window.__ready) return;
             const tip = document.createElement("div");
             tip.id = "loadtip";
-            tip.textContent = "Map is loading slowly — check your connection";
+            tip.textContent = "Map is loading slowly. Check your connection";
             document.getElementById("mapwrap").appendChild(tip);
             openIntro();
           }, 8000);
@@ -2280,19 +3178,3 @@
     </script>
   </body>
 </html>
-        P("water-omt", "fill-color", t.sea); // 近景瓦片水面同步昼夜
-            // NE 50m 岸线点距 5~10km,城市缩放下会切进街区 → z7.5 起隐藏,交给瓦片 water 层
-                maxzoom: 7.5,
-                paint: { "fill-color": "#b9cdd0" },
-              },
-              "roads",
-            );
-            // 近景水面(瓦片,与街道同源米级对齐):z7.5 淡入接替 NE 湖/海,岸线不再切街区
-            map.addLayer(
-              {
-                id: "water-omt",
-                type: "fill",
-                source: "omt",
-                "source-layer": "water",
-                minzoom: 7.5,
-                filter: ["!=", ["get", "class"], "swimming_pool"],

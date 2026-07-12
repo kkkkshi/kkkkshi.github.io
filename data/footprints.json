@@ -1,6 +1,6 @@
 {
  "yearsRange": [
-  2014,
+  1999,
   2026
  ],
  "countryCount": 13,
@@ -32,7 +32,7 @@
     2025,
     2026
    ],
-   "cityCount": 121,
+   "cityCount": 123,
    "photoCount": 961,
    "regions": [
     {
@@ -2771,6 +2771,26 @@
        "count": 0,
        "source": "web",
        "spots": []
+      },
+      {
+       "name": "Icefields Parkway",
+       "name_zh": "冰原大道",
+       "lat": 51.7,
+       "lng": -116.49,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Banff National Park",
+       "name_zh": "班夫国家公园",
+       "lat": 51.34,
+       "lng": -116.1,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
       }
      ]
     }
@@ -2791,22 +2811,22 @@
     "USA"
    ],
    "years": [
-    2019,
-    2020,
+    2010,
     2021,
+    2022,
+    2023,
     2024,
-    2025,
     2026
    ],
-   "cityCount": 93,
+   "cityCount": 104,
    "photoCount": 166,
    "regions": [
     {
      "name": "New York",
      "name_zh": "纽约州",
      "years": [
-      2019,
       2021,
+      2023,
       2024,
       2026
      ],
@@ -3110,6 +3130,16 @@
        "count": 0,
        "source": "web",
        "spots": []
+      },
+      {
+       "name": "Niagara Falls State Park",
+       "name_zh": "尼亚加拉瀑布州立公园",
+       "lat": 43.084,
+       "lng": -79.07,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
       }
      ]
     },
@@ -3117,11 +3147,6 @@
      "name": "Pennsylvania",
      "name_zh": "宾夕法尼亚",
      "years": [
-      2019,
-      2020,
-      2021,
-      2024,
-      2025,
       2026
      ],
      "cities": [
@@ -3283,6 +3308,16 @@
        "count": 0,
        "source": "web",
        "spots": []
+      },
+      {
+       "name": "Philadelphia",
+       "name_zh": "费城",
+       "lat": 39.955,
+       "lng": -75.166,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
       }
      ]
     },
@@ -3290,7 +3325,9 @@
      "name": "Virginia",
      "name_zh": "弗吉尼亚",
      "years": [
-      2021
+      2021,
+      2022,
+      2024
      ],
      "cities": [
       {
@@ -3331,7 +3368,9 @@
      "name": "District of Columbia",
      "name_zh": "华盛顿特区",
      "years": [
-      2021
+      2021,
+      2022,
+      2024
      ],
      "cities": [
       {
@@ -3411,7 +3450,9 @@
     {
      "name": "Arizona",
      "name_zh": "亚利桑那",
-     "years": [],
+     "years": [
+      2026
+     ],
      "cities": [
       {
        "name": "Antelope Canyon",
@@ -3472,13 +3513,26 @@
        "count": 0,
        "source": "web",
        "spots": []
+      },
+      {
+       "name": "Page",
+       "name_zh": "佩吉",
+       "lat": 36.9,
+       "lng": -111.46,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
       }
      ]
     },
     {
      "name": "California",
      "name_zh": "加利福尼亚",
-     "years": [],
+     "years": [
+      2010,
+      2026
+     ],
      "cities": [
       {
        "name": "Alcatraz Island",
@@ -3639,13 +3693,35 @@
        "count": 0,
        "source": "web",
        "spots": []
+      },
+      {
+       "name": "San Francisco",
+       "name_zh": "旧金山",
+       "lat": 37.79,
+       "lng": -122.43,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Los Angeles",
+       "name_zh": "洛杉矶",
+       "lat": 34.07,
+       "lng": -118.34,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
       }
      ]
     },
     {
      "name": "Florida",
      "name_zh": "佛罗里达",
-     "years": [],
+     "years": [
+      2022
+     ],
      "cities": [
       {
        "name": "Key West",
@@ -3686,13 +3762,26 @@
        "count": 0,
        "source": "web",
        "spots": []
+      },
+      {
+       "name": "Orlando",
+       "name_zh": "奥兰多",
+       "lat": 28.43,
+       "lng": -81.52,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
       }
      ]
     },
     {
      "name": "Hawaii",
      "name_zh": "夏威夷",
-     "years": [],
+     "mark": true,
+     "years": [
+      2024
+     ],
      "cities": [
       {
        "name": "Diamond Head",
@@ -3813,13 +3902,46 @@
        "count": 0,
        "source": "web",
        "spots": []
+      },
+      {
+       "name": "Honolulu",
+       "name_zh": "檀香山",
+       "lat": 21.3,
+       "lng": -157.86,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Maui",
+       "name_zh": "茂宜岛",
+       "lat": 20.74,
+       "lng": -156.09,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Kauai",
+       "name_zh": "考爱岛",
+       "lat": 22.108,
+       "lng": -159.593,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
       }
      ]
     },
     {
      "name": "Massachusetts",
      "name_zh": "马萨诸塞",
-     "years": [],
+     "years": [
+      2022,
+      2023
+     ],
      "cities": [
       {
        "name": "Boston Common & Public Garden",
@@ -3880,13 +4002,25 @@
        "count": 0,
        "source": "web",
        "spots": []
+      },
+      {
+       "name": "Boston",
+       "name_zh": "波士顿",
+       "lat": 42.358,
+       "lng": -71.08,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
       }
      ]
     },
     {
      "name": "Nevada",
      "name_zh": "内华达",
-     "years": [],
+     "years": [
+      2026
+     ],
      "cities": [
       {
        "name": "Bellagio Fountains",
@@ -3957,13 +4091,25 @@
        "count": 0,
        "source": "web",
        "spots": []
+      },
+      {
+       "name": "Las Vegas",
+       "name_zh": "拉斯维加斯",
+       "lat": 36.116,
+       "lng": -115.17,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
       }
      ]
     },
     {
      "name": "Utah",
      "name_zh": "犹他",
-     "years": [],
+     "years": [
+      2026
+     ],
      "cities": [
       {
        "name": "Arches National Park",
@@ -4026,10 +4172,26 @@
     "TWN"
    ],
    "years": [
+    1999,
+    2000,
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
     2020,
     2021
    ],
-   "cityCount": 46,
+   "cityCount": 41,
    "photoCount": 360,
    "regions": [
     {
@@ -4186,6 +4348,22 @@
      "name": "Zhejiang",
      "name_zh": "浙江",
      "years": [
+      1999,
+      2000,
+      2001,
+      2002,
+      2003,
+      2004,
+      2005,
+      2006,
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
       2020,
       2021
      ],
@@ -4284,50 +4462,10 @@
        ]
       },
       {
-       "name": "Jinhua",
-       "name_zh": "金华",
-       "lat": 29.079,
-       "lng": 119.649,
-       "years": [],
-       "count": 0,
-       "source": "web",
-       "spots": []
-      },
-      {
-       "name": "Lishui",
-       "name_zh": "丽水",
-       "lat": 28.468,
-       "lng": 119.923,
-       "years": [],
-       "count": 0,
-       "source": "web",
-       "spots": []
-      },
-      {
-       "name": "Quzhou",
-       "name_zh": "衢州",
-       "lat": 28.936,
-       "lng": 118.874,
-       "years": [],
-       "count": 0,
-       "source": "web",
-       "spots": []
-      },
-      {
        "name": "Shaoxing",
        "name_zh": "绍兴",
        "lat": 30.03,
        "lng": 120.58,
-       "years": [],
-       "count": 0,
-       "source": "web",
-       "spots": []
-      },
-      {
-       "name": "Taizhou",
-       "name_zh": "台州",
-       "lat": 28.656,
-       "lng": 121.42,
        "years": [],
        "count": 0,
        "source": "web",
@@ -4614,6 +4752,16 @@
          "count": 1
         }
        ]
+      },
+      {
+       "name": "Tengwang Pavilion",
+       "name_zh": "滕王阁",
+       "lat": 28.685,
+       "lng": 115.879,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
       }
      ]
     },
@@ -4621,6 +4769,8 @@
      "name": "Guangdong",
      "name_zh": "广东",
      "years": [
+      2002,
+      2011,
       2021
      ],
      "cities": [
@@ -4663,16 +4813,6 @@
          "count": 1
         }
        ]
-      },
-      {
-       "name": "Shenzhen",
-       "name_zh": "深圳",
-       "lat": 22.543,
-       "lng": 114.058,
-       "years": [],
-       "count": 0,
-       "source": "web",
-       "spots": []
       },
       {
        "name": "Canton Tower",
@@ -4726,16 +4866,6 @@
        ]
       },
       {
-       "name": "Huangshi",
-       "name_zh": "黄石",
-       "lat": 30.2,
-       "lng": 115.039,
-       "years": [],
-       "count": 0,
-       "source": "web",
-       "spots": []
-      },
-      {
        "name": "Yellow Crane Tower",
        "name_zh": "黄鹤楼",
        "lat": 30.546,
@@ -4777,16 +4907,6 @@
        ]
       },
       {
-       "name": "Nanjing",
-       "name_zh": "南京",
-       "lat": 32.06,
-       "lng": 118.797,
-       "years": [],
-       "count": 0,
-       "source": "web",
-       "spots": []
-      },
-      {
        "name": "Suzhou Classical Gardens",
        "name_zh": "苏州古典园林",
        "lat": 31.324,
@@ -4801,7 +4921,10 @@
     {
      "name": "Beijing",
      "name_zh": "北京",
-     "years": [],
+     "years": [
+      2006,
+      2020
+     ],
      "cities": [
       {
        "name": "The Forbidden City",
@@ -4872,13 +4995,25 @@
        "count": 0,
        "source": "web",
        "spots": []
+      },
+      {
+       "name": "Beijing",
+       "name_zh": "北京",
+       "lat": 39.95,
+       "lng": 116.36,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
       }
      ]
     },
     {
      "name": "Tianjin",
      "name_zh": "天津",
-     "years": [],
+     "years": [
+      2005
+     ],
      "cities": [
       {
        "name": "Tianjin Eye",
@@ -4895,7 +5030,13 @@
     {
      "name": "Shandong",
      "name_zh": "山东",
-     "years": [],
+     "years": [
+      1999,
+      2000,
+      2002,
+      2004,
+      2006
+     ],
      "cities": [
       {
        "name": "Mount Tai",
@@ -4912,7 +5053,9 @@
     {
      "name": "Yunnan",
      "name_zh": "云南",
-     "years": [],
+     "years": [
+      2009
+     ],
      "cities": [
       {
        "name": "Lijiang Old Town",
@@ -4959,7 +5102,10 @@
     {
      "name": "Anhui",
      "name_zh": "安徽",
-     "years": [],
+     "years": [
+      2007,
+      2021
+     ],
      "cities": [
       {
        "name": "Mount Huangshan",
@@ -4989,14 +5135,18 @@
    "iso_a3": [
     "GBR"
    ],
-   "years": [],
-   "cityCount": 9,
+   "years": [
+    2013
+   ],
+   "cityCount": 10,
    "photoCount": 0,
    "regions": [
     {
      "name": null,
      "name_zh": null,
-     "years": [],
+     "years": [
+      2013
+     ],
      "cities": [
       {
        "name": "Big Ben & Houses of Parliament",
@@ -5087,6 +5237,16 @@
        "count": 0,
        "source": "web",
        "spots": []
+      },
+      {
+       "name": "London",
+       "name_zh": "伦敦",
+       "lat": 51.507,
+       "lng": -0.122,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
       }
      ]
     }
@@ -5106,14 +5266,18 @@
    "iso_a3": [
     "FRA"
    ],
-   "years": [],
-   "cityCount": 7,
+   "years": [
+    2013
+   ],
+   "cityCount": 8,
    "photoCount": 0,
    "regions": [
     {
      "name": null,
      "name_zh": null,
-     "years": [],
+     "years": [
+      2013
+     ],
      "cities": [
       {
        "name": "Eiffel Tower",
@@ -5184,6 +5348,16 @@
        "count": 0,
        "source": "web",
        "spots": []
+      },
+      {
+       "name": "Paris",
+       "name_zh": "巴黎",
+       "lat": 48.857,
+       "lng": 2.352,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
       }
      ]
     }
@@ -5203,14 +5377,18 @@
    "iso_a3": [
     "BEL"
    ],
-   "years": [],
+   "years": [
+    2013
+   ],
    "cityCount": 3,
    "photoCount": 0,
    "regions": [
     {
      "name": null,
      "name_zh": null,
-     "years": [],
+     "years": [
+      2013
+     ],
      "cities": [
       {
        "name": "Bruges",
@@ -5263,7 +5441,7 @@
    "years": [
     2019
    ],
-   "cityCount": 7,
+   "cityCount": 8,
    "photoCount": 4,
    "regions": [
     {
@@ -5362,6 +5540,16 @@
        "name_zh": "罗滕堡",
        "lat": 49.378,
        "lng": 10.179,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Neuschwanstein Castle",
+       "name_zh": "新天鹅堡",
+       "lat": 47.558,
+       "lng": 10.75,
        "years": [],
        "count": 0,
        "source": "web",
@@ -5659,14 +5847,18 @@
    "iso_a3": [
     "ITA"
    ],
-   "years": [],
+   "years": [
+    2013
+   ],
    "cityCount": 6,
    "photoCount": 0,
    "regions": [
     {
      "name": null,
      "name_zh": null,
-     "years": [],
+     "years": [
+      2013
+     ],
      "cities": [
       {
        "name": "Amalfi Coast",
@@ -5746,14 +5938,18 @@
    "iso_a3": [
     "VAT"
    ],
-   "years": [],
+   "years": [
+    2013
+   ],
    "cityCount": 1,
    "photoCount": 0,
    "regions": [
     {
      "name": null,
      "name_zh": null,
-     "years": [],
+     "years": [
+      2013
+     ],
      "cities": [
       {
        "name": "St Peter's Basilica",
@@ -5984,7 +6180,7 @@
    "years": [
     2019
    ],
-   "cityCount": 7,
+   "cityCount": 8,
    "photoCount": 1,
    "regions": [
     {
@@ -6075,6 +6271,16 @@
        "count": 0,
        "source": "web",
        "spots": []
+      },
+      {
+       "name": "Copenhagen",
+       "name_zh": "哥本哈根",
+       "lat": 55.676,
+       "lng": 12.568,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
       }
      ]
     }
@@ -6094,14 +6300,18 @@
    "iso_a3": [
     "THA"
    ],
-   "years": [],
-   "cityCount": 7,
+   "years": [
+    2008
+   ],
+   "cityCount": 8,
    "photoCount": 0,
    "regions": [
     {
      "name": null,
      "name_zh": null,
-     "years": [],
+     "years": [
+      2008
+     ],
      "cities": [
       {
        "name": "Ayutthaya",
@@ -6168,6 +6378,16 @@
        "name_zh": "白庙",
        "lat": 19.824,
        "lng": 99.763,
+       "years": [],
+       "count": 0,
+       "source": "web",
+       "spots": []
+      },
+      {
+       "name": "Bangkok",
+       "name_zh": "曼谷",
+       "lat": 13.752,
+       "lng": 100.494,
        "years": [],
        "count": 0,
        "source": "web",

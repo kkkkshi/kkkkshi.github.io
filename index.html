@@ -3,10 +3,13 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" href="favicon.svg" />
+    <!-- SVG 为主;PNG 兜底(Safari 不认 SVG 图标);apple-touch-icon 给 iOS 加主屏 -->
+    <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="assets/icons/favicon.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
     <meta
       name="theme-color"
-      content="#f2f2f7"
+      content="#f9f9fa"
       media="(prefers-color-scheme: light)"
     />
     <meta
@@ -24,6 +27,16 @@
               ? "dark"
               : "light";
           document.documentElement.setAttribute("data-theme", t);
+          // theme-color meta 只认系统偏好,手动主题要跟着改(浏览器 UI 颜色)
+          window.__syncThemeColor = function (theme) {
+            document
+              .querySelectorAll('meta[name="theme-color"]')
+              .forEach(function (m) {
+                m.content = theme === "dark" ? "#16161a" : "#f9f9fa";
+                m.removeAttribute("media");
+              });
+          };
+          window.__syncThemeColor(t);
         } catch (e) {}
       })();
     </script>
@@ -41,13 +54,41 @@
     />
     <meta property="og:site_name" content="Sherry (Ke) Shi" />
     <meta property="og:locale" content="en_US" />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:url" content="https://kkkkshi.github.io/" />
+    <meta property="og:image" content="https://kkkkshi.github.io/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <link rel="canonical" href="https://kkkkshi.github.io/" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://kkkkshi.github.io/og-image.png" />
     <meta name="twitter:title" content="Sherry (Ke) Shi · Data Engineer & ML Engineer" />
     <meta
       name="twitter:description"
       content="Sherry (Ke) Shi · Data Engineer & ML Engineer in Toronto. Real-time machine learning for fraud and risk."
     />
-    <!-- 部署后补:og:url 与 og:image(绝对 URL,建议 1200×630 PNG) -->
+    <!-- 站点地址 = https://kkkkshi.github.io/(仓库需改名 kkkkshi.github.io 并开 Pages 才生效) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Sherry (Ke) Shi",
+        "alternateName": "Ke Shi",
+        "url": "https://kkkkshi.github.io/",
+        "jobTitle": "Data Engineer & Machine Learning Engineer",
+        "worksFor": { "@type": "Organization", "name": "EnStream LP" },
+        "address": { "@type": "PostalAddress", "addressLocality": "Toronto", "addressRegion": "ON", "addressCountry": "CA" },
+        "email": "mailto:keshi0330@gmail.com",
+        "alumniOf": [
+          { "@type": "CollegeOrUniversity", "name": "Cornell University" },
+          { "@type": "CollegeOrUniversity", "name": "Georgetown University" },
+          { "@type": "CollegeOrUniversity", "name": "University of Waterloo" }
+        ],
+        "sameAs": [
+          "https://github.com/kkkkshi",
+          "https://www.linkedin.com/in/keshi0330/"
+        ]
+      }
+    </script>
     <!-- 系统字体（Apple HIG）：Mac 上即 San Francisco，无需外部字体 -->
     <style>
       /* ============================================================
@@ -63,22 +104,20 @@
         --faint: rgba(60, 60, 67, 0.3);  /* tertiaryLabel */
         --line: rgba(60, 60, 67, 0.16);  /* separator */
         --fill: rgba(120, 120, 128, 0.12);   /* tertiarySystemFill */
-        --fill-2: rgba(120, 120, 128, 0.16); /* secondarySystemFill */
         --accent: #9b2d20;               /* 印章红 = app tint（对齐 footprints 古海图）*/
         --accent-ink: #7d2017;
         --accent-soft: rgba(155, 45, 32, 0.1);
-        --material: rgba(249, 249, 250, 0.85); /* nav material：RGB 对齐 --bg，导航融入背景不露色差；0.85+毛玻璃仍防滚动内容透出 */
-        --radius: 16px;
+        --material: rgba(249, 249, 250, 0.95); /* nav material：RGB 对齐 --bg，导航融入背景不露色差；0.95+毛玻璃:滚过的 hero 大标题不再透成灰渍 */
+        --content-inset: 27px; /* 卡片文字起点 = 3px 左边条 + 24px 内边距;非卡片内容对齐这条线 */
         --radius-sm: 10px;
         --sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display",
           "Segoe UI", system-ui, Roboto, Helvetica, Arial, sans-serif;
-        --shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
         --shadow-hover: 0 8px 24px -8px rgba(0, 0, 0, 0.16);
         /* 字号阶梯 type scale（对齐 Apple 体系，消除零散/小数字号）*/
-        --fs-display: clamp(40px, 7vw, 64px); /* Hero */
-        --fs-title2: 22px;   /* Lead 段 */
+        --fs-display: clamp(40px, 5vw, 48px); /* Hero(64 太压头,对齐 andrewng.org 的轻头部;design.js 要求 40–64) */
+        --fs-title2: 22px;   /* 区块标题 */
         --fs-title3: 20px;   /* Hero 副文案 */
-        --fs-headline: 17px; /* 卡片标题 */
+        --fs-headline: 17px; /* 卡片标题 · Apple headline（DESIGN.md §1）*/
         --fs-body: 16px;     /* 正文 */
         --fs-callout: 15px;  /* 描述 */
         --fs-subhead: 14px;  /* 次要描述 */
@@ -95,12 +134,10 @@
         --faint: rgba(255, 255, 255, 0.38); /* 低强调 */
         --line: rgba(255, 255, 255, 0.1);
         --fill: rgba(255, 255, 255, 0.07);
-        --fill-2: rgba(255, 255, 255, 0.11);
-        --accent: #d9694e;                  /* 提亮去饱和的印章红 */
-        --accent-ink: #e58a72;
-        --accent-soft: rgba(217, 105, 78, 0.18);
-        --material: rgba(22, 22, 26, 0.85); /* 导航材质（够实，内容不透出来糊在一起）*/
-        --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.3);
+        --accent: #d96a55;                  /* 暗色砖红:守住印章红身份不漂成桃色（暗底对比≈5.3:1,AA）*/
+        --accent-ink: #e2836b;
+        --accent-soft: #402c2d; /* hover 红底 = 0.18 accent 预混进 card:半透明直接叠 #16161a 会沉成浑红,比静息卡还暗 */
+        --material: rgba(22, 22, 26, 0.95); /* 导航材质（够实，内容不透出来糊在一起）*/
         --shadow-hover: 0 12px 30px -10px rgba(0, 0, 0, 0.7);
       }
       * {
@@ -126,14 +163,15 @@
       #app {
         max-width: 840px;
         margin: 0 auto;
-        padding: 0 26px 72px;
+        padding: 0 24px 32px; /* 底部收到 32:footer 下不留大片空白 */
       }
       a {
         color: inherit;
       }
       a:focus-visible,
       button:focus-visible {
-        outline: 3px solid var(--accent-soft);
+        /* 焦点环用全强度品牌红:非文字元素对比 ≥3:1(WCAG),淡红 0.1α 肉眼不可见 */
+        outline: 2px solid var(--accent);
         outline-offset: 2px;
         border-radius: 6px;
       }
@@ -146,9 +184,9 @@
         top: 8px;
         left: 8px;
         z-index: 100;
-        padding: 10px 16px;
-        background: var(--accent);
-        color: #fff;
+        padding: 8px 16px;
+        background: #9b2d20; /* 钉死浅色印章红:暗色 #d96a55 配白字只有 3.3:1,过不了 AA */
+        color: #fcfcfc;
         font-family: var(--sans);
         font-size: var(--fs-subhead);
         font-weight: 600;
@@ -177,10 +215,14 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 13px 0;
+        padding: 16px 0;
         flex-wrap: wrap;
-        gap: 10px;
+        gap: 8px;
         transition: background-color 0.3s ease;
+      }
+      .nav.scrolled {
+        /* 顶部仍与背景无缝;滚起来后一条发丝线把导航从内容里定出来 */
+        box-shadow: 0 1px 0 var(--line);
       }
       .brand {
         font-weight: 600;
@@ -190,7 +232,7 @@
       }
       .navlinks {
         display: flex;
-        gap: 18px;
+        gap: 16px;
         flex-wrap: wrap;
       }
       .navlinks a {
@@ -206,7 +248,7 @@
       .nav-right {
         display: flex;
         align-items: center;
-        gap: 18px;
+        gap: 16px;
       }
       .theme-toggle {
         background: none;
@@ -235,8 +277,11 @@
         display: inline;
       }
       @media (max-width: 700px) {
+        /* 导航单行横滚（iOS 分段控件模式）：9 链接不再折 4 行常驻 ~180px,
+           整条降到 ~60px;右缘渐隐提示可滚,滚动条隐藏;链接热区 ≥44pt(HIG)。 */
         .nav {
-          gap: 14px;
+          gap: 4px 16px;
+          padding: 4px 0;
         }
         .brand {
           flex: none;
@@ -244,93 +289,45 @@
         .nav-right {
           flex: 1;
           min-width: 0;
-          gap: 10px;
+          gap: 8px;
         }
         .navlinks {
           flex: 1;
           min-width: 0;
-          flex-wrap: wrap;
-          gap: 2px 16px;
+          flex-wrap: nowrap;
+          overflow-x: auto;
+          scrollbar-width: none;
+          gap: 16px;
+          -webkit-mask-image: linear-gradient(90deg, #000 88%, transparent);
+          mask-image: linear-gradient(90deg, #000 88%, transparent);
         }
-        /* 触摸热区（HIG ~44pt）：加内边距撑大可点区域，文字/图标不变。
-           9 链接窄屏折行，nav 链接取 ~38px 折中（全 44 会让导航过高）；钮/按钮足 44。 */
+        .navlinks::-webkit-scrollbar {
+          display: none;
+        }
         .navlinks a {
           white-space: nowrap;
-          padding: 9px 0;
+          display: inline-flex;
+          align-items: center;
+          min-height: 44px;
+          padding: 0 8px;
         }
         .theme-toggle {
-          padding: 13px;
+          padding: 16px;
+        }
+        .lnk {
+          min-height: 44px;
         }
         button.show-all-btn {
-          padding: 12px 0;
-          margin-top: 6px;
+          padding: 16px 0;
+          margin-top: 8px;
         }
       }
 
       /* ---- hero ---- */
       .hero {
-        padding: 48px 0 40px;
+        padding: 48px 0 24px; /* 底 24 与 .block 一致 → hero→About 间距 = 区块间距 48px */
       }
       .kicker {
-        font-size: var(--fs-footnote);
-        font-weight: 600;
-        letter-spacing: 0.02em;
-        text-transform: uppercase;
-        color: var(--accent);
-        margin: 0 0 16px;
-      }
-      .hero-title {
-        font-weight: 700;
-        font-size: var(--fs-display);
-        line-height: 1.04;
-        letter-spacing: -0.03em;
-        margin: 0 0 8px;
-      }
-      .hero-lead {
-        font-size: var(--fs-title3);
-        color: var(--muted);
-        max-width: 50ch;
-        margin: 0 0 24px;
-        text-wrap: pretty;
-      }
-      .hero-lead b {
-        color: var(--ink);
-        font-weight: 600;
-      }
-      .links {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-      }
-      /* Apple "gray" button → capsule, fill bg, label text */
-      .lnk {
-        font-size: var(--fs-callout);
-        font-weight: 600;
-        text-decoration: none;
-        padding: 9px 18px;
-        border-radius: 980px;
-        background: var(--fill-2);
-        color: var(--ink);
-        border: none;
-        transition: background 0.18s, color 0.18s, transform 0.1s;
-      }
-      .lnk:hover {
-        background: var(--accent-soft);
-        color: var(--accent);
-      }
-      .lnk:active {
-        transform: scale(0.97);
-      }
-
-      /* ---- sections: Apple grouped-list header ---- */
-      .block {
-        padding: 24px 0;
-        scroll-margin-top: 110px;
-      }
-      .block.compact {
-        padding: 24px 0 4px;
-      }
-      .block-h {
         font-size: var(--fs-subhead);
         font-weight: 600;
         letter-spacing: 0.02em;
@@ -338,22 +335,92 @@
         color: var(--accent);
         margin: 0 0 16px;
       }
-      .prose .lead {
+      .kicker .kicker-sub {
+        /* 红只给职位;公司/城市降灰,整条 67 字符全红会压过 tagline */
+        color: var(--muted);
+      }
+      .hero-title {
+        font-weight: 600;
+        font-size: var(--fs-display);
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+        margin: 0 0 8px;
+      }
+      .hero-lead {
+        /* 20px 常规字重上墨色:副标题有存在感但不与名字抢戏(不加粗) */
+        font-size: var(--fs-title3);
+        color: var(--ink);
+        max-width: 50ch;
+        margin: 0 0 24px;
+        text-wrap: pretty;
+      }
+      .links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      /* 幽灵胶囊:透明底 + 发丝描边,比灰底填充更收敛(hover 才上色) */
+      .lnk {
+        display: inline-flex;
+        align-items: center;
+        font-size: var(--fs-callout);
+        font-weight: 600;
+        text-decoration: none;
+        padding: 8px 16px;
+        border-radius: 9999px;
+        background: transparent;
+        color: var(--ink);
+        border: 1px solid var(--line);
+        transition: background 0.18s, color 0.18s, border-color 0.18s,
+          transform 0.1s;
+      }
+      .lnk:hover {
+        background: var(--accent-soft);
+        color: var(--accent);
+        border-color: var(--accent);
+      }
+      .lnk:active {
+        transform: scale(0.97);
+      }
+
+      /* ---- sections: 真标题分块(墨色 22px),全页只有一套"标题=大、内容=16px 灰"的层级 ---- */
+      .block {
+        padding: 24px 0; /* 区块间距 48px(64 太空,对齐 andrewng.org 的紧凑感) */
+        scroll-margin-top: 110px;
+      }
+      .block-h {
         font-size: var(--fs-title2);
         font-weight: 600;
-        line-height: 1.34;
         letter-spacing: -0.02em;
-        margin: 0 0 16px;
-        color: var(--ink);
-        text-wrap: balance;
+        color: var(--ink); /* 墨色更正式;红只留给 kicker/卡片边条/链接,不满页跑 */
+        /* 标题绑内容(8px) < 段落/卡片间距(16px) < 区块间距(48px):三档节奏,标题拥有自己的块 */
+        margin: 0 0 8px;
+      }
+      .prose {
+        max-width: 68ch; /* 行长上限:95+ 字符的整块灰字读起来瘫 */
+        /* 对齐卡片文字起点(3px 边条+24px 内边距):全页正文同一条左基线,标题挂在 0 */
+        padding-left: var(--content-inset);
       }
       .prose p {
-        margin: 0 0 14px;
+        margin: 0 0 16px;
         color: var(--muted);
         text-wrap: pretty;
       }
       .prose p:last-child {
         margin: 0;
+      }
+      .prose a {
+        /* 正文链接:强调色 + 细下划线,不然全灰 + 默认下划线不像可点 */
+        color: var(--accent);
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 3px;
+        text-decoration-color: color-mix(in srgb, var(--accent) 40%, transparent);
+        transition: color 0.18s, text-decoration-color 0.18s;
+      }
+      .prose a:hover {
+        color: var(--accent-ink);
+        text-decoration-color: currentColor;
       }
 
       /* ---- cards: Apple inset-grouped (flat, hairline, subtle elevation) ---- */
@@ -362,7 +429,7 @@
         margin: 0;
         padding: 0;
         display: grid;
-        gap: 14px;
+        gap: 16px;
       }
       .item {
         display: block;
@@ -372,26 +439,34 @@
         border: 1px solid var(--line);
         border-left: 3px solid var(--accent); /* 样式6：红色左边条（呼应印章红） */
         border-radius: 8px;
-        padding: 22px 24px;
+        padding: 24px;
         box-shadow: none;
         transition: background 0.15s ease, border-color 0.15s ease;
       }
-      .item:hover {
+      /* hover 只给可点的链接卡:无 url 的 div 卡不给假可点反馈 */
+      a.item:hover {
         background: var(--accent-soft);
         border-left-color: var(--accent-ink);
       }
-      .item:hover .item-t {
+      a.item:hover .item-t {
         color: var(--accent);
       }
       a.item .item-t::after {
         content: "↗";
         font-size: 0.78em;
-        color: var(--faint);
-        margin-left: 7px;
+        color: var(--muted); /* faint 过不了 3:1 非文字对比,静息也要能看出可点 */
+        margin-left: 8px;
         transition: color 0.18s;
       }
       a.item:hover .item-t::after {
         color: var(--accent);
+      }
+      /* 暗色 hover 红底上 --accent 只有 ~3.8:1,红字压红底发糊;提亮到 accent-ink(≈4.7:1 AA) */
+      [data-theme="dark"] a.item:hover .item-t,
+      [data-theme="dark"] a.item:hover .item-t::after,
+      [data-theme="dark"] .lnk:hover,
+      [data-theme="dark"] .fp:hover .fp-title {
+        color: var(--accent-ink);
       }
       .is-extra {
         display: none;
@@ -401,7 +476,7 @@
       }
       /* Apple plain/text button */
       .show-all-btn {
-        margin-top: 18px;
+        margin-top: 16px; /* 顶格:和区块标题同一条左缘,作为区块级控件 */
         background: none;
         border: 0;
         padding: 0;
@@ -412,7 +487,7 @@
         color: var(--accent);
         display: inline-flex;
         align-items: center;
-        gap: 6px;
+        gap: 8px;
       }
       .show-all-btn:hover {
         color: var(--accent-ink);
@@ -421,7 +496,7 @@
         display: flex;
         justify-content: space-between;
         align-items: baseline;
-        gap: 14px;
+        gap: 16px;
         flex-wrap: nowrap;
       }
       .item-t {
@@ -438,101 +513,27 @@
       }
       .item-when {
         font-size: var(--fs-footnote);
-        color: var(--faint);
+        color: var(--muted); /* 日期是招聘官扫读的关键信息,faint(0.3α)太淡 */
         font-weight: 500;
         white-space: nowrap;
       }
-      /* Apple systemOrange tint badge */
-      .todo-badge {
-        display: inline-block;
-        font-size: 10px;
-        font-weight: 700;
-        letter-spacing: 0.06em;
-        color: #b25000;
-        background: rgba(255, 149, 0, 0.15);
-        border: none;
-        border-radius: 5px;
-        padding: 2px 6px;
-        margin-right: 8px;
-        vertical-align: middle;
-      }
-      [data-theme="dark"] .todo-badge {
-        color: #ff9f0a;
-        background: rgba(255, 159, 10, 0.18);
-      }
       .item-meta {
         font-size: var(--fs-footnote);
-        color: var(--accent);
-        font-weight: 600;
+        color: var(--muted); /* 降噪:红色只留左边条/眉头/可点元素,meta 行不与标题抢眼 */
+        font-weight: 500;
         margin: 8px 0 0;
       }
       .item-desc {
-        margin: 12px 0 0;
+        margin: 16px 0 0;
         color: var(--muted);
         font-size: var(--fs-callout);
         line-height: 1.55;
         text-wrap: pretty;
       }
 
-      /* ---- repos ---- */
-      .repos {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 14px;
-      }
-      .repos a {
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        text-decoration: none;
-        background: var(--card);
-        border: 0.5px solid var(--line);
-        border-radius: var(--radius);
-        padding: 18px 20px;
-        box-shadow: var(--shadow);
-        transition: transform 0.18s ease, box-shadow 0.18s ease;
-      }
-      .repos a:hover {
-        transform: translateY(-2px);
-        box-shadow: var(--shadow-hover);
-      }
-      .repos a:hover .repo-t {
-        color: var(--accent);
-      }
-      .repo-t {
-        font-weight: 600;
-        font-size: var(--fs-headline);
-        margin-bottom: 6px;
-        letter-spacing: -0.01em;
-        transition: color 0.18s;
-      }
-      .repo-d {
-        color: var(--muted);
-        font-size: var(--fs-subhead);
-        line-height: 1.5;
-        flex: 1;
-      }
-      .repo-meta {
-        margin-top: 12px;
-        font-size: var(--fs-caption);
-        font-weight: 600;
-        color: var(--faint);
-        display: inline-flex;
-        align-items: center;
-        gap: 7px;
-      }
-      .repo-meta .dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: var(--accent);
-      }
       .more {
         display: inline-block;
-        margin-top: 18px;
+        margin-top: 16px;
         font-weight: 600;
         font-size: var(--fs-callout);
         color: var(--accent);
@@ -554,7 +555,8 @@
       .skills {
         margin: 0;
         display: grid;
-        gap: 10px;
+        gap: 8px;
+        padding-left: var(--content-inset); /* 与卡片文字同一条左基线 */
       }
       .skill {
         display: grid;
@@ -562,19 +564,26 @@
         gap: 16px;
         align-items: start;
       }
+      /* 技能类目折叠:.skill 自带 display:grid,要显式覆盖 is-extra 的显隐 */
+      .skill.is-extra {
+        display: none;
+      }
+      .items.show-all .skill.is-extra {
+        display: grid;
+      }
       .skill dt {
         font-size: var(--fs-caption);
         font-weight: 600;
         letter-spacing: 0.02em;
         text-transform: uppercase;
         color: var(--muted);
-        padding-top: 5px;
+        padding-top: 4px;
       }
       .skill dd {
         margin: 0;
         display: flex;
         flex-wrap: wrap;
-        gap: 7px;
+        gap: 8px;
       }
       .tag {
         font-size: var(--fs-footnote);
@@ -583,7 +592,7 @@
         background: var(--fill);
         border: none;
         border-radius: 8px;
-        padding: 5px 11px;
+        padding: 4px 8px;
         line-height: 1.2;
       }
 
@@ -591,30 +600,51 @@
       .cert-grid {
         grid-template-columns: 1fr 1fr;
       }
+      .cert-grid > li {
+        display: flex;
+      }
+      .cert-grid .item {
+        flex: 1;
+        padding: 16px;
+        /* 等高行里矮卡的机构行沉底,同一行内部对齐 */
+        display: flex;
+        flex-direction: column;
+      }
+      .cert-grid .item-meta {
+        margin-top: auto;
+      }
+      /* 证书折叠:li 是 flex(等高),要显式覆盖 is-extra 的显隐 */
+      .cert-grid > li.is-extra {
+        display: none;
+      }
+      .cert-grid.show-all > li.is-extra {
+        display: flex;
+      }
       @media (max-width: 620px) {
         .cert-grid {
           grid-template-columns: 1fr;
         }
       }
 
-      /* ---- footprints card ---- */
+      /* ---- footprints card（样式6,与 .item 同一卡片语言）---- */
       .fp {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 14px;
+        gap: 16px;
         flex-wrap: wrap;
         text-decoration: none;
         background: var(--card);
-        border: 0.5px solid var(--line);
-        border-radius: var(--radius);
-        padding: 18px 22px;
-        box-shadow: var(--shadow);
-        transition: transform 0.18s ease, box-shadow 0.18s ease;
+        border: 1px solid var(--line);
+        border-left: 3px solid var(--accent);
+        border-radius: 8px;
+        padding: 16px 24px;
+        box-shadow: none;
+        transition: background 0.15s ease, border-color 0.15s ease;
       }
       .fp:hover {
-        transform: translateY(-2px);
-        box-shadow: var(--shadow-hover);
+        background: var(--accent-soft);
+        border-left-color: var(--accent-ink);
       }
       .fp:hover .fp-title {
         color: var(--accent);
@@ -622,7 +652,7 @@
       .fp-text {
         display: flex;
         flex-direction: column;
-        gap: 2px;
+        gap: 4px;
       }
       .fp-title {
         font-weight: 600;
@@ -640,16 +670,23 @@
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
-        gap: 10px;
-        padding-top: 30px;
-        color: var(--faint);
+        gap: 8px;
+        padding-top: 32px;
+        color: var(--muted); /* faint 在浅色只有 1.7:1,footer 也要过 AA */
         font-size: var(--fs-footnote);
         font-weight: 500;
       }
       @media (max-width: 620px) {
-        .repos,
         .skill {
           grid-template-columns: 1fr;
+        }
+        /* 窄屏日期换行到标题下方:不再和标题挤一行把标题切碎 */
+        .item-h {
+          flex-wrap: wrap;
+          row-gap: 4px;
+        }
+        .item-when {
+          width: 100%;
         }
       }
       @media (prefers-reduced-motion: reduce) {
@@ -676,12 +713,11 @@
           --faint: rgba(60, 60, 67, 0.4);
           --line: rgba(60, 60, 67, 0.22);
           --fill: rgba(120, 120, 128, 0.1);
-          --fill-2: rgba(120, 120, 128, 0.14);
-          --accent: #1a5740;
-          --accent-ink: #1a5740;
-          --accent-soft: rgba(31, 99, 71, 0.1);
+          /* 打印保持品牌印章红(深红打印更实);白底是省墨的有意豁免 */
+          --accent: #7d2017;
+          --accent-ink: #7d2017;
+          --accent-soft: rgba(155, 45, 32, 0.08);
           --material: #fff;
-          --shadow: none;
           --shadow-hover: none;
         }
         body {
@@ -690,19 +726,24 @@
         * {
           box-shadow: none !important;
         }
-        /* 屏幕专属控件在纸面无意义 */
+        /* 屏幕专属控件在纸面无意义(#map 整区隐藏,免得留一个光杆 Footprints 标题) */
         .nav,
         .theme-toggle,
-        .fp,
+        #map,
         .show-all-btn {
           display: none !important;
         }
-        /* 折叠的经历 / 项目在打印时全展开 */
+        /* 折叠的经历 / 项目 / 证书 / 技能在打印时全展开(恢复各自的 display) */
         .is-extra {
           display: block !important;
         }
+        .cert-grid > li.is-extra {
+          display: flex !important;
+        }
+        .skill.is-extra {
+          display: grid !important;
+        }
         /* 卡片 / 分区尽量不被分页切断 */
-        .card,
         section,
         .item {
           break-inside: avoid;
@@ -712,28 +753,41 @@
   </head>
   <body>
     <a class="skip-link" href="#top">Skip to content</a>
-    <div id="app"></div>
+    <div id="app">
+      <noscript>
+        <main style="max-width:640px;margin:88px auto;padding:24px;background:#f9f9fa;border-radius:8px;font-family:system-ui,sans-serif;color:#1b1c20">
+          <h1 style="font-size:34px;margin:0 0 16px">Sherry (Ke) Shi</h1>
+          <p style="color:#6b6f78;line-height:1.6">Data Engineer &amp; ML Engineer · Toronto. This page needs JavaScript; reach her directly:</p>
+          <p><a href="mailto:keshi0330@gmail.com">keshi0330@gmail.com</a> &nbsp;·&nbsp; <a href="https://github.com/kkkkshi">GitHub</a> &nbsp;·&nbsp; <a href="https://www.linkedin.com/in/keshi0330/">LinkedIn</a></p>
+        </main>
+      </noscript>
+    </div>
     <script src="profile/data.js"></script>
     <script>
       const P = window.PROFILE;
       if (!P) {
         document.getElementById("app").innerHTML =
-          '<main style="max-width:640px;margin:90px auto;padding:0 26px;font-family:system-ui,sans-serif;color:#1b1c20">' +
-          '<h1 style="font-size:34px;margin:0 0 12px">Sherry (Ke) Shi</h1>' +
-          '<p style="color:#6b6f78;line-height:1.6">Data Engineer &amp; ML Engineer · Toronto. The page didn’t load fully. Reach me directly:</p>' +
+          '<main style="max-width:640px;margin:88px auto;padding:24px;background:#f9f9fa;border-radius:8px;font-family:system-ui,sans-serif;color:#1b1c20">' +
+          '<h1 style="font-size:34px;margin:0 0 16px">Sherry (Ke) Shi</h1>' +
+          '<p style="color:#6b6f78;line-height:1.6">Data Engineer &amp; ML Engineer · Toronto. The page didn’t load fully. Reach her directly:</p>' +
           '<p><a href="mailto:keshi0330@gmail.com">keshi0330@gmail.com</a> &nbsp;·&nbsp; ' +
           '<a href="https://github.com/kkkkshi">GitHub</a> &nbsp;·&nbsp; ' +
           '<a href="https://www.linkedin.com/in/keshi0330/">LinkedIn</a></p></main>';
         throw new Error("PROFILE data unavailable");
       }
-      document.title = P.name + " · " + P.role;
-      const _meta = document.querySelector('meta[name="description"]');
-      if (_meta) _meta.setAttribute("content", P.tagline);
+      /* title / meta description 用 <head> 里的静态值:JS 覆盖会让标签页闪变、
+         并把搜索摘要降级成 5 词 tagline(Google 抓 JS 渲染后的结果) */
 
       const E = (s) =>
         String(s).replace(
           /[&<>"]/g,
           (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c],
+        );
+      /* [text](url) → <a>,仅用于 now 段落;输入先过 E() 转义,再由这里放行受控的 <a> */
+      const mdLink = (s) =>
+        s.replace(
+          /\[([^\]]+)\]\((https?:\/\/[^\s)]+|mailto:[^\s)]+)\)/g,
+          '<a href="$2" target="_blank" rel="noopener">$1</a>',
         );
       const LABEL = {
         email: "Email",
@@ -750,11 +804,7 @@
             return `<a class="lnk" href="${E(href)}"${ext}>${LABEL[k]}</a>`;
           })
           .join("");
-      const _ti = P.tagline.indexOf(". ");
-      const tagline =
-        _ti > 0
-          ? `<b>${E(P.tagline.slice(0, _ti))}</b>${E(P.tagline.slice(_ti))}`
-          : E(P.tagline);
+      const tagline = E(P.tagline);
 
       const itemList = (arr, kind) =>
         `<ul class="items">${arr
@@ -763,12 +813,19 @@
               kind === "work"
                 ? `${E(e.company)} <span class="role">· ${E(e.role)}</span>`
                 : E(e.school || e.name);
-            const meta =
+            /* 逐段转义后过滤空值再拼:防 undefined / 悬空 " · " */
+            const meta = (
               kind === "edu"
-                ? `${E(e.degree)} · ${E(e.note)}`
-                : `${E(e.project || e.sub)} · ${
-                    e.stack ? e.stack.map(E).join(" · ") : ""
-                  }`;
+                ? [e.degree, e.note].map((s) => s && E(s))
+                : [
+                    (e.project || e.sub) && E(e.project || e.sub),
+                    e.stack && e.stack.length
+                      ? e.stack.map(E).join(" · ")
+                      : "",
+                  ]
+            )
+              .filter(Boolean)
+              .join(" · ");
             const body = (e.bullets || [])
               .map((b) => `<p class="item-desc">${E(b)}</p>`)
               .join("");
@@ -777,12 +834,7 @@
               (kind === "proj" && e.repo
                 ? `https://github.com/${P.githubUser}/${e.repo}`
                 : "");
-            const inner = `<div class="item-h"><span class="item-t">${title}</span><span class="item-when">${
-              e.todo ? '<span class="todo-badge">TODO</span>' : ""
-            }${E(e.period)}</span></div><p class="item-meta">${meta}</p>${body}`;
-            const label =
-              E(e.company || e.school || e.name || "") +
-              (e.role ? " · " + E(e.role) : "");
+            const inner = `<div class="item-h"><span class="item-t">${title}</span><span class="item-when">${E(e.period)}</span></div><p class="item-meta">${meta}</p>${body}`;
             const isExtra =
               (kind === "work" && /Intern|Assistant/i.test(e.role || "")) ||
               (kind === "proj" && !e.featured);
@@ -791,7 +843,7 @@
               url
                 ? `<a class="item" href="${E(
                     url,
-                  )}" target="_blank" rel="noopener" aria-label="${label}">${inner}</a>`
+                  )}" target="_blank" rel="noopener">${inner}</a>`
                 : `<div class="item">${inner}</div>`
             }</li>`;
           })
@@ -802,7 +854,7 @@
         <a href="#top" class="brand">${E(P.name)}</a>
         <div class="nav-right">
           <nav class="navlinks">
-            <a href="#about">About</a><a href="#now">Now</a><a href="#experience">Experience</a><a href="#education">Education</a><a href="#projects">Projects</a><a href="#publications">Papers</a><a href="#certifications">Certs</a><a href="#skills">Skills</a><a href="#map">Footprints</a>
+            <a href="#about">About</a><a href="#now">Now</a><a href="#experience">Experience</a><a href="#education">Education</a><a href="#projects">Projects</a><a href="#publications">Papers</a><a href="#certifications">Certifications</a><a href="#skills">Skills</a><a href="#map">Footprints</a>
           </nav>
           <button type="button" class="theme-toggle" aria-label="Toggle dark mode">
             <svg class="ic-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
@@ -813,7 +865,7 @@
       <main id="top" tabindex="-1">
         <section class="hero">
           <h1 class="hero-title">${E(P.name)}</h1>
-          <p class="kicker">${E(P.role)} · ${E(P.location)}</p>
+          <p class="kicker">${E(P.role)}<span class="kicker-sub">${P.company ? " · " + E(P.company) : ""} · ${E(P.location)}</span></p>
           <p class="hero-lead">${tagline}</p>
           <div class="links">${linkrow(["email", "github", "linkedin", "resume"])}</div>
         </section>
@@ -821,11 +873,7 @@
         <section class="block" id="about">
           <h2 class="block-h">About</h2>
           <div class="prose">
-            <p class="lead">${E(P.about[0])}</p>
-            ${P.about
-              .slice(1)
-              .map((p) => `<p>${E(p)}</p>`)
-              .join("")}
+            ${P.about.map((p) => `<p>${E(p)}</p>`).join("")}
           </div>
         </section>
 
@@ -834,10 +882,8 @@
             ? `<section class="block" id="now">
           <h2 class="block-h">Now</h2>
           <div class="prose">
-            <p class="lead">${E(P.now[0])}</p>
             ${P.now
-              .slice(1)
-              .map((p) => `<p>${E(p)}</p>`)
+              .map((p) => `<p>${mdLink(E(p))}</p>`)
               .join("")}
           </div>
         </section>`
@@ -875,7 +921,7 @@
             .map(
               (p) => `<li><a class="item" href="${E(
                 p.url,
-              )}" target="_blank" rel="noopener" aria-label="${E(p.title)}"><div class="item-h"><span class="item-t">${E(
+              )}" target="_blank" rel="noopener"><div class="item-h"><span class="item-t">${E(
                 p.title,
               )}</span><span class="item-when">${E(
                 p.date,
@@ -890,37 +936,50 @@
           <h2 class="block-h">Certifications</h2>
           <ul class="items cert-grid">${P.certifications
             .map(
-              (c) => `<li><a class="item" href="${E(
+              (c) => `<li${c.featured ? "" : ' class="is-extra"'}><a class="item" href="${E(
                 c.url,
-              )}" target="_blank" rel="noopener" aria-label="${E(
-                c.name,
-              )}"><div class="item-h"><span class="item-t">${E(
+              )}" target="_blank" rel="noopener"><div class="item-h"><span class="item-t">${E(
                 c.name,
               )}</span><span class="item-when">${E(
                 c.date,
               )}</span></div><p class="item-meta">${E(c.authority)}</p></a></li>`,
             )
             .join("")}</ul>
+          ${
+            P.certifications.some((c) => !c.featured)
+              ? `<button type="button" class="show-all-btn" data-more="Show all certifications" aria-expanded="false">Show all certifications <span class="ar">→</span></button>`
+              : ""
+          }
         </section>
 
         <section class="block" id="skills">
           <h2 class="block-h">Skills</h2>
-          <dl class="skills">${Object.entries(P.skills)
+          <dl class="skills items">${Object.entries(P.skills)
             .map(
               ([c, t]) =>
-                `<div class="skill"><dt>${E(c)}</dt><dd>${t
+                `<div class="skill${
+                  P.skillsFeatured && !P.skillsFeatured.includes(c)
+                    ? " is-extra"
+                    : ""
+                }"><dt>${E(c)}</dt><dd>${t
                   .map((s) => `<span class="tag">${E(s)}</span>`)
                   .join("")}</dd></div>`,
             )
             .join("")}</dl>
+          ${
+            P.skillsFeatured &&
+            Object.keys(P.skills).some((c) => !P.skillsFeatured.includes(c))
+              ? `<button type="button" class="show-all-btn" data-more="Show all skills" aria-expanded="false">Show all skills <span class="ar">→</span></button>`
+              : ""
+          }
         </section>
 
         <section class="block" id="map">
           <h2 class="block-h">Footprints</h2>
           <a class="fp" href="${E(P.footprints.href)}">
             <span class="fp-text">
-              <span class="fp-title">A map of everywhere I've been</span>
-              <span class="fp-meta">13 countries · 2014–2026</span>
+              <span class="fp-title">${E(P.footprints.title)}</span>
+              <span class="fp-meta">${E(P.footprints.meta)}</span>
             </span>
             <span class="more">Open the map <span class="ar">→</span></span>
           </a>
@@ -931,17 +990,35 @@
       // ---- dark / light theme toggle ----
       const themeBtn = document.querySelector(".theme-toggle");
       if (themeBtn) {
+        const syncPressed = () =>
+          themeBtn.setAttribute(
+            "aria-pressed",
+            document.documentElement.getAttribute("data-theme") === "dark"
+              ? "true"
+              : "false",
+          );
+        syncPressed();
         themeBtn.addEventListener("click", () => {
           const next =
             document.documentElement.getAttribute("data-theme") === "dark"
               ? "light"
               : "dark";
           document.documentElement.setAttribute("data-theme", next);
+          syncPressed();
+          if (window.__syncThemeColor) window.__syncThemeColor(next);
           try {
             localStorage.setItem("theme", next);
           } catch (e) {}
         });
       }
+
+      // ---- nav: 滚动后加发丝线(配合 0.95 材质,滚过的 hero 标题不透成灰渍) ----
+      const navEl = document.querySelector(".nav");
+      addEventListener(
+        "scroll",
+        () => navEl.classList.toggle("scrolled", scrollY > 8),
+        { passive: true },
+      );
 
       // ---- collapse toggles (experience internships, non-featured projects) ----
       document.querySelectorAll(".show-all-btn").forEach((btn) => {

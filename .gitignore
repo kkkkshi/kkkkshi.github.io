@@ -3,11 +3,15 @@ node_modules/
 
 # 3.2GB 本地照片素材 + 中间数据,网站运行不需要
 photos/
+# 网图清单由 scripts/build-webimages.py 本地生成,路径指向被忽略的 photos/_thumbs;
+# 不入库:换环境时 footprints.html fetch 失败自动降级为无图卡片,不会 404 裂图
+data/webimages.json
 
 # 系统 / 工具产物
 .DS_Store
 .playwright-mcp/
 .claude/
+__pycache__/
 
 # 照片筛选用的硬链接文件夹(本地)
 _sorted/
