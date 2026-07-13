@@ -812,9 +812,14 @@
       /* Year strip (bottom center) */
       #years {
         position: absolute;
-        left: 50%;
+        left: 0;
+        right: 0;
         bottom: 22px;
-        transform: translateX(-50%);
+        margin: 0 auto;
+        /* Center a content-hugging box via auto margins (not left:50%+translateX, which would cap the
+           shrink-to-fit width at "midline → right edge" and force the strip to wrap on narrow screens) */
+        width: -moz-fit-content;
+        width: fit-content;
         z-index: 7;
         display: flex;
         gap: 4px;
@@ -925,12 +930,146 @@
           left: 12px;
           right: 12px;
           width: auto;
-          top: auto;
-          bottom: 84px;
-          transform: translateY(18px);
+          top: 50%;
+          bottom: auto;
+          /* Centre it vertically like desktop so the ‹› (hung at the card's mid-height) sit at ONE fixed
+             screen spot regardless of photo size — tap the same place to flip through every image. */
+          transform: translateY(calc(-50% + 14px));
         }
         body #card.show {
-          transform: translateY(0);
+          transform: translateY(-50%);
+        }
+        /* Phones: smaller photo (the desktop cap read too large / edge-to-edge) */
+        body #card .photo.has-img img {
+          max-width: 230px;
+          max-height: 34vh;
+        }
+        /* Keep the flip arrows on-screen and at the card's fixed edges (desktop's -14px hangs them off
+           the near-edge mobile card) */
+        body #card .ph-prev {
+          left: 2px;
+        }
+        body #card .ph-next {
+          right: 2px;
+        }
+      }
+
+      /* Mobile: shrink the title + wax seal so they stop overlapping the breadcrumb (desktop untouched) */
+      @media (max-width: 640px) {
+        #seal {
+          left: 14px;
+          top: 14px;
+          width: 52px;
+          height: 52px;
+        }
+        #title {
+          top: 12px;
+        }
+        #title::before {
+          width: 300px;
+          height: 104px;
+        }
+        #title b {
+          font-size: 18px;
+          letter-spacing: 0.04em;
+          white-space: nowrap;
+        }
+        #title small {
+          font-size: 10.5px;
+          letter-spacing: 0.22em;
+          margin-top: 4px;
+          white-space: nowrap;
+        }
+        .trule.top .gl {
+          width: 92px;
+        }
+        .trule.bot .gl {
+          width: 60px;
+        }
+        #crumbs {
+          top: 84px;
+        }
+        /* coordinate stamp: kept (only moved) — dropped below the title band so it clears the wider single-line title */
+        #stamp {
+          top: 88px;
+          right: 12px;
+          font-size: 10.5px;
+        }
+        /* left toolbar: pull up under the smaller seal and flush-left with it (tops/left were tuned to the 74px desktop seal at left:28) */
+        #music {
+          top: 78px;
+          left: 18px;
+        }
+        #daynight {
+          top: 116px;
+          left: 18px;
+        }
+        #links {
+          top: 156px;
+          left: 18px;
+        }
+        /* Year picker: a vertical scroll wheel (scroll a year to the centre to pick it) — replaces the button strip */
+        .yr-wheel {
+          flex-basis: 100%;
+          position: relative;
+          display: flex;
+          justify-content: center;
+        }
+        .yr-wheel-track {
+          height: 220px;
+          width: 130px;
+          overflow-y: scroll;
+          scroll-snap-type: y mandatory;
+          scrollbar-width: none;
+          text-align: center;
+          padding: 88px 0; /* = (height - row)/2 so the first/last option can reach the centre */
+          -webkit-mask: linear-gradient(
+            transparent,
+            #000 30%,
+            #000 70%,
+            transparent
+          );
+          mask: linear-gradient(transparent, #000 30%, #000 70%, transparent);
+        }
+        .yr-wheel-track::-webkit-scrollbar {
+          display: none;
+        }
+        .yr-opt {
+          height: 44px;
+          line-height: 44px;
+          scroll-snap-align: center;
+          font: italic 15px "Cinzel", serif;
+          color: var(--ink2);
+          opacity: 0.45;
+          cursor: pointer;
+          transition:
+            opacity 0.15s,
+            color 0.15s,
+            font-size 0.15s;
+        }
+        .yr-opt.sel {
+          opacity: 1;
+          color: #7a2a1e;
+          font-weight: 600;
+          font-size: 18px;
+        }
+        /* centre selection guides: two faint brass hairlines bracketing the middle row */
+        .yr-wheel::before,
+        .yr-wheel::after {
+          content: "";
+          position: absolute;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 86px;
+          height: 1px;
+          background: linear-gradient(90deg, transparent, #b89344, transparent);
+          pointer-events: none;
+        }
+        .yr-wheel::before {
+          top: calc(50% - 22px);
+        }
+        .yr-wheel::after {
+          top: calc(50% + 22px);
         }
       }
 
@@ -2336,12 +2475,30 @@
       // backfilled from the user's own account); all 28 years take three rows and cover the map, so show 10 at a time (default 2017–2026),
       // ‹ pages back, › pages forward, arrows vanish at the ends
       const YR_LO = 1999;
-      const YR_SPAN = 10;
-      let yrPage = 0; // 0 = most recent page; each +1 steps back YR_SPAN years
+      const YR_SPAN = 10; // cap: at most 10 year buttons per page; fewer when the strip is too narrow to fit them
+      let yrPage = 0; // 0 = most recent page; each +1 steps back one page of years
       let yrOpen = false; // collapsed by default, only the "Years ▾" toggle shows
-      function buildYears() {
-        const hi = (DATA.yearsRange || [2014, 2026])[1];
-        const maxPage = Math.ceil((hi - YR_LO + 1) / YR_SPAN) - 1;
+      const YR_MOBILE = 640; // at/below this width the strip becomes a drag slider instead of buttons
+      // How many year buttons fit the desktop strip (#years is at most 76% of the viewport wide); never more than YR_SPAN.
+      function yearSpan() {
+        const perYear = 46,
+          reserved = 150; // ~46px per year incl gap; ~150px reserved for toggle + All + the two arrows
+        return Math.max(
+          4,
+          Math.min(
+            YR_SPAN,
+            Math.floor((window.innerWidth * 0.76 - reserved) / perYear),
+          ),
+        );
+      }
+      function buildYears(spanOverride) {
+        const range = DATA.yearsRange || [2014, 2026];
+        const lo = range[0],
+          hi = range[1];
+        const span = spanOverride != null ? spanOverride : yearSpan();
+        const mobile = window.innerWidth <= YR_MOBILE;
+        const maxPage = Math.ceil((hi - YR_LO + 1) / span) - 1;
+        if (yrPage > maxPage) yrPage = maxPage;
         const wrap = document.getElementById("years");
         wrap.innerHTML = "";
         wrap.classList.toggle("open", yrOpen);
@@ -2358,6 +2515,75 @@
           buildYears();
         });
         wrap.appendChild(tg);
+
+        // Mobile: one drag slider (All · lo … hi) instead of a cramped, hard-to-tap button strip
+        if (mobile) {
+          if (yrOpen) {
+            // Vertical scroll wheel (All · lo … hi): scroll a year to the centre to select it
+            const wheel = document.createElement("div");
+            wheel.className = "yr-wheel";
+            const track = document.createElement("div");
+            track.className = "yr-wheel-track";
+            const vals = ["all"];
+            for (let y = lo; y <= hi; y++) vals.push(y);
+            vals.forEach((v) => {
+              const o = document.createElement("div");
+              o.className = "yr-opt";
+              o.dataset.y = v;
+              o.textContent = v === "all" ? "All" : v;
+              track.appendChild(o);
+            });
+            wheel.appendChild(track);
+            wrap.appendChild(wheel);
+
+            const ROW = 44; // must match .yr-opt height in CSS
+            const idxOf = (yf) => (yf === null ? 0 : yf - lo + 1);
+            const opts = [...track.querySelectorAll(".yr-opt")];
+            // Mark the option nearest the centre; when `apply`, filter the map to it (no rebuild → keeps the scroll)
+            const pick = (apply) => {
+              const box = track.getBoundingClientRect();
+              const cy = box.top + box.height / 2;
+              let best = null,
+                bestD = Infinity;
+              opts.forEach((o) => {
+                const r = o.getBoundingClientRect();
+                const d = Math.abs(r.top + r.height / 2 - cy);
+                if (d < bestD) {
+                  bestD = d;
+                  best = o;
+                }
+              });
+              opts.forEach((o) => o.classList.toggle("sel", o === best));
+              const y = best.dataset.y === "all" ? null : +best.dataset.y;
+              if (apply && y !== yearFilter) {
+                yearFilter = y;
+                tg.textContent = (y === null ? "Years" : y) + " ▴";
+                applyYearFilter();
+                applyHighlight(stack[stack.length - 1]);
+                redrawRoute();
+                declutter();
+                renderYearList();
+              }
+            };
+            track.scrollTop = idxOf(yearFilter) * ROW; // centre the current selection
+            pick(false);
+            let st;
+            track.addEventListener("scroll", () => {
+              pick(false); // live highlight while scrolling
+              clearTimeout(st);
+              st = setTimeout(() => pick(true), 120); // apply once the scroll settles
+            });
+            // tap a year to snap it to the centre
+            opts.forEach((o, i) =>
+              o.addEventListener("click", () =>
+                track.scrollTo({ top: i * ROW, behavior: "smooth" }),
+              ),
+            );
+          }
+          renderYearList();
+          return;
+        }
+
         const mk = (label, val) => {
           const b = document.createElement("button");
           b.textContent = label;
@@ -2380,8 +2606,8 @@
         };
         if (yrPage < maxPage) pg("‹", 1, "Earlier years");
         mk("All", "all");
-        const winHi = hi - yrPage * YR_SPAN;
-        for (let y = Math.max(YR_LO, winHi - YR_SPAN + 1); y <= winHi; y++)
+        const winHi = hi - yrPage * span;
+        for (let y = Math.max(YR_LO, winHi - span + 1); y <= winHi; y++)
           mk(y, y);
         if (yrPage > 0) pg("›", -1, "Later years");
         // After a paging rebuild, restore selection state and the places row
@@ -2394,6 +2620,18 @@
                 (yearFilter === null && b.dataset.y === "all"),
             ),
           );
+        // Font-metric-proof fit: if the year buttons spilled onto a 2nd row, drop one and re-render.
+        // Tolerance (6px) avoids sub-pixel top differences on a single baseline-aligned row reading as a wrap.
+        if (span > 4) {
+          const tops = [...wrap.querySelectorAll("button")]
+            .filter((b) => /^\d{4}$/.test(b.textContent))
+            .map((b) => b.getBoundingClientRect().top);
+          const minTop = Math.min(...tops);
+          if (tops.some((t) => t - minTop > 6)) {
+            buildYears(span - 1);
+            return;
+          }
+        }
         renderYearList();
       }
       function setYear(y) {
@@ -2404,6 +2642,13 @@
         redrawRoute();
         declutter();
       }
+      // Re-fit the year strip on resize: desktop span is width-based, and crossing YR_MOBILE
+      // swaps between the button strip and the slider.
+      let yrResizeT;
+      addEventListener("resize", () => {
+        clearTimeout(yrResizeT);
+        yrResizeT = setTimeout(buildYears, 150);
+      });
       // Year selected → list that year's visited countries above the strip (user decision: countries only, no regions;
       // region-level detail is left to the map's gold fills)
       function renderYearList() {
@@ -2465,7 +2710,9 @@
             musicBtn.classList.add("on");
             stopFirst();
           })
-          .catch(() => {});
+          .catch(() => {
+            musicBtn.classList.remove("on"); // play blocked/failed: undo the optimistic "on"
+          });
       // Play on page load (user decision 2026-07-10); if the browser blocks gesture-less autoplay, resume on first interaction
       playMusic();
       const firstPlay = (e) => {
@@ -2474,8 +2721,10 @@
       };
       EVTS.forEach((t) => addEventListener(t, firstPlay, true));
       musicBtn.addEventListener("click", () => {
-        if (bgm.paused) playMusic();
-        else {
+        if (bgm.paused) {
+          musicBtn.classList.add("on"); // instant feedback while the file buffers; reverted if play is blocked
+          playMusic();
+        } else {
           bgm.pause();
           musicBtn.classList.remove("on");
         }
@@ -2911,7 +3160,7 @@
               rYs[f.properties.country + "/" + f.properties.region] || [];
           });
           buildYears();
-          map.on("load", () => {
+          const onMapLoad = () => {
             map.addSource("world", { type: "geojson", data: w });
             map.addSource("states", { type: "geojson", data: st });
             map.addSource("borders", { type: "geojson", data: bd });
@@ -3155,7 +3404,13 @@
                 renderTop(false, true);
               }
             });
-          });
+          };
+          // If the map style already loaded before this data fetch resolved, the "load" event has
+          // already fired — run the setup now instead of waiting for an event that won't come again
+          // (attaching map.on("load") unconditionally missed it on cold loads → blank page → the
+          // "refresh twice" symptom). Otherwise the style isn't ready yet, so wait for "load".
+          if (map.isStyleLoaded()) onMapLoad();
+          else map.on("load", onMapLoad);
           map.on("error", (e) =>
             console.warn("map:", e.error && e.error.message),
           );

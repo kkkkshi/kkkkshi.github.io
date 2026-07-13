@@ -383,6 +383,38 @@
         transform: scale(0.97);
       }
 
+      /* ---- "Copied" toast for the email button ---- */
+      .copied-toast {
+        position: fixed;
+        left: 50%;
+        bottom: 28px;
+        transform: translateX(-50%) translateY(8px);
+        background: var(--card);
+        color: var(--ink);
+        border: 1px solid var(--line);
+        border-radius: 9999px;
+        padding: 8px 18px;
+        font-size: var(--fs-callout);
+        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.14);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.18s ease, transform 0.18s ease;
+        z-index: 999;
+      }
+      .copied-toast.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .copied-toast {
+          transition: opacity 0.18s ease;
+          transform: translateX(-50%);
+        }
+        .copied-toast.show {
+          transform: translateX(-50%);
+        }
+      }
+
       /* ---- sections: real title blocks (ink 22px); the whole page has a single "title = large, content = 16px gray" hierarchy ---- */
       .block {
         padding: 24px 0; /* section gap 48px (64 too airy; matches andrewng.org's compactness) */
@@ -800,7 +832,10 @@
           .filter((k) => P.links[k])
           .map((k) => {
             const href = k === "email" ? "mailto:" + P.email : P.links[k];
-            const ext = k === "email" ? "" : ' target="_blank" rel="noopener"';
+            const ext =
+              k === "email"
+                ? ` data-copy-email="${E(P.email)}"`
+                : ' target="_blank" rel="noopener"';
             return `<a class="lnk" href="${E(href)}"${ext}>${LABEL[k]}</a>`;
           })
           .join("");
@@ -1032,6 +1067,48 @@
           btn.innerHTML = open
             ? 'Show fewer <span class="ar">↑</span>'
             : `${more} <span class="ar">→</span>`;
+        });
+      });
+
+      // ---- email button: click copies the address and always shows a toast ----
+      const copyEmail = (text) => {
+        // best-effort: try the async Clipboard API, fall back to a hidden textarea
+        try {
+          if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(text).catch(() => {});
+            return;
+          }
+        } catch (e) {}
+        try {
+          const ta = document.createElement("textarea");
+          ta.value = text;
+          ta.style.position = "fixed";
+          ta.style.opacity = "0";
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand("copy");
+          document.body.removeChild(ta);
+        } catch (e) {}
+      };
+      let toastEl, toastTimer;
+      const showToast = (msg) => {
+        if (!toastEl) {
+          toastEl = document.createElement("div");
+          toastEl.className = "copied-toast";
+          document.body.appendChild(toastEl);
+        }
+        toastEl.textContent = msg;
+        toastEl.classList.remove("show");
+        void toastEl.offsetWidth; // force reflow so the pop animation replays on every click
+        toastEl.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toastEl.classList.remove("show"), 1600);
+      };
+      document.querySelectorAll("a.lnk[data-copy-email]").forEach((a) => {
+        a.addEventListener("click", (ev) => {
+          ev.preventDefault();
+          copyEmail(a.getAttribute("data-copy-email"));
+          showToast("Copied to clipboard");
         });
       });
     </script>
