@@ -21,7 +21,7 @@ window.PROFILE = {
 
   about: [
     "Sherry (Ke) Shi is a Data Engineer & Machine Learning Engineer at EnStream, where she owns the data pipeline behind Trust Score, a real-time fraud and identity-risk signal for high-volume telecom events, and the AWS infrastructure for the company's cross-team data-exchange platform.",
-    "She was previously a Data Scientist at Paytm Labs, where she built real-time account and card takeover models scoring tens of millions of events a day; her account-takeover model cut fraud losses by roughly 60% while reducing user friction. Her work spans fraud detection, computer vision, and NLP, and she co-authored an IEEE paper on blockchain-based contract management.",
+    "She was previously a Data Scientist at Paytm Labs, on real-time fraud detection. Her account-takeover model scored 15 million events a day and cut fraud losses by about 60% while easing user friction; a card-takeover model handled 40 million requests a day in under 12ms. Her wider work spans computer vision and NLP, and she co-authored an IEEE paper on blockchain-based contract management.",
     "She holds a B.Math in Statistics from the University of Waterloo, an M.S. in Data Science & Analytics from Georgetown University, and an M.Eng. in Computer Science from Cornell Tech.",
   ],
 
@@ -41,7 +41,7 @@ window.PROFILE = {
       location: "Toronto, Canada",
       period: "Mar 2026 – Present",
       project: "Trust Score · Real-time Fraud & Identity Risk",
-      stack: ["Python", "Terraform", "AWS", "Isolation Forest", "K-Means"],
+      stack: ["PySpark", "Kafka", "Kinesis", "dbt", "Redshift", "Terraform", "AWS", "Isolation Forest", "K-Means"],
       bullets: [
         "Own the data pipeline behind Trust Score (v0.5), EnStream's real-time fraud and identity-risk signal. It moves high-volume telecom events (SIM, device, port-out) into the feature layer that feeds scoring.",
         "Drive the unsupervised scoring core, built on Isolation Forest, its online Mondrian variant (iMF), and K-Means, to surface anomalous identity behavior without labels.",
@@ -355,9 +355,12 @@ window.PROFILE = {
     ],
     "Data, Cloud & MLOps": [
       "Spark / PySpark",
+      "Kafka",
+      "Kinesis",
+      "dbt",
       "Hadoop",
       "Cassandra",
-      "AWS (SageMaker · S3 · Athena)",
+      "AWS (SageMaker · S3 · Athena · Redshift · Glue · Step Functions)",
       "Azure",
       "GCP",
       "Terraform",
