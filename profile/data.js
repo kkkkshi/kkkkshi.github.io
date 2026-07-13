@@ -41,7 +41,7 @@ window.PROFILE = {
       location: "Toronto, Canada",
       period: "Mar 2026 – Present",
       project: "Trust Score · Real-time Fraud & Identity Risk",
-      stack: ["PySpark", "Kafka", "Kinesis", "dbt", "Redshift", "Terraform", "AWS", "Isolation Forest", "K-Means"],
+      stack: ["PySpark", "Kafka", "Terraform", "AWS", "Isolation Forest"],
       bullets: [
         "Own the data pipeline behind Trust Score (v0.5), EnStream's real-time fraud and identity-risk signal. It moves high-volume telecom events (SIM, device, port-out) into the feature layer that feeds scoring.",
         "Drive the unsupervised scoring core, built on Isolation Forest, its online Mondrian variant (iMF), and K-Means, to surface anomalous identity behavior without labels.",
