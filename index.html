@@ -419,8 +419,8 @@
       .block {
         padding: 24px 0; /* section gap 48px (64 too airy; matches andrewng.org's compactness) */
         scroll-margin-top: calc(
-          var(--nav-h, 98px) + 12px
-        ); /* --nav-h = measured nav height (mobile single line ~52px, desktop may wrap to two); a fixed 110px left the previous section's tail peeking above the anchor on mobile */
+          var(--nav-h, 98px) - 12px
+        ); /* --nav-h = measured nav height; -12px cancels half of the block's own 24px padding, so the heading lands 12px under the nav hairline instead of 36px */
       }
       .block-h {
         font-size: var(--fs-title2);
@@ -1065,25 +1065,18 @@
         ),
       ).observe(navEl);
 
-      // ---- mobile nav strip: a link tapped while half-cut by the edge scrolls fully into view (24px margin also clears the right-edge fade mask) ----
+      // ---- mobile nav strip: the tapped link scrolls to the strip's left edge, iOS-tab style (next to the brand); clamps at the end of the strip. Desktop strip doesn't overflow, so this is a no-op there ----
       document.querySelector(".navlinks").addEventListener("click", (e) => {
         const a = e.target.closest("a");
         if (!a) return;
-        const wrap = a.parentElement.getBoundingClientRect();
-        const r = a.getBoundingClientRect();
-        const dx =
-          r.left < wrap.left + 24
-            ? r.left - wrap.left - 24
-            : r.right > wrap.right - 24
-              ? r.right - wrap.right + 24
-              : 0;
-        if (dx)
-          a.parentElement.scrollBy({
-            left: dx,
-            behavior: matchMedia("(prefers-reduced-motion: reduce)").matches
-              ? "auto"
-              : "smooth",
-          });
+        a.parentElement.scrollBy({
+          left:
+            a.getBoundingClientRect().left -
+            a.parentElement.getBoundingClientRect().left,
+          behavior: matchMedia("(prefers-reduced-motion: reduce)").matches
+            ? "auto"
+            : "smooth",
+        });
       });
 
       // ---- collapse toggles (experience internships, non-featured projects) ----
