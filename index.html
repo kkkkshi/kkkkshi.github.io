@@ -283,6 +283,18 @@
           gap: 4px 16px;
           padding: 4px 0;
         }
+        .nav::before {
+          /* status-bar shield: during a call / expanded Dynamic Island, iOS Safari pins the sticky nav below an exposed strip of page content; this full-bleed band extends upward to cover it (off-screen and invisible otherwise).
+             Must stay fully opaque: a translucent background on a pseudo that reaches outside a backdrop-filter parent doesn't composite (Chromium drops it entirely) */
+          content: "";
+          position: absolute;
+          bottom: 100%;
+          left: 50%;
+          width: 100vw;
+          margin-left: -50vw;
+          height: 200px;
+          background: var(--bg);
+        }
         .brand {
           flex: none;
         }
