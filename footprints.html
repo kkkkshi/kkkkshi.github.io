@@ -63,6 +63,26 @@
         height: 100%;
         overflow: hidden;
       }
+      /* iOS Safari: page-level pinch/double-tap zoom persists across reloads (WebKit stores the
+         scale on the history item), and the touch-action:none map canvas then swallows every
+         pinch-out — the page gets stuck zoomed. Forbid page zoom from every gesture entry point
+         (overlays + the 6px body frame; the canvas is already covered by MapLibre's own
+         touch-action:none). Safari's Aa "Page Zoom" remains available for accessibility. */
+      html,
+      body,
+      #seal,
+      #crumbs,
+      #music,
+      #daynight,
+      #links,
+      #years,
+      #card,
+      #toast {
+        touch-action: pan-x pan-y;
+      }
+      .yr-wheel-track {
+        touch-action: pan-y; /* keep the year wheel's own vertical scroll */
+      }
       body {
         font-family: var(--fell);
         background: radial-gradient(130% 110% at 50% 32%, #342c20, #211b13);
@@ -837,22 +857,34 @@
         left: 50%;
         top: 50%;
         transform: translate(-50%, -50%);
-        width: calc(100% + 90px);
-        /* Grows with content (an extra places row above when a year is selected); single row ≈ original 64px */
-        height: calc(100% + 38px);
+        /* Grows with content (an extra places row above when a year is selected); hugs the text —
+           the old +90px box with a wide elliptical fade smeared the map far beyond the labels */
+        width: calc(100% + 56px);
+        height: calc(100% + 24px);
         background: transparent;
         -webkit-backdrop-filter: blur(9px);
         backdrop-filter: blur(9px);
-        -webkit-mask-image: radial-gradient(
-          ellipse 60% 52% at 50% 50%,
-          #000 50%,
-          transparent 100%
-        );
-        mask-image: radial-gradient(
-          ellipse 60% 52% at 50% 50%,
-          #000 50%,
-          transparent 100%
-        );
+        /* Soft-edged rectangle: two linear fades intersected (radial ellipse can't hug a long row) */
+        -webkit-mask-image:
+          linear-gradient(
+            to right,
+            transparent,
+            #000 7%,
+            #000 93%,
+            transparent
+          ),
+          linear-gradient(transparent, #000 22%, #000 78%, transparent);
+        -webkit-mask-composite: source-in;
+        mask-image:
+          linear-gradient(
+            to right,
+            transparent,
+            #000 7%,
+            #000 93%,
+            transparent
+          ),
+          linear-gradient(transparent, #000 22%, #000 78%, transparent);
+        mask-composite: intersect;
         pointer-events: none;
       }
       #years button {
@@ -916,9 +948,13 @@
       /* Mobile: year strip widened to 2 rows (3 rows / 106px covered the map); buttons not shrunk, preserving tap size */
       @media (max-width: 700px) {
         #years {
+          gap: 4px;
+        }
+        /* Only the OPEN strip widens to 92%; collapsed keeps the base fit-content so the blur
+           backdrop hugs the "Years ▾" toggle instead of smearing the scale bar at bottom-left */
+        #years.open {
           width: 92%;
           max-width: 92%;
-          gap: 4px;
         }
         #years::before {
           width: calc(100% + 24px);
@@ -1009,6 +1045,12 @@
           left: 18px;
         }
         /* Year picker: a vertical scroll wheel (scroll a year to the centre to pick it) — replaces the button strip */
+        /* Wheel mode: the picker is a narrow centred column — hug it so the blur backdrop
+           doesn't fog the compass and scale bar at the bottom corners */
+        #years.open {
+          width: -moz-fit-content;
+          width: fit-content;
+        }
         .yr-wheel {
           flex-basis: 100%;
           position: relative;
@@ -2695,6 +2737,13 @@
         }
       });
       addEventListener("popstate", goBack);
+      // iOS Safari belt-and-braces for the touch-action rules above: WebKit's proprietary gesture
+      // events fire for page pinch-zoom; cancelling them blocks the zoom without touching MapLibre
+      // (the map listens to touch events on its own touch-action:none canvas).
+      for (const t of ["gesturestart", "gesturechange"])
+        document.addEventListener(t, (e) => e.preventDefault(), {
+          passive: false,
+        });
 
       // ===== Background music =====
       const bgm = document.getElementById("bgm");
