@@ -418,7 +418,9 @@
       /* ---- sections: real title blocks (ink 22px); the whole page has a single "title = large, content = 16px gray" hierarchy ---- */
       .block {
         padding: 24px 0; /* section gap 48px (64 too airy; matches andrewng.org's compactness) */
-        scroll-margin-top: 110px;
+        scroll-margin-top: calc(
+          var(--nav-h, 98px) + 12px
+        ); /* --nav-h = measured nav height (mobile single line ~52px, desktop may wrap to two); a fixed 110px left the previous section's tail peeking above the anchor on mobile */
       }
       .block-h {
         font-size: var(--fs-title2);
@@ -1054,6 +1056,35 @@
         () => navEl.classList.toggle("scrolled", scrollY > 8),
         { passive: true },
       );
+
+      // ---- anchor offset tracks the real nav height (see .block scroll-margin-top) ----
+      new ResizeObserver(() =>
+        document.documentElement.style.setProperty(
+          "--nav-h",
+          navEl.offsetHeight + "px",
+        ),
+      ).observe(navEl);
+
+      // ---- mobile nav strip: a link tapped while half-cut by the edge scrolls fully into view (24px margin also clears the right-edge fade mask) ----
+      document.querySelector(".navlinks").addEventListener("click", (e) => {
+        const a = e.target.closest("a");
+        if (!a) return;
+        const wrap = a.parentElement.getBoundingClientRect();
+        const r = a.getBoundingClientRect();
+        const dx =
+          r.left < wrap.left + 24
+            ? r.left - wrap.left - 24
+            : r.right > wrap.right - 24
+              ? r.right - wrap.right + 24
+              : 0;
+        if (dx)
+          a.parentElement.scrollBy({
+            left: dx,
+            behavior: matchMedia("(prefers-reduced-motion: reduce)").matches
+              ? "auto"
+              : "smooth",
+          });
+      });
 
       // ---- collapse toggles (experience internships, non-featured projects) ----
       document.querySelectorAll(".show-all-btn").forEach((btn) => {
