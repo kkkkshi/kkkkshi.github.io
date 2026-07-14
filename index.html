@@ -569,6 +569,13 @@
         font-weight: 500;
         margin: 8px 0 0;
       }
+      /* stack sits on its own line under the project, same size and weight as the meta line */
+      .item-stack {
+        font-size: var(--fs-footnote);
+        color: var(--muted);
+        font-weight: 500;
+        margin: 4px 0 0;
+      }
       .item-desc {
         margin: 16px 0 0;
         color: var(--muted);
@@ -855,6 +862,32 @@
           .join("");
       const tagline = E(P.tagline);
 
+      // Duration next to the period. LinkedIn convention: inclusive of the end month. Work + projects only.
+      const MONTHS = { Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5, Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11 };
+      const parseMY = (s) => {
+        const m = s.trim().match(/^([A-Za-z]{3})\s+(\d{4})$/);
+        return m && m[1] in MONTHS ? { y: +m[2], m: MONTHS[m[1]] } : null;
+      };
+      const formatDuration = (period) => {
+        if (!period) return "";
+        const parts = period.split(/\s[–-]\s/);
+        if (parts.length !== 2) return "";
+        const start = parseMY(parts[0]);
+        if (!start) return "";
+        const end = /present/i.test(parts[1])
+          ? ((n) => ({ y: n.getFullYear(), m: n.getMonth() }))(new Date())
+          : parseMY(parts[1]);
+        if (!end) return "";
+        let months = (end.y - start.y) * 12 + (end.m - start.m) + 1;
+        if (months < 1) months = 1;
+        const y = Math.floor(months / 12);
+        const mo = months % 12;
+        const out = [];
+        if (y > 0) out.push(`${y} yr${y > 1 ? "s" : ""}`);
+        if (mo > 0) out.push(`${mo} mo${mo > 1 ? "s" : ""}`);
+        return out.join(" ");
+      };
+
       const itemList = (arr, kind) =>
         `<ul class="items">${arr
           .map((e) => {
@@ -863,18 +896,18 @@
                 ? `${E(e.company)} <span class="role">· ${E(e.role)}</span>`
                 : E(e.school || e.name);
             /* Escape each part, filter out empties, then join: prevents undefined / dangling " · " */
-            const meta = (
+            /* metaLine = what the role is about (project / degree); stackLine = the tools, kept on its own line */
+            const metaLine = (
               kind === "edu"
                 ? [e.degree, e.note].map((s) => s && E(s))
-                : [
-                    (e.project || e.sub) && E(e.project || e.sub),
-                    e.stack && e.stack.length
-                      ? e.stack.map(E).join(" · ")
-                      : "",
-                  ]
+                : [(e.project || e.sub) && E(e.project || e.sub)]
             )
               .filter(Boolean)
               .join(" · ");
+            const stackLine =
+              kind !== "edu" && e.stack && e.stack.length
+                ? e.stack.map(E).join(" · ")
+                : "";
             const body = (e.bullets || [])
               .map((b) => `<p class="item-desc">${E(b)}</p>`)
               .join("");
@@ -883,7 +916,14 @@
               (kind === "proj" && e.repo
                 ? `https://github.com/${P.githubUser}/${e.repo}`
                 : "");
-            const inner = `<div class="item-h"><span class="item-t">${title}</span><span class="item-when">${E(e.period)}</span></div><p class="item-meta">${meta}</p>${body}`;
+            const metaHtml =
+              (metaLine ? `<p class="item-meta">${metaLine}</p>` : "") +
+              (stackLine ? `<p class="item-stack">${stackLine}</p>` : "");
+            const dur =
+              kind === "work" || kind === "proj"
+                ? formatDuration(e.period)
+                : "";
+            const inner = `<div class="item-h"><span class="item-t">${title}</span><span class="item-when">${E(e.period)}${dur ? " · " + dur : ""}</span></div>${metaHtml}${body}`;
             const isExtra =
               (kind === "work" && /Intern|Assistant/i.test(e.role || "")) ||
               (kind === "proj" && !e.featured);
