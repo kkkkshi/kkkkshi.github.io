@@ -41,12 +41,12 @@ window.PROFILE = {
       location: "Toronto, Canada",
       period: "Mar 2026 – Present",
       project: "Trust Score · Real-time Fraud & Identity Risk · Cross-industry Fraud Data Exchange",
-      stack: ["AWS", "PySpark", "Python", "Terraform", "Isolation Forest"],
+      stack: ["AWS", "PySpark", "Python", "Kafka", "Isolation Forest"],
       bullets: [
-        "Own the pipeline that moves 40M+ telecom events a quarter into the feature layer feeding Trust Score v0.5–v1, EnStream's fraud and identity-risk signal.",
-        "Develop the unsupervised scoring core that flags anomalous identity behavior, built on Isolation Forest, its online Mondrian variant (iMF), and K-Means.",
-        "Set up and run the AWS data platform behind a cross-industry fraud data exchange, with the whole stack defined in Terraform. Its Bronze / Silver / Gold pipeline ingests 400+ GB of bad-actor data from telco and bank participants, standardizes and enriches it, and serves a canonical record through a real-time lookup API with a 99.5% availability target.",
-        "Keep flagged numbers traceable across porting and recycling via ownership-continuity modeling, and design a bitemporal lineage layer for point-in-time lookup and cross-number fraud tracking.",
+        "Own the Trust Score pipeline end to end: 40M+ telecom events a quarter, scored without labels for v0.5–v1 by Isolation Forest, its online Mondrian variant (iMF), and K-Means, at 80% precision and recall.",
+        "Provision the exchange's AWS stack in Terraform: dynamic profiles isolating QA / staging / prod data, PII sealed under its own CMK, a 99.5% uptime target in production.",
+        "Design the exchange's data architecture and build its Iceberg lakehouse: 400+ GB of telco and bank fraud reports merged into one canonical record that tracks fraudsters through ports, recycles, and new numbers.",
+        "Serve lookups on a hybrid path: batch-materialized answers from DynamoDB when fresh, live re-enrichment through carrier and porting APIs when stale.",
       ],
     },
     {
@@ -56,7 +56,7 @@ window.PROFILE = {
       location: "Toronto, Canada",
       period: "Jun 2024 – Jan 2026",
       project: "Real-time Fraud Detection · Account & Card Takeover",
-      stack: ["Python", "SQL", "AWS", "PySpark", "SageMaker"],
+      stack: ["Python", "SQL", "AWS", "PySpark", "XGBoost"],
       bullets: [
         "Built the account-takeover (ATO) model scoring 15M+ events/day; cut fraud losses ~60% with one-third the user friction. Distilled 600+ features to a top-50 set with SHAP and Bayesian optimization.",
         "Shipped the card-takeover (CTO) model serving 40M+ requests/day at under 12 ms and ~$30/day to run, cutting fraud per million transactions by 37% and the false-positive rate by 30%.",
@@ -70,9 +70,11 @@ window.PROFILE = {
       location: "Hangzhou, China",
       period: "Jan 2023 – Aug 2023",
       project: "Intelligent Security Surveillance & Anomaly Detection",
-      stack: ["YOLOv5", "TensorFlow", "OpenCV", "Python"],
+      stack: ["YOLOv5", "PyTorch", "TensorFlow", "OpenCV", "Python"],
       bullets: [
-        "Built a computer-vision surveillance system from scratch with YOLOv5 for real-time hazard and intrusion detection and automated alerts, trained it on 400+ GB of video from 200+ feeds, and benchmarked 6 architectures for edge deployment.",
+        "Trained a YOLOv5 detector for real-time person detection and behavior recognition over a 200 km² industrial-use lake, flagging intrusions into restricted areas and other suspicious activity.",
+        "Ingested live streams from 50 cameras, boxed detected people in real time, and pushed automated alerts to the duty room.",
+        "Owned delivery end to end as the project's only engineer: 400+ GB of training footage, model training, and a 6-architecture benchmark for edge deployment; live in a two-month trial.",
       ],
     },
     {
@@ -81,10 +83,11 @@ window.PROFILE = {
       role: "Business Analyst Intern",
       location: "Shanghai, China",
       period: "Mar 2022 – Aug 2022",
-      project: "Equity-Risk Analytics · South China",
-      stack: ["C", "SQL", "Wind", "Excel"],
+      project: "Equity Sell-Down Advisory · Stock-Data Automation",
+      stack: ["C", "SQL", "Python", "Wind", "Excel"],
       bullets: [
-        "Automated shareholder-risk detection with C/SQL over Wind financial data for a 7-analyst team, replacing manual verification and raising query efficiency ~80%; managed delivery across 3 client portfolios.",
+        "Wrote a C/SQL program that automated stock-data processing and shareholder-risk checks over Wind market data for a 7-analyst team, replacing manual verification and raising query efficiency ~80%.",
+        "Supported client equity sell-downs across 3 portfolios, tracking holdings against regulatory sell-down limits and preparing client deliverables.",
       ],
     },
     {
@@ -94,9 +97,10 @@ window.PROFILE = {
       location: "Washington, D.C. (partly remote)",
       period: "Jan 2022 – Dec 2022",
       project: "Data Structures · Time Series Analysis",
-      stack: ["Python", "C++", "R"],
+      stack: ["Python", "C++", "R", "GitHub"],
       bullets: [
-        "Taught labs and handled all grading, code reviews, and office hours for 40+ graduate students across 2 core courses. Set up the class Slack and GitHub org.",
+        "Taught labs and handled all grading and code reviews for 40+ graduate students across 2 core courses: Data Structures in Python and C++, and Time Series Analysis in R.",
+        "Held office hours and set up the class Slack and GitHub org, walking students through debugging their code and assignment questions.",
       ],
     },
     {
@@ -105,10 +109,11 @@ window.PROFILE = {
       role: "Data Scientist Intern",
       location: "Hangzhou, China",
       period: "Feb 2021 – Aug 2021",
-      project: "Merchant Analytics & Device Monitoring",
-      stack: ["ELK Stack", "ECharts", "Python", "SQL"],
+      project: "WeChat Scan-to-Order Platform · Merchant Analytics & Device Monitoring",
+      stack: ["ELK Stack", "ECharts", "D3.js", "Python", "SQL"],
       bullets: [
-        "Delivered the MVP analytics module for 100+ merchants, built on ECharts and D3.js dashboards, and an ELK Stack anomaly-warning system informed by operation-log EDA, replacing manual inspection.",
+        "Delivered the MVP analytics module of a WeChat scan-to-order mini program serving 100+ merchants: ECharts and D3.js dashboards tracking orders and merchant activity across the platform.",
+        "Set up the ELK Stack anomaly-warning system over the platform's operation logs, tuning alert rules from EDA to replace manual device inspection.",
       ],
     },
     {
@@ -118,9 +123,10 @@ window.PROFILE = {
       location: "Hangzhou, China",
       period: "Mar 2020 – Aug 2020",
       project: "Hyperchain Blockchain Platform",
-      stack: ["Python", "C++", "Linux", "Cryptography"],
+      stack: ["Go", "C++", "Python", "Cryptography", "Consensus Algorithms"],
       bullets: [
-        "Optimized cryptographic modules and consensus on Hyperchain, a proprietary blockchain platform, and shipped 2 client products; benchmarked the platform against Fabric, Libra, and PlatOn and turned the results into a strategy report that shaped the roadmap.",
+        "Optimized cryptographic modules and consensus on Hyperchain, a proprietary blockchain platform, and shipped 2 client products built on it.",
+        "Benchmarked Hyperchain against Fabric, Libra, and PlatOn, and distilled the results into a strategy report that shaped the platform roadmap.",
       ],
     },
     {
@@ -132,7 +138,8 @@ window.PROFILE = {
       project: "Blockchain & FinTech Research",
       stack: ["Hyperledger Fabric", "Smart Contracts", "Cryptography"],
       bullets: [
-        "Researched blockchain for power-industry procurement; co-authored an IEEE paper on a contract-management system that handled US$1B+ in contracts and cut settlement time ~66%.",
+        "Researched blockchain contract management on BEcontractor, a Hyperledger Fabric system that moved a power-grid enterprise's procurement online during COVID-19, handling US$1B+ in contracts and cutting settlement time ~66%.",
+        "Co-authored the IEEE Access paper presenting the system and its rollout across the enterprise's nationwide suppliers, published in 2021.",
       ],
     },
   ],
@@ -192,7 +199,6 @@ window.PROFILE = {
     },
     {
       name: "miniTorch",
-      featured: true,
       sub: "Deep-learning Framework",
       period: "Jan 2024 – Apr 2024",
       stack: ["Python", "CUDA", "Autograd"],
@@ -205,20 +211,20 @@ window.PROFILE = {
       name: "Blockchain from Scratch",
       sub: "Cornell · Consensus",
       period: "Jan 2024 – Apr 2024",
-      stack: ["Python", "Proof-of-Work"],
+      stack: ["Java", "Python", "Solidity"],
       repo: "CS5433_BlockChain",
       bullets: [
-        "Built a blockchain from scratch with proof-of-work, transactions, and consensus.",
+        "Implemented a cryptocurrency's moving parts in Java: UTXO transaction validation, consensus in a simulated network with adversarial nodes, and a forking blockchain with pruning, plus Merkle proofs in Python and an ERC-20 token in Solidity.",
       ],
     },
     {
       name: "Startup Systems",
       sub: "Cornell · Full-Stack",
       period: "Sep 2023 – Dec 2023",
-      stack: ["JavaScript", "Web", "MVP"],
+      stack: ["React", "TypeScript", "Firebase"],
       repo: "CS5356_Building_Startup_System",
       bullets: [
-        "Took a full-stack web app from product spec to deployment in Cornell Tech's Building Startup Systems course.",
+        "Took a web app from spec to deployment across three milestones, ending in the first cut of Align AI: a task tracker in React and TypeScript on Firebase Auth and Firestore.",
       ],
     },
     {
@@ -228,17 +234,17 @@ window.PROFILE = {
       stack: ["Python", "Data Structures", "Complexity"],
       repo: "CS5112_Algorithms",
       bullets: [
-        "Implemented and analyzed core algorithms and data structures from Cornell Tech's graduate algorithms course.",
+        "Solved a semester of Kleinberg & Tardos problems in Python: stable matching, Karatsuba and FFT multiplication, max-flow modeling, and count-min sketch streaming.",
       ],
     },
     {
       name: "Network Systems",
       sub: "Cornell · Networks",
       period: "Sep 2023 – Dec 2023",
-      stack: ["C", "Sockets", "TCP/IP"],
+      stack: ["C", "UDP", "Go-Back-N"],
       repo: "CS5450_Network",
       bullets: [
-        "Wrote protocol mechanics from the socket up in C for Cornell Tech's networks course.",
+        "Built a Go-Back-N reliable-transport protocol in C on top of UDP sockets: sliding-window sender and receiver with timeouts and retransmission.",
       ],
     },
     {
@@ -275,7 +281,6 @@ window.PROFILE = {
     },
     {
       name: "Reddit Game-Community Research",
-      featured: true,
       sub: "NLP · Big Data",
       period: "Jan 2022 – Apr 2022", // per the 2026 résumé (site previously said Sep–Dec 2022)
       stack: ["PySpark", "LSTM", "Azure"], // sub already contains NLP; don't render it again in the meta line
@@ -300,10 +305,10 @@ window.PROFILE = {
       name: "Dataset Toolbox",
       sub: "Tooling",
       period: "Jan 2022 – Apr 2022",
-      stack: ["Python", "Scikit-learn"],
+      stack: ["Python", "KD-Tree", "Apriori"],
       repo: "Dataset_Toolbox",
       bullets: [
-        "Assembled utilities for cleaning, transforming, and packaging ML datasets: EDA helpers, ROC plots, a decision-tree classifier, and a kd-tree KNN.",
+        "Hand-built an OOP data-mining toolkit in pure Python instead of scikit-learn: six dataset types with their own cleaning and EDA, KNN with a KD-Tree fast path, Apriori rule mining, and cross-validated ROC evaluation, each method annotated with its complexity.",
       ],
     },
     {
@@ -318,13 +323,13 @@ window.PROFILE = {
       ],
     },
     {
-      name: "The Magic Tower",
+      name: "ChamberCrawler3000+",
       sub: "Game",
       period: "Jan 2019 – Apr 2019",
       stack: ["C++", "UML"],
-      repo: "The-Magic-Tower",
+      repo: "The-Magic-Tower", // repo slug kept its old name; contents are CC3K+
       bullets: [
-        "Rebuilt the classic Magic Tower puzzle-RPG with 4 monster types and 3 boss stages.",
+        "Made a terminal rogue-like in C++: five randomly generated floors of chambers, playable races, enemies and potions, and runs reproducible from a fixed seed or layout file.",
       ],
     },
   ],
@@ -349,7 +354,7 @@ window.PROFILE = {
     { name: "Django App Development with SQL & Databases", authority: "IBM", date: "Nov 2023", url: "https://www.coursera.org/account/accomplishments/verify/EED4FG2STA9V" },
     { name: "Python for Data Science, AI & Development", authority: "IBM", date: "Oct 2023", url: "https://www.coursera.org/account/accomplishments/verify/VS74BKG63WWK", featured: true },
     { name: "Developing AI Applications with Python & Flask", authority: "IBM", date: "Oct 2023", url: "https://www.coursera.org/verify/QLPA24GG7NFU", featured: true },
-    { name: "Linux Commands & Shell Scripting", authority: "IBM", date: "Sep 2023", url: "https://www.coursera.org/account/accomplishments/certificate/PXGCMF2GKJ7R", featured: true },
+    { name: "Linux Commands & Shell Scripting", authority: "IBM", date: "Sep 2023", url: "https://www.coursera.org/account/accomplishments/certificate/PXGCMF2GKJ7R" },
     { name: "Git & GitHub", authority: "IBM", date: "Sep 2023", url: "https://www.coursera.org/account/accomplishments/certificate/4F5S538PT5U5" },
     { name: "Introduction to Software Engineering", authority: "IBM", date: "Sep 2023", url: "https://www.coursera.org/account/accomplishments/certificate/BM6MMRXZZBKG" },
   ],
