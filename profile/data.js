@@ -43,7 +43,7 @@ window.PROFILE = {
       project: "Trust Score · Real-time Fraud & Identity Risk · Cross-industry Fraud Data Exchange",
       stack: ["AWS", "PySpark", "Python", "Terraform", "Isolation Forest"],
       bullets: [
-        "Own the pipeline that moves 40M+ telecom events/year into the feature layer feeding Trust Score v0.5–v1, EnStream's fraud and identity-risk signal.",
+        "Own the pipeline that moves 40M+ telecom events a quarter into the feature layer feeding Trust Score v0.5–v1, EnStream's fraud and identity-risk signal.",
         "Develop the unsupervised scoring core that flags anomalous identity behavior, built on Isolation Forest, its online Mondrian variant (iMF), and K-Means.",
         "Set up and run the AWS data platform behind a cross-industry fraud data exchange, with the whole stack defined in Terraform. Its Bronze / Silver / Gold pipeline ingests 400+ GB of bad-actor data from telco and bank participants, standardizes and enriches it, and serves a canonical record through a real-time lookup API with a 99.5% availability target.",
         "Keep flagged numbers traceable across porting and recycling via ownership-continuity modeling, and design a bitemporal lineage layer for point-in-time lookup and cross-number fraud tracking.",
@@ -59,7 +59,8 @@ window.PROFILE = {
       stack: ["Python", "SQL", "AWS", "PySpark", "SageMaker"],
       bullets: [
         "Built the account-takeover (ATO) model scoring 15M+ events/day; cut fraud losses ~60% with one-third the user friction. Distilled 600+ features to a top-50 set with SHAP and Bayesian optimization.",
-        "Shipped the card-takeover (CTO) model serving 40M+ requests/day at under 12 ms, cutting fraud per million transactions by 37% while lifting approvals by 30%; owned the TB-scale data migration, drift monitoring, and labeling that kept v1–v4 honest.",
+        "Shipped the card-takeover (CTO) model serving 40M+ requests/day at under 12 ms and ~$30/day to run, cutting fraud per million transactions by 37% and the false-positive rate by 30%.",
+        "Ran the TB-scale data migration and the MLOps lifecycle on SageMaker and Spark, rebuilding transformation logic for strict feature parity; designed the 5-day-lookback labeling strategy and automated drift monitoring that kept v1–v4 honest.",
       ],
     },
     {
@@ -90,7 +91,7 @@ window.PROFILE = {
       company: "Georgetown University",
       url: "https://www.georgetown.edu/",
       role: "Graduate Teaching Assistant",
-      location: "Washington, D.C.",
+      location: "Washington, D.C. (partly remote)",
       period: "Jan 2022 – Dec 2022",
       project: "Data Structures · Time Series Analysis",
       stack: ["Python", "C++", "R"],
@@ -107,7 +108,7 @@ window.PROFILE = {
       project: "Merchant Analytics & Device Monitoring",
       stack: ["ELK Stack", "ECharts", "Python", "SQL"],
       bullets: [
-        "Delivered the MVP analytics module for 100+ merchants, built on ECharts dashboards, and an ELK Stack anomaly-warning system informed by operation-log EDA, replacing manual inspection.",
+        "Delivered the MVP analytics module for 100+ merchants, built on ECharts and D3.js dashboards, and an ELK Stack anomaly-warning system informed by operation-log EDA, replacing manual inspection.",
       ],
     },
     {
@@ -126,7 +127,7 @@ window.PROFILE = {
       company: "Hong Kong Baptist University",
       url: "https://www.hkbu.edu.hk/",
       role: "Undergraduate Research Assistant",
-      location: "Hong Kong",
+      location: "Hong Kong (remote)",
       period: "Jan 2020 – Jan 2021",
       project: "Blockchain & FinTech Research",
       stack: ["Hyperledger Fabric", "Smart Contracts", "Cryptography"],
@@ -160,7 +161,7 @@ window.PROFILE = {
         "B.Math in Honours Statistics, Minor in Combinatorics & Optimization",
       location: "Waterloo, ON",
       period: "Aug 2017 – Apr 2021",
-      note: "GPA 3.3 · Merit Scholarship",
+      note: "Merit Scholarship",
     },
   ],
 
@@ -186,7 +187,7 @@ window.PROFILE = {
       stack: ["Python", "GPT-4", "AWS", "Microservices", "React"],
       repo: "milestone-3-alignai",
       bullets: [
-        "Co-founded a B2B SaaS that turns fragmented Jira and GitHub data into live engineering reports, built as Python microservices on AWS with GPT-4 doing the analysis. Shipped the MVP to 3 pilot customers.",
+        "Co-founded a B2B SaaS that turns fragmented Jira and GitHub data into live engineering reports, built as Python microservices on AWS with GPT-4 doing the analysis. Shipped the MVP to 3 pilot customers after 60+ discovery interviews.",
       ],
     },
     {
@@ -241,18 +242,6 @@ window.PROFILE = {
       ],
     },
     {
-      name: "Reddit Game-Community Research",
-      featured: true,
-      sub: "NLP · Big Data",
-      period: "Sep 2022 – Dec 2022",
-      stack: ["PySpark", "LSTM", "Azure"], // sub already contains NLP; don't render it again in the meta line
-      repo: "",
-      url: "https://hotarugusa.github.io/reddit/index.html",
-      bullets: [
-        "Mined Reddit and YouTube data to study game communities: EDA and NLP on a PySpark pipeline, benchmarking classical ML against an LSTM.",
-      ],
-    },
-    {
       name: "Auto-Grader for ESL Essays",
       sub: "Kaggle · NLP",
       period: "Sep 2022 – Dec 2022",
@@ -282,6 +271,18 @@ window.PROFILE = {
       url: "https://github.com/kkkkshi/ANLY677_Final_Project",
       bullets: [
         "Benchmarked AlexNet, Inception v3, VGG, and YOLOv4 to flag incorrect mask-wearing, comparing accuracy across COVID-era settings.",
+      ],
+    },
+    {
+      name: "Reddit Game-Community Research",
+      featured: true,
+      sub: "NLP · Big Data",
+      period: "Jan 2022 – Apr 2022", // per the 2026 résumé (site previously said Sep–Dec 2022)
+      stack: ["PySpark", "LSTM", "Azure"], // sub already contains NLP; don't render it again in the meta line
+      repo: "",
+      url: "https://hotarugusa.github.io/reddit/index.html",
+      bullets: [
+        "Mined 100k+ Reddit and YouTube records to study game communities: EDA and NLP on a PySpark pipeline, benchmarking classical ML against an LSTM, with the best model hitting 97.8% validation accuracy.",
       ],
     },
     {
@@ -342,13 +343,13 @@ window.PROFILE = {
   // featured: true shown by default; the rest collapse behind "Show all certifications"
   certifications: [
     { name: "Claude Code in Action", authority: "Anthropic", date: "May 2026", url: "https://verify.skilljar.com/c/vjmkur55sxv3", featured: true },
-    { name: "Claude Code 101", authority: "Anthropic", date: "May 2026", url: "https://verify.skilljar.com/c/no8kw6kydhqn", featured: true },
-    { name: "Claude 101", authority: "Anthropic", date: "May 2026", url: "https://verify.skilljar.com/c/jt8kq2scu5q2", featured: true },
-    { name: "Introduction to Claude Cowork", authority: "Anthropic", date: "May 2026", url: "https://verify.skilljar.com/c/yq93jiso5n7s", featured: true },
+    { name: "Claude Code 101", authority: "Anthropic", date: "May 2026", url: "https://verify.skilljar.com/c/no8kw6kydhqn" },
+    { name: "Claude 101", authority: "Anthropic", date: "May 2026", url: "https://verify.skilljar.com/c/jt8kq2scu5q2" },
+    { name: "Introduction to Claude Cowork", authority: "Anthropic", date: "May 2026", url: "https://verify.skilljar.com/c/yq93jiso5n7s" },
     { name: "Django App Development with SQL & Databases", authority: "IBM", date: "Nov 2023", url: "https://www.coursera.org/account/accomplishments/verify/EED4FG2STA9V" },
-    { name: "Python for Data Science, AI & Development", authority: "IBM", date: "Oct 2023", url: "https://www.coursera.org/account/accomplishments/verify/VS74BKG63WWK" },
-    { name: "Developing AI Applications with Python & Flask", authority: "IBM", date: "Oct 2023", url: "https://www.coursera.org/verify/QLPA24GG7NFU" },
-    { name: "Linux Commands & Shell Scripting", authority: "IBM", date: "Sep 2023", url: "https://www.coursera.org/account/accomplishments/certificate/PXGCMF2GKJ7R" },
+    { name: "Python for Data Science, AI & Development", authority: "IBM", date: "Oct 2023", url: "https://www.coursera.org/account/accomplishments/verify/VS74BKG63WWK", featured: true },
+    { name: "Developing AI Applications with Python & Flask", authority: "IBM", date: "Oct 2023", url: "https://www.coursera.org/verify/QLPA24GG7NFU", featured: true },
+    { name: "Linux Commands & Shell Scripting", authority: "IBM", date: "Sep 2023", url: "https://www.coursera.org/account/accomplishments/certificate/PXGCMF2GKJ7R", featured: true },
     { name: "Git & GitHub", authority: "IBM", date: "Sep 2023", url: "https://www.coursera.org/account/accomplishments/certificate/4F5S538PT5U5" },
     { name: "Introduction to Software Engineering", authority: "IBM", date: "Sep 2023", url: "https://www.coursera.org/account/accomplishments/certificate/BM6MMRXZZBKG" },
   ],
@@ -369,7 +370,6 @@ window.PROFILE = {
       "Spark / PySpark",
       "Kafka",
       "Kinesis",
-      "dbt",
       "Data Modeling",
       "Hadoop",
       "Cassandra",
