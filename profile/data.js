@@ -184,6 +184,7 @@ window.PROFILE = {
       url: "https://schedule-drab-one.vercel.app",
       bullets: [
         "Build a local-first task planner in React + TypeScript with 7 linked views from year to day, nested cross-date subtasks, and progress bars that track tasks done against time elapsed; it runs fully offline as a PWA, with optional Supabase cloud sync across devices.",
+        "Engineered the cross-device sync engine by hand in ~2,800 lines: last-write-wins conflict resolution with tombstones, a crash-safe dirty queue persisted per change, and exponential backoff (1s to 30s, with jitter), all on 4 total runtime dependencies with routing and state written from scratch.",
       ],
     },
     {
@@ -195,6 +196,7 @@ window.PROFILE = {
       repo: "milestone-3-alignai",
       bullets: [
         "Co-founded a B2B SaaS that turns fragmented Jira and GitHub data into live engineering reports, built as Python microservices on AWS with GPT-4 doing the analysis. Shipped the MVP to 3 pilot customers after 60+ discovery interviews.",
+        "Shipped the admin console as a react-admin app over Google Firestore, routing task assignment and progress updates from manager to assignee behind route-level authentication, with delete-blocking Firestore security rules and GitHub Actions CI/CD that provisions a dedicated Firebase Hosting preview channel for every pull request.",
       ],
     },
     {
@@ -205,6 +207,7 @@ window.PROFILE = {
       repo: "CS5781_minitorch",
       bullets: [
         "Wrote a PyTorch-style deep-learning framework from scratch: reverse-mode autodiff, tensors, modular layers, and custom CUDA kernels for GPU training.",
+        "Validated the framework end to end on two real models: a three-filter sentiment CNN (parallel 1D convolutions of widths 3, 4, and 5) reaching 76% validation accuracy and a LeNet-style MNIST classifier converging by epoch 25, backed by 148 test functions across 5 progressive modules.",
       ],
     },
     {
@@ -215,6 +218,7 @@ window.PROFILE = {
       repo: "CS5433_BlockChain",
       bullets: [
         "Implemented a cryptocurrency's moving parts in Java: UTXO transaction validation, consensus in a simulated network with adversarial nodes, and a forking blockchain with pruning, plus Merkle proofs in Python and an ERC-20 token in Solidity.",
+        "Exploited those systems from the offensive side: a Solidity contract that wins an on-chain game by predicting its blockhash-seeded randomness and three Ethernaut-style breaks (ether forced in via selfdestruct, a multisig takeover, a coin-flip predictor), plus a Python proof-of-work versus proof-of-authority (ECDSA) gossip layer exercised across a 100-node consensus simulation on a random trust graph.",
       ],
     },
     {
@@ -225,6 +229,7 @@ window.PROFILE = {
       repo: "CS5356_Building_Startup_System",
       bullets: [
         "Took a web app from spec to deployment across three milestones, ending in the first cut of Align AI: a task tracker in React and TypeScript on Firebase Auth and Firestore.",
+        "Completed the two earlier milestones (a Firebase Hosting static site profiled against live traffic via the browser Performance API and Google Cloud logging, then a Next.js build on NextAuth) and automated delivery on GitHub Actions, provisioning a preview channel per pull request.",
       ],
     },
     {
@@ -235,6 +240,7 @@ window.PROFILE = {
       repo: "CS5112_Algorithms",
       bullets: [
         "Solved a semester of Kleinberg & Tardos problems in Python: stable matching, Karatsuba and FFT multiplication, max-flow modeling, and count-min sketch streaming.",
+        "Extended coverage across 5 problem sets and 120+ test functions: dynamic-programming sequence alignment (Needleman-Wunsch) and 2-D knapsack, a closest-pair divide-and-conquer solver, a greedy plus 2-opt local-search heuristic for TSP, and a max-flow city-planning model with residual-graph visualization.",
       ],
     },
     {
@@ -245,17 +251,19 @@ window.PROFILE = {
       repo: "CS5450_Network",
       bullets: [
         "Built a Go-Back-N reliable-transport protocol in C on top of UDP sockets: sliding-window sender and receiver with timeouts and retransmission.",
+        "Layered a TCP-style connection lifecycle over the transport: a six-state machine driving SYN/SYNACK handshakes with retries, FIN/FINACK teardown, and RST, an adaptive window that doubles from 1 to 64 per cumulative ACK and collapses to 1 on timeout, and a 16-bit ones-complement checksum, verified end to end by transferring files through a fault-injection channel that drops 1% of packets and flips random bits.",
       ],
     },
     {
       name: "Auto-Grader for ESL Essays",
       sub: "Kaggle · NLP",
       period: "Sep 2022 – Dec 2022",
-      stack: ["TF-IDF", "Conv1D", "SVM"], // sub already contains NLP; don't render it again in the meta line
+      stack: ["TF-IDF", "Conv1D", "SVR"], // sub already contains NLP; don't render it again in the meta line
       repo: "",
       url: "https://github.com/kkkkshi/ANLY580_Final_Project",
       bullets: [
-        "Trained an essay auto-grader scoring 6 writing traits for 8th–12th-grade ESL students, combining TF-IDF, a Conv1D model, and an SVM ensemble.",
+        "Trained an essay auto-grader scoring 6 writing traits for 8th–12th-grade ESL students, combining TF-IDF, a Conv1D model, and an SVR ensemble.",
+        "Benchmarked the four pipelines by mean columnwise RMSE (MCRMSE) under 5-fold cross-validation on 3,900+ ELLIPSE-corpus essays, where mean-pooled RoBERTa embeddings feeding an SVR ranked best at 0.47, ahead of the 0.58 TF-IDF baseline and the 0.48 ensemble.",
       ],
     },
     {
@@ -265,18 +273,20 @@ window.PROFILE = {
       stack: ["Conv2D", "Regression", "Python"],
       repo: "Pawpularity",
       bullets: [
-        "Predicted shelter-pet photo appeal from images and tabular metadata for a Kaggle competition.",
+        "Predicted shelter-pet photo appeal from images for a Kaggle competition, with 12 photo-metadata flags driving the exploratory analysis.",
+        "Designed a species-aware two-stage pipeline over 9,900+ photos: YOLOv5 first labeled each image cat or dog, then per-species Conv2D regressors cut validation RMSE to 17.5 from the combined model's 20.7.",
       ],
     },
     {
       name: "Mask-Wearing Detection",
       sub: "Computer Vision",
       period: "May 2022 – Aug 2022",
-      stack: ["AlexNet", "Inception v3", "VGG", "YOLOv4"],
+      stack: ["PyTorch", "CNNs", "Transfer Learning"],
       repo: "",
       url: "https://github.com/kkkkshi/ANLY677_Final_Project",
       bullets: [
-        "Benchmarked AlexNet, Inception v3, VGG, and YOLOv4 to flag incorrect mask-wearing, comparing accuracy across COVID-era settings.",
+        "Compared six CNN architectures (AlexNet, VGG-11, ResNet, MobileNet, EfficientNet, ShuffleNet) for flagging incorrect mask-wearing across COVID-era settings.",
+        "Trained the classifiers in PyTorch on 100k+ images from four sources including Wuhan University's RMFRD, spanning three subtasks (person presence, mask worn, mask type over N95/KN95/Surgical) and reaching 99.8% top-1 accuracy on the person and mask tasks, 100% on mask type, with VGG-11 the most consistent across all three.",
       ],
     },
     {
@@ -288,17 +298,18 @@ window.PROFILE = {
       url: "https://hotarugusa.github.io/reddit/index.html",
       bullets: [
         "Mined 100k+ Reddit and YouTube records to study game communities: EDA and NLP on a PySpark pipeline, benchmarking classical ML against an LSTM, with the best model hitting 97.8% validation accuracy.",
+        "Built a second modeling track for post-score prediction: random-forest regression reached R² 0.46, outperforming linear and gradient-boosted baselines with comment count the dominant feature, and sparkNLP sentiment analysis traced mood differences across esports leagues.",
       ],
     },
     {
       name: "U.S. STEM Cities Real Estate",
       sub: "Data Viz · Storytelling",
       period: "Jan 2022 – Apr 2022",
-      stack: ["Python", "R", "Matplotlib", "HTML/CSS"],
-      repo: "",
-      todo: true,
+      stack: ["Plotly", "Altair", "ggplot2", "HTML/CSS"],
+      repo: "ANLY503_Final_Project",
       bullets: [
-        "Pulled and cleaned data for 200+ U.S. cities via APIs, visualized it in R and Matplotlib, and built an HTML/CSS storytelling page on STEM-city real-estate trends.",
+        "Pulled Zillow price data and GoogleNews headlines, cleaned down to 529 U.S. cities, visualized the result in Plotly, Altair, and ggplot2, and built an HTML/CSS storytelling page on STEM-city real-estate trends.",
+        "Wrote eight standalone chart scripts benchmarking five candidate STEM cities against five established markets, including an animated choropleth of state price growth (2012-2021), a bar-chart-race GIF, and Altair linked views where brushing a boxplot filters the time series.",
       ],
     },
     {
@@ -309,6 +320,7 @@ window.PROFILE = {
       repo: "Dataset_Toolbox",
       bullets: [
         "Hand-built an OOP data-mining toolkit in pure Python instead of scikit-learn: six dataset types with their own cleaning and EDA, KNN with a KD-Tree fast path, Apriori rule mining, and cross-validated ROC evaluation, each method annotated with its complexity.",
+        "Exercised the toolkit across distinct domains, from ECG traces to Yelp reviews to grocery baskets, hand-writing a median filter for the time-series case and scoring every model through an experiment layer that builds per-class confusion matrices with true- and false-positive rates; ~1,775 lines.",
       ],
     },
     {
@@ -329,7 +341,8 @@ window.PROFILE = {
       stack: ["C++", "UML"],
       repo: "The-Magic-Tower", // repo slug kept its old name; contents are CC3K+
       bullets: [
-        "Made a terminal rogue-like in C++: five randomly generated floors of chambers, playable races, enemies and potions, and runs reproducible from a fixed seed or layout file.",
+        "Made a terminal rogue-like in C++ with two teammates: five randomly generated floors of chambers, playable races, enemies and potions, and runs reproducible from a fixed seed or layout file.",
+        "Modeled four playable races and seven enemy types as subclasses overriding shared behavior hooks (a vampire that self-damages biting a dwarf, a merchant faction that turns hostile once one is attacked, a hoard-guarding dragon), spanning ~1,127 lines of C++17 with shared_ptr-managed objects.",
       ],
     },
   ],
