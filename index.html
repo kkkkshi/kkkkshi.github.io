@@ -136,7 +136,8 @@
         --fill: rgba(255, 255, 255, 0.07);
         --accent: #d96a55;                  /* dark-mode brick red: keeps the seal-red identity without drifting to peach (contrast on dark bg ≈5.3:1, AA) */
         --accent-ink: #e2836b;
-        --accent-soft: #402c2d; /* hover red bg = 0.18 accent premixed into card: layering translucency directly over #16161a sinks into a muddy red, darker than a resting card */
+        --accent-soft: #322629; /* hover red bg = 0.10 accent premixed into card (0.18 read too red over body text — user);
+                                   premixed because translucency directly over #16161a sinks into a muddy red darker than a resting card */
         --material: rgba(22, 22, 26, 0.95); /* nav material (solid enough that content doesn't bleed through and blur together) */
         --shadow-hover: 0 12px 30px -10px rgba(0, 0, 0, 0.7);
       }
@@ -310,11 +311,23 @@
           overflow-x: auto;
           scrollbar-width: none;
           gap: 16px;
-          -webkit-mask-image: linear-gradient(90deg, #000 88%, transparent);
-          mask-image: linear-gradient(90deg, #000 88%, transparent);
         }
         .navlinks::-webkit-scrollbar {
           display: none;
+        }
+        /* Edge fades only where links actually hide (class-driven from scroll position): a static
+           right fade kept dimming the last link even when scrolled to the end */
+        .navlinks.fade-r {
+          -webkit-mask-image: linear-gradient(90deg, #000 82%, transparent);
+          mask-image: linear-gradient(90deg, #000 82%, transparent);
+        }
+        .navlinks.fade-l {
+          -webkit-mask-image: linear-gradient(90deg, transparent, #000 18%);
+          mask-image: linear-gradient(90deg, transparent, #000 18%);
+        }
+        .navlinks.fade-l.fade-r {
+          -webkit-mask-image: linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent);
         }
         .navlinks a {
           white-space: nowrap;
@@ -511,7 +524,8 @@
       [data-theme="dark"] a.item:hover .item-t,
       [data-theme="dark"] a.item:hover .item-t::after,
       [data-theme="dark"] .lnk:hover,
-      [data-theme="dark"] .fp:hover .fp-title {
+      [data-theme="dark"] .fp:hover .fp-title,
+      [data-theme="dark"] .fp:hover .more {
         color: var(--accent-ink);
       }
       .is-extra {
@@ -616,13 +630,6 @@
         grid-template-columns: 160px 1fr;
         gap: 16px;
         align-items: start;
-      }
-      /* Skill-category collapsing: .skill defaults to display:grid, so is-extra visibility must be overridden explicitly */
-      .skill.is-extra {
-        display: none;
-      }
-      .items.show-all .skill.is-extra {
-        display: grid;
       }
       .skill dt {
         font-size: var(--fs-caption);
@@ -786,15 +793,12 @@
         .show-all-btn {
           display: none !important;
         }
-        /* Collapsed experience / projects / certifications / skills all expand in print (restoring their respective display values) */
+        /* Collapsed experience / projects / certifications all expand in print (restoring their respective display values) */
         .is-extra {
           display: block !important;
         }
         .cert-grid > li.is-extra {
           display: flex !important;
-        }
-        .skill.is-extra {
-          display: grid !important;
         }
         /* Keep cards / sections from being cut by page breaks where possible */
         section,
@@ -1046,21 +1050,11 @@
           <dl class="skills items">${Object.entries(P.skills)
             .map(
               ([c, t]) =>
-                `<div class="skill${
-                  P.skillsFeatured && !P.skillsFeatured.includes(c)
-                    ? " is-extra"
-                    : ""
-                }"><dt>${E(c)}</dt><dd>${t
+                `<div class="skill"><dt>${E(c)}</dt><dd>${t
                   .map((s) => `<span class="tag">${E(s)}</span>`)
                   .join("")}</dd></div>`,
             )
             .join("")}</dl>
-          ${
-            P.skillsFeatured &&
-            Object.keys(P.skills).some((c) => !P.skillsFeatured.includes(c))
-              ? `<button type="button" class="show-all-btn" data-more="Show all skills" aria-expanded="false">Show all skills <span class="ar">→</span></button>`
-              : ""
-          }
         </section>
 
         <section class="block" id="map">
@@ -1131,6 +1125,18 @@
         });
       });
 
+      // Edge fades follow the scroll position (see the .fade-l/.fade-r rules); desktop never
+      // overflows, so no class is ever set there
+      const nlEl = document.querySelector(".navlinks");
+      const navFade = () => {
+        const max = nlEl.scrollWidth - nlEl.clientWidth;
+        nlEl.classList.toggle("fade-l", nlEl.scrollLeft > 4);
+        nlEl.classList.toggle("fade-r", nlEl.scrollLeft < max - 4);
+      };
+      nlEl.addEventListener("scroll", navFade, { passive: true });
+      addEventListener("resize", navFade);
+      navFade();
+
       // ---- collapse toggles (experience internships, non-featured projects) ----
       document.querySelectorAll(".show-all-btn").forEach((btn) => {
         const sec = btn.closest("section");
@@ -1171,6 +1177,8 @@
         if (!toastEl) {
           toastEl = document.createElement("div");
           toastEl.className = "copied-toast";
+          // The Email link intercepts mailto and copies instead — announce it, or screen readers hear nothing
+          toastEl.setAttribute("role", "status");
           document.body.appendChild(toastEl);
         }
         toastEl.textContent = msg;

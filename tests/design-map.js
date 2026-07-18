@@ -33,6 +33,8 @@
   const card = document.querySelector("#card");
   const cbf = gcs(card).backdropFilter || gcs(card).webkitBackdropFilter || "";
   ok("§Material Card frosted (backdrop blur)", /blur/.test(cbf), cbf || "none");
+  // User decision 2026-07-16: NO frosted overlays on the chart — the year strip (and title) float
+  // bare like map labels, readability via text halos; declutter() makes map labels yield instead
   let ybf = "";
   try {
     ybf =
@@ -40,9 +42,9 @@
         .backdropFilter || "";
   } catch (e) {}
   ok(
-    "§Material Year strip frosted overlay",
-    /blur/.test(ybf) || /#years::before[\s\S]*?backdrop-filter[\s\S]*?blur/.test(css),
-    ybf || "(checked CSS text)",
+    "§Material Year strip floats bare (no frosted overlay)",
+    !/blur/.test(ybf),
+    ybf || "none",
   );
 
   // §Layering

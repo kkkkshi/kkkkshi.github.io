@@ -43,7 +43,6 @@
     <style>
       :root {
         --paper: #ece3cf;
-        --paper2: #ddd0b2;
         --ink: #3a2f23;
         --ink2: #6b5a44;
         --sea: #b9cdd0;
@@ -321,11 +320,6 @@
         border: 1px solid #8a6d3a;
         vertical-align: -1px;
       }
-      /* BGM credit (CC-BY requirement): a bit fainter than the legend, unobtrusive */
-      #legend .lg-credit {
-        opacity: 0.75;
-        font-size: 10.5px;
-      }
       @media (max-width: 640px) {
         #legend {
           display: none;
@@ -363,30 +357,8 @@
         pointer-events: none;
         text-align: center;
       }
-      #title::before {
-        content: "";
-        position: absolute;
-        z-index: -1;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        width: 480px;
-        height: 142px;
-        background: transparent;
-        -webkit-backdrop-filter: blur(9px);
-        backdrop-filter: blur(9px);
-        -webkit-mask-image: radial-gradient(
-          ellipse 55% 50% at 50% 50%,
-          #000 48%,
-          transparent 100%
-        );
-        mask-image: radial-gradient(
-          ellipse 55% 50% at 50% 50%,
-          #000 48%,
-          transparent 100%
-        );
-        pointer-events: none;
-      }
+      /* (No blur fog behind the title either — same user decision; map labels underneath yield via
+         declutter() instead, nobody reads the top edge anyway) */
       #title b {
         font: 600 27px var(--fell);
         letter-spacing: 0.06em;
@@ -582,15 +554,22 @@
       body.night #map {
         background: #0f1826;
       }
+      /* Extra halo layers: night labels are light gold, and inside a visited region the ground is gold
+         too (state-fill now stays on through city level) — a single soft halo washed out there */
       body.night .port .lbl {
         color: #ecc06a;
         text-shadow:
+          0 0 3px rgba(10, 16, 26, 1),
           0 0 6px rgba(10, 16, 26, 0.95),
+          0 0 11px rgba(10, 16, 26, 0.75),
           0 1px 0 rgba(10, 16, 26, 0.8);
       }
       body.night .port.area .lbl {
         color: #e0cf9c;
-        text-shadow: 0 0 7px rgba(10, 16, 26, 0.95);
+        text-shadow:
+          0 0 3px rgba(10, 16, 26, 1),
+          0 0 7px rgba(10, 16, 26, 0.95),
+          0 0 12px rgba(10, 16, 26, 0.75);
       }
       body.night #title b {
         text-shadow: 0 0 10px rgba(10, 16, 26, 0.9);
@@ -616,20 +595,43 @@
       body.night #music circle.note {
         fill: #e7c25c;
       }
+      /* Night hover mirrors the day flip (parchment→seal-red there) as dark→gold: gold fill + dark ink
+         icon (user decision: same hover behavior in both modes, each in its own accent, no red at night) */
+      body.night #music:hover,
+      body.night #daynight:hover,
+      body.night #links a:hover {
+        background: #e7c25c;
+        border-color: #a98f4e;
+        color: #1a2534;
+      }
+      body.night #music:hover .note {
+        stroke: #1a2534;
+      }
+      body.night #music:hover circle.note {
+        fill: #1a2534;
+      }
       body.night #crumbs {
         text-shadow:
           0 0 5px rgba(10, 16, 26, 0.95),
           0 1px 0 rgba(10, 16, 26, 0.9);
       }
+      /* Night crumbs: rest = map-border gold (the visited-land olive #827649 was too faint over the
+         gold fills), hover = the area-label gold ("same as Norway") */
       body.night #crumbs .cr {
-        color: #d99a6c;
+        color: #caa53f;
       }
       body.night #crumbs .cr:hover {
-        color: #ecc06a;
+        color: #e0cf9c;
       }
-      body.night #years button,
-      body.night #yearlist {
-        text-shadow: 0 0 5px rgba(10, 16, 26, 0.95);
+      /* Night year strip: readability comes from layered dark halos, same treatment as the map's own labels */
+      body.night #years button {
+        text-shadow:
+          0 0 3px rgba(10, 16, 26, 1),
+          0 0 6px rgba(10, 16, 26, 0.95),
+          0 0 11px rgba(10, 16, 26, 0.75);
+      }
+      body.night #years button.on {
+        color: #e7c25c; /* day's seal red #7a2a1e disappears against the night sea */
       }
       /* Night pins all gold (user decision): red rings look good by day, but at night "white ring, red ring, white center" reads like a target icon */
       body.night .port .pin {
@@ -640,12 +642,24 @@
       body.night .port .pin::after {
         background: #e7c25c;
       }
+      /* Night legend: the day parchment emboss shadow under light text on the dark sea was illegible */
+      body.night #legend {
+        color: #cdbb96;
+        text-shadow:
+          0 0 4px rgba(10, 16, 26, 0.95),
+          0 1px 0 rgba(10, 16, 26, 0.9);
+      }
+      /* (No night tint on the years backdrop: variant C darkened close-up grounds, and the 0.4 slab
+         read as a clunky dark box behind the collapsed [All ▸] — user 2026-07-16) */
+      body.night #legend .lg-gold {
+        border-color: #a98f4e;
+      }
       body.night #legend .lg-pin {
         border-color: #e7c25c;
         background: #232f42;
       }
       body.night #legend .lg-route {
-        border-top-color: #ec9a82;
+        border-top-color: #e7c25c;
       }
       body.night #card {
         background: linear-gradient(
@@ -671,6 +685,31 @@
       body.night #card .ph-next {
         background: rgba(20, 30, 46, 0.95);
         color: #e7c25c;
+      }
+      /* Night fixes (audit 2026-07-17) — day red / parchment combos that leaked through specificity:
+         container card's "click to enter" panel, ‹› hover, area-label hover, toast email */
+      body.night #card .photo.enter {
+        background: #1b2635;
+        border-color: rgba(202, 165, 63, 0.5);
+        color: #e7c25c;
+      }
+      body.night #card .photo.enter:hover {
+        background: #243247;
+        border-color: #caa53f;
+      }
+      body.night #card .ph-prev:hover,
+      body.night #card .ph-next:hover {
+        background: #e7c25c;
+        color: #1a2534;
+      }
+      body.night .port.area .lbl:hover {
+        color: #e7c25c;
+      }
+      body.night #toast .copyable {
+        color: #e7c25c;
+      }
+      body.night #toast .copyable:hover {
+        color: #ecc06a;
       }
       body.night #toast {
         background: linear-gradient(#1a2534, #131d2c);
@@ -850,43 +889,8 @@
         max-width: 76%;
         pointer-events: auto;
       }
-      #years::before {
-        content: "";
-        position: absolute;
-        z-index: -1;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        /* Grows with content (an extra places row above when a year is selected); hugs the text —
-           the old +90px box with a wide elliptical fade smeared the map far beyond the labels */
-        width: calc(100% + 56px);
-        height: calc(100% + 24px);
-        background: transparent;
-        -webkit-backdrop-filter: blur(9px);
-        backdrop-filter: blur(9px);
-        /* Soft-edged rectangle: two linear fades intersected (radial ellipse can't hug a long row) */
-        -webkit-mask-image:
-          linear-gradient(
-            to right,
-            transparent,
-            #000 7%,
-            #000 93%,
-            transparent
-          ),
-          linear-gradient(transparent, #000 22%, #000 78%, transparent);
-        -webkit-mask-composite: source-in;
-        mask-image:
-          linear-gradient(
-            to right,
-            transparent,
-            #000 7%,
-            #000 93%,
-            transparent
-          ),
-          linear-gradient(transparent, #000 22%, #000 78%, transparent);
-        mask-composite: intersect;
-        pointer-events: none;
-      }
+      /* (No frosted backdrop behind the strip — user 2026-07-16: text floats bare on the chart like the
+         map's own labels; declutter() registers the strip's rect so map labels yield instead) */
       #years button {
         font-family: var(--fell);
         cursor: pointer;
@@ -897,7 +901,9 @@
           italic 13px "Cinzel",
           serif;
         color: var(--ink2);
-        opacity: 0.55;
+        /* 0.85, not the old 0.55: that wash was tuned for the frosted backdrop — without it (removed
+           2026-07-16) the years sank into the map linework */
+        opacity: 0.85;
         transition:
           opacity 0.2s,
           color 0.2s;
@@ -905,7 +911,7 @@
         text-shadow: 0 0 5px rgba(236, 227, 207, 0.95);
       }
       #years button:hover {
-        opacity: 0.85;
+        opacity: 1;
       }
       #years button.on {
         opacity: 1;
@@ -927,40 +933,33 @@
       #years button.pg:hover {
         opacity: 1;
       }
-      /* Collapsed state (default): the whole strip shows only a "Years ▾" toggle, expanding on click
-         (user decision: don't lay them all out at first) */
+      /* Collapsed state (default on both): mobile shows the "Years ▾" toggle, desktop shows [All ▸];
+         only .tg buttons survive collapse */
       #years:not(.open) button:not(.tg) {
         display: none;
       }
       #years button.tg {
         opacity: 0.75;
       }
-      /* When a year is selected, list that year's visited places in a row above the strip (gold-fill granularity) */
-      #yearlist {
-        flex-basis: 100%;
-        text-align: center;
-        font: italic 12.5px var(--fell);
-        color: var(--ink2);
-        letter-spacing: 0.04em;
-        text-shadow: 0 0 5px rgba(236, 227, 207, 0.95);
-        margin-bottom: 3px;
+      /* Collapsed [All ▸]: the selection itself reads at full strength — the .tg 0.75 wash left "All"
+         washed out on the open sea once the frosted backdrop was gone (user 2026-07-16) */
+      #years button.tg.on {
+        opacity: 1;
       }
-      /* Mobile: year strip widened to 2 rows (3 rows / 106px covered the map); buttons not shrunk, preserving tap size */
+      /* (The places row above the strip was removed 2026-07-17 — user: years mean years, no country
+         list popping up over the map) */
+      /* 641-700px narrow-desktop window (≤640 uses the wheel instead): allow the strip to wrap wider */
       @media (max-width: 700px) {
         #years {
           gap: 4px;
         }
-        /* Only the OPEN strip widens to 92%; collapsed keeps the base fit-content so the blur
-           backdrop hugs the "Years ▾" toggle instead of smearing the scale bar at bottom-left */
+        /* Only the OPEN strip widens to 92%; collapsed keeps the base fit-content */
         #years.open {
           width: 92%;
           max-width: 92%;
         }
-        #years::before {
-          width: calc(100% + 24px);
-          height: calc(100% + 16px);
-        }
-        /* Story card: on narrow screens, switch from "fixed 300px right-aligned, ~62px left edge remaining" to a near-full-width bottom drawer (above the year strip, slides up).
+        /* Story card: on narrow screens, switch from "fixed 300px right-aligned" to a near-full-width,
+           vertically centred card (slides up into place).
            `body #card` raises specificity — this @media block precedes the base #card rules, so equal specificity would be overridden. */
         body #card {
           left: 12px;
@@ -1001,10 +1000,6 @@
         #title {
           top: 12px;
         }
-        #title::before {
-          width: 300px;
-          height: 104px;
-        }
         #title b {
           font-size: 18px;
           letter-spacing: 0.04em;
@@ -1044,9 +1039,8 @@
           top: 156px;
           left: 18px;
         }
-        /* Year picker: a vertical scroll wheel (scroll a year to the centre to pick it) — replaces the button strip */
-        /* Wheel mode: the picker is a narrow centred column — hug it so the blur backdrop
-           doesn't fog the compass and scale bar at the bottom corners */
+        /* Year picker: a vertical scroll wheel (scroll a year to the centre to pick it) — replaces the button strip.
+           Kept narrow (fit-content) so it doesn't crowd the compass and scale bar at the bottom corners */
         #years.open {
           width: -moz-fit-content;
           width: fit-content;
@@ -1058,13 +1052,14 @@
           justify-content: center;
         }
         .yr-wheel-track {
-          height: 220px;
+          /* Sized to map-label scale (user: the wheel dwarfed everything else on the chart) */
+          height: 180px;
           width: 130px;
           overflow-y: scroll;
           scroll-snap-type: y mandatory;
           scrollbar-width: none;
           text-align: center;
-          padding: 88px 0; /* = (height - row)/2 so the first/last option can reach the centre */
+          padding: 72px 0; /* = (height - row)/2 so the first/last option can reach the centre */
           -webkit-mask: linear-gradient(
             transparent,
             #000 30%,
@@ -1077,10 +1072,10 @@
           display: none;
         }
         .yr-opt {
-          height: 44px;
-          line-height: 44px;
+          height: 36px;
+          line-height: 36px;
           scroll-snap-align: center;
-          font: italic 15px "Cinzel", serif;
+          font: italic 13px "Cinzel", serif;
           color: var(--ink2);
           opacity: 0.45;
           cursor: pointer;
@@ -1092,8 +1087,13 @@
         .yr-opt.sel {
           opacity: 1;
           color: #7a2a1e;
-          font-weight: 600;
-          font-size: 18px;
+          /* no font-weight bump: Cinzel/Fell ship one weight each — synthetic bold mangled the digits
+             into a different-looking face (user: fonts inconsistent); size + color carry the emphasis */
+          font-size: 15px;
+        }
+        /* Night wheel: selected entry goes gold — the day seal red vanishes on the dark sea */
+        body.night .yr-opt.sel {
+          color: #e7c25c;
         }
         /* centre selection guides: two faint brass hairlines bracketing the middle row */
         .yr-wheel::before,
@@ -1108,10 +1108,10 @@
           pointer-events: none;
         }
         .yr-wheel::before {
-          top: calc(50% - 22px);
+          top: calc(50% - 18px);
         }
         .yr-wheel::after {
-          top: calc(50% + 22px);
+          top: calc(50% + 18px);
         }
       }
 
@@ -1363,7 +1363,6 @@
         <span><i class="lg-pin"></i>place</span>
         <span><i class="lg-route"></i>route</span>
         <span><i class="lg-gold"></i>visited</span>
-        <span class="lg-credit">♪ Debussy · Clair de Lune — L. Goedhart, CC-BY</span>
       </div>
       <svg id="scale" aria-hidden="true"></svg>
       <svg id="compass" viewBox="0 0 120 120" aria-hidden="true"></svg>
@@ -1372,17 +1371,10 @@
       </svg>
       <div id="years"></div>
       <div id="card"></div>
-      <!-- BGM: Debussy, Clair de Lune — performed by Laurens Goedhart (2011), CC-BY 3.0, via Wikimedia Commons -->
-      <audio
-        id="bgm"
-        src="audio/clair-de-lune.m4a"
-        loop
-        preload="none"
-      ></audio>
-      <button
-        id="music"
-        title="Music — Debussy, Clair de Lune · performed by Laurens Goedhart (CC-BY 3.0)"
-      >
+      <!-- BGM: 5-track classical piano playlist, all public domain / CC0 — no on-page credit
+           (user decision); sources and attributions in audio/README.txt -->
+      <audio id="bgm" preload="none"></audio>
+      <button id="music" title="Music">
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path
             class="note"
@@ -1989,18 +1981,26 @@
       }
       // Central control per current level: world fill / country outlines / state highlight
       function applyHighlight(e) {
+        if (!e) return; // pre-map-load calls (day/night toggle, year pick while tiles still loading)
         const mine = e.c?.name;
         const world = e.level === "world";
         // Year strip has a year selected: gold only on shapes visited that year (via the __ys year array on features)
         const yc =
           yearFilter === null ? null : ["in", yearFilter, ["get", "__ys"]];
-        // Visited-country fill: world level only (border-line global borders always show, not controlled here)
+        // Visited-country fill: world level, and inside flat countries (no region split) — their interior
+        // otherwise went bare while split countries kept province gold (user: jarring; unified 2026-07-16)
         const cf = ["==", ["get", "__v"], 1];
-        lyr("country-fill", world, yc ? ["all", cf, yc] : cf);
-        // Visited state/province fill highlight: (region-split) country level + region level
+        const flatIn = !world && e.c && e.c.split !== "region";
+        const cfBase = flatIn
+          ? ["all", cf, ["==", ["get", "NAME"], mine]]
+          : cf;
+        lyr("country-fill", world || flatIn, yc ? ["all", cfBase, yc] : cfBase);
+        // Visited state/province fill highlight: (region-split) country level + region + city levels
+        // (city included so drilling into a spot doesn't snap the gold ground back to bare land — user)
         const showState =
           (e.level === "country" && e.c.split === "region") ||
-          e.level === "region";
+          e.level === "region" ||
+          e.level === "city";
         const sf = ["==", ["get", "country"], mine || "__x__"];
         lyr("state-fill", showState, yc ? ["all", sf, yc] : sf);
         // Border darkness follows level (user decision): faint at world overview (else the whole map is dark lines),
@@ -2013,7 +2013,9 @@
           map.getLayer(id) && map.setPaintProperty(id, p, v);
         B("border-line", "line-opacity", deep ? 0.85 : 0.33);
         ["state-border-far", "state-border"].forEach((id) => {
-          B(id, "line-width", deep ? 1.1 : 0.7);
+          // Night runs wider deep borders: the near-transparent close-up fill (variant C) hands
+          // "visited" over to the gold outline
+          B(id, "line-width", deep ? (night ? 1.7 : 1.1) : 0.7);
           B(id, "line-opacity", deep ? 0.85 : 0.4);
         });
       }
@@ -2081,7 +2083,7 @@
                   r.years,
                   "minor",
                   () => {
-                    stack.push({ level: "country", c });
+                    pushLevel({ level: "country", c });
                     navigate({ level: "region", c, r });
                   },
                 );
@@ -2264,9 +2266,15 @@
         );
       }
 
-      function navigate(entry) {
+      // Every stack level gets its own history entry recording its depth, so popstate can sync by
+      // depth instead of blindly popping (a bare pop treated the browser FORWARD button as another
+      // back, and intermediate pushes had no entry at all — audit 2026-07-17)
+      function pushLevel(entry) {
         stack.push(entry);
         history.pushState({ d: stack.length }, "");
+      }
+      function navigate(entry) {
+        pushLevel(entry);
         renderTop(true);
       }
       function goBack() {
@@ -2276,7 +2284,10 @@
       }
       // Breadcrumb jump back to level i
       function jumpTo(i) {
-        if (i < stack.length - 1) stack.length = i + 1;
+        if (i < stack.length - 1) {
+          stack.length = i + 1;
+          history.replaceState({ d: stack.length }, ""); // re-anchor the current entry's depth
+        }
         renderTop(true); // re-fit even when clicking the current level (e.g. world), returning to its standard view
       }
 
@@ -2519,22 +2530,30 @@
       const YR_LO = 1999;
       const YR_SPAN = 10; // cap: at most 10 year buttons per page; fewer when the strip is too narrow to fit them
       let yrPage = 0; // 0 = most recent page; each +1 steps back one page of years
-      let yrOpen = false; // collapsed by default, only the "Years ▾" toggle shows
-      const YR_MOBILE = 640; // at/below this width the strip becomes a drag slider instead of buttons
-      // How many year buttons fit the desktop strip (#years is at most 76% of the viewport wide); never more than YR_SPAN.
+      let yrOpen = false; // collapsed by default on both: desktop shows [All ▸], mobile the "Years ▾" toggle
+      const YR_MOBILE = 640; // at/below this width the strip becomes a scroll wheel instead of buttons
+      // How many year buttons fit the desktop strip; never more than YR_SPAN. Measured against the
+      // strip's real bottom-row neighbours (scale bar left, compass right) — the old blanket "76% of
+      // the window" box overlapped both on narrow windows (user 2026-07-16)
       function yearSpan() {
         const perYear = 46,
-          reserved = 150; // ~46px per year incl gap; ~150px reserved for toggle + All + the two arrows
-        return Math.max(
-          4,
-          Math.min(
-            YR_SPAN,
-            Math.floor((window.innerWidth * 0.76 - reserved) / perYear),
-          ),
-        );
+          reserved = 175; // ~46px per year incl gap; ~175px for All + the two pagers + the ◂ fold
+        const w = window.innerWidth;
+        const sc = document.getElementById("scale");
+        const cp = document.getElementById("compass");
+        const leftEdge = sc ? sc.getBoundingClientRect().right : 0;
+        const rightEdge = cp ? cp.getBoundingClientRect().left : w;
+        // Strip stays page-centred, so clearance is symmetric: bounded by the worse of the two sides
+        const side = Math.max(leftEdge, w - rightEdge) + 16;
+        const usable = Math.min(w * 0.76, w - 2 * side);
+        return Math.max(4, Math.min(YR_SPAN, Math.floor((usable - reserved) / perYear)));
       }
+      let yrSettleT; // wheel settle timer, cleared on every rebuild (else it fires on a torn-down track)
       function buildYears(spanOverride) {
-        const range = DATA.yearsRange || [2014, 2026];
+        if (!DATA) return; // resize can fire before the data fetch resolves (mobile URL-bar collapse)
+        clearTimeout(yrSettleT);
+        // hi = current year, not hardcoded (user: only birth-type facts may be hardcoded)
+        const range = DATA.yearsRange || [2014, new Date().getFullYear()];
         const lo = range[0],
           hi = range[1];
         const span = spanOverride != null ? spanOverride : yearSpan();
@@ -2544,22 +2563,24 @@
         const wrap = document.getElementById("years");
         wrap.innerHTML = "";
         wrap.classList.toggle("open", yrOpen);
-        wrap.appendChild(document.createElement("div")).id = "yearlist";
-        // Toggle: when collapsed only it remains (showing the selected year); click to reveal the whole strip
-        const tg = document.createElement("button");
-        tg.className = "tg";
-        tg.textContent =
-          (yearFilter === null ? "Years" : yearFilter) +
-          (yrOpen ? " ▴" : " ▾");
-        tg.setAttribute("aria-label", yrOpen ? "Hide years" : "Filter by year");
-        tg.addEventListener("click", () => {
-          yrOpen = !yrOpen;
-          buildYears();
-        });
-        wrap.appendChild(tg);
 
-        // Mobile: one drag slider (All · lo … hi) instead of a cramped, hard-to-tap button strip
+        // Mobile: a "Years ▾" toggle + scroll wheel (All · lo … hi) instead of a cramped, hard-to-tap
+        // button strip; desktop collapses to [All ▸] instead (see below)
         if (mobile) {
+          // Toggle: when collapsed only it remains (showing the selected year); click to reveal the wheel
+          const tg = document.createElement("button");
+          tg.className = "tg";
+          tg.textContent =
+            (yearFilter === null ? "Years" : yearFilter) +
+            (yrOpen ? " ▴" : " ▾");
+          tg.setAttribute(
+            "aria-label",
+            yrOpen ? "Hide years" : "Filter by year",
+          );
+          tg.addEventListener("click", () => {
+            yrOpen = !yrOpen;
+            buildYears();
+          });
           if (yrOpen) {
             // Vertical scroll wheel (All · lo … hi): scroll a year to the centre to select it
             const wheel = document.createElement("div");
@@ -2578,7 +2599,7 @@
             wheel.appendChild(track);
             wrap.appendChild(wheel);
 
-            const ROW = 44; // must match .yr-opt height in CSS
+            const ROW = 36; // must match .yr-opt height in CSS
             const idxOf = (yf) => (yf === null ? 0 : yf - lo + 1);
             const opts = [...track.querySelectorAll(".yr-opt")];
             // Mark the option nearest the centre; when `apply`, filter the map to it (no rebuild → keeps the scroll)
@@ -2604,16 +2625,14 @@
                 applyHighlight(stack[stack.length - 1]);
                 redrawRoute();
                 declutter();
-                renderYearList();
               }
             };
             track.scrollTop = idxOf(yearFilter) * ROW; // centre the current selection
             pick(false);
-            let st;
             track.addEventListener("scroll", () => {
               pick(false); // live highlight while scrolling
-              clearTimeout(st);
-              st = setTimeout(() => pick(true), 120); // apply once the scroll settles
+              clearTimeout(yrSettleT);
+              yrSettleT = setTimeout(() => pick(true), 120); // apply once the scroll settles
             });
             // tap a year to snap it to the centre
             opts.forEach((o, i) =>
@@ -2622,10 +2641,35 @@
               ),
             );
           }
-          renderYearList();
+          // Toggle appended AFTER the wheel: the container is bottom-anchored, so the button stays
+          // at the bottom row and the wheel opens upward (it used to float far above the wheel)
+          wrap.appendChild(tg);
+          declutter(); // wheel/toggle rect changed: map labels reflow around it
           return;
         }
 
+        // Desktop collapsed (default): just the current selection + a ▸ expand button on its right
+        // (user 2026-07-15: don't lay the whole strip out by default; expand on demand)
+        if (!yrOpen) {
+          const cur = document.createElement("button");
+          cur.className = "tg on";
+          cur.textContent = yearFilter === null ? "All" : yearFilter;
+          // dataset.y matches what it displays, so the nav-time .on refresh loops keep it lit
+          cur.dataset.y = yearFilter === null ? "all" : String(yearFilter);
+          const ex = document.createElement("button");
+          ex.className = "tg xp";
+          ex.textContent = "▸";
+          ex.setAttribute("aria-label", "Filter by year");
+          [cur, ex].forEach((b) => {
+            b.addEventListener("click", () => {
+              yrOpen = true;
+              buildYears();
+            });
+            wrap.appendChild(b);
+          });
+          declutter(); // strip rect changed: map labels reflow around it (they yield to UI)
+          return;
+        }
         const mk = (label, val) => {
           const b = document.createElement("button");
           b.textContent = label;
@@ -2652,7 +2696,17 @@
         for (let y = Math.max(YR_LO, winHi - span + 1); y <= winHi; y++)
           mk(y, y);
         if (yrPage > 0) pg("›", -1, "Later years");
-        // After a paging rebuild, restore selection state and the places row
+        // ◂ folds the strip back down to [All ▸]
+        const cl = document.createElement("button");
+        cl.className = "tg xp";
+        cl.textContent = "◂";
+        cl.setAttribute("aria-label", "Hide years");
+        cl.addEventListener("click", () => {
+          yrOpen = false;
+          buildYears();
+        });
+        wrap.appendChild(cl);
+        // After a paging rebuild, restore selection state
         wrap
           .querySelectorAll("button")
           .forEach((b) =>
@@ -2674,11 +2728,11 @@
             return;
           }
         }
-        renderYearList();
+        declutter(); // strip rect changed (expand/paging/resize): map labels reflow around it
       }
       function setYear(y) {
         yearFilter = y;
-        buildYears(); // rebuild: selection state + current year on the toggle + places row all update together
+        buildYears(); // rebuild: selection state + current year on the collapsed label update together
         applyYearFilter();
         applyHighlight(stack[stack.length - 1]); // gold fill follows the year
         redrawRoute();
@@ -2691,20 +2745,7 @@
         clearTimeout(yrResizeT);
         yrResizeT = setTimeout(buildYears, 150);
       });
-      // Year selected → list that year's visited countries above the strip (user decision: countries only, no regions;
-      // region-level detail is left to the map's gold fills)
-      function renderYearList() {
-        const el = document.getElementById("yearlist");
-        if (yearFilter === null) {
-          el.style.display = "none";
-          return;
-        }
-        const places = DATA.countries
-          .filter((c) => (c.years || []).some((y) => +y === yearFilter))
-          .map((c) => c.name);
-        el.textContent = places.join(" · ") || "no record";
-        el.style.display = "";
-      }
+      // (renderYearList removed 2026-07-17 — user: the year picker shows years only, no country list)
       function applyYearFilter() {
         portEls.forEach((el) => {
           const ys = el.__years || [];
@@ -2736,7 +2777,17 @@
           goHome();
         }
       });
-      addEventListener("popstate", goBack);
+      // Sync the nav stack to the popped entry's recorded depth: back pops (possibly several levels),
+      // forward past what we still hold can't be restored — re-anchor that entry instead of mis-popping
+      addEventListener("popstate", (ev) => {
+        const d = ev.state && typeof ev.state.d === "number" ? ev.state.d : 1;
+        if (d < stack.length) {
+          stack.length = Math.max(1, d);
+          renderTop(true);
+        } else if (d > stack.length) {
+          history.replaceState({ d: stack.length }, "");
+        }
+      });
       // iOS Safari belt-and-braces for the touch-action rules above: WebKit's proprietary gesture
       // events fire for page pinch-zoom; cancelling them blocks the zoom without touching MapLibre
       // (the map listens to touch events on its own touch-action:none canvas).
@@ -2746,9 +2797,30 @@
         });
 
       // ===== Background music =====
+      // Classical piano playlist (all PD/CC0, loudness-matched; sources in audio/README.txt), shuffled
+      // per visit and looped as a whole — replaced the single looping Clair de Lune (user tired of it)
+      const TRACKS = [
+        { f: "goldberg-aria.m4a", c: "Bach · Goldberg Aria — K. Ishizaka, CC0" },
+        { f: "nocturne-op9-no2.m4a", c: "Chopin · Nocturne Op. 9 No. 2 — F. Levy, PD" },
+        { f: "moonlight-1st.m4a", c: "Beethoven · Moonlight Sonata I — Musopen, PD" },
+        { f: "gymnopedie-1.m4a", c: "Satie · Gymnopédie No. 1 — R. Alciatore, PD" },
+        { f: "traumerei.m4a", c: "Schumann · Träumerei — Musopen, PD" },
+      ];
+      for (let i = TRACKS.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [TRACKS[i], TRACKS[j]] = [TRACKS[j], TRACKS[i]];
+      }
+      let trackIdx = 0;
       const bgm = document.getElementById("bgm");
       const musicBtn = document.getElementById("music");
       bgm.volume = 0.5;
+      // No on-page track credit (user: don't show titles; all tracks PD/CC0 so none is required) —
+      // sources and attributions live in audio/README.txt
+      function loadTrack(i) {
+        trackIdx = (i + TRACKS.length) % TRACKS.length;
+        bgm.src = "audio/" + TRACKS[trackIdx].f;
+      }
+      loadTrack(0);
       const EVTS = ["pointerdown", "keydown", "wheel", "touchstart"];
       const stopFirst = () =>
         EVTS.forEach((t) => removeEventListener(t, firstPlay, true));
@@ -2762,6 +2834,10 @@
           .catch(() => {
             musicBtn.classList.remove("on"); // play blocked/failed: undo the optimistic "on"
           });
+      bgm.addEventListener("ended", () => {
+        loadTrack(trackIdx + 1);
+        playMusic();
+      });
       // Play on page load (user decision 2026-07-10); if the browser blocks gesture-less autoplay, resume on first interaction
       playMusic();
       const firstPlay = (e) => {
@@ -2793,7 +2869,10 @@
             fill: "forwards",
           })
           .finished.then(() => setHole(to));
+      let introOpened = false; // the 8s slow-load fallback and map load BOTH call this — play once only
       const openIntro = () => {
+        if (introOpened) return;
+        introOpened = true;
         if (reduceMotion) {
           setHole("112%");
           return;
@@ -2849,6 +2928,12 @@
         // Store {r, el}: decluttering must exclude a label's own dot, else labels always collide with their own pin
         // and city/spot-level names all get hidden (old bug: those two levels never showed labels)
         const taken = [];
+        // Text UI floats bare on the chart (all blur fogs removed, user 2026-07-16): the title block,
+        // the crumbs and the year strip count as occupied ground, and map labels yield to them
+        for (const id of ["title", "crumbs", "years"]) {
+          const uiEl = document.getElementById(id);
+          if (uiEl) taken.push({ r: rectOf(uiEl), el: null });
+        }
         portEls.forEach((el) => {
           if (el.style.display === "none") return;
           const pinEl = el.querySelector(".pin");
@@ -2896,40 +2981,64 @@
       }
 
       // ===== Compass rose =====
-      function ray(a, L, bw) {
+      function ray(a, L, bw, dark, lit) {
         const r = (a * Math.PI) / 180,
           tx = 60 + L * Math.sin(r),
           ty = 60 - L * Math.cos(r),
           px = Math.cos(r) * bw,
           py = Math.sin(r) * bw;
-        return `<path d="M60 60 L${tx.toFixed(1)} ${ty.toFixed(1)} L${(60 - px).toFixed(1)} ${(60 - py).toFixed(1)} Z" fill="#33302a"/><path d="M60 60 L${tx.toFixed(1)} ${ty.toFixed(1)} L${(60 + px).toFixed(1)} ${(60 + py).toFixed(1)} Z" fill="#cdbb96"/>`;
+        return `<path d="M60 60 L${tx.toFixed(1)} ${ty.toFixed(1)} L${(60 - px).toFixed(1)} ${(60 - py).toFixed(1)} Z" fill="${dark}"/><path d="M60 60 L${tx.toFixed(1)} ${ty.toFixed(1)} L${(60 + px).toFixed(1)} ${(60 + py).toFixed(1)} Z" fill="${lit}"/>`;
       }
-      function drawRose() {
-        let s = `<circle cx="60" cy="60" r="57" fill="#e9dcbf" stroke="#9a7b3f" stroke-width="1.4"/>`;
-        s += `<circle cx="60" cy="60" r="51" fill="none" stroke="#7a5e29" stroke-width="0.6"/><circle cx="60" cy="60" r="22" fill="none" stroke="#9a7b3f" stroke-width="0.5"/>`;
+      // Same geometry, two palettes: day = the original parchment & ink; night follows the rest of the
+      // night UI (dark #1a2534 panels, #caa53f/#a98f4e golds) so the rose no longer sits on the dark
+      // sea as a bright cream disc. All-gold at night (user decision): red reads badly on the dark sea
+      function drawRose(n) {
+        const C = n
+          ? {
+              disc: "#1a2534",
+              rim: "#caa53f",
+              ring: "#a98f4e",
+              dark: "#101a28",
+              lit: "#cdbb96",
+              north: "#e7c25c",
+              northEdge: "#8a6d2f",
+              letter: "#b7a684",
+            }
+          : {
+              disc: "#e9dcbf",
+              rim: "#9a7b3f",
+              ring: "#7a5e29",
+              dark: "#33302a",
+              lit: "#cdbb96",
+              north: "#9b2d20",
+              northEdge: "#6b2c22",
+              letter: "#5a4632",
+            };
+        let s = `<circle cx="60" cy="60" r="57" fill="${C.disc}" stroke="${C.rim}" stroke-width="1.4"/>`;
+        s += `<circle cx="60" cy="60" r="51" fill="none" stroke="${C.ring}" stroke-width="0.6"/><circle cx="60" cy="60" r="22" fill="none" stroke="${C.rim}" stroke-width="0.5"/>`;
         for (let dg = 0; dg < 360; dg += 5) {
           const lng = dg % 45 === 0 ? 6 : dg % 15 === 0 ? 4 : 2.5,
             a = (dg * Math.PI) / 180,
             r2 = 51,
             r1 = r2 - lng;
-          s += `<line x1="${(60 + r1 * Math.sin(a)).toFixed(1)}" y1="${(60 - r1 * Math.cos(a)).toFixed(1)}" x2="${(60 + r2 * Math.sin(a)).toFixed(1)}" y2="${(60 - r2 * Math.cos(a)).toFixed(1)}" stroke="#7a5e29" stroke-width="${dg % 45 === 0 ? 0.9 : 0.45}"/>`;
+          s += `<line x1="${(60 + r1 * Math.sin(a)).toFixed(1)}" y1="${(60 - r1 * Math.cos(a)).toFixed(1)}" x2="${(60 + r2 * Math.sin(a)).toFixed(1)}" y2="${(60 - r2 * Math.cos(a)).toFixed(1)}" stroke="${C.ring}" stroke-width="${dg % 45 === 0 ? 0.9 : 0.45}"/>`;
         }
         for (let k = 0; k < 16; k++) {
           if (k % 2 === 0) continue;
-          s += ray(k * 22.5, 22, 1.8);
+          s += ray(k * 22.5, 22, 1.8, C.dark, C.lit);
         }
-        for (let k = 0; k < 4; k++) s += ray(45 + k * 90, 33, 4);
-        for (let k = 1; k < 4; k++) s += ray(k * 90, 45, 5.2);
-        s += ray(0, 50, 5.2);
-        s += `<path d="M60 5 L64 13 L60 19 L56 13 Z" fill="#9b2d20" stroke="#6b2c22" stroke-width="0.5"/>`;
-        s += `<circle cx="60" cy="60" r="6" fill="#e9dcbf" stroke="#7a5e29" stroke-width="0.9"/><circle cx="60" cy="60" r="2.2" fill="#7a5e29"/>`;
+        for (let k = 0; k < 4; k++) s += ray(45 + k * 90, 33, 4, C.dark, C.lit);
+        for (let k = 1; k < 4; k++) s += ray(k * 90, 45, 5.2, C.dark, C.lit);
+        s += ray(0, 50, 5.2, C.dark, C.lit);
+        s += `<path d="M60 5 L64 13 L60 19 L56 13 Z" fill="${C.north}" stroke="${C.northEdge}" stroke-width="0.5"/>`;
+        s += `<circle cx="60" cy="60" r="6" fill="${C.disc}" stroke="${C.ring}" stroke-width="0.9"/><circle cx="60" cy="60" r="2.2" fill="${C.ring}"/>`;
         const L = (t, x, y, sz, c) =>
           `<text x="${x}" y="${y}" text-anchor="middle" font-family="Cinzel,serif" font-weight="600" font-size="${sz}" fill="${c}">${t}</text>`;
         s +=
-          L("N", 60, 33, 13, "#9b2d20") +
-          L("E", 92, 64.5, 11, "#5a4632") +
-          L("S", 60, 99, 11, "#5a4632") +
-          L("W", 28, 64.5, 11, "#5a4632");
+          L("N", 60, 33, 13, C.north) +
+          L("E", 92, 64.5, 11, C.letter) +
+          L("S", 60, 99, 11, C.letter) +
+          L("W", 28, 64.5, 11, C.letter);
         document.getElementById("compass").innerHTML = s;
       }
 
@@ -3002,9 +3111,37 @@
           sea: "#b9cdd0",
           land: "#ece3cf",
           cf: "#c9a85a",
-          cfo: 0.32,
+          // Day fades in step with night (user: keep the modes in sync) — same stops, scaled to the
+          // day palette's lighter base; world view (low zoom) keeps the original 0.32/0.34
+          cfo: [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            2.5,
+            0.32,
+            4,
+            0.27,
+            5,
+            0.15,
+            6.5,
+            0.09,
+            9,
+            0.05,
+          ],
           sf: "#cdab5e",
-          sfo: 0.34,
+          sfo: [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            4,
+            0.34,
+            5,
+            0.19,
+            6.5,
+            0.1,
+            9,
+            0.06,
+          ],
           // Fixed border color pairing (user decision): day = seal-red family, night = gold family
           border: "#8e2f20",
           sborder: "#a04434",
@@ -3015,13 +3152,46 @@
           sea: "#0c1722",
           land: "#1c2a36",
           cf: "#e7c25c",
-          cfo: 0.5,
+          // Same zoom-graded curve as the provinces (extra 2.5→0.5 stop keeps the world view exactly
+          // as before): flat-country interiors now fade identically when drilled into
+          // Measured: a flat-country fit sits near zoom 6.5 (neighbour spots widen its bbox), a province
+          // fit near 7.4 — the 6.5 stop pins both to the same ~0.12 wash (user: Switzerland read darker)
+          cfo: [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            2.5,
+            0.5,
+            4,
+            0.4,
+            5,
+            0.22,
+            6.5,
+            0.12,
+            9,
+            0.07,
+          ],
           sf: "#e7c25c",
-          sfo: 0.45,
+          // Variant C (user pick 2026-07-16): gold wash gives way to outline as you zoom in — full-ish
+          // at China-country distance, near-transparent at city close-up so roads stay readable. Graded
+          // by zoom (not by level) so the flyTo animation IS the transition; no level ever snaps.
+          sfo: [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            4,
+            0.4,
+            5,
+            0.22,
+            6.5,
+            0.12,
+            9,
+            0.07,
+          ],
           border: "#caa53f",
-          sborder: "#a98f4e",
-          route: "#ec9a82",
-          road: "#66788e",
+          sborder: "#caa53f", // outline carries "visited" up close, so full border gold (was dim #a98f4e)
+          route: "#e7c25c", // gold dashes, matching the night pins (user: no red at night; day stays seal-red)
+          road: "#9fb3c8", // lifted from #66788e — roads were the user's core night complaint
         },
       };
       let night = false;
@@ -3062,7 +3232,9 @@
             : ["interpolate", ["linear"], ["zoom"], 11, 0.5, 13, 0.8, 16, 0.92],
         );
         P("roads", "line-color", t.road);
+        applyHighlight(stack[stack.length - 1]); // border width is night-dependent (variant C) and set there
         updateScale();
+        drawRose(night); // rose is drawn once at load with day colors; redraw in the mode's palette
         document.body.classList.toggle("night", night);
         const tc = document.querySelector('meta[name="theme-color"]');
         if (tc) tc.content = night ? "#0c1722" : "#b9cdd0";
@@ -3230,7 +3402,25 @@
                 type: "fill",
                 source: "world",
                 filter: ["==", ["get", "__v"], 1],
-                paint: { "fill-color": "#c9a85a", "fill-opacity": 0.32 },
+                // Initial paint mirrors THEMES.day (applyDayNight only runs on toggle)
+                paint: {
+                  "fill-color": "#c9a85a",
+                  "fill-opacity": [
+                    "interpolate",
+                    ["linear"],
+                    ["zoom"],
+                    2.5,
+                    0.32,
+                    4,
+                    0.27,
+                    5,
+                    0.15,
+                    6.5,
+                    0.09,
+                    9,
+                    0.05,
+                  ],
+                },
               },
               "roads",
             );
@@ -3243,7 +3433,19 @@
                 layout: { visibility: "none" },
                 paint: {
                   "fill-color": "#cdab5e",
-                  "fill-opacity": 0.34,
+                  "fill-opacity": [
+                    "interpolate",
+                    ["linear"],
+                    ["zoom"],
+                    4,
+                    0.34,
+                    5,
+                    0.19,
+                    6.5,
+                    0.1,
+                    9,
+                    0.06,
+                  ],
                   "fill-outline-color": "#8a6d3a",
                 },
               },
@@ -3364,7 +3566,7 @@
                   ? regionAt(c, e.lngLat)
                   : null;
               if (r) {
-                stack.push({ level: "country", c });
+                pushLevel({ level: "country", c });
                 navigate({ level: "region", c, r });
               } else navigate({ level: "country", c });
             });

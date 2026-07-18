@@ -4,7 +4,6 @@
    ============================================================ */
 window.PROFILE = {
   name: "Sherry (Ke) Shi",
-  initials: "S",
   role: "Data Engineer & Machine Learning Engineer",
   company: "EnStream", // shown in the hero kicker (role · company · city); leave empty to hide
   tagline: "Data is the best language.",
@@ -118,7 +117,7 @@ window.PROFILE = {
     },
     {
       company: "Hangzhou Qulian Technology",
-      url: "https://www.hyperchain.cn/",
+      url: "https://www.hyperchain.cn/en", // the bare domain 301s here anyway; link straight to it (user 2026-07-17)
       role: "Software Engineer Intern · Blockchain",
       location: "Hangzhou, China",
       period: "Mar 2020 – Aug 2020",
@@ -395,7 +394,7 @@ window.PROFILE = {
       "Drift Monitoring",
       "Data Governance",
     ],
-    // One row per cloud provider; the provider name lives in the row label, not in the chips
+    // Provider names live in the row labels, not in the chips; AWS gets its own row, GCP & Azure share one
     "Cloud · AWS": [
       "S3",
       "Glue",
@@ -409,15 +408,13 @@ window.PROFILE = {
       "SageMaker",
       "Redshift",
     ],
-    "Cloud · GCP": [
+    "Cloud · GCP & Azure": [
       "BigQuery",
       "Cloud Storage (GCS)",
       "Dataflow / Dataproc",
       "Vertex AI",
       "Pub/Sub",
       "Compute Engine",
-    ],
-    "Cloud · Azure": [
       "Databricks",
       "HDInsight",
       "Blob Storage",
@@ -471,9 +468,10 @@ window.PROFILE = {
 
   footprints: {
     // Country count comes from data/footprints.json (countryCount); the 1999 start year is the user's choice (life span,
-    // independent of the map's year band); "some photos" wording = only some are web images (own photos withheld for privacy)
+    // independent of the map's year band); the end year tracks "now" (user: don't hardcode current-year facts);
+    // "some photos" wording = only some are web images (own photos withheld for privacy)
     title: "A map of everywhere she's been",
-    meta: "13 countries · 1999–2026 · some photos from the web",
+    meta: `13 countries · 1999–${new Date().getFullYear()} · some photos from the web`,
     href: "footprints.html",
   },
 };

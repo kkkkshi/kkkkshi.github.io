@@ -85,12 +85,18 @@
       .filter((b) => b.offsetWidth > 0)
       .map((b) => b.textContent)
       .join();
-  ok("Year strip collapsed by default (only the Years toggle)", yrVisible() === "Years ▾");
-  document.querySelector("#years button.tg").click();
+  // Year-strip windows derive from the current year (the strip's hi bound is not hardcoded)
+  const YR_HI = new Date().getFullYear();
+  const yrSeq = (a, b) =>
+    Array.from({ length: b - a + 1 }, (_, i) => a + i).join(",");
   ok(
-    "Open → default window 2017–2026 (with ‹ to page back)",
-    yrVisible() ===
-      "Years ▴,‹,All,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026",
+    "Desktop year strip collapsed by default: current selection + ▸ expand",
+    yrVisible() === "All,▸",
+  );
+  document.querySelector("#years button.xp").click();
+  ok(
+    `Expand → default window ${YR_HI - 9}–${YR_HI} with ◂ to fold back`,
+    yrVisible() === `‹,All,${yrSeq(YR_HI - 9, YR_HI)},◂`,
   );
   ok(
     "Land uses NE land, sea = background (same source, not cut up by water areas)",
@@ -238,9 +244,8 @@
     visPorts() < nAll && yearBtn(2019).classList.contains("on"),
   );
   ok(
-    "Year places row: 2019 lists countries (includes Canada, no provinces)",
-    document.getElementById("yearlist").textContent.includes("Canada") &&
-      !document.getElementById("yearlist").textContent.includes("Ontario"),
+    "No places row: the year picker shows years only (user 2026-07-17)",
+    !document.getElementById("yearlist"),
   );
   const goldAt = (lng, lat) =>
     m.queryRenderedFeatures(m.project([lng, lat]), {
@@ -254,10 +259,6 @@
   await sleep(600);
   ok("Year filter: click All restores everything", visPorts() === nAll);
   ok("Year fill: All restores China's gold", goldAt(103, 35));
-  ok(
-    "Year places row: hidden when All",
-    document.getElementById("yearlist").style.display === "none",
-  );
 
   // —— Year strip paging: ‹ pages back, stops at 1999, › pages back to default ——
   const yrTexts = () =>
@@ -271,20 +272,19 @@
     );
   pgBtn("‹").click();
   ok(
-    "Year strip ‹ once → 2007–2016",
-    yrTexts() ===
-      "‹,All,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,›",
+    `Year strip ‹ once → ${YR_HI - 19}–${YR_HI - 10}`,
+    yrTexts() === `‹,All,${yrSeq(YR_HI - 19, YR_HI - 10)},›`,
   );
   pgBtn("‹").click();
   ok(
-    "Year strip ‹ twice → 1999–2006 at the end (‹ disappears)",
-    yrTexts() === "All,1999,2000,2001,2002,2003,2004,2005,2006,›",
+    `Year strip ‹ twice → 1999–${YR_HI - 20} at the end (‹ disappears)`,
+    yrTexts() === `All,${yrSeq(1999, YR_HI - 20)},›`,
   );
   pgBtn("›").click();
   pgBtn("›").click();
   ok(
-    "Year strip › back to default 2017–2026",
-    yrTexts().startsWith("‹,All,2017") && yrTexts().endsWith("2026"),
+    `Year strip › back to default ${YR_HI - 9}–${YR_HI}`,
+    yrTexts().startsWith(`‹,All,${YR_HI - 9}`) && yrTexts().endsWith(String(YR_HI)),
   );
 
   // —— Border darkness follows level (user-specified): faint at world level, country + state lines darken at province level ——

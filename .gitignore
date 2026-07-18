@@ -12,6 +12,8 @@ photos/*
 .playwright-mcp/
 .claude/
 __pycache__/
+# Feedback screenshots dropped into the root during design sessions — never commit
+Screenshot*.png
 
 # Hard-link folders used for photo triage (local only)
 _sorted/
