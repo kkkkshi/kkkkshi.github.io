@@ -199,6 +199,16 @@ window.PROFILE = {
       ],
     },
     {
+      name: "Terraform Web Server",
+      sub: "AWS · Infrastructure as Code",
+      period: "July 2026",
+      stack: ["Terraform", "HCL", "AWS", "EC2", "VPC"],
+      url: "https://github.com/kkkkshi/TF_learning",
+      bullets: [
+        "Provisioned an internet-facing web server on AWS end to end with Terraform: a custom VPC and subnet, internet gateway and routing, a locked-down security group, and an EC2 instance that self-installs Apache on first boot, 12 resources in all.",
+      ],
+    },
+    {
       name: "miniTorch",
       sub: "Deep-learning Framework",
       period: "Jan 2024 – Apr 2024",
